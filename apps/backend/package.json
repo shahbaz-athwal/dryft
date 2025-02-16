@@ -1,0 +1,34 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
+    "start": "node ./dist/index.js",
+    "db:generate": "prisma generate --schema=./src/prisma/schema.prisma",
+    "db:migrate": "prisma migrate dev --schema=./src/prisma/schema.prisma",
+    "db:studio": "prisma studio --schema=./src/prisma/schema.prisma",
+    "db:push": "prisma db push --schema=./src/prisma/schema.prisma",
+    "better-auth:generate": "npx @better-auth/cli@latest generate --output src/prisma/schema.prisma",
+    "better-auth:migrate": "npx @better-auth/cli@latest migrate --schema=./src/prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.1",
+    "prisma": "^6.3.1",
+    "ts-node": "^10.9.2",
+    "tsc-watch": "^6.2.1",
+    "typescript": "^5.7.3",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/eslint-config": "workspace:*"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.3.1",
+    "better-auth": "^1.1.17",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "resend": "^4.1.2"
+  }
+}

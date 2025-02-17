@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "lint": "eslint \"**/*.ts*\" --max-warnings 0"
+    "lint": "eslint \"**/*.ts*\" --max-warnings 0",
+    "clean": "rm -rf node_modules"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

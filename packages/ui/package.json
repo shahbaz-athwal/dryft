@@ -11,20 +11,15 @@
     "@repo/typescript-config": "workspace:*",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "5.5.4"
+    "typescript": "5.5.4",
+    "react": "^19.0.0"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.6",
     "@radix-ui/react-slot": "^1.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.475.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.0.1",
-    "tailwindcss": "^4.0.0",
-    "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.24.2"
+    "lucide-react": "^0.475.0"
   },
   "exports": {
     "./globals.css": "./src/styles/globals.css",

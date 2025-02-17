@@ -1,17 +1,28 @@
 version: "3.8"
 
 services:
-  api:
-    container_name: api
+  backend:
+    container_name: backend
     build:
       context: .
-      dockerfile: ./apps/api/Dockerfile
+      dockerfile: ./apps/backend/Dockerfile.prod
     restart: always
     ports:
-      - 3001:3001
+      - 4000:4000
+    env_file:
+      - .env.prod
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.capstone-backend.rule=Host(`capstone-backend.shahcodes.in`)"
+      - "traefik.http.routers.capstone-backend.entrypoints=websecure"
+      - "traefik.http.routers.capstone-backend.tls=true"
+      - "traefik.http.routers.capstone-backend.tls.certresolver=myresolver"
     networks:
-      - app_network
+      - traefik
+      - db-dev
 
 networks:
-  app_network:
+  traefik:
+    external: true
+  db-dev:
     external: true

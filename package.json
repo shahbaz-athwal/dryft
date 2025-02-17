@@ -8,12 +8,14 @@
     "dev": "turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "start:backend": "pnpm --filter backend start"
   },
   "dependencies": {},
   "devDependencies": {
     "prettier": "^3.2.5",
-    "turbo": "^2.4.2"
+    "turbo": "^2.4.2",
+    "esbuild-register": "^3.6.0"
   },
   "engines": {
     "node": ">=14.0.0",

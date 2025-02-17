@@ -46,5 +46,7 @@ COPY --from=installer /app .
 # Verify esbuild-register is available
 RUN node -e "require.resolve('esbuild-register')"
 
+EXPOSE 4050
+
 CMD ["node", "-r", "esbuild-register", "apps/backend/src/index.ts"]
 

@@ -2,13 +2,11 @@ version: "3.8"
 
 services:
   backend:
-    container_name: backend
+    container_name: capstone-backend
     build:
       context: .
       dockerfile: ./apps/backend/Dockerfile.prod
     restart: always
-    ports:
-      - 4000:4000
     env_file:
       - .env.prod
     labels:
@@ -17,6 +15,7 @@ services:
       - "traefik.http.routers.capstone-backend.entrypoints=websecure"
       - "traefik.http.routers.capstone-backend.tls=true"
       - "traefik.http.routers.capstone-backend.tls.certresolver=myresolver"
+      - "traefik.http.services.capstone-backend.loadbalancer.server.port=4050"
     networks:
       - traefik
       - db-dev

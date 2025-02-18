@@ -11,14 +11,17 @@ app.use(
     origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  }),
+  })
 );
 
 app.use("/api", routes);
 
 app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
-  res.json(users);
+  res.json({
+    users,
+    message: "Hello World",
+  });
 });
 
 app.listen(PORT, () => {

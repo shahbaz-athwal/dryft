@@ -3,9 +3,7 @@ version: "3.8"
 services:
   backend:
     container_name: capstone-backend
-    build:
-      context: .
-      dockerfile: ./apps/backend/Dockerfile.prod
+    image: ghcr.io/shahbaz-athwal/capstone-backend:latest
     restart: always
     env_file:
       - .env.prod

@@ -20,7 +20,7 @@ app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   res.json({
     users,
-    message: "Hello World",
+    message: "New Image",
   });
 });
 

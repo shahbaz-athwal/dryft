@@ -6,7 +6,9 @@
     "dev": "nodemon --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
     "start": "node -r esbuild-register ./src/index.ts",
     "build": "tsc -b",
-    "clean": "rm -rf node_modules && rm -rf dist"
+    "clean": "rm -rf node_modules && rm -rf dist",
+    "lint": "eslint \"src/**/*.ts\" --max-warnings 0",
+    "lint:fix": "eslint \"src/**/*.ts\" --fix"
   },
   "devDependencies": {
     "@repo/db": "workspace:*",
@@ -18,7 +20,10 @@
     "esbuild": "^0.25.0",
     "esbuild-register": "^3.6.0",
     "nodemon": "^3.1.0",
-    "typescript": "^5.7.3"
+    "typescript": "~5.5.4",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^8.56.0"
   },
   "dependencies": {
     "better-auth": "^1.1.17",

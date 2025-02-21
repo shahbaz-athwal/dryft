@@ -46,7 +46,6 @@ jobs:
         run: pnpm run lint
 
   test:
-    needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -81,7 +80,7 @@ jobs:
         run: pnpm run test
 
   build-and-push:
-    needs: test
+    needs: [lint, test]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     permissions:
@@ -90,11 +89,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Check for backend changes
         id: check
         run: |
-          if git diff --name-only HEAD^ HEAD | grep "^apps/backend/"; then
+          if git diff --name-only HEAD~1 HEAD | grep "^apps/backend/"; then
             echo "changes_detected=true" >> $GITHUB_OUTPUT
           else
             echo "changes_detected=false" >> $GITHUB_OUTPUT

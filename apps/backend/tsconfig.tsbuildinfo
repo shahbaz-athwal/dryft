@@ -1,1 +1,0 @@
-{"root":["./src/index.ts","./src/routes/auth.routes.ts","./src/routes/index.ts","./src/utils/auth.ts","./src/utils/resend.ts"],"version":"5.7.3"}

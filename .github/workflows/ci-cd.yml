@@ -125,7 +125,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./apps/backend/Dockerfile.prod
+          file: ./docker/Dockerfile.prod
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

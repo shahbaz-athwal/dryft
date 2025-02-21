@@ -42,10 +42,7 @@ RUN adduser --system --uid 1001 expressjs
 USER expressjs
 COPY --from=installer /app .
 
-# Verify esbuild-register is available
-RUN node -e "require.resolve('esbuild-register')"
-
 EXPOSE 4050
 
-CMD ["node", "-r", "esbuild-register", "apps/backend/src/index.ts"]
+CMD ["node", "apps/backend/dist/index.js"]
 

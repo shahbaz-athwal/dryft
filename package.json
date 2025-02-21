@@ -1,5 +1,5 @@
 {
-  "name": "with-docker",
+  "name": "capstone",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -9,17 +9,16 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "start:backend": "pnpm --filter backend start"
+    "start:backend": "pnpm --filter backend start",
+    "dev:backend": "pnpm --filter backend dev"
   },
   "dependencies": {},
   "devDependencies": {
     "prettier": "^3.2.5",
-    "turbo": "^2.4.2",
-    "esbuild-register": "^3.6.0"
+    "turbo": "^2.4.2"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=20.5.0"
   },
   "packageManager": "pnpm@9.15.3"
 }

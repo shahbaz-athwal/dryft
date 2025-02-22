@@ -17,7 +17,7 @@ build
 
 # other
 dist/
-
+.npmrc
 # misc
 .DS_Store
 *.pem

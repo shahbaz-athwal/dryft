@@ -14,13 +14,9 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "start:backend": "pnpm --filter backend start",
-    "dev:backend": "pnpm --filter backend dev",
-    "changeset": "changeset",
-    "version": "changeset version",
-    "release": "changeset tag"
+    "dev:backend": "pnpm --filter backend dev"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.28.1",
     "prettier": "^3.2.5",
     "turbo": "^2.4.2"
   },

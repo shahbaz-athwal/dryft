@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   release:
     name: Release
@@ -37,4 +41,4 @@ jobs:
           title: "chore: update versions"
           publish: pnpm run release
         env:
-          GITHUB_TOKEN: ${{ secrets.SECRET_GHCR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

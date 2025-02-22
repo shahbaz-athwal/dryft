@@ -1,0 +1,40 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Create Release Pull Request or Create Tags
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: pnpm run version
+          commit: "chore: update versions"
+          title: "chore: update versions"
+          publish: pnpm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.SECRET_GHCR }}

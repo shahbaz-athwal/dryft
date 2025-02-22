@@ -7,4 +7,4 @@
 "@repo/ui": major
 ---
 
-This is first version of this project.
+Test release

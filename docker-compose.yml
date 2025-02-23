@@ -1,19 +1,17 @@
-version: "3.8"
-
 services:
   backend:
-    container_name: capstone-backend
+    container_name: capstone-server
     image: ghcr.io/shahbaz-athwal/capstone-backend:latest
     restart: always
     env_file:
       - .env.prod
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.capstone-backend.rule=Host(`capstone-server.shahcodes.in`)"
-      - "traefik.http.routers.capstone-backend.entrypoints=websecure"
-      - "traefik.http.routers.capstone-backend.tls=true"
-      - "traefik.http.routers.capstone-backend.tls.certresolver=myresolver"
-      - "traefik.http.services.capstone-backend.loadbalancer.server.port=4050"
+      - "traefik.http.routers.capstone-api.rule=Host(`capstone-server.shahcodes.in`)"
+      - "traefik.http.routers.capstone-api.entrypoints=websecure"
+      - "traefik.http.routers.capstone-api.tls=true"
+      - "traefik.http.routers.capstone-api.tls.certresolver=myresolver"
+
     networks:
       - traefik
       - db-dev

@@ -21,7 +21,7 @@ app.use("/api", routes);
 app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   res.json({
-    message: "New Images",
+    message: "Watchtower Test",
     randomNumber,
     users,
   });

@@ -1,16 +1,16 @@
 services:
-  backend:
-    container_name: capstone-server
+  capstone-api:
     image: ghcr.io/shahbaz-athwal/capstone-backend:latest
     restart: always
-    deploy:
-      mode: replicated
-      replicas: 2
     env_file:
       - .env.prod
+    deploy:
+      mode: replicated
+      replicas: 3
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.capstone-api.rule=Host(`capstone-server.shahcodes.in`)"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.capstone-api.rule=Host(`capstone-api.shahcodes.in`)"
       - "traefik.http.routers.capstone-api.entrypoints=websecure"
       - "traefik.http.routers.capstone-api.tls=true"
       - "traefik.http.routers.capstone-api.tls.certresolver=myresolver"

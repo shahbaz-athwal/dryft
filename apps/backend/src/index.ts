@@ -8,9 +8,9 @@ const PORT = process.env.PORT ?? 3000;
 
 app.use(
   cors({
-    origin: "*",
+    origin: ["https://capstone.shahcodes.in", "http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    // credentials: true,
+    credentials: true,
   })
 );
 
@@ -21,12 +21,12 @@ app.use("/api", routes);
 app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   res.json({
-    message: "Api is running",
+    message: "Server is running",
     randomNumber,
     users,
   });
 });
 
-app.listen(PORT as number, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`Server running at ${PORT}`);
 });

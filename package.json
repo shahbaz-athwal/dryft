@@ -14,7 +14,9 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "start:backend": "pnpm --filter backend start",
-    "dev:backend": "pnpm --filter backend dev"
+    "dev:backend": "pnpm --filter backend dev",
+    "start:web": "pnpm --filter web start",
+    "dev:web": "pnpm --filter web dev"
   },
   "devDependencies": {
     "prettier": "^3.2.5",

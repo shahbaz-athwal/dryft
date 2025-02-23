@@ -1,8 +1,10 @@
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
-import routes from "./routes";
 import { prisma } from "@repo/db";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./utils/auth";
+
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 
@@ -14,15 +16,12 @@ app.use(
   })
 );
 
-const randomNumber = Math.floor(Math.random() * 1000000);
-
-app.use("/api", routes);
+app.all("/api/auth/*", toNodeHandler(auth));
 
 app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   res.json({
     message: "Server is running",
-    randomNumber,
     users,
   });
 });

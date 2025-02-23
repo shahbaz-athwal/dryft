@@ -3,6 +3,9 @@ services:
     container_name: capstone-server
     image: ghcr.io/shahbaz-athwal/capstone-backend:latest
     restart: always
+    deploy:
+      mode: replicated
+      replicas: 2
     env_file:
       - .env.prod
     labels:
@@ -11,6 +14,7 @@ services:
       - "traefik.http.routers.capstone-api.entrypoints=websecure"
       - "traefik.http.routers.capstone-api.tls=true"
       - "traefik.http.routers.capstone-api.tls.certresolver=myresolver"
+      - "com.centurylinklabs.watchtower.enable=true"
 
     networks:
       - traefik

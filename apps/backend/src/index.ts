@@ -14,12 +14,15 @@ app.use(
   })
 );
 
+const randomNumber = Math.floor(Math.random() * 1000000);
+
 app.use("/api", routes);
 
 app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   res.json({
     message: "New Images",
+    randomNumber,
     users,
   });
 });

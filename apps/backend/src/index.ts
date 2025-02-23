@@ -21,12 +21,12 @@ app.use("/api", routes);
 app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   res.json({
-    message: "Watchtower Test",
+    message: "Api is running",
     randomNumber,
     users,
   });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT as number, "0.0.0.0", () => {
   console.log(`Server running at ${PORT}`);
 });

@@ -9,7 +9,7 @@ services:
       - .env.prod
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.capstone-backend.rule=Host(`capstone-backend.shahcodes.in`)"
+      - "traefik.http.routers.capstone-backend.rule=Host(`capstone-server.shahcodes.in`)"
       - "traefik.http.routers.capstone-backend.entrypoints=websecure"
       - "traefik.http.routers.capstone-backend.tls=true"
       - "traefik.http.routers.capstone-backend.tls.certresolver=myresolver"

@@ -63,6 +63,9 @@ importers:
       '@tabler/icons-react':
         specifier: ^3.30.0
         version: 3.30.0(react@19.0.0)
+      better-auth:
+        specifier: ^1.1.17
+        version: 1.1.18
       react:
         specifier: ^19.0.0
         version: 19.0.0

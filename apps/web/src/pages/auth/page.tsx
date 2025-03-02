@@ -1,6 +1,3 @@
-import { SignupForm } from "../components/ui/sign-up";
-import { SignInForm } from "../components/ui/sign-in";
-import { authClient } from "../lib/auth-client";
 import {
   Tabs,
   TabsContent,
@@ -8,6 +5,9 @@ import {
   TabsTrigger,
 } from "@repo/ui/components/tabs";
 import { Card, CardContent } from "@repo/ui/components/card";
+import { authClient } from "~/lib/auth-client";
+import { SignupForm } from "./sign-up";
+import { SignInForm } from "./sign-in";
 
 function Auth() {
   const handleSignupSubmit = async (credentials: {

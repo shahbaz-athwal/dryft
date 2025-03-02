@@ -5,6 +5,7 @@ function App() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <Button onClick={() => navigate("/auth")}>Sign Up</Button>
+      <Button onClick={() => navigate("/dashboard")}>Dashboard</Button>
     </div>
   );
 }

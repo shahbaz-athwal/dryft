@@ -47,6 +47,7 @@ function Auth() {
       const { data, error: authError } = await authClient.signIn.email({
         email: credentials.email,
         password: credentials.password,
+        callbackURL: "/dashboard",
       });
 
       if (authError) {

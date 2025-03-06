@@ -44,5 +44,5 @@ COPY --from=installer /app .
 
 EXPOSE 4050
 
-CMD ["node", "apps/backend/dist/index.js"]
+CMD ["node", "apps/api/dist/index.js"]
 

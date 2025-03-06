@@ -12,6 +12,7 @@ app.use(
   cors({
     origin: [
       "https://capstone.shahcodes.in",
+      "https://www.dryft.ca",
       "http://localhost:5173",
       "http://localhost:4173",
     ],

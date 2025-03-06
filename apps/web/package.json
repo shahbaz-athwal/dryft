@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
-    "@tabler/icons-react": "^3.30.0",
+    "@tabler/icons-react": "3.17.0",
     "better-auth": "^1.1.17",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

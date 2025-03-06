@@ -10,7 +10,11 @@ const PORT = process.env.PORT ?? 3000;
 
 app.use(
   cors({
-    origin: ["https://capstone.shahcodes.in", "http://localhost:5173"],
+    origin: [
+      "https://capstone.shahcodes.in",
+      "http://localhost:5173",
+      "http://localhost:4173",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })

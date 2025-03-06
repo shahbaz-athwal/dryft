@@ -16,7 +16,8 @@
     "start:backend": "pnpm --filter backend start",
     "dev:backend": "pnpm --filter backend dev",
     "start:web": "pnpm --filter web start",
-    "dev:web": "pnpm --filter web dev"
+    "dev:web": "pnpm --filter web dev",
+    "db:studio": "pnpm --filter db db:studio"
   },
   "devDependencies": {
     "prettier": "^3.2.5",

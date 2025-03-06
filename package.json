@@ -1,11 +1,7 @@
 {
-  "name": "capstone",
+  "name": "dryft",
   "version": "0.0.0",
   "private": true,
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "public"
-  },
   "scripts": {
     "build": "turbo run build",
     "clean": "turbo run clean",
@@ -13,8 +9,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "start:backend": "pnpm --filter backend start",
-    "dev:backend": "pnpm --filter backend dev",
+    "start:api": "pnpm --filter api start",
+    "dev:api": "pnpm --filter api dev",
     "start:web": "pnpm --filter web start",
     "dev:web": "pnpm --filter web dev",
     "db:studio": "pnpm --filter db db:studio"

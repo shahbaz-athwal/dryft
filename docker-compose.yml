@@ -1,6 +1,6 @@
 services:
-  capstone-api:
-    image: ghcr.io/shahbaz-athwal/capstone-backend:latest
+  dryft-api:
+    image: ghcr.io/dryft-app/dryft-api:latest
     restart: always
     env_file:
       - .env.prod
@@ -10,10 +10,10 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
-      - "traefik.http.routers.capstone-api.rule=Host(`capstone-api.shahcodes.in`)"
-      - "traefik.http.routers.capstone-api.entrypoints=websecure"
-      - "traefik.http.routers.capstone-api.tls=true"
-      - "traefik.http.routers.capstone-api.tls.certresolver=myresolver"
+      - "traefik.http.routers.dryft-api.rule=Host(`api.dryft.ca`)"
+      - "traefik.http.routers.dryft-api.entrypoints=websecure"
+      - "traefik.http.routers.dryft-api.tls=true"
+      - "traefik.http.routers.dryft-api.tls.certresolver=myresolver"
       - "com.centurylinklabs.watchtower.enable=true"
 
     networks:

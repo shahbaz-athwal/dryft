@@ -10,12 +10,7 @@ const PORT = process.env.PORT ?? 3000;
 
 app.use(
   cors({
-    origin: [
-      "https://capstone.shahcodes.in",
-      "https://www.dryft.ca",
-      "http://localhost:5173",
-      "http://localhost:4173",
-    ],
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -27,7 +22,7 @@ app.all("/api/auth/*", toNodeHandler(auth));
 app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   res.json({
-    message: "Server is running",
+    message: "Api is running",
     users,
   });
 });

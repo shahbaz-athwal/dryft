@@ -8,8 +8,11 @@ import { Card, CardContent } from "@repo/ui/components/card";
 import { authClient } from "~/lib/auth-client";
 import { SignupForm } from "./sign-up";
 import { SignInForm } from "./sign-in";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 function Auth() {
+  const navigate = useNavigate();
   const handleSignupSubmit = async (credentials: {
     name: string;
     email: string;
@@ -47,12 +50,14 @@ function Auth() {
       const { data, error: authError } = await authClient.signIn.email({
         email: credentials.email,
         password: credentials.password,
-        callbackURL: "/dashboard",
       });
 
       if (authError) {
         console.log(authError.message, "auth error");
         throw authError;
+      } else {
+        toast("Sign in successful");
+        navigate("/dashboard");
       }
 
       console.log("Sign in successful:", data);

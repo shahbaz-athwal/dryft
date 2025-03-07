@@ -10,58 +10,88 @@ import { SignupForm } from "./sign-up";
 import { SignInForm } from "./sign-in";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+const signUpSchema = z
+  .object({
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Please enter a valid email address"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+const signInSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(1, "Password is required"),
+});
+
+// TypeScript types derived from schemas
+type SignUpFormValues = z.infer<typeof signUpSchema>;
+type SignInFormValues = z.infer<typeof signInSchema>;
 
 function Auth() {
   const navigate = useNavigate();
-  const handleSignupSubmit = async (credentials: {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }) => {
-    if (credentials.password !== credentials.confirmPassword) {
-      console.log("Passwords do not match");
-      return;
-    }
 
+  const signUpForm = useForm<SignUpFormValues>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
+  const signInForm = useForm<SignInFormValues>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const handleSignupSubmit = async (formData: SignUpFormValues) => {
     try {
       const { data, error: authError } = await authClient.signUp.email({
-        email: credentials.email,
-        name: credentials.name,
-        password: credentials.password,
+        email: formData.email,
+        name: formData.name,
+        password: formData.password,
       });
 
       if (authError) {
+        toast.error(authError.message || "Sign up failed");
         console.log(authError.message, "auth error");
         throw authError;
       }
 
+      toast.success("Account created successfully");
       console.log("Sign up successful:", data);
     } catch (err) {
       console.error("Sign up error:", err);
     }
   };
 
-  const handleSignInSubmit = async (credentials: {
-    email: string;
-    password: string;
-  }) => {
+  const handleSignInSubmit = async (formData: SignInFormValues) => {
     try {
-      const { data, error: authError } = await authClient.signIn.email({
-        email: credentials.email,
-        password: credentials.password,
+      const { error: authError } = await authClient.signIn.email({
+        email: formData.email,
+        password: formData.password,
       });
 
       if (authError) {
-        console.log(authError.message, "auth error");
-        throw authError;
+        toast.error(authError.message);
       } else {
-        toast("Sign in successful");
+        toast.success("Sign in successful");
         navigate("/dashboard");
       }
-
-      console.log("Sign in successful:", data);
     } catch (err) {
+      toast.error("Sign in failed");
       console.error("Sign in error:", err);
     }
   };
@@ -76,14 +106,20 @@ function Auth() {
         <TabsContent value="signup">
           <Card>
             <CardContent className="p-0">
-              <SignupForm onSubmit={handleSignupSubmit} />
+              <SignupForm
+                form={signUpForm}
+                onSubmit={signUpForm.handleSubmit(handleSignupSubmit)}
+              />
             </CardContent>
           </Card>
         </TabsContent>
         <TabsContent value="signin">
           <Card>
             <CardContent className="p-0">
-              <SignInForm onSubmit={handleSignInSubmit} />
+              <SignInForm
+                form={signInForm}
+                onSubmit={signInForm.handleSubmit(handleSignInSubmit)}
+              />
             </CardContent>
           </Card>
         </TabsContent>

@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@repo/ui/components/dropdown-menu";
-import { useTheme } from "./theme-provider";
+import { useTheme } from "~/hooks/useTheme";
 
 export function ModeToggle() {
   const { setTheme } = useTheme();

@@ -5,8 +5,8 @@ import App from "./App.tsx";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Auth from "./pages/auth/page.tsx";
 import Dashboard from "./pages/dashboard/page.tsx";
-import { Toaster } from "~/components/sonner.tsx";
-import { ThemeProvider } from "~/components/theme-provider";
+import { Toaster } from "~/components/ui/sonner.tsx";
+import { ThemeProvider } from "~/components/ui/theme-provider.tsx";
 import { Navbar } from "~/components/Navbar";
 
 createRoot(document.getElementById("root")!).render(

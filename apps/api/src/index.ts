@@ -27,7 +27,7 @@ app.all("/api/auth/*", toNodeHandler(auth));
 app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   res.json({
-    message: "Api is running",
+    message: "Blacksmith is running",
     users,
   });
 });

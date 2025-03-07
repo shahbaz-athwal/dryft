@@ -58,21 +58,22 @@ function Auth() {
 
   const handleSignupSubmit = async (formData: SignUpFormValues) => {
     try {
-      const { data, error: authError } = await authClient.signUp.email({
+      const { error: authError } = await authClient.signUp.email({
         email: formData.email,
         name: formData.name,
         password: formData.password,
       });
 
       if (authError) {
-        toast.error(authError.message || "Sign up failed");
-        console.log(authError.message, "auth error");
+        toast.error(authError.message);
         throw authError;
       }
 
-      toast.success("Account created successfully");
-      console.log("Sign up successful:", data);
+      toast.success("Account created successfully", {
+        description: "We've sent you an email to verify your account",
+      });
     } catch (err) {
+      toast.error("Sign up failed");
       console.error("Sign up error:", err);
     }
   };
@@ -85,7 +86,11 @@ function Auth() {
       });
 
       if (authError) {
-        toast.error(authError.message);
+        toast.error(authError.message, {
+          style: {
+            backgroundColor: "#ffaa00",
+          },
+        });
       } else {
         toast.success("Sign in successful");
         navigate("/dashboard");

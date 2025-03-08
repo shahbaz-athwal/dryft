@@ -10,17 +10,12 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
-
+import { SignUpSchemaInfer } from "@repo/schema/sign-up";
 export function SignupForm({
   form,
   onSubmit,
 }: {
-  form: UseFormReturn<{
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }>;
+  form: UseFormReturn<SignUpSchemaInfer>;
   onSubmit: (e?: BaseSyntheticEvent) => Promise<void> | void;
 }) {
   return (

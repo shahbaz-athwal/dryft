@@ -10,36 +10,16 @@ import { SignupForm } from "./sign-up";
 import { SignInForm } from "./sign-in";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
-const signUpSchema = z
-  .object({
-    name: z.string().min(2, "Name must be at least 2 characters"),
-    email: z.string().email("Please enter a valid email address"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
-
-const signInSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(1, "Password is required"),
-});
-
-// TypeScript types derived from schemas
-type SignUpFormValues = z.infer<typeof signUpSchema>;
-type SignInFormValues = z.infer<typeof signInSchema>;
+import { SignUpSchema, SignUpSchemaInfer } from "@repo/schema/sign-up";
+import { SignInSchema, SignInSchemaInfer } from "@repo/schema/sign-in";
 
 function Auth() {
   const navigate = useNavigate();
 
-  const signUpForm = useForm<SignUpFormValues>({
-    resolver: zodResolver(signUpSchema),
+  const signUpForm = useForm<SignUpSchemaInfer>({
+    resolver: zodResolver(SignUpSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -48,15 +28,15 @@ function Auth() {
     },
   });
 
-  const signInForm = useForm<SignInFormValues>({
-    resolver: zodResolver(signInSchema),
+  const signInForm = useForm<SignInSchemaInfer>({
+    resolver: zodResolver(SignInSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const handleSignupSubmit = async (formData: SignUpFormValues) => {
+  const handleSignupSubmit = async (formData: SignUpSchemaInfer) => {
     try {
       const { error: authError } = await authClient.signUp.email({
         email: formData.email,
@@ -78,7 +58,7 @@ function Auth() {
     }
   };
 
-  const handleSignInSubmit = async (formData: SignInFormValues) => {
+  const handleSignInSubmit = async (formData: SignInSchemaInfer) => {
     try {
       const { error: authError } = await authClient.signIn.email({
         email: formData.email,

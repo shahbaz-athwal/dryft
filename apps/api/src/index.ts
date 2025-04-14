@@ -1,7 +1,6 @@
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
-import { prisma } from "@repo/db";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./utils/auth";
 
@@ -25,10 +24,8 @@ app.all("/api/auth/*", toNodeHandler(auth));
 
 // Test route
 app.get("/", async (req, res) => {
-  const users = await prisma.user.findMany();
   res.json({
     message: "Dryft API is running 🚀",
-    users,
   });
 });
 

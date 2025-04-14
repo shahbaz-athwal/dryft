@@ -8,55 +8,75 @@ import { Card, CardContent } from "@repo/ui/components/card";
 import { authClient } from "~/lib/auth-client";
 import { SignupForm } from "./sign-up";
 import { SignInForm } from "./sign-in";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { SignUpSchema, SignUpSchemaInfer } from "@repo/schema/sign-up";
+import { SignInSchema, SignInSchemaInfer } from "@repo/schema/sign-in";
 
 function Auth() {
-  const handleSignupSubmit = async (credentials: {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }) => {
-    if (credentials.password !== credentials.confirmPassword) {
-      console.log("Passwords do not match");
-      return;
-    }
+  const navigate = useNavigate();
 
+  const signUpForm = useForm<SignUpSchemaInfer>({
+    resolver: zodResolver(SignUpSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
+  const signInForm = useForm<SignInSchemaInfer>({
+    resolver: zodResolver(SignInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const handleSignupSubmit = async (formData: SignUpSchemaInfer) => {
     try {
-      const { data, error: authError } = await authClient.signUp.email({
-        email: credentials.email,
-        name: credentials.name,
-        password: credentials.password,
+      const { error: authError } = await authClient.signUp.email({
+        email: formData.email,
+        name: formData.name,
+        password: formData.password,
       });
 
       if (authError) {
-        console.log(authError.message, "auth error");
+        toast.error(authError.message);
         throw authError;
       }
 
-      console.log("Sign up successful:", data);
+      toast.success("Account created successfully", {
+        description: "We've sent you an email to verify your account",
+      });
     } catch (err) {
+      toast.error("Sign up failed");
       console.error("Sign up error:", err);
     }
   };
 
-  const handleSignInSubmit = async (credentials: {
-    email: string;
-    password: string;
-  }) => {
+  const handleSignInSubmit = async (formData: SignInSchemaInfer) => {
     try {
-      const { data, error: authError } = await authClient.signIn.email({
-        email: credentials.email,
-        password: credentials.password,
-        callbackURL: "/dashboard",
+      const { error: authError } = await authClient.signIn.email({
+        email: formData.email,
+        password: formData.password,
       });
 
       if (authError) {
-        console.log(authError.message, "auth error");
-        throw authError;
+        toast.error(authError.message, {
+          style: {
+            backgroundColor: "#ffaa00",
+          },
+        });
+      } else {
+        toast.success("Sign in successful");
+        navigate("/dashboard");
       }
-
-      console.log("Sign in successful:", data);
     } catch (err) {
+      toast.error("Sign in failed");
       console.error("Sign in error:", err);
     }
   };
@@ -71,14 +91,20 @@ function Auth() {
         <TabsContent value="signup">
           <Card>
             <CardContent className="p-0">
-              <SignupForm onSubmit={handleSignupSubmit} />
+              <SignupForm
+                form={signUpForm}
+                onSubmit={signUpForm.handleSubmit(handleSignupSubmit)}
+              />
             </CardContent>
           </Card>
         </TabsContent>
         <TabsContent value="signin">
           <Card>
             <CardContent className="p-0">
-              <SignInForm onSubmit={handleSignInSubmit} />
+              <SignInForm
+                form={signInForm}
+                onSubmit={signInForm.handleSubmit(handleSignInSubmit)}
+              />
             </CardContent>
           </Card>
         </TabsContent>

@@ -1,6 +1,6 @@
 services:
   dryft-api:
-    image: ghcr.io/dryft-app/dryft-api:latest
+    image: ghcr.io/shahbaz-athwal/dryft-api:latest
     restart: always
     env_file:
       - .env.prod

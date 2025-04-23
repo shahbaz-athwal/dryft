@@ -2,7 +2,6 @@
   "name": "@repo/db",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc -b",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
@@ -13,8 +12,6 @@
   "devDependencies": {
     "@types/node": "^22.13.1",
     "prisma": "^6.3.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.3",
     "@repo/typescript-config": "workspace:*",
     "@repo/eslint-config": "workspace:*",
     "eslint": "^8.57.1"
@@ -23,6 +20,6 @@
     "@prisma/client": "^6.3.1"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./src/index.ts"
   }
 }

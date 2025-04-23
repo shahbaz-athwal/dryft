@@ -15,16 +15,16 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          version: 9
+          bun-version: latest
 
       - name: Install dependencies
-        run: pnpm install
+        run: bun install
 
       - name: Run lint
-        run: pnpm run lint
+        run: bun run lint
 
   test:
     runs-on: ubuntu-latest
@@ -36,13 +36,13 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          version: 9
+          bun-version: latest
 
       - name: Install dependencies
-        run: pnpm install
+        run: bun install
 
       - name: Run tests
-        run: pnpm run test
+        run: bun run test

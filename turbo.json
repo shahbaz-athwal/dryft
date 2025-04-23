@@ -13,7 +13,8 @@
     },
     "lint": {
       "cache": false,
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "env": ["NODE_ENV", "PORT", "FRONTEND_URL", "RESEND_API_KEY"]
     },
     "dev": {
       "persistent": true

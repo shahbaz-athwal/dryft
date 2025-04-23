@@ -1,48 +1,55 @@
-FROM node:18-alpine AS base
-
-FROM base AS builder
-RUN apk update && \
-    apk add --no-cache libc6-compat && \
-    npm install -g turbo
+# ---------- Build Stage ----------
+FROM oven/bun:1 AS builder
 
 WORKDIR /app
+
+# Optional: install turbo if needed for pruning/build orchestration
+RUN bun install -g turbo
+
+# Copy entire repo and prune if needed
 COPY . .
 RUN turbo prune api --docker
 
-FROM base AS installer
+# ---------- Install Stage ----------
+FROM oven/bun:1 AS installer
+
 WORKDIR /app
 
-RUN apk update && \
-    apk add --no-cache libc6-compat && \
-    npm install -g pnpm
-
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-RUN pnpm install --frozen-lockfile
-
-# Copy source code after dependencies are installed
+# Copy only needed files from builder stage
 COPY --from=builder /app/out/full/ .
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/bun.lock ./bun.lock
 
-# Uncomment and use build args to enable remote caching
-# ARG TURBO_TEAM
-# ENV TURBO_TEAM=$TURBO_TEAM
+RUN bun install --frozen-lockfile
 
-# ARG TURBO_TOKEN
-# ENV TURBO_TOKEN=$TURBO_TOKEN
+# Generate Prisma or DB files if needed
+RUN bun run turbo db:generate
 
-RUN pnpm turbo build && \
-    pnpm turbo db:generate
+# Compile your Express API to a binary
+RUN bun build apps/api/src/index.ts \
+    --compile \
+    --minify \
+    --sourcemap \
+    --bytecode \
+    --outfile /app/dryft-api
 
-FROM base AS runner
+# ---------- Final Runtime Stage ----------
+FROM debian:bookworm-slim AS runner
+
 WORKDIR /app
 
-# Don't run production as root
-RUN addgroup --system --gid 1001 expressjs
-RUN adduser --system --uid 1001 expressjs
-USER expressjs
-COPY --from=installer /app .
+# Create a non-root user
+RUN addgroup --system --gid 1001 expressjs \
+    && adduser --system --uid 1001 expressjs
 
+# Copy compiled binary
+COPY --from=installer /app/dryft-api .
+
+RUN chmod +x ./dryft-api
+
+USER expressjs
+
+# Expose the port your app listens on
 EXPOSE 4050
 
-CMD ["node", "apps/api/dist/index.js"]
-
+CMD ["/app/dryft-api"]

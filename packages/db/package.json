@@ -2,7 +2,6 @@
   "name": "@repo/db",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc -b",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
@@ -23,6 +22,6 @@
     "@prisma/client": "^6.3.1"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./src/index.ts"
   }
 }

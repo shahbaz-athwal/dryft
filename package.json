@@ -9,20 +9,22 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "start:api": "pnpm --filter api start",
-    "dev:api": "pnpm --filter api dev",
-    "start:web": "pnpm --filter web start",
-    "dev:web": "pnpm --filter web dev",
-    "db:studio": "pnpm --filter db db:studio"
+    "start:api": "bun --filter api start",
+    "dev:api": "bun --filter api dev",
+    "start:web": "bun --filter web start",
+    "dev:web": "bun --filter web dev",
+    "db:studio": "bun --filter db db:studio",
+    "check-types": "turbo run check-types"
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
-    "turbo": "^2.4.2"
+    "prettier": "^3.5.2",
+    "turbo": "^2.5.0",
+    "typescript": "5.8.2"
   },
   "engines": {
-    "node": ">=20.5.0"
+    "node": ">=18"
   },
-  "packageManager": "pnpm@9.15.3",
+  "packageManager": "bun@1.2.2",
   "workspaces": [
     "apps/*",
     "packages/*"

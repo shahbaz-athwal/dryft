@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "build": "tsc -b",
-    "start": "node dist/index.js",
+    "dev": "bun run src/index.ts --watch",
+    "start": "bun run src/index.ts",
     "clean": "rm -rf node_modules && rm -rf dist",
     "lint": "eslint \"src/**/*.ts\" --max-warnings 0",
     "lint:fix": "eslint \"src/**/*.ts\" --fix"

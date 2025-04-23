@@ -10,8 +10,8 @@ RUN bun install -g turbo
 COPY . .
 RUN turbo prune api --docker
 
-# ---------- Install Stage ----------
-FROM oven/bun:1 AS installer
+# ---------- Final Stage ----------
+FROM oven/bun:1 AS runner
 
 WORKDIR /app
 
@@ -20,36 +20,21 @@ COPY --from=builder /app/out/full/ .
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/bun.lock ./bun.lock
 
+RUN apt-get update -y && apt-get install -y openssl
+
 RUN bun install --frozen-lockfile
 
 # Generate Prisma or DB files if needed
 RUN bun run turbo db:generate
 
-# Compile your Express API to a binary
-RUN bun build apps/api/src/index.ts \
-    --compile \
-    --minify \
-    --sourcemap \
-    --bytecode \
-    --outfile /app/dryft-api
-
-# ---------- Final Runtime Stage ----------
-FROM debian:bookworm-slim AS runner
-
-WORKDIR /app
-
 # Create a non-root user
 RUN addgroup --system --gid 1001 expressjs \
     && adduser --system --uid 1001 expressjs
-
-# Copy compiled binary
-COPY --from=installer /app/dryft-api .
-
-RUN chmod +x ./dryft-api
 
 USER expressjs
 
 # Expose the port your app listens on
 EXPOSE 4050
 
-CMD ["/app/dryft-api"]
+# Run the app directly with bun instead of using a compiled binary
+CMD ["bun", "run", "apps/api/src/index.ts"]

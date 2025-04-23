@@ -1,12 +1,12 @@
 services:
   dryft-api:
-    image: ghcr.io/shahbaz-athwal/dryft-api:latest
+    image: dryft-api:latest
     restart: always
     env_file:
-      - .env.prod
+      - .env.local
     deploy:
       mode: replicated
-      replicas: 3
+      replicas: 2
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
@@ -16,12 +16,4 @@ services:
       - "traefik.http.routers.dryft-api.tls.certresolver=myresolver"
       - "com.centurylinklabs.watchtower.enable=true"
 
-    networks:
-      - traefik
-      - db-dev
 
-networks:
-  traefik:
-    external: true
-  db-dev:
-    external: true

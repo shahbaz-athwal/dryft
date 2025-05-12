@@ -10,7 +10,7 @@ import {
 } from "@repo/ui/components/ui/dropdown-menu";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
 
   const handleThemeChange = (newTheme: "light" | "dark" | "system", e: React.MouseEvent<HTMLDivElement>) => {
     // Only proceed if the browser supports view transitions

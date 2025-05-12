@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "@repo/ui/globals.css";
+import "@repo/ui/styles/globals.css";
 import App from "./App.tsx";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Auth from "./pages/auth/page.tsx";

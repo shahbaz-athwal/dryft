@@ -1,7 +1,7 @@
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { UseFormReturn } from "react-hook-form";
 import { BaseSyntheticEvent } from "react";
-import { Input } from "@repo/ui/components/input";
+import { Input } from "@repo/ui/components/ui/input";
 import {
   Form,
   FormControl,

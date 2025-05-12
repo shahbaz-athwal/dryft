@@ -1,12 +1,12 @@
 import { IconMoon, IconSun } from "@tabler/icons-react";
 
-import { Button } from "@repo/ui/components/button";
+import { Button } from "@repo/ui/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@repo/ui/components/dropdown-menu";
+} from "@repo/ui/components/ui/dropdown-menu";
 import { useTheme } from "~/hooks/useTheme";
 
 export function ModeToggle() {

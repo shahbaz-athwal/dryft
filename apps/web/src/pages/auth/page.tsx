@@ -3,8 +3,8 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@repo/ui/components/tabs";
-import { Card, CardContent } from "@repo/ui/components/card";
+} from "@repo/ui/components/ui/tabs";
+import { Card, CardContent } from "@repo/ui/components/ui/card";
 import { authClient } from "~/lib/auth-client";
 import { SignupForm } from "./sign-up";
 import { SignInForm } from "./sign-in";

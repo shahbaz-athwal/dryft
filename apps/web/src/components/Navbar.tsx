@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { Button } from "@repo/ui/components/button";
+import { Button } from "@repo/ui/components/ui/button";
 import { ModeToggle } from "./ui/mode-toggle";
 
 export function Navbar() {

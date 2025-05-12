@@ -1,9 +1,6 @@
-"use client";
-
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-
+import { useTheme } from "~/hooks/useTheme";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   DropdownMenu,
@@ -12,10 +9,10 @@ import {
   DropdownMenuTrigger,
 } from "@repo/ui/components/ui/dropdown-menu";
 
-export function ModeToggle() {
-  const { setTheme } = useTheme();
+export function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
 
-  const handleThemeChange = (theme: string, e: React.MouseEvent) => {
+  const handleThemeChange = (newTheme: "light" | "dark" | "system", e: React.MouseEvent<HTMLDivElement>) => {
     // Only proceed if the browser supports view transitions
     if (document.startViewTransition) {
       // Get click coordinates for the wave effect origin
@@ -28,18 +25,18 @@ export function ModeToggle() {
       
       // Start the view transition
       document.startViewTransition(() => {
-        setTheme(theme);
+        setTheme(newTheme);
       });
     } else {
       // Fallback for browsers that don't support view transitions
-      setTheme(theme);
+      setTheme(newTheme);
     }
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button variant="ghost" size="icon">
           <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
@@ -58,4 +55,4 @@ export function ModeToggle() {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+} 

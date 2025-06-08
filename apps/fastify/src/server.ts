@@ -1,6 +1,5 @@
 import fastify from "fastify";
-import first from "./routes/first";
-import auth from "./routes/auth";
+import auth from "./routes/auth.routes";
 import fastifyCors from "@fastify/cors";
 
 const f = fastify({
@@ -17,7 +16,6 @@ f.register(fastifyCors, {
 
 // Better Auth
 f.register(auth);
-f.register(first);
 
 f.listen({ port: 4000, host: "0.0.0.0" }, (err, address) => {
   if (err) {

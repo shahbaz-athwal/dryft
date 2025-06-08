@@ -1,0 +1,22 @@
+{
+  "name": "fastify",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "bun run --watch src/server.ts",
+    "start": "bun run src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@repo/db": "workspace:*",
+    "@fastify/cors": "^11.0.1",
+    "better-auth": "^1.2.8",
+    "fastify": "^5.3.3"
+  },
+  "devDependencies": {
+    "fastify-tsconfig": "^3.0.0"
+  }
+}

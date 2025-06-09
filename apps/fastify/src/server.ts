@@ -1,13 +1,19 @@
+import {
+  fastifyTRPCPlugin,
+  FastifyTRPCPluginOptions,
+} from "@trpc/server/adapters/fastify";
 import fastify from "fastify";
+import { appRouter, type AppRouter } from "./trpc/router";
 import auth from "./routes/auth.routes";
 import fastifyCors from "@fastify/cors";
+import { createContext } from "./trpc/trpc";
 
 const f = fastify({
   logger: true,
 });
 
 f.register(fastifyCors, {
-  origin: ["http://localhost:5173"],
+  origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   credentials: true,
@@ -17,9 +23,25 @@ f.register(fastifyCors, {
 // Better Auth
 f.register(auth);
 
-f.listen({ port: 4000, host: "0.0.0.0" }, (err, address) => {
-  if (err) {
-    f.log.error(err);
-  }
-  f.log.info(`Server is running on ${address}`);
+// tRPC
+f.register(fastifyTRPCPlugin, {
+  prefix: "/trpc",
+  trpcOptions: {
+    router: appRouter,
+    createContext,
+    onError({ path, error }) {
+      // report to error monitoring
+      console.error(`Error in tRPC handler on path '${path}':`, error);
+    },
+  } satisfies FastifyTRPCPluginOptions<AppRouter>["trpcOptions"],
 });
+
+// Start the server
+(async () => {
+  try {
+    await f.listen({ port: 4000, host: "0.0.0.0" });
+  } catch (err) {
+    f.log.error(err);
+    process.exit(1);
+  }
+})();

@@ -1,16 +1,14 @@
 import { initTRPC } from "@trpc/server";
 import { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
 import SuperJSON from "superjson";
-import { auth } from "../utils/auth";
 
 export const createContext = async (opts: CreateFastifyContextOptions) => {
-  const session = await auth.api.getSession({
-    headers: opts.req.headers,
-  });
+  const server = opts.req.server;
 
   return {
-    session: session?.session ?? null,
-    user: session?.user ?? null,
+    fastify: server,
+    req: opts.req,
+    res: opts.res,
   };
 };
 

@@ -1,0 +1,11 @@
+{
+  "extends": "fastify-tsconfig",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "module": "CommonJS",
+    "moduleResolution": "node"
+  },
+  "include": ["@types", "src/**/*.ts"]
+}

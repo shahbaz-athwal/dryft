@@ -13,7 +13,7 @@ const f = fastify({
 });
 
 f.register(fastifyCors, {
-  origin: "http://localhost:5173",
+  origin: "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   credentials: true,

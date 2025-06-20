@@ -1,11 +1,11 @@
+import fastifyCors from "@fastify/cors";
 import {
+  type FastifyTRPCPluginOptions,
   fastifyTRPCPlugin,
-  FastifyTRPCPluginOptions,
 } from "@trpc/server/adapters/fastify";
 import fastify from "fastify";
-import { appRouter, type AppRouter } from "./trpc/router";
 import auth from "./routes/auth.routes";
-import fastifyCors from "@fastify/cors";
+import { type AppRouter, appRouter } from "./trpc/router";
 import { createContext } from "./trpc/trpc";
 
 const f = fastify({

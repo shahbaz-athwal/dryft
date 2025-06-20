@@ -16,7 +16,7 @@ export function TRPCProvider({ children }: { children: React.ReactNode }) {
           transformer: SuperJSON,
         }),
       ],
-    })
+    }),
   );
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>

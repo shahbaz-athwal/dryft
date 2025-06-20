@@ -1,5 +1,5 @@
 import { initTRPC } from "@trpc/server";
-import { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
+import type { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
 import SuperJSON from "superjson";
 
 export const createContext = async (opts: CreateFastifyContextOptions) => {

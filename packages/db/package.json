@@ -11,9 +11,7 @@
   },
   "devDependencies": {
     "prisma": "^6.6.0",
-    "@repo/typescript-config": "workspace:*",
-    "@repo/eslint-config": "workspace:*",
-    "eslint": "^8.57.1"
+    "@repo/typescript-config": "workspace:*"
   },
   "dependencies": {
     "@prisma/client": "^6.6.0"

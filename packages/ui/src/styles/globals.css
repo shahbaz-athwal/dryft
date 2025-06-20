@@ -1,9 +1,7 @@
 @import "tailwindcss";
-@source "../../../apps/**/*.{ts,tsx}";
-@source "../../../components/**/*.{ts,tsx}";
-@source "../**/*.{ts,tsx}";
-
 @import "tw-animate-css";
+
+@source "../**/*.{ts,tsx}";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -46,21 +44,16 @@
   --radius: 1.25rem;
   --shadow-2xs: 2px 2px 10px 4px hsl(240 4% 60% / 0.09);
   --shadow-xs: 2px 2px 10px 4px hsl(240 4% 60% / 0.09);
-  --shadow-sm:
-    2px 2px 10px 4px hsl(240 4% 60% / 0.18),
-    2px 1px 2px 3px hsl(240 4% 60% / 0.18);
-  --shadow:
-    2px 2px 10px 4px hsl(240 4% 60% / 0.18),
-    2px 1px 2px 3px hsl(240 4% 60% / 0.18);
-  --shadow-md:
-    2px 2px 10px 4px hsl(240 4% 60% / 0.18),
-    2px 2px 4px 3px hsl(240 4% 60% / 0.18);
-  --shadow-lg:
-    2px 2px 10px 4px hsl(240 4% 60% / 0.18),
-    2px 4px 6px 3px hsl(240 4% 60% / 0.18);
-  --shadow-xl:
-    2px 2px 10px 4px hsl(240 4% 60% / 0.18),
-    2px 8px 10px 3px hsl(240 4% 60% / 0.18);
+  --shadow-sm: 2px 2px 10px 4px hsl(240 4% 60% / 0.18), 2px 1px 2px 3px
+    hsl(240 4% 60% / 0.18);
+  --shadow: 2px 2px 10px 4px hsl(240 4% 60% / 0.18), 2px 1px 2px 3px
+    hsl(240 4% 60% / 0.18);
+  --shadow-md: 2px 2px 10px 4px hsl(240 4% 60% / 0.18), 2px 2px 4px 3px
+    hsl(240 4% 60% / 0.18);
+  --shadow-lg: 2px 2px 10px 4px hsl(240 4% 60% / 0.18), 2px 4px 6px 3px
+    hsl(240 4% 60% / 0.18);
+  --shadow-xl: 2px 2px 10px 4px hsl(240 4% 60% / 0.18), 2px 8px 10px 3px
+    hsl(240 4% 60% / 0.18);
   --shadow-2xl: 2px 2px 10px 4px hsl(240 4% 60% / 0.45);
 }
 
@@ -103,16 +96,16 @@
   --radius: 1.25rem;
   --shadow-2xs: 2px 2px 10px 4px hsl(0 0% 0% / 0.09);
   --shadow-xs: 2px 2px 10px 4px hsl(0 0% 0% / 0.09);
-  --shadow-sm:
-    2px 2px 10px 4px hsl(0 0% 0% / 0.18), 2px 1px 2px 3px hsl(0 0% 0% / 0.18);
-  --shadow:
-    2px 2px 10px 4px hsl(0 0% 0% / 0.18), 2px 1px 2px 3px hsl(0 0% 0% / 0.18);
-  --shadow-md:
-    2px 2px 10px 4px hsl(0 0% 0% / 0.18), 2px 2px 4px 3px hsl(0 0% 0% / 0.18);
-  --shadow-lg:
-    2px 2px 10px 4px hsl(0 0% 0% / 0.18), 2px 4px 6px 3px hsl(0 0% 0% / 0.18);
-  --shadow-xl:
-    2px 2px 10px 4px hsl(0 0% 0% / 0.18), 2px 8px 10px 3px hsl(0 0% 0% / 0.18);
+  --shadow-sm: 2px 2px 10px 4px hsl(0 0% 0% / 0.18), 2px 1px 2px 3px
+    hsl(0 0% 0% / 0.18);
+  --shadow: 2px 2px 10px 4px hsl(0 0% 0% / 0.18), 2px 1px 2px 3px
+    hsl(0 0% 0% / 0.18);
+  --shadow-md: 2px 2px 10px 4px hsl(0 0% 0% / 0.18), 2px 2px 4px 3px
+    hsl(0 0% 0% / 0.18);
+  --shadow-lg: 2px 2px 10px 4px hsl(0 0% 0% / 0.18), 2px 4px 6px 3px
+    hsl(0 0% 0% / 0.18);
+  --shadow-xl: 2px 2px 10px 4px hsl(0 0% 0% / 0.18), 2px 8px 10px 3px
+    hsl(0 0% 0% / 0.18);
   --shadow-2xl: 2px 2px 10px 4px hsl(0 0% 0% / 0.45);
 }
 
@@ -176,57 +169,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-/* View Transition Wave Effect */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
-  /* Ensure the outgoing view (old theme) is beneath */
-  z-index: 0;
-}
-
-::view-transition-new(root) {
-  /* Ensure the incoming view (new theme) is always on top */
-  z-index: 1;
-}
-
-@keyframes reveal {
-  from {
-    /* Use CSS variables for the origin, defaulting to center if not set */
-    clip-path: circle(0% at var(--x, 50%) var(--y, 50%));
-    opacity: 0.7;
-  }
-  to {
-    /* Use CSS variables for the origin, defaulting to center if not set */
-    clip-path: circle(150% at var(--x, 50%) var(--y, 50%));
-    opacity: 1;
-  }
-}
-
-::view-transition-new(root) {
-  /* Apply the reveal animation */
-  animation: reveal 0.3s ease-in-out forwards;
-}
-
-/* Mention styles */
-.mention {
-  @apply bg-primary/10 text-primary px-1 rounded-md;
-}
-
-@keyframes text {
-  from {
-    background-position: 0% center;
-  }
-  to {
-    background-position: -200% center;
-  }
-}
-
-.animate-text {
-  animation: text 3s linear infinite;
 }

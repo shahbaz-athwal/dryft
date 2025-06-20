@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
@@ -21,11 +21,11 @@ export function ModeToggle() {
       // Get click coordinates for the wave effect origin
       const x = e.clientX;
       const y = e.clientY;
-      
+
       // Set the CSS variables for the wave effect origin
-      document.documentElement.style.setProperty('--x', `${x}px`);
-      document.documentElement.style.setProperty('--y', `${y}px`);
-      
+      document.documentElement.style.setProperty("--x", `${x}px`);
+      document.documentElement.style.setProperty("--y", `${y}px`);
+
       // Start the view transition
       document.startViewTransition(() => {
         setTheme(theme);

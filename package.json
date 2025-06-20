@@ -6,7 +6,7 @@
     "build": "turbo run build",
     "clean": "turbo run clean",
     "dev": "turbo run dev",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format": "biome format --write",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "api:start": "bun --filter api start",
@@ -15,10 +15,10 @@
     "web:dev": "bun --filter web dev",
     "db:studio": "bun --filter @repo/db db:studio",
     "db:generate": "bun --filter @repo/db db:generate",
-    "db:migrate": "bun --filter @repo/db db:migrate",
-    "check-types": "turbo run check-types"
+    "db:migrate": "bun --filter @repo/db db:migrate"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.0.0",
     "turbo": "^2.5.3",
     "typescript": "5.8.2"
   },

@@ -1,9 +1,8 @@
 import { schema as generatedSchema, type Schema } from "@repo/db/schema";
-import { definePermissions } from "@rocicorp/zero";
+import { ANYONE_CAN_DO_ANYTHING, definePermissions } from "@rocicorp/zero";
 
 export const schema = generatedSchema;
 
-export const permissions = definePermissions<unknown, Schema>(
-  schema,
-  () => ({}),
-);
+export const permissions = definePermissions<unknown, Schema>(schema, () => ({
+  user: ANYONE_CAN_DO_ANYTHING,
+}));

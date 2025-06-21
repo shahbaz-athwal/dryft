@@ -1,5 +1,5 @@
-import { betterAuth } from "better-auth";
 import { prisma } from "@repo/db";
+import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { resend } from "./resend";
 

@@ -1,0 +1,67 @@
+name: dryft
+services:
+  api:
+    container_name: api-dev
+    build:
+      context: ../
+      dockerfile: apps/fastify/Dockerfile
+    ports:
+      - 4050:4050
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db-dev:5432/postgres
+      - NODE_ENV=development
+      - PORT=4050
+      - FRONTEND_URL=http://localhost:3000
+      - BETTER_AUTH_SECRET=secret-key
+      - RESEND_API_KEY=resend-api-key
+    depends_on:
+      - postgres
+
+  zero:
+    container_name: zero-sync
+    build:
+      context: ../
+      dockerfile: apps/zero/Dockerfile
+    ports:
+      - 4848:4848
+    environment:
+      - ZERO_UPSTREAM_DB=postgresql://postgres:postgres@db-dev:5432/postgres
+      - ZERO_REPLICA_FILE=/tmp/sync-replica.db
+    command: "bun dev"
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: db-dev
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    command: |
+      postgres 
+      -c wal_level=logical
+      -c max_wal_senders=10 
+      -c max_replication_slots=5 
+      -c hot_standby=on 
+      -c hot_standby_feedback=on
+    volumes:
+      - data_dev_db:/var/lib/postgresql/data
+
+  prisma-studio:
+    container_name: prisma-studio
+    build:
+      context: ../
+      dockerfile: apps/fastify/Dockerfile
+    ports:
+      - 5555:5555
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db-dev:5432/postgres
+      - HOME=/app
+    user: "root"
+    command: "bun run db:studio --browser=none --hostname=0.0.0.0"
+    depends_on:
+      - postgres
+
+volumes:
+  data_dev_db:

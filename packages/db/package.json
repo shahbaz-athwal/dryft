@@ -11,12 +11,18 @@
   },
   "devDependencies": {
     "prisma": "^6.6.0",
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "@passionfroot/prisma-generator-zero": "^0.3.3"
   },
   "dependencies": {
-    "@prisma/client": "^6.6.0"
+    "@prisma/client": "^6.6.0",
+    "@rocicorp/zero": "^0.20.2025051600"
+  },
+  "peerDependencies": {
+    "@rocicorp/zero": "^0.20.2025051600"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./schema": "./generated/schema.ts"
   }
 }

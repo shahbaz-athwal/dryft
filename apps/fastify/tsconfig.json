@@ -4,8 +4,8 @@
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,
-    "module": "CommonJS",
-    "moduleResolution": "node"
+    "module": "nodenext",
+    "moduleResolution": "nodenext"
   },
   "include": ["@types", "src/**/*.ts"]
 }

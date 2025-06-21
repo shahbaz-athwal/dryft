@@ -6,8 +6,8 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "db:push": "prisma db push --skip-generate",
-    "clean": "rm -rf node_modules",
-    "lint": "eslint \"src/**/*.ts\" --max-warnings 0"
+    "zero:generate": "prisma generate --schema=./prisma/zero.prisma",
+    "clean": "rm -rf node_modules"
   },
   "devDependencies": {
     "prisma": "^6.6.0",
@@ -21,6 +21,9 @@
   "peerDependencies": {
     "@rocicorp/zero": "^0.20.2025051600"
   },
+  "trustedDependencies": [
+    "@rocicorp/zero-sqlite3"
+  ],
   "exports": {
     ".": "./src/index.ts",
     "./schema": "./generated/schema.ts"

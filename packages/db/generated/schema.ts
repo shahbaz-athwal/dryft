@@ -26,99 +26,12 @@ export const userTable = table("user")
   })
   .primaryKey("id");
 
-export const sessionTable = table("session")
-  .columns({
-    id: string(),
-    expiresAt: number(),
-    token: string(),
-    createdAt: number(),
-    updatedAt: number(),
-    ipAddress: string().optional(),
-    userAgent: string().optional(),
-    userId: string(),
-  })
-  .primaryKey("id");
-
-export const accountTable = table("account")
-  .columns({
-    id: string(),
-    accountId: string(),
-    providerId: string(),
-    userId: string(),
-    accessToken: string().optional(),
-    refreshToken: string().optional(),
-    idToken: string().optional(),
-    accessTokenExpiresAt: number().optional(),
-    refreshTokenExpiresAt: number().optional(),
-    scope: string().optional(),
-    password: string().optional(),
-    createdAt: number(),
-    updatedAt: number(),
-  })
-  .primaryKey("id");
-
-export const verificationTable = table("verification")
-  .columns({
-    id: string(),
-    identifier: string(),
-    value: string(),
-    expiresAt: number(),
-    createdAt: number().optional(),
-    updatedAt: number().optional(),
-  })
-  .primaryKey("id");
-
-// Define relationships
-
-export const userTableRelationships = relationships(userTable, ({ many }) => ({
-  sessions: many({
-    sourceField: ["id"],
-    destField: ["userId"],
-    destSchema: sessionTable,
-  }),
-  accounts: many({
-    sourceField: ["id"],
-    destField: ["userId"],
-    destSchema: accountTable,
-  }),
-}));
-
-export const sessionTableRelationships = relationships(
-  sessionTable,
-  ({ one }) => ({
-    user: one({
-      sourceField: ["userId"],
-      destField: ["id"],
-      destSchema: userTable,
-    }),
-  }),
-);
-
-export const accountTableRelationships = relationships(
-  accountTable,
-  ({ one }) => ({
-    user: one({
-      sourceField: ["userId"],
-      destField: ["id"],
-      destSchema: userTable,
-    }),
-  }),
-);
-
 // Define schema
 
 export const schema = createSchema({
-  tables: [userTable, sessionTable, accountTable, verificationTable],
-  relationships: [
-    userTableRelationships,
-    sessionTableRelationships,
-    accountTableRelationships,
-  ],
+  tables: [userTable],
 });
 
 // Define types
 export type Schema = typeof schema;
 export type User = Row<typeof schema.tables.user>;
-export type Session = Row<typeof schema.tables.session>;
-export type Account = Row<typeof schema.tables.account>;
-export type Verification = Row<typeof schema.tables.verification>;

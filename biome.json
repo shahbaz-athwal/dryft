@@ -7,7 +7,11 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!packages/ui/src/components/ui/**"]
+    "includes": [
+      "**",
+      "!packages/ui/src/components/ui/**",
+      "!packages/db/generated/**"
+    ]
   },
   "formatter": {
     "enabled": true,

@@ -4,11 +4,26 @@ This Turborepo includes the following:
 
 ### Apps and Packages
 
-- `web`: a [vite](https://vitejs.dev/) app
-- `api`: an [Express](https://expressjs.com/) server
-- `@repo/ui`: a React component library
-- `@repo/db`: a PostgreSQL database (Prisma)
+- `next`: a nextjs frontend
+- `fastify`: a fastify/trpc api 
+- `zero`: zero-sync engine for full reactivity
+- `@repo/db`: prisma client for PostgreSQL
+- `@repo/ui`: a custom shadcn component library
+- `@repo/schema`: common zod schemas
 
 ### Docker
 
-This repo is configured to be built with Docker, and Docker compose. To build all apps in this repo:
+This contains following docker compose files:
+
+- `docker-compose.yml`: production docker compose file
+- `docker-compose.local.yml`: local docker compose file for development
+
+
+## Setup
+
+### Prerequisites
+
+- Docker
+- Bun
+- Biome (for linting and formatting)
+- PostgreSQL with WAL replication enabled

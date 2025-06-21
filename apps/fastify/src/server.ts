@@ -30,7 +30,7 @@ f.register(fastifyTRPCPlugin, {
     router: appRouter,
     createContext,
     onError({ path, error }) {
-      // report to error monitoring
+      // biome-ignore lint: style/noConsole
       console.error(`Error in tRPC handler on path '${path}':`, error);
     },
   } satisfies FastifyTRPCPluginOptions<AppRouter>["trpcOptions"],

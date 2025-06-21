@@ -1,10 +1,10 @@
-name: Build and Push
+name: Build and Push Fastify API
 
 on:
   push:
     branches: [main]
     paths:
-      - "apps/api/**"
+      - "apps/fastify/**"
   workflow_dispatch:
 
 env:

@@ -1,27 +1,33 @@
 import type { AxiosError, AxiosInstance } from "axios";
 import { client } from "./utils/axios";
 
-export interface ScraperConfig {
+interface ScraperConfig {
   username: string;
   password: string;
-}
-
-export interface AuthResult {
-  success: boolean;
-  error?: AxiosError;
 }
 
 export class AcadiaScraper {
   private client: AxiosInstance;
   private cookies: string | null = null;
   private config: ScraperConfig;
+  private authTimestamp: number | null = null;
+  private readonly AUTH_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes in milliseconds
 
   constructor(config: ScraperConfig) {
     this.config = config;
     this.client = client;
   }
 
-  async authenticate(): Promise<AuthResult> {
+  private validateAuth(): boolean {
+    if (!this.cookies || !this.authTimestamp) {
+      return false;
+    }
+
+    const now = Date.now();
+    return now - this.authTimestamp < this.AUTH_TIMEOUT_MS;
+  }
+
+  private async authenticate() {
     try {
       const formData = new URLSearchParams();
       formData.append("UserName", this.config.username);
@@ -77,6 +83,7 @@ export class AcadiaScraper {
       }
 
       this.cookies = allCookies.join("; ");
+      this.authTimestamp = Date.now();
       return { success: true };
     } catch (error) {
       return {
@@ -86,11 +93,8 @@ export class AcadiaScraper {
     }
   }
 
-  async postSearchCriteria() {
-    if (!this.cookies) {
-      if (!this.cookies) {
-        throw new Error("Not authenticated.");
-      }
+  public async postSearchCriteria() {
+    if (!this.validateAuth()) {
       await this.authenticate();
     }
 
@@ -107,7 +111,8 @@ export class AcadiaScraper {
     return response.data;
   }
 
-  clearSession(): void {
+  public clearSession(): void {
     this.cookies = null;
+    this.authTimestamp = null;
   }
 }

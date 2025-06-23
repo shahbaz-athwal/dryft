@@ -15,6 +15,7 @@
       "dependencies": {
         "@fastify/cors": "^11.0.1",
         "@repo/db": "workspace:*",
+        "@repo/scraper": "workspace:*",
         "@rocicorp/zero": "^0.20.2025051600",
         "@trpc/server": "^11.3.1",
         "better-auth": "^1.2.8",
@@ -93,6 +94,7 @@
       "name": "@repo/scraper",
       "version": "0.0.0",
       "dependencies": {
+        "@repo/schema": "workspace:*",
         "axios": "^1.10.0",
       },
       "devDependencies": {

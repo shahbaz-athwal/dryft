@@ -19,7 +19,8 @@
     "fastify": "^5.3.3",
     "superjson": "^2.2.2",
     "zod": "^3.25.56",
-    "resend": "^4.6.0"
+    "resend": "^4.6.0",
+    "@repo/scraper": "workspace:*"
   },
   "devDependencies": {
     "fastify-tsconfig": "^3.0.0"

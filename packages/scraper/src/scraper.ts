@@ -1,3 +1,9 @@
+import {
+  type PostSearchCriteriaFilteredResponseInferred,
+  PostSearchCriteriaFilteredResponseSchema,
+  type PostSearchCriteriaRequestInferred,
+  PostSearchCriteriaRequestSchema,
+} from "@repo/schema/post-search-criteria";
 import type { AxiosError, AxiosInstance } from "axios";
 import { client } from "./utils/axios";
 
@@ -93,22 +99,42 @@ export class AcadiaScraper {
     }
   }
 
-  public async postSearchCriteria() {
+  public async postSearchCriteria(
+    searchCriteria?: Partial<PostSearchCriteriaRequestInferred>,
+  ): Promise<PostSearchCriteriaFilteredResponseInferred> {
     if (!this.validateAuth()) {
       await this.authenticate();
     }
 
+    // Validate and set default values for search criteria
+    const defaultCriteria: PostSearchCriteriaRequestInferred = {
+      keyword: null,
+      terms: [],
+      courseIds: null,
+      sectionIds: null,
+      subjects: [],
+      faculty: [],
+      pageNumber: 1,
+      quantityPerPage: 30,
+    };
+
+    const validatedCriteria = PostSearchCriteriaRequestSchema.parse({
+      ...defaultCriteria,
+      ...searchCriteria,
+    });
+
     const response = await this.client.post(
       "/student/Student/Courses/PostSearchCriteria",
-      {},
+      validatedCriteria,
       {
         headers: {
           Cookie: this.cookies,
+          "Content-Type": "application/json",
         },
       },
     );
 
-    return response.data;
+    return PostSearchCriteriaFilteredResponseSchema.parse(response.data);
   }
 
   public clearSession(): void {

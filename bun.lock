@@ -90,11 +90,11 @@
       },
     },
     "packages/scraper": {
-      "name": "scraper",
+      "name": "@repo/scraper",
+      "version": "0.0.0",
       "dependencies": {
         "axios": "^1.10.0",
         "axios-cookiejar-support": "^6.0.2",
-        "tough-cookie": "^5.1.2",
       },
       "devDependencies": {
         "@types/bun": "latest",
@@ -711,6 +711,8 @@
     "@repo/db": ["@repo/db@workspace:packages/db"],
 
     "@repo/schema": ["@repo/schema@workspace:packages/schema"],
+
+    "@repo/scraper": ["@repo/scraper@workspace:packages/scraper"],
 
     "@repo/typescript-config": ["@repo/typescript-config@workspace:packages/typescript-config"],
 
@@ -1435,8 +1437,6 @@
     "safe-stable-stringify": ["safe-stable-stringify@2.5.0", "", {}, "sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA=="],
 
     "scheduler": ["scheduler@0.26.0", "", {}, "sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA=="],
-
-    "scraper": ["scraper@workspace:packages/scraper"],
 
     "secure-json-parse": ["secure-json-parse@4.0.0", "", {}, "sha512-dxtLJO6sc35jWidmLxo7ij+Eg48PM/kleBsxpC8QJE0qJICe+KawkDQmvCMZUr9u7WKVHgMW6vy3fQ7zMiFZMA=="],
 

@@ -7,7 +7,7 @@ import {
 import type { AxiosError, AxiosInstance } from "axios";
 import { client } from "./utils/axios";
 
-interface ScraperConfig {
+interface ScraperCredentials {
   username: string;
   password: string;
 }
@@ -15,11 +15,11 @@ interface ScraperConfig {
 export class AcadiaScraper {
   private client: AxiosInstance;
   private cookies: string | null = null;
-  private config: ScraperConfig;
+  private config: ScraperCredentials;
   private authTimestamp: number | null = null;
-  private readonly AUTH_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes in milliseconds
+  private readonly AUTH_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes
 
-  constructor(config: ScraperConfig) {
+  constructor(config: ScraperCredentials) {
     this.config = config;
     this.client = client;
   }

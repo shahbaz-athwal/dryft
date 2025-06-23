@@ -10,6 +10,7 @@ This Turborepo includes the following:
 - `@repo/db`: prisma client for PostgreSQL
 - `@repo/ui`: a custom shadcn component library
 - `@repo/schema`: common zod schemas
+- `@repo/scraper`: custom scraper for acadia course catalog
 
 ### Docker
 

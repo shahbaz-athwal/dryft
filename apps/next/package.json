@@ -14,7 +14,6 @@
     "@repo/db": "workspace:*",
     "@repo/scraper": "workspace:*",
     "@repo/schema": "workspace:*",
-    "@rocicorp/zero": "^0.20.2025051600",
     "@tanstack/react-query": "^5.80.6",
     "@trpc/client": "^11.3.1",
     "@trpc/next": "^11.3.1",

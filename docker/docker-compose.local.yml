@@ -17,20 +17,6 @@ services:
     depends_on:
       - postgres
 
-  zero:
-    container_name: zero-sync
-    build:
-      context: ../
-      dockerfile: apps/zero/Dockerfile
-    ports:
-      - 4848:4848
-    environment:
-      - ZERO_UPSTREAM_DB=postgresql://postgres:postgres@db-dev:5432/postgres
-      - ZERO_REPLICA_FILE=/tmp/sync-replica.db
-    command: "bun dev"
-    depends_on:
-      - postgres
-
   postgres:
     container_name: db-dev
     image: postgres:latest

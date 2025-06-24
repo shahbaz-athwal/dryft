@@ -6,7 +6,6 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "db:push": "prisma db push --skip-generate",
-    "zero:generate": "prisma generate --schema=./prisma/zero.prisma",
     "clean": "rm -rf node_modules"
   },
   "devDependencies": {

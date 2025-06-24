@@ -6,7 +6,6 @@ This Turborepo includes the following:
 
 - `next`: a nextjs frontend
 - `fastify`: a fastify/trpc api 
-- `zero`: zero-sync engine for full reactivity
 - `@repo/db`: prisma client for PostgreSQL
 - `@repo/ui`: a custom shadcn component library
 - `@repo/schema`: common zod schemas

@@ -8,8 +8,5 @@
   "dependencies": {
     "@rocicorp/zero": "^0.20.2025051600",
     "@repo/db": "workspace:*"
-  },
-  "trustedDependencies": [
-    "@rocicorp/zero-sqlite3"
-  ]
+  }
 }

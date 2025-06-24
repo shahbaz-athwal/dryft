@@ -21,9 +21,6 @@
   "peerDependencies": {
     "@rocicorp/zero": "^0.20.2025051600"
   },
-  "trustedDependencies": [
-    "@rocicorp/zero-sqlite3"
-  ],
   "exports": {
     ".": "./src/index.ts",
     "./schema": "./generated/schema.ts"

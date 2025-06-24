@@ -13,7 +13,7 @@ const f = fastify({
 });
 
 f.register(fastifyCors, {
-  origin: "http://localhost:3000",
+  origin: process.env.FRONTEND_URL,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   credentials: true,
@@ -39,7 +39,10 @@ f.register(fastifyTRPCPlugin, {
 // Start the server
 (async () => {
   try {
-    await f.listen({ port: 4000, host: "0.0.0.0" });
+    await f.listen({
+      port: Number(process.env.PORT),
+      host: "0.0.0.0",
+    });
   } catch (err) {
     f.log.error(err);
     process.exit(1);

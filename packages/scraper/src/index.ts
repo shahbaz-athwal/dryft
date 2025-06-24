@@ -1,1 +1,1 @@
-export { AcadiaScraper } from "./scraper";
+export { AcadiaScraper } from "./acadia-scraper";

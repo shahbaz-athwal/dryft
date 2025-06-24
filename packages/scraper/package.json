@@ -13,7 +13,8 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@repo/schema": "workspace:*",
     "axios": "^1.10.0",
-    "@repo/schema": "workspace:*"
+    "graphql-request": "^7.2.0"
   }
 }

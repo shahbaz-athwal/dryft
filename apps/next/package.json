@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@dnd-kit/core": "^6.3.1",
     "@repo/typescript-config": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@repo/db": "workspace:*",
+    "@repo/scraper": "workspace:*",
+    "@repo/zero": "workspace:*",
+    "@repo/schema": "workspace:*",
     "@tanstack/react-query": "^5.80.6",
     "@trpc/client": "^11.3.1",
     "@trpc/next": "^11.3.1",

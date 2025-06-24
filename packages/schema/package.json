@@ -18,6 +18,10 @@
   "devDependencies": {
     "@repo/typescript-config": "workspace:*"
   },
+  "peerDependencies": {
+    "zod": "^3",
+    "typescript": "^5"
+  },
   "exports": {
     "./*": "./src/*.ts"
   }

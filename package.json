@@ -24,9 +24,6 @@
     "turbo": "^2.5.3",
     "typescript": "5.8.2"
   },
-  "trustedDependencies": [
-    "@rocicorp/zero-sqlite3"
-  ],
   "engines": {
     "node": ">=18"
   },

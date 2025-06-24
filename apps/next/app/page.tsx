@@ -1,4 +1,3 @@
-import { Dnd } from "@/components/dnd";
 import { trpc } from "@/lib/trpc";
 
 export default function Home() {
@@ -7,7 +6,6 @@ export default function Home() {
   return (
     <div>
       <h1>{data?.name}</h1>
-      <Dnd />
     </div>
   );
 }

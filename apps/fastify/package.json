@@ -11,16 +11,18 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@repo/db": "workspace:*",
+    "@repo/scraper": "workspace:*",
+    "@repo/schema": "workspace:*",
+    "@repo/zero": "workspace:*",
     "@fastify/cors": "^11.0.1",
     "@rocicorp/zero": "^0.20.2025051600",
-    "@repo/db": "workspace:*",
     "@trpc/server": "^11.3.1",
     "better-auth": "^1.2.8",
     "fastify": "^5.3.3",
     "superjson": "^2.2.2",
     "zod": "^3.25.56",
-    "resend": "^4.6.0",
-    "@repo/scraper": "workspace:*"
+    "resend": "^4.6.0"
   },
   "devDependencies": {
     "fastify-tsconfig": "^3.0.0"

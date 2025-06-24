@@ -3,7 +3,7 @@ import { gql } from "graphql-request";
 const SEARCH_SCHOOL_QUERY = gql`
   query NewSearchSchoolsQuery(
     $query: SchoolSearchQuery
-    $includeCompare: Boolean
+    $includeCompare: Boolean!
   ) {
     newSearch {
       schools(query: $query) {

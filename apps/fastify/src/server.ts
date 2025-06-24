@@ -9,11 +9,12 @@ import { type AppRouter, appRouter } from "./trpc/router";
 import { createContext } from "./trpc/trpc";
 
 const f = fastify({
-  logger: true,
+  logger: process.env.NODE_ENV === "development",
 });
 
 f.register(fastifyCors, {
-  origin: process.env.FRONTEND_URL,
+  origin:
+    process.env.NODE_ENV === "development" ? true : process.env.FRONTEND_URL,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   credentials: true,

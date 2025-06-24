@@ -5,10 +5,10 @@ import { resend } from "./resend";
 
 export const auth = betterAuth({
   emailVerification: {
-    sendOnSignUp: true,
+    sendOnSignUp: false,
     sendVerificationEmail: async ({ user, url }) => {
       await resend.emails.send({
-        from: "verify@shahcodes.in", // TODO: Change this to different domain after buying one
+        from: "verify@dryft.ca",
         to: user.email,
         subject: "Verify your email address",
         text: `Click the link to verify your email: ${url}`, // TODO: Make email template
@@ -22,8 +22,11 @@ export const auth = betterAuth({
 
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
+    requireEmailVerification: false,
   },
 
-  trustedOrigins: process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : ["*"],
+  trustedOrigins:
+    process.env.NODE_ENV === "development"
+      ? [process.env.FRONTEND_URL as string]
+      : ["*"],
 });

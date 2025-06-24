@@ -19,16 +19,17 @@ const SCHOOL_RATING_PAGE_QUERY = gql`
 
         # summary
         summary {
-          schoolReputation
-          schoolSatisfaction
-          internetSpeed
           campusCondition
-          schoolSafety
-          careerOpportunities
-          socialActivities
-          foodQuality
-          clubAndEventActivities
           campusLocation
+          careerOpportunities
+          clubAndEventActivities
+          foodQuality
+          internetSpeed
+          libraryCondition
+          schoolReputation
+          schoolSafety
+          schoolSatisfaction
+          socialActivities
         }
 
         # the first 20 ratings

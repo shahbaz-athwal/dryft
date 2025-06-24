@@ -3,7 +3,6 @@ import { gql } from "graphql-request";
 const SEARCH_SCHOOL_QUERY = gql`
   query NewSearchSchoolsQuery(
     $query: SchoolSearchQuery
-    $includeCompare: Boolean!
   ) {
     newSearch {
       schools(query: $query) {
@@ -15,18 +14,14 @@ const SEARCH_SCHOOL_QUERY = gql`
             name
             city
             state
+            country
+            numRatings
+            avgRatingRounded
             departments {
               id
               name
             }
-            name @include(if: $includeCompare)
-            city @include(if: $includeCompare)
-            state @include(if: $includeCompare)
-            country @include(if: $includeCompare)
-            numRatings @include(if: $includeCompare)
-            avgRatingRounded @include(if: $includeCompare)
-            legacyId @include(if: $includeCompare)
-            summary @include(if: $includeCompare) {
+            summary {
               campusCondition
               campusLocation
               careerOpportunities

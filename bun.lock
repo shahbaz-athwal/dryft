@@ -15,6 +15,7 @@
       "dependencies": {
         "@fastify/cors": "^11.0.1",
         "@repo/db": "workspace:*",
+        "@repo/schema": "workspace:*",
         "@repo/scraper": "workspace:*",
         "@rocicorp/zero": "^0.20.2025051600",
         "@trpc/server": "^11.3.1",
@@ -32,9 +33,12 @@
       "name": "next",
       "version": "0.1.0",
       "dependencies": {
-        "@dnd-kit/core": "^6.3.1",
+        "@repo/db": "workspace:*",
+        "@repo/schema": "workspace:*",
+        "@repo/scraper": "workspace:*",
         "@repo/typescript-config": "workspace:*",
         "@repo/ui": "workspace:*",
+        "@rocicorp/zero": "^0.20.2025051600",
         "@tanstack/react-query": "^5.80.6",
         "@trpc/client": "^11.3.1",
         "@trpc/next": "^11.3.1",
@@ -88,6 +92,10 @@
       },
       "devDependencies": {
         "@repo/typescript-config": "workspace:*",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+        "zod": "^3",
       },
     },
     "packages/scraper": {
@@ -215,12 +223,6 @@
     "@databases/sql": ["@databases/sql@3.3.0", "", {}, "sha512-vj9huEy4mjJ48GS1Z8yvtMm4BYAnFYACUds25ym6Gd/gsnngkJ17fo62a6mmbNNwCBS/8467PmZR01Zs/06TjA=="],
 
     "@databases/validate-unicode": ["@databases/validate-unicode@1.0.0", "", {}, "sha512-dLKqxGcymeVwEb/6c44KjOnzaAafFf0Wxa8xcfEjx/qOl3rdijsKYBAtIGhtVtOlpPf/PFKfgTuFurSPn/3B/g=="],
-
-    "@dnd-kit/accessibility": ["@dnd-kit/accessibility@3.1.1", "", { "dependencies": { "tslib": "^2.0.0" }, "peerDependencies": { "react": ">=16.8.0" } }, "sha512-2P+YgaXF+gRsIihwwY1gCsQSYnu9Zyj2py8kY5fFvUM1qm2WA2u639R6YNVfU4GWr+ZM5mqEsfHZZLoRONbemw=="],
-
-    "@dnd-kit/core": ["@dnd-kit/core@6.3.1", "", { "dependencies": { "@dnd-kit/accessibility": "^3.1.1", "@dnd-kit/utilities": "^3.2.2", "tslib": "^2.0.0" }, "peerDependencies": { "react": ">=16.8.0", "react-dom": ">=16.8.0" } }, "sha512-xkGBRQQab4RLwgXxoqETICr6S5JlogafbhNsidmrkVv2YRs5MLwpjoF2qpiGjQt8S9AoxtIV603s0GIUpY5eYQ=="],
-
-    "@dnd-kit/utilities": ["@dnd-kit/utilities@3.2.2", "", { "dependencies": { "tslib": "^2.0.0" }, "peerDependencies": { "react": ">=16.8.0" } }, "sha512-+MKAJEOfaBe5SmV6t34p80MMKhjvUz0vRrvVJbPT0WElzaOJ/1xs+D+KDv+tD/NE5ujfrChEcshd4fLn0wpiqg=="],
 
     "@dotenvx/dotenvx": ["@dotenvx/dotenvx@1.45.1", "", { "dependencies": { "commander": "^11.1.0", "dotenv": "^16.4.5", "eciesjs": "^0.4.10", "execa": "^5.1.1", "fdir": "^6.2.0", "ignore": "^5.3.0", "object-treeify": "1.1.33", "picomatch": "^4.0.2", "which": "^4.0.0" }, "bin": { "dotenvx": "src/cli/dotenvx.js", "git-dotenvx": "src/cli/dotenvx.js" } }, "sha512-wKHPD+/NMMJVBPg3i98uD9jsURDy+Ck6RQRiWf39TlOAzC+Ge1FkmDk3sgeljYZxA3qF6E7SJmvRqC70XQuuVA=="],
 

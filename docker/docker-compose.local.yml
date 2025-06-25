@@ -13,9 +13,12 @@ services:
       - PORT=4050
       - FRONTEND_URL=http://localhost:3000
       - BETTER_AUTH_SECRET=secret-key
-      - RESEND_API_KEY=resend-api-key
+      - RESEND_API_KEY
+      - ACADIA_USERNAME
+      - ACADIA_PASSWORD
     volumes:
       - ../apps/fastify/src:/app/apps/fastify/src
+      - ../apps/fastify/.env:/app/apps/fastify/.env
       - ../packages:/app/packages
     command: "bun run api:dev"
     depends_on:

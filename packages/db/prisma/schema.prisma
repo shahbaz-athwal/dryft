@@ -21,31 +21,41 @@ model Department {
 }
 
 model Professor {
-  id           String     @id @default(uuid())
+  id           String            @id @default(uuid())
   departmentId String
-  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  department   Department        @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   name         String
   description  String
   rmpId        String?
   rmpFirstName String?
   rmpLastName  String?
   imageUrl     String?
+  courses      CourseProfessor[]
 
   @@map("professor")
 }
 
 model Course {
-  id           String     @id @default(uuid())
+  id           String            @id @default(uuid())
   name         String
   description  String
   rmpName      String?
   departmentId String
-  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  department   Department        @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  professors   CourseProfessor[]
 
   @@map("course")
 }
 
 model CourseProfessor {
+  id          String    @id @default(uuid())
+  courseId    String
+  professorId String
+  course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  professor   Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, professorId])
+  @@map("course_professor")
 }
 
 model User {

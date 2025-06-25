@@ -12,12 +12,12 @@ const SCHOOL_RATING_PAGE_QUERY = gql`
         state
         country
         numRatings
-
-        # overall rating
         avgRatingRounded
         avgRating
-
-        # summary
+        departments {
+          id
+          name
+        }
         summary {
           campusCondition
           campusLocation
@@ -40,8 +40,6 @@ const SCHOOL_RATING_PAGE_QUERY = gql`
               id
               __typename
               legacyId
-
-              # all the per‐category scores
               clubsRating
               facilitiesRating
               foodRating
@@ -52,14 +50,10 @@ const SCHOOL_RATING_PAGE_QUERY = gql`
               reputationRating
               safetyRating
               socialRating
-
-              # comment / metadata
               comment
               date
               flagStatus
               createdByUser
-
-              # thumbs
               thumbsUpTotal
               thumbsDownTotal
             }

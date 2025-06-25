@@ -8,6 +8,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Department {
+  id          String      @id @default(uuid())
+  name        String
+  description String
+  rmpId       String?
+  rmpName     String?
+  Professor   Professor[]
+  Course      Course[]
+
+  @@map("department")
+}
+
+model Professor {
+  id           String     @id @default(uuid())
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  name         String
+  description  String
+  rmpId        String?
+  rmpFirstName String?
+  rmpLastName  String?
+  imageUrl     String?
+
+  @@map("professor")
+}
+
+model Course {
+  id           String     @id @default(uuid())
+  name         String
+  description  String
+  rmpName      String?
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+  @@map("course")
+}
+
+model CourseProfessor {
+}
+
 model User {
   id            String    @id @default(uuid())
   email         String    @unique
@@ -22,6 +62,7 @@ model User {
   @@map("user")
 }
 
+// Better Auth
 model Session {
   id        String   @id
   expiresAt DateTime

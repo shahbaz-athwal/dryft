@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { acadiaImporterRouter } from "./routers/acadia-importer.router";
 import { publicProcedure, router } from "./trpc";
 
 export const appRouter = router({
@@ -14,6 +15,7 @@ export const appRouter = router({
     .query(({ input }) => {
       return { id: input.id, name: "John Doe" };
     }),
+  acadiaImporter: acadiaImporterRouter,
 });
 
 export type AppRouter = typeof appRouter;

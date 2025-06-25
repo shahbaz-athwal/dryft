@@ -10,7 +10,10 @@ export class RateMyProfScraper {
     this.client = gqlClient;
   }
 
-  private async executeQuery(query: string, variables: Record<string, any>) {
+  private async executeQuery(
+    query: string,
+    variables: Record<string, unknown>,
+  ) {
     const response = await this.client.request(query, variables);
     return response;
   }

@@ -9,10 +9,9 @@ datasource db {
 }
 
 model Department {
-  id          String      @id @default(uuid())
-  name        String
+  prefix      String      @id @unique
   description String
-  rmpId       String?
+  rmpId       String?     @unique
   rmpName     String?
   Professor   Professor[]
   Course      Course[]
@@ -21,29 +20,31 @@ model Department {
 }
 
 model Professor {
-  id           String            @id @default(uuid())
-  departmentId String
-  department   Department        @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  name         String
-  description  String
-  rmpId        String?
-  rmpFirstName String?
-  rmpLastName  String?
-  imageUrl     String?
-  courses      CourseProfessor[]
+  id               String            @id @default(uuid())
+  departmentPrefix String
+  department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
+  name             String
+  description      String
+  rmpId            String?           @unique
+  rmpFirstName     String?
+  rmpLastName      String?
+  imageUrl         String?
+  courses          CourseProfessor[]
 
   @@map("professor")
 }
 
 model Course {
-  id           String            @id @default(uuid())
-  name         String
-  description  String
-  rmpName      String?
-  departmentId String
-  department   Department        @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  professors   CourseProfessor[]
+  id               String            @id @default(uuid())
+  code             String            @unique
+  name             String
+  description      String?
+  rmpName          String?
+  departmentPrefix String
+  department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
+  professors       CourseProfessor[]
 
+  @@unique([code, departmentPrefix])
   @@map("course")
 }
 

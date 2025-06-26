@@ -1,6 +1,10 @@
 import { SchoolSearchResponseSchema } from "@repo/schema/gql/school-search-response";
 import type { GraphQLClient } from "graphql-request";
 import { COURSES_BY_PROFESSOR_QUERY } from "./queries/courses-by-prof-id";
+import {
+  SCHOOL_DEPARTMENTS_QUERY,
+  SchoolDepartmentsResponseSchema,
+} from "./queries/departments-by-school";
 import { SEARCH_SCHOOL_QUERY } from "./queries/search-school-query";
 import { gqlClient } from "./utils/rmp-gql-client";
 
@@ -32,5 +36,13 @@ export class RateMyProfScraper {
     const response = await this.executeQuery(query, variables);
 
     return SchoolSearchResponseSchema.parse(response);
+  }
+
+  public async getDepartmentbySchoolId(schoolId: string) {
+    const query = SCHOOL_DEPARTMENTS_QUERY;
+    const variables = { schoolId };
+    const response = await this.executeQuery(query, variables);
+    return SchoolDepartmentsResponseSchema.parse(response).search.teachers
+      .filters[0]?.options;
   }
 }

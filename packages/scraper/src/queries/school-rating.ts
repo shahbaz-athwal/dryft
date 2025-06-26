@@ -14,10 +14,6 @@ const SCHOOL_RATING_PAGE_QUERY = gql`
         numRatings
         avgRatingRounded
         avgRating
-        departments {
-          id
-          name
-        }
         summary {
           campusCondition
           campusLocation
@@ -31,8 +27,6 @@ const SCHOOL_RATING_PAGE_QUERY = gql`
           schoolSatisfaction
           socialActivities
         }
-
-        # the first 20 ratings
         ratings(first: $count, after: $cursor) {
           edges {
             cursor

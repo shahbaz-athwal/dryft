@@ -1,7 +1,9 @@
+import { prisma } from "@repo/db";
 import { AcadiaScraper } from "@repo/scraper";
 import { publicProcedure, router } from "../trpc";
 
 export const acadiaImporterRouter = router({
+  // Import all departments from acadia
   importAllDepartments: publicProcedure.mutation(async () => {
     const username = process.env.ACADIA_USERNAME;
     const password = process.env.ACADIA_PASSWORD;
@@ -11,8 +13,18 @@ export const acadiaImporterRouter = router({
     }
 
     const scraper = new AcadiaScraper({ username, password });
+    const allDepartments = (await scraper.postSearchCriteria()).Subjects.map(
+      (dept) => ({
+        name: dept.Value,
+        description: dept.Description,
+      }),
+    );
 
-    const departments = await scraper.postSearchCriteria();
-    return departments.Subjects.map((s) => s.Value);
+    await prisma.department.createMany({
+      data: allDepartments.map((dept) => ({
+        name: dept.name,
+        description: dept.description,
+      })),
+    });
   }),
 });

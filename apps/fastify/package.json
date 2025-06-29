@@ -1,16 +1,12 @@
 {
   "name": "fastify",
   "version": "1.0.0",
-  "main": "index.js",
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "bun run --watch src/server.ts",
     "start": "bun run src/server.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@repo/db": "workspace:*",
     "@repo/scraper": "workspace:*",

@@ -9,12 +9,12 @@ datasource db {
 }
 
 model Department {
-  prefix      String      @id @unique
-  description String
-  rmpId       String?     @unique
-  rmpName     String?
-  Professor   Professor[]
-  Course      Course[]
+  prefix    String      @id @unique
+  name      String
+  rmpId     String?     @unique
+  rmpName   String?
+  Professor Professor[]
+  Course    Course[]
 
   @@map("department")
 }
@@ -44,7 +44,6 @@ model Course {
   department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
   professors       CourseProfessor[]
 
-  @@unique([code, departmentPrefix])
   @@map("course")
 }
 

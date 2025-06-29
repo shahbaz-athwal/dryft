@@ -16,6 +16,8 @@ model Department {
   Professor Professor[]
   Course    Course[]
 
+  @@index([prefix])
+  @@index([rmpId])
   @@map("department")
 }
 
@@ -30,7 +32,12 @@ model Professor {
   rmpLastName      String?
   imageUrl         String?
   courses          CourseProfessor[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
 
+  @@index([name])
+  @@index([departmentPrefix])
+  @@index([rmpId])
   @@map("professor")
 }
 
@@ -43,7 +50,11 @@ model Course {
   departmentPrefix String
   department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
   professors       CourseProfessor[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
 
+  @@index([code])
+  @@index([departmentPrefix])
   @@map("course")
 }
 
@@ -69,6 +80,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
+  @@index([email])
   @@map("user")
 }
 
@@ -85,6 +97,7 @@ model Session {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
+  @@index([userId])
   @@map("session")
 }
 

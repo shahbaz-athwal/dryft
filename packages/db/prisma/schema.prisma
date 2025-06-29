@@ -8,6 +8,67 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Department {
+  prefix    String      @id @unique
+  name      String
+  rmpId     String?     @unique
+  rmpName   String?
+  Professor Professor[]
+  Course    Course[]
+
+  @@index([prefix])
+  @@index([rmpId])
+  @@map("department")
+}
+
+model Professor {
+  id               String            @id @default(uuid())
+  departmentPrefix String
+  department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
+  name             String
+  description      String
+  rmpId            String?           @unique
+  rmpFirstName     String?
+  rmpLastName      String?
+  imageUrl         String?
+  courses          CourseProfessor[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  @@index([name])
+  @@index([departmentPrefix])
+  @@index([rmpId])
+  @@map("professor")
+}
+
+model Course {
+  id               String            @id @default(uuid())
+  code             String            @unique
+  name             String
+  description      String?
+  rmpName          String?
+  departmentPrefix String
+  department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
+  professors       CourseProfessor[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  @@index([code])
+  @@index([departmentPrefix])
+  @@map("course")
+}
+
+model CourseProfessor {
+  id          String    @id @default(uuid())
+  courseId    String
+  professorId String
+  course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  professor   Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, professorId])
+  @@map("course_professor")
+}
+
 model User {
   id            String    @id @default(uuid())
   email         String    @unique
@@ -19,9 +80,11 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
+  @@index([email])
   @@map("user")
 }
 
+// Better Auth
 model Session {
   id        String   @id
   expiresAt DateTime
@@ -34,6 +97,7 @@ model Session {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
+  @@index([userId])
   @@map("session")
 }
 

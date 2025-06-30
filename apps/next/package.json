@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -30,8 +29,8 @@
     "@types/node": "^20.17.46",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.4",
-    "fastify": "workspace:*",
+    "fastify-api": "workspace:*",
     "tailwindcss": "^4.1.6",
-    "typescript": "^5.8.3"
+    "typescript": "5.8.3"
   }
 }

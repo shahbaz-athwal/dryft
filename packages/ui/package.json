@@ -2,19 +2,16 @@
   "name": "@repo/ui",
   "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "lint": "",
-    "clean": "rm -rf node_modules"
-  },
   "peerDependencies": {
-    "react": "^18 || ^19",
-    "react-dom": "^18 || ^19",
+    "react": "^19",
+    "react-dom": "^19",
     "tailwindcss": "^4"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@types/react": "^19.1.4",
-    "@types/react-dom": "^19.1.4"
+    "@types/react-dom": "^19.1.4",
+    "typescript": "5.8.3"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",

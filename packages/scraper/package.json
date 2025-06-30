@@ -1,9 +1,6 @@
 {
   "name": "@repo/scraper",
-  "version": "0.0.0",
-  "module": "src/index.ts",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "version": "1.0.0",
   "type": "module",
   "private": true,
   "dependencies": {
@@ -12,9 +9,10 @@
     "graphql-request": "^7.2.0"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "5.8.3"
   },
-  "peerDependencies": {
-    "typescript": "^5"
+  "exports": {
+    ".": "./src/index.ts"
   }
 }

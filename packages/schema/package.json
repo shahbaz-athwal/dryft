@@ -1,16 +1,16 @@
 {
   "name": "@repo/schema",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "5.8.3"
   },
   "peerDependencies": {
-    "zod": "^3",
-    "typescript": "^5"
+    "zod": "^3"
   },
   "exports": {
     "./*": "./src/*.ts"

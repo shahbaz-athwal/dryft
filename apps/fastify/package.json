@@ -1,5 +1,5 @@
 {
-  "name": "fastify",
+  "name": "fastify-api",
   "version": "1.0.0",
   "type": "module",
   "private": true,
@@ -20,6 +20,10 @@
     "resend": "^4.6.0"
   },
   "devDependencies": {
+    "typescript": "5.8.3",
     "fastify-tsconfig": "^3.0.0"
+  },
+  "exports": {
+    "./trpc": "./src/trpc/router.ts"
   }
 }

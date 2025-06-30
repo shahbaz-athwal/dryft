@@ -23,7 +23,7 @@ export const acadiaImporterRouter = router({
     await prisma.department.createMany({
       data: allDepartments.map((dept) => ({
         prefix: dept.name,
-        description: dept.description,
+        name: dept.description,
       })),
     });
   }),

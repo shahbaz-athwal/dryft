@@ -3,7 +3,6 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "dev": {
@@ -14,32 +13,9 @@
       "dependsOn": ["build"],
       "cache": false
     },
-    "lint": {
-      "dependsOn": ["^build"]
-    },
-    "test": {
-      "dependsOn": ["^build"],
-      "outputs": ["coverage/**"]
-    },
-    "clean": {
-      "cache": false
-    },
     "db:generate": {
       "cache": false,
       "dependsOn": []
-    },
-    "db:migrate": {
-      "cache": false,
-      "dependsOn": ["db:generate"]
-    },
-    "db:studio": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:push": {
-      "cache": false,
-      "dependsOn": ["db:generate"]
     }
-  },
-  "globalDependencies": ["**/.env*"]
+  }
 }

@@ -1,45 +1,21 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["!VERCEL_TARGET_ENV"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"]
     },
     "dev": {
+      "dependsOn": ["@repo/db#db:generate"],
       "cache": false,
       "persistent": true
     },
-    "start": {
-      "dependsOn": ["build"],
-      "cache": false
-    },
-    "lint": {
-      "dependsOn": ["^build"]
-    },
-    "test": {
-      "dependsOn": ["^build"],
-      "outputs": ["coverage/**"]
+    "@repo/db#db:generate": {
+      "inputs": ["prisma/**"]
     },
     "clean": {
       "cache": false
-    },
-    "db:generate": {
-      "cache": false,
-      "dependsOn": []
-    },
-    "db:migrate": {
-      "cache": false,
-      "dependsOn": ["db:generate"]
-    },
-    "db:studio": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:push": {
-      "cache": false,
-      "dependsOn": ["db:generate"]
     }
-  },
-  "globalDependencies": ["**/.env*"]
+  }
 }

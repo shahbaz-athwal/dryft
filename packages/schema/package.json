@@ -1,26 +1,19 @@
 {
   "name": "@repo/schema",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
   "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "clean": "rm -rf node_modules"
   },
   "dependencies": {
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "5.8.3"
   },
   "peerDependencies": {
-    "zod": "^3",
-    "typescript": "^5"
+    "zod": "^3"
   },
   "exports": {
     "./*": "./src/*.ts"

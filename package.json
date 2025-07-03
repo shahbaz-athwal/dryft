@@ -12,8 +12,8 @@
     "test": "turbo run test",
     "api:start": "bun --filter fastify start",
     "api:dev": "bun --filter fastify dev",
-    "web:start": "bun --filter web start",
-    "web:dev": "bun --filter web dev",
+    "web:start": "bun --filter next start",
+    "web:dev": "bun --filter next dev",
     "db:studio": "bun --filter @repo/db db:studio",
     "db:generate": "bun --filter @repo/db db:generate",
     "db:migrate": "bun --filter @repo/db db:migrate"
@@ -21,7 +21,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.0.0",
     "turbo": "^2.5.3",
-    "typescript": "5.8.2"
+    "typescript": "5.8.3"
   },
   "engines": {
     "node": ">=18"

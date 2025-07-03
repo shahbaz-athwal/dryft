@@ -2,6 +2,9 @@
   "name": "@repo/ui",
   "version": "1.0.0",
   "type": "module",
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
   "peerDependencies": {
     "react": "^19",
     "react-dom": "^19",

@@ -6,16 +6,15 @@
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "dev": {
+      "dependsOn": ["@repo/db#db:generate"],
       "cache": false,
       "persistent": true
     },
-    "start": {
-      "dependsOn": ["build"],
-      "cache": false
+    "@repo/db#db:generate": {
+      "inputs": ["prisma/**"]
     },
-    "db:generate": {
-      "cache": false,
-      "dependsOn": []
+    "clean": {
+      "cache": false
     }
   }
 }

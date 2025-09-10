@@ -12,6 +12,7 @@
     "@repo/db": "workspace:*",
     "@repo/scraper": "workspace:*",
     "@repo/schema": "workspace:*",
+    "@repo/trpc": "workspace:*",
     "@fastify/cors": "^11.0.1",
     "@trpc/server": "^11.3.1",
     "better-auth": "^1.2.8",
@@ -22,8 +23,5 @@
   "devDependencies": {
     "typescript": "5.8.3",
     "fastify-tsconfig": "^3.0.0"
-  },
-  "exports": {
-    "./trpc": "./src/trpc/router.ts"
   }
 }

@@ -3,6 +3,7 @@
   "display": "Next.js",
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
@@ -10,7 +11,8 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@repo/ui/*": ["../../packages/ui/src/*"]
+      "@repo/ui/*": ["../../packages/ui/src/*"],
+      "@repo/trpc/*": ["../../packages/trpc/src/*"]
     }
   },
   "include": [

@@ -1,12 +1,12 @@
 import fastifyCors from "@fastify/cors";
+import { type AppRouter, appRouter } from "@repo/trpc/router";
+import { createContext } from "@repo/trpc/trpc";
 import {
   type FastifyTRPCPluginOptions,
   fastifyTRPCPlugin,
 } from "@trpc/server/adapters/fastify";
 import fastify from "fastify";
 import auth from "./routes/auth.routes";
-import { type AppRouter, appRouter } from "./trpc/router";
-import { createContext } from "./trpc/trpc";
 
 const f = fastify({
   logger: process.env.NODE_ENV === "development",

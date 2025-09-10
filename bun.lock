@@ -16,6 +16,7 @@
         "@repo/db": "workspace:*",
         "@repo/schema": "workspace:*",
         "@repo/scraper": "workspace:*",
+        "@repo/trpc": "workspace:*",
         "@repo/typescript-config": "workspace:*",
         "@repo/ui": "workspace:*",
         "@tanstack/react-query": "^5.80.6",
@@ -47,6 +48,7 @@
         "@repo/db": "workspace:*",
         "@repo/schema": "workspace:*",
         "@repo/scraper": "workspace:*",
+        "@repo/trpc": "workspace:*",
         "@trpc/server": "^11.3.1",
         "better-auth": "^1.2.8",
         "fastify": "^5.3.3",
@@ -95,6 +97,24 @@
       "devDependencies": {
         "@repo/typescript-config": "workspace:*",
         "typescript": "5.8.3",
+      },
+    },
+    "packages/trpc": {
+      "name": "@repo/trpc",
+      "version": "1.0.0",
+      "dependencies": {
+        "@repo/db": "workspace:*",
+        "@repo/scraper": "workspace:*",
+        "@trpc/server": "^11.3.1",
+        "zod": "^3.25.56",
+      },
+      "devDependencies": {
+        "@repo/typescript-config": "workspace:*",
+        "typescript": "5.8.3",
+      },
+      "peerDependencies": {
+        "@trpc/server": "^11",
+        "zod": "^3",
       },
     },
     "packages/typescript-config": {
@@ -445,6 +465,8 @@
     "@repo/schema": ["@repo/schema@workspace:packages/schema"],
 
     "@repo/scraper": ["@repo/scraper@workspace:packages/scraper"],
+
+    "@repo/trpc": ["@repo/trpc@workspace:packages/trpc"],
 
     "@repo/typescript-config": ["@repo/typescript-config@workspace:packages/typescript-config"],
 

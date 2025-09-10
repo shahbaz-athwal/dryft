@@ -19,6 +19,7 @@ const t = initTRPC.context<Context>().create({
   },
 });
 
+// Example middleware placeholder for context access
 t.procedure.use((opts) => {
   opts.ctx;
   return opts.next();

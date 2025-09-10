@@ -1,4 +1,5 @@
+import type { AppRouter } from "@repo/trpc/router";
 import { createTRPCReact } from "@trpc/react-query";
-import type { AppRouter } from "fastify-api/trpc";
 
-export const trpc = createTRPCReact<AppRouter>();
+type TRPCReactClient = ReturnType<typeof createTRPCReact<AppRouter>>;
+export const trpc: TRPCReactClient = createTRPCReact<AppRouter>();

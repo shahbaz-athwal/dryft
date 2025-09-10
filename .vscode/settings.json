@@ -1,11 +1,11 @@
 {
-  // "files.exclude": {
-  //   "**/node_modules": true,
-  //   "**/dist": true,
-  //   "**/.next": true,
-  //   "**/.turbo": true,
-  //   "**/out": true
-  // },
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.next": true,
+    "**/.turbo": true,
+    "**/out": true
+  },
   "editor.defaultFormatter": "biomejs.biome",
   "editor.codeActionsOnSave": {
     "source.fixAll.biome": "explicit",

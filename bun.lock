@@ -35,7 +35,6 @@
         "@types/node": "^20.17.46",
         "@types/react": "^19.1.4",
         "@types/react-dom": "^19.1.4",
-        "fastify-api": "workspace:*",
         "tailwindcss": "^4.1.6",
         "typescript": "5.8.3",
       },
@@ -56,7 +55,7 @@
         "zod": "^3.25.56",
       },
       "devDependencies": {
-        "fastify-tsconfig": "^3.0.0",
+        "@repo/typescript-config": "workspace:*",
         "typescript": "5.8.3",
       },
     },
@@ -723,8 +722,6 @@
     "fastify-api": ["fastify-api@workspace:apps/fastify-api"],
 
     "fastify-plugin": ["fastify-plugin@5.0.1", "", {}, "sha512-HCxs+YnRaWzCl+cWRYFnHmeRFyR5GVnJTAaCJQiYzQSDwK9MgJdyAsuL3nh0EWRCYMgQ5MeziymvmAhUHYHDUQ=="],
-
-    "fastify-tsconfig": ["fastify-tsconfig@3.0.0", "", {}, "sha512-TxFM9+MUUM2Ub6chZbP5sPNUFaPWA86kHU0VRd4o9OP6PBP92cj9c4/IEsnLoVHcLgrgXf2GUXWUzkJAO9iKFQ=="],
 
     "fastq": ["fastq@1.19.1", "", { "dependencies": { "reusify": "^1.0.4" } }, "sha512-GwLTyxkCXjXbxqIhTsMI2Nui8huMPtnxg7krajPJAjnEG/iiOS7i+zCtWGZR9G0NBKbXKh6X9m9UIsYX/N6vvQ=="],
 

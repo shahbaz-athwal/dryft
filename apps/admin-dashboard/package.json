@@ -31,7 +31,6 @@
     "@types/node": "^20.17.46",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.4",
-    "fastify-api": "workspace:*",
     "tailwindcss": "^4.1.6",
     "typescript": "5.8.3"
   }

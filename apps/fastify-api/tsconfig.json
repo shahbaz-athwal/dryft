@@ -1,11 +1,7 @@
 {
-  "extends": "fastify-tsconfig",
+  "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
-    "strict": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "types": ["node"],
     "paths": {
       "@repo/trpc/*": ["../../packages/trpc/src/*"]
     }

@@ -10,9 +10,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "@repo/ui/*": ["../../packages/ui/src/*"],
-      "@repo/trpc/*": ["../../packages/trpc/src/*"]
+      "@/*": ["./*"]
     }
   },
   "include": [

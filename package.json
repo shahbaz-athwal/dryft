@@ -16,7 +16,9 @@
     "web:dev": "bun --filter next dev",
     "db:studio": "bun --filter @repo/db db:studio",
     "db:generate": "bun --filter @repo/db db:generate",
-    "db:migrate": "bun --filter @repo/db db:migrate"
+    "db:migrate": "bun --filter @repo/db db:migrate",
+    "convex:dev": "bun --filter @repo/convex dev",
+    "convex:setup": "bun --filter @repo/convex setup"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.2",

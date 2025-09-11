@@ -5,7 +5,8 @@
     "includes": [
       "**",
       "!packages/ui/src/components/ui",
-      "!packages/db/generated"
+      "!packages/db/generated",
+      "!packages/convex/convex/_generated"
     ]
   },
   "linter": {

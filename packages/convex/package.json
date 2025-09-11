@@ -1,0 +1,14 @@
+{
+  "name": "@repo/convex",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "convex dev",
+    "setup": "convex dev --until-success"
+  },
+  "dependencies": {
+    "convex": "^1.27.0"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3"
+  }
+}

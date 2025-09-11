@@ -25,7 +25,7 @@ export class AcadiaScraper {
   }
 
   private validateAuth(): boolean {
-    if (!this.cookies || !this.authTimestamp) {
+    if (!(this.cookies && this.authTimestamp)) {
       return false;
     }
 
@@ -47,7 +47,7 @@ export class AcadiaScraper {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        },
+        }
       );
 
       const setCookieHeaders = response.headers["set-cookie"];
@@ -73,7 +73,7 @@ export class AcadiaScraper {
             headers: {
               Cookie: cookieString,
             },
-          },
+          }
         );
 
         if (redirectResponse.headers["set-cookie"]) {
@@ -100,7 +100,7 @@ export class AcadiaScraper {
   }
 
   public async postSearchCriteria(
-    searchCriteria?: Partial<PostSearchCriteriaRequestInferred>,
+    searchCriteria?: Partial<PostSearchCriteriaRequestInferred>
   ): Promise<PostSearchCriteriaFilteredResponseInferred> {
     if (!this.validateAuth()) {
       await this.authenticate();
@@ -131,7 +131,7 @@ export class AcadiaScraper {
           Cookie: this.cookies,
           "Content-Type": "application/json",
         },
-      },
+      }
     );
 
     return PostSearchCriteriaFilteredResponseSchema.parse(response.data);

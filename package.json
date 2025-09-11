@@ -19,9 +19,10 @@
     "db:migrate": "bun --filter @repo/db db:migrate"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.0",
+    "@biomejs/biome": "2.2.2",
     "turbo": "^2.5.3",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "ultracite": "5.3.3"
   },
   "engines": {
     "node": ">=18"

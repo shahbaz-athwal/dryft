@@ -30,9 +30,9 @@ const SchoolDepartmentsResponseSchema = z.object({
             z.object({
               id: z.string(),
               value: z.string(),
-            }),
+            })
           ),
-        }),
+        })
       ),
     }),
   }),

@@ -8,7 +8,7 @@ export const acadiaImporterRouter = router({
     const username = process.env.ACADIA_USERNAME;
     const password = process.env.ACADIA_PASSWORD;
 
-    if (!username || !password) {
+    if (!(username && password)) {
       throw new Error("ACADIA_USERNAME and ACADIA_PASSWORD must be set");
     }
 
@@ -17,7 +17,7 @@ export const acadiaImporterRouter = router({
       (dept) => ({
         name: dept.Value,
         description: dept.Description,
-      }),
+      })
     );
 
     await prisma.department.createMany({

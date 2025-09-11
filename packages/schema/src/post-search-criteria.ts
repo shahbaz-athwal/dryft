@@ -28,7 +28,7 @@ export const PostSearchCriteriaFilteredResponseSchema = z.object({
       Description: z.string(),
       LocationCodes: z.array(z.string()),
       IsPseudoCourse: z.boolean(),
-    }),
+    })
   ),
   Keyword: z.string().nullable(),
   TotalItems: z.number(),
@@ -41,7 +41,7 @@ export const PostSearchCriteriaFilteredResponseSchema = z.object({
       Description: z.string(),
       Count: z.number(),
       Selected: z.boolean(),
-    }),
+    })
   ),
   Faculty: z.array(
     z.object({
@@ -49,7 +49,7 @@ export const PostSearchCriteriaFilteredResponseSchema = z.object({
       Description: z.string(),
       Count: z.number(),
       Selected: z.boolean(),
-    }),
+    })
   ),
 });
 

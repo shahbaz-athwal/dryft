@@ -9,7 +9,7 @@ import { SEARCH_SCHOOL_QUERY } from "./queries/search-school-query";
 import { gqlClient } from "./utils/rmp-gql-client";
 
 export class RateMyProfScraper {
-  private client: GraphQLClient;
+  private readonly client: GraphQLClient;
 
   constructor() {
     this.client = gqlClient;
@@ -17,7 +17,7 @@ export class RateMyProfScraper {
 
   private async executeQuery(
     query: string,
-    variables: Record<string, unknown>,
+    variables: Record<string, unknown>
   ) {
     const response = await this.client.request(query, variables);
     return response;

@@ -8,5 +8,5 @@ const response = await rmp.searchSchools("Dal");
 console.log(
   response.newSearch.schools.edges
     .map((edge) => `${edge.node.name}, ${edge.node.city}, ${edge.node.state}`)
-    .join("\n"),
+    .join("\n")
 );

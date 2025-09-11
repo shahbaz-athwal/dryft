@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "@repo/ui/styles/globals.css";
 
-@source "@/app/**/*.{ts,tsx}";
-@source "@/components/**/*.{ts,tsx}";
-@source "@/lib/**/*.{ts,tsx}";
-@source "@/hooks/**/*.{ts,tsx}";
+@source "./**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
+@source "../lib/**/*.{ts,tsx}";
+@source "../hooks/**/*.{ts,tsx}";

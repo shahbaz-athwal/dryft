@@ -21,7 +21,7 @@
     "convex:setup": "bun --filter @repo/convex setup"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.2",
+    "@biomejs/biome": "2.2.4",
     "turbo": "^2.5.3",
     "typescript": "5.8.3",
     "ultracite": "5.3.3"

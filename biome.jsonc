@@ -10,6 +10,9 @@
   },
   "linter": {
     "rules": {
+      "style": {
+        "noMagicNumbers": "off"
+      },
       "suspicious": {
         "noUnknownAtRules": "off"
       }

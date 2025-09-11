@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { auth } from "../utils/auth";
 
-export default async function (fastify: FastifyInstance) {
+export default function (fastify: FastifyInstance) {
   fastify.route({
     method: ["GET", "POST"],
     url: "/api/auth/*",
@@ -12,9 +12,11 @@ export default async function (fastify: FastifyInstance) {
 
         // Convert Fastify headers to standard Headers object
         const headers = new Headers();
-        Object.entries(request.headers).forEach(([key, value]) => {
-          if (value) headers.append(key, value.toString());
-        });
+        for (const [key, value] of Object.entries(request.headers)) {
+          if (value) {
+            headers.append(key, value.toString());
+          }
+        }
 
         // Create Fetch API-compatible request
         const req = new Request(url.toString(), {
@@ -28,10 +30,12 @@ export default async function (fastify: FastifyInstance) {
 
         // Forward response to client
         reply.status(response.status);
-        response.headers.forEach((value, key) => reply.header(key, value));
+        for (const [key, value] of response.headers.entries()) {
+          reply.header(key, value);
+        }
         reply.send(response.body ? await response.text() : null);
-      } catch (error) {
-        fastify.log.error("Authentication Error:", error);
+      } catch (cause) {
+        fastify.log.error({ cause }, "Authentication Error");
         reply.status(500).send({
           error: "Internal authentication error",
           code: "AUTH_FAILURE",

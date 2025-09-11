@@ -23,14 +23,14 @@ export class RateMyProfScraper {
     return response;
   }
 
-  public async coursesByProfessorId(professorId: string) {
+  async coursesByProfessorId(professorId: string) {
     const query = COURSES_BY_PROFESSOR_QUERY;
     const variables = { professorId };
     const response = await this.executeQuery(query, variables);
     return response;
   }
 
-  public async searchSchools(keyword: string) {
+  async searchSchools(keyword: string) {
     const query = SEARCH_SCHOOL_QUERY;
     const variables = { query: { text: keyword } };
     const response = await this.executeQuery(query, variables);
@@ -38,7 +38,7 @@ export class RateMyProfScraper {
     return SchoolSearchResponseSchema.parse(response);
   }
 
-  public async getDepartmentbySchoolId(schoolId: string) {
+  async getDepartmentbySchoolId(schoolId: string) {
     const query = SCHOOL_DEPARTMENTS_QUERY;
     const variables = { schoolId };
     const response = await this.executeQuery(query, variables);

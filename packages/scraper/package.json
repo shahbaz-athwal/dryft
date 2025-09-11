@@ -16,6 +16,7 @@
     "typescript": "5.8.3"
   },
   "exports": {
-    ".": "./src/index.ts"
+    "./acadia": "./src/acadia-scraper.ts",
+    "./rmp": "./src/rmp-scraper.ts"
   }
 }

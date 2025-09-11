@@ -7,17 +7,18 @@ import {
 import type { AxiosError, AxiosInstance } from "axios";
 import { client } from "./utils/axios";
 
-interface ScraperCredentials {
+type ScraperCredentials = {
   username: string;
   password: string;
-}
+};
+
+const AUTH_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes
 
 export class AcadiaScraper {
-  private client: AxiosInstance;
+  private readonly client: AxiosInstance;
   private cookies: string | null = null;
-  private config: ScraperCredentials;
+  private readonly config: ScraperCredentials;
   private authTimestamp: number | null = null;
-  private readonly AUTH_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes
 
   constructor(config: ScraperCredentials) {
     this.config = config;
@@ -30,7 +31,7 @@ export class AcadiaScraper {
     }
 
     const now = Date.now();
-    return now - this.authTimestamp < this.AUTH_TIMEOUT_MS;
+    return now - this.authTimestamp < AUTH_TIMEOUT_MS;
   }
 
   private async authenticate() {
@@ -56,7 +57,9 @@ export class AcadiaScraper {
       if (setCookieHeaders) {
         allCookies = setCookieHeaders
           .map((cookieHeader) => {
-            if (!cookieHeader) return null;
+            if (!cookieHeader) {
+              return null;
+            }
             const cookiePart = cookieHeader.split(";")[0];
             return cookiePart;
           })
@@ -79,7 +82,9 @@ export class AcadiaScraper {
         if (redirectResponse.headers["set-cookie"]) {
           const redirectCookies = redirectResponse.headers["set-cookie"]
             .map((cookieHeader) => {
-              if (!cookieHeader) return null;
+              if (!cookieHeader) {
+                return null;
+              }
               return cookieHeader.split(";")[0];
             })
             .filter((cookie): cookie is string => cookie !== null);
@@ -99,7 +104,7 @@ export class AcadiaScraper {
     }
   }
 
-  public async postSearchCriteria(
+  async postSearchCriteria(
     searchCriteria?: Partial<PostSearchCriteriaRequestInferred>
   ): Promise<PostSearchCriteriaFilteredResponseInferred> {
     if (!this.validateAuth()) {
@@ -137,7 +142,7 @@ export class AcadiaScraper {
     return PostSearchCriteriaFilteredResponseSchema.parse(response.data);
   }
 
-  public clearSession(): void {
+  clearSession(): void {
     this.cookies = null;
     this.authTimestamp = null;
   }

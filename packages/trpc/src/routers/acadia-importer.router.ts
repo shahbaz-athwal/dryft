@@ -1,5 +1,5 @@
-import { prisma } from "@repo/db";
-import { AcadiaScraper } from "@repo/scraper";
+import { prisma } from "@repo/db/client";
+import { AcadiaScraper } from "@repo/scraper/acadia";
 import { publicProcedure, router } from "../trpc";
 
 export const acadiaImporterRouter = router({

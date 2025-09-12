@@ -9,13 +9,9 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
-    "@repo/db": "workspace:*",
-    "@repo/scraper": "workspace:*",
-    "@repo/schema": "workspace:*",
     "@repo/trpc": "workspace:*",
+    "@repo/convex": "workspace:*",
     "@fastify/cors": "^11.0.1",
-    "@trpc/server": "^11.3.1",
-    "better-auth": "^1.2.8",
     "fastify": "^5.3.3",
     "zod": "^3.25.56",
     "resend": "^4.6.0"

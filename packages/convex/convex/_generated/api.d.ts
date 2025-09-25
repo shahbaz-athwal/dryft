@@ -9,6 +9,7 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as departments from "../departments.js";
 
 import type {
   ApiFromModules,
@@ -26,6 +27,7 @@ import type {
  */
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  departments: typeof departments;
 }>;
 declare const fullApiWithMounts: typeof fullApi;
 

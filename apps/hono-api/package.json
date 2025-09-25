@@ -1,0 +1,20 @@
+{
+  "name": "hono-api",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --watch src/server.ts",
+    "start": "bun run src/server.ts",
+    "clean": "rm -rf node_modules"
+  },
+  "dependencies": {
+    "@repo/convex": "workspace:*",
+    "hono": "^4.9.7",
+    "zod": "^4.1.8"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3",
+    "@repo/typescript-config": "workspace:*"
+  }
+}

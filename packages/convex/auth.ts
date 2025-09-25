@@ -7,7 +7,7 @@ import { env } from "./env";
 export const auth = (ctx: GenericCtx) => {
   betterAuth({
     database: convexAdapter(ctx, betterAuthComponent),
-    baseURL: env.API_URL,
+    baseURL: env.CONVEX_URL,
     emailAndPassword: {
       enabled: true,
       requireEmailVerification: false,

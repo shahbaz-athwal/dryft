@@ -1,0 +1,10 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "paths": {
+      "@repo/trpc/*": ["../../packages/trpc/src/*"]
+    }
+  },
+  "include": ["@types", "src/**/*.ts"]
+}

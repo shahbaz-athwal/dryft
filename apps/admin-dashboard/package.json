@@ -9,6 +9,7 @@
     "clean": "rm -rf node_modules && rm -rf .next"
   },
   "dependencies": {
+    "@repo/convex": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@repo/ui": "workspace:*",
     "@repo/db": "workspace:*",

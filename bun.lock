@@ -56,6 +56,19 @@
         "typescript": "5.8.3",
       },
     },
+    "apps/hono-api": {
+      "name": "hono-api",
+      "version": "1.0.0",
+      "dependencies": {
+        "@repo/convex": "workspace:*",
+        "hono": "^4.9.7",
+        "zod": "^4.1.8",
+      },
+      "devDependencies": {
+        "@repo/typescript-config": "workspace:*",
+        "typescript": "5.8.3",
+      },
+    },
     "packages/convex": {
       "name": "@repo/convex",
       "version": "1.0.0",
@@ -923,6 +936,10 @@
     "has-tostringtag": ["has-tostringtag@1.0.2", "", { "dependencies": { "has-symbols": "^1.0.3" } }, "sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo+ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw=="],
 
     "hasown": ["hasown@2.0.2", "", { "dependencies": { "function-bind": "^1.1.2" } }, "sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ=="],
+
+    "hono": ["hono@4.9.7", "", {}, "sha512-t4Te6ERzIaC48W3x4hJmBwgNlLhmiEdEE5ViYb02ffw4ignHNHa5IBtPjmbKstmtKa8X6C35iWwK4HaqvrzG9w=="],
+
+    "hono-api": ["hono-api@workspace:apps/hono-api"],
 
     "html-to-text": ["html-to-text@9.0.5", "", { "dependencies": { "@selderee/plugin-htmlparser2": "^0.11.0", "deepmerge": "^4.3.1", "dom-serializer": "^2.0.0", "htmlparser2": "^8.0.2", "selderee": "^0.11.0" } }, "sha512-qY60FjREgVZL03vJU6IfMV4GDjGBIoOyvuFdpBDIX9yTlDw0TjxVBQp+P8NvpdIXNJvfWBTNul7fsAQJq2FNpg=="],
 

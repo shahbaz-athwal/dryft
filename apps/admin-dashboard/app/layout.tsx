@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ConvexProviderWrapper } from "@/components/convex-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TRPCProvider } from "@/components/trpc-provider";
 
@@ -30,9 +31,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <TRPCProvider>
-          <ThemeProvider attribute="class" defaultTheme="light">
-            {children}
-          </ThemeProvider>
+          <ConvexProviderWrapper>
+            <ThemeProvider attribute="class" defaultTheme="light">
+              {children}
+            </ThemeProvider>
+          </ConvexProviderWrapper>
         </TRPCProvider>
       </body>
     </html>

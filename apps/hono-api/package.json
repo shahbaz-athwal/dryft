@@ -9,9 +9,10 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
-    "@repo/convex": "workspace:*",
+    "@repo/orpc": "workspace:*",
+    "@orpc/server": "latest",
     "hono": "^4.9.7",
-    "zod": "^4.1.8"
+    "zod": "^3.25.56"
   },
   "devDependencies": {
     "typescript": "5.8.3",

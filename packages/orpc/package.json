@@ -1,5 +1,5 @@
 {
-  "name": "@repo/trpc",
+  "name": "@repo/orpc",
   "version": "1.0.0",
   "type": "module",
   "private": true,
@@ -9,29 +9,22 @@
   "dependencies": {
     "@repo/db": "workspace:*",
     "@repo/scraper": "workspace:*",
-    "@trpc/server": "^11.3.1",
+    "@orpc/server": "latest",
+    "@orpc/zod": "latest",
     "zod": "^3.25.56"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "typescript": "5.8.3"
   },
-  "peerDependencies": {
-    "zod": "^3",
-    "@trpc/server": "^11"
-  },
   "exports": {
     "./router": "./src/router.ts",
-    "./trpc": "./src/trpc.ts",
     "./routers/*": "./src/routers/*.ts"
   },
   "typesVersions": {
     "*": {
       "router": [
         "src/router.ts"
-      ],
-      "trpc": [
-        "src/trpc.ts"
       ],
       "routers/*": [
         "src/routers/*.ts"

@@ -11,18 +11,12 @@
   "dependencies": {
     "@repo/typescript-config": "workspace:*",
     "@repo/ui": "workspace:*",
-    "@repo/db": "workspace:*",
     "@repo/scraper": "workspace:*",
-    "@repo/schema": "workspace:*",
-    "@repo/orpc": "workspace:*",
-    "@tanstack/react-query": "^5.80.6",
-    "@orpc/client": "latest",
-    "@orpc/react": "latest",
     "lucide-react": "^0.510.0",
-    "next": "15.3.2",
+    "next": "15.5.4",
     "next-themes": "^0.4.6",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.6",

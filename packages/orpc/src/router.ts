@@ -1,31 +1,53 @@
-import { createRouter } from "@orpc/server";
-import { schemas } from "./contract";
-import { acadiaImporterRouter } from "./routers/acadia-importer.router";
+import type { IncomingHttpHeaders } from "node:http";
+import { ORPCError, os } from "@orpc/server";
+import { z } from "zod";
 
-const baseRouter = createRouter();
+const PlanetSchema = z.object({
+  id: z.number().int().min(1),
+  name: z.string(),
+  description: z.string().optional(),
+});
 
-export const router = baseRouter
-  .query("hello", {
-    input: schemas.hello.input,
-    output: schemas.hello.output,
-    resolve: async () => "Hello World",
-  })
-  .query("users", {
-    input: schemas.users.input,
-    output: schemas.users.output,
-    resolve: async () => [
-      { id: 1, name: "John Doe" },
-      { id: 2, name: "Jane Doe" },
-    ],
-  })
-  .query("user", {
-    input: schemas.user.input,
-    output: schemas.user.output,
-    resolve: async ({ input }) => ({
-      id: input.id,
-      name: "John Doe",
-    }),
-  })
-  .merge("acadiaImporter", acadiaImporterRouter);
+export const listPlanet = os
+  .input(
+    z.object({
+      limit: z.number().int().min(1).max(100).optional(),
+      cursor: z.number().int().min(0).default(0),
+    })
+  )
+  .handler((_) => {
+    // your list code here
+    return [{ id: 1, name: "name" }];
+  });
 
-export type Router = typeof router;
+export const findPlanet = os
+  .input(PlanetSchema.pick({ id: true }))
+  .handler((_) => {
+    // your find code here
+    return { id: 1, name: "name" };
+  });
+
+export const createPlanet = os
+  .$context<{ headers: IncomingHttpHeaders }>()
+  .use(({ next }) => {
+    const user = "Hello";
+
+    if (user !== "Hello") {
+      return next({ context: { user } });
+    }
+
+    throw new ORPCError("UNAUTHORIZED");
+  })
+  .input(PlanetSchema.omit({ id: true }))
+  .handler((_) => {
+    // your create code here
+    return { id: 1, name: "name" };
+  });
+
+export const router = {
+  planet: {
+    list: listPlanet,
+    find: findPlanet,
+    create: createPlanet,
+  },
+};

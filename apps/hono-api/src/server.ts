@@ -1,5 +1,4 @@
-import { createMiddleware, RPCHandler } from "@orpc/server/hono";
-import { router } from "@repo/orpc/router";
+import { handler } from "@repo/orpc/handler";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
@@ -7,15 +6,18 @@ const app = new Hono();
 
 app.use("*", cors());
 
-const rpcHandler = new RPCHandler(router);
+app.use("/rpc/*", async (c, next) => {
+  const { matched, response } = await handler.handle(c.req.raw, {
+    prefix: "/rpc",
+    context: { headers: c.req.raw.headers }, // Provide initial context if needed
+  });
 
-app.use(
-  "/orpc/*",
-  createMiddleware(rpcHandler, {
-    prefix: "/orpc",
-    context: async () => ({}),
-  })
-);
+  if (matched) {
+    return c.newResponse(response.body, response);
+  }
+
+  await next();
+});
 
 app.get("/", (c) => c.text("Hono API with oRPC"));
 

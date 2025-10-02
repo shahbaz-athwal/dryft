@@ -10,9 +10,8 @@
   },
   "dependencies": {
     "@repo/orpc": "workspace:*",
-    "@orpc/server": "latest",
     "hono": "^4.9.7",
-    "zod": "^3.25.56"
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "typescript": "5.8.3",

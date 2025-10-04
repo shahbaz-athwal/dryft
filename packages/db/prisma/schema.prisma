@@ -9,12 +9,12 @@ datasource db {
 }
 
 model Department {
-  prefix    String      @id @unique
-  name      String
-  rmpId     String?     @unique
-  rmpName   String?
-  Professor Professor[]
-  Course    Course[]
+  prefix     String      @id @unique
+  name       String
+  rmpId      String?     @unique
+  lastSync   DateTime?
+  professors Professor[]
+  courses    Course[]
 
   @@index([prefix])
   @@index([rmpId])
@@ -22,18 +22,17 @@ model Department {
 }
 
 model Professor {
-  id               String            @id @default(uuid())
+  id               String            @id
   departmentPrefix String
   department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
   name             String
-  description      String
   rmpId            String?           @unique
-  rmpFirstName     String?
-  rmpLastName      String?
   imageUrl         String?
+  lastSync         DateTime?
   courses          CourseProfessor[]
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
+  sections         Section[]
 
   @@index([name])
   @@index([departmentPrefix])
@@ -42,20 +41,40 @@ model Professor {
 }
 
 model Course {
-  id               String            @id @default(uuid())
+  id               String            @id
   code             String            @unique
-  name             String
+  title            String
   description      String?
-  rmpName          String?
   departmentPrefix String
+  sectionIds       String[]
+  sections         Section[]
   department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
   professors       CourseProfessor[]
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
+  lastSync         DateTime?
 
   @@index([code])
   @@index([departmentPrefix])
   @@map("course")
+}
+
+model Section {
+  id          String    @id
+  code        String
+  description String?
+  Course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId    String
+  professorId String
+  startDate   DateTime
+  endDate     DateTime
+  classTime   String
+  room        String
+  days        Int[]
+  professor   Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+
+  @@map("section")
 }
 
 model CourseProfessor {

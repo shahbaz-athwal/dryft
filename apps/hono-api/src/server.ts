@@ -9,7 +9,7 @@ app.use("*", cors());
 app.use("/rpc/*", async (c, next) => {
   const { matched, response } = await handler.handle(c.req.raw, {
     prefix: "/rpc",
-    context: { headers: c.req.raw.headers }, // Provide initial context if needed
+    context: {}, // Provide initial context if needed
   });
 
   if (matched) {

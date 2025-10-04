@@ -1,5 +1,4 @@
-import type { IncomingHttpHeaders } from "node:http";
-import { ORPCError, os } from "@orpc/server";
+import { os } from "@orpc/server";
 import { z } from "zod";
 
 const PlanetSchema = z.object({
@@ -27,27 +26,9 @@ export const findPlanet = os
     return { id: 1, name: "name" };
   });
 
-export const createPlanet = os
-  .$context<{ headers: IncomingHttpHeaders }>()
-  .use(({ next }) => {
-    const user = "Hello";
-
-    if (user !== "Hello") {
-      return next({ context: { user } });
-    }
-
-    throw new ORPCError("UNAUTHORIZED");
-  })
-  .input(PlanetSchema.omit({ id: true }))
-  .handler((_) => {
-    // your create code here
-    return { id: 1, name: "name" };
-  });
-
 export const router = {
   planet: {
     list: listPlanet,
     find: findPlanet,
-    create: createPlanet,
   },
 };

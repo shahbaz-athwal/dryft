@@ -4,16 +4,14 @@ services:
     container_name: api-dev
     build:
       context: ../
-      dockerfile: apps/fastify/Dockerfile
+      dockerfile: apps/hono-api/Dockerfile
     ports:
-      - 4050:4050
+      - 4000:4000
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db-dev:5432/postgres
       - NODE_ENV=development
-      - PORT=4050
       - FRONTEND_URL=http://localhost:3000
       - BETTER_AUTH_SECRET=secret-key
-      - RESEND_API_KEY
       - ACADIA_USERNAME
       - ACADIA_PASSWORD
     volumes:

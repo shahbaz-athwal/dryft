@@ -31,10 +31,10 @@ WORKDIR /app
 
 COPY --from=installer /app .
 
-RUN addgroup -S fastify && adduser -S -G fastify fastify
+RUN addgroup -S hono && adduser -S -G hono hono
 
-USER fastify
+USER hono
 
 EXPOSE 4050
 
-CMD ["bun", "run", "apps/fastify/src/server.ts"]
+CMD ["bun", "run", "apps/hono-api/src/server.ts"]

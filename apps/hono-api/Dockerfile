@@ -6,7 +6,7 @@ WORKDIR /app
 RUN npm install -g bun turbo
 
 COPY . .
-RUN turbo prune fastify --docker
+RUN turbo prune hono-api --docker
 
 # ---------- Install Dependencies ----------
 FROM node:20 AS installer
@@ -35,6 +35,6 @@ RUN addgroup -S hono && adduser -S -G hono hono
 
 USER hono
 
-EXPOSE 4050
+EXPOSE 4000
 
 CMD ["bun", "run", "apps/hono-api/src/server.ts"]

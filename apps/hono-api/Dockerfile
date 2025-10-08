@@ -6,7 +6,7 @@ WORKDIR /app
 RUN npm install -g bun turbo
 
 COPY . .
-RUN turbo prune fastify --docker
+RUN turbo prune hono-api --docker
 
 # ---------- Install Dependencies ----------
 FROM node:20 AS installer
@@ -16,9 +16,10 @@ WORKDIR /app
 RUN npm install -g bun
 
 COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/bun.lock ./bun.lock
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/bun.lock ./bun.lock
 
-RUN bun install --frozen-lockfile
+RUN bun install
 
 COPY --from=builder /app/out/full/ .
 
@@ -31,10 +32,10 @@ WORKDIR /app
 
 COPY --from=installer /app .
 
-RUN addgroup -S fastify && adduser -S -G fastify fastify
+RUN addgroup -S hono && adduser -S -G hono hono
 
-USER fastify
+USER hono
 
-EXPOSE 4050
+EXPOSE 4000
 
-CMD ["bun", "run", "apps/fastify/src/server.ts"]
+CMD ["bun", "run", "apps/hono-api/src/server.ts"]

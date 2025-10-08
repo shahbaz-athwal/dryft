@@ -1,0 +1,23 @@
+{
+  "name": "@repo/orpc",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
+  "dependencies": {
+    "@repo/db": "workspace:*",
+    "@repo/scraper": "workspace:*",
+    "@orpc/server": "^1.9.2",
+    "zod": "^3.25.56"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "5.8.3"
+  },
+  "exports": {
+    "./router": "./src/router.ts",
+    "./handler": "./src/handler.ts"
+  }
+}

@@ -1,0 +1,35 @@
+name: dryft
+services:
+  dryft-api:
+    container_name: dryft-api-dev
+    image: ghcr.io/shahbaz-athwal/dryft-api-dev:latest
+    environment:
+      - PORT=4000
+      - DATABASE_URL
+      - NODE_ENV=development
+      - FRONTEND_URL
+      - BETTER_AUTH_SECRET
+      - ACADIA_USERNAME
+      - ACADIA_PASSWORD
+    command: "bun run api:dev"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.dryft-api-dev.rule=Host(`api-dev.dryft.ca`)"
+      - "traefik.http.routers.dryft-api-dev.entrypoints=websecure"
+      - "traefik.http.routers.dryft-api-dev.tls=true"
+      - "traefik.http.routers.dryft-api-dev.tls.certresolver=myresolver"
+      - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      - traefik
+      - db-dev
+      - monitoring
+
+  prisma-studio:
+    container_name: prisma-studio-dev
+    image: ghcr.io/shahbaz-athwal/dryft-api-dev:latest
+    environment:
+      - DATABASE_URL
+      - HOME=/app
+    user: "root"
+    command: "bun run db:studio --browser=none --hostname=0.0.0.0"

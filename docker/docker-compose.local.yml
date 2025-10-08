@@ -4,21 +4,21 @@ services:
     container_name: api-dev
     build:
       context: ../
-      dockerfile: apps/fastify/Dockerfile
+      dockerfile: apps/hono-api/Dockerfile
     ports:
-      - 4050:4050
+      - 4000:4000
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db-dev:5432/postgres
       - NODE_ENV=development
-      - PORT=4050
+      - PORT=4000
       - FRONTEND_URL=http://localhost:3000
       - BETTER_AUTH_SECRET=secret-key
       - RESEND_API_KEY
       - ACADIA_USERNAME
       - ACADIA_PASSWORD
     volumes:
-      - ../apps/fastify/src:/app/apps/fastify/src
-      - ../apps/fastify/.env:/app/apps/fastify/.env
+      - ../apps/hono-api/src:/app/apps/hono-api/src
+      - ../apps/hono-api/.env:/app/apps/hono-api/.env
       - ../packages:/app/packages
     command: "bun run api:dev"
     depends_on:
@@ -40,7 +40,7 @@ services:
     container_name: prisma-studio
     build:
       context: ../
-      dockerfile: apps/fastify/Dockerfile
+      dockerfile: apps/hono-api/Dockerfile
     ports:
       - 5555:5555
     environment:

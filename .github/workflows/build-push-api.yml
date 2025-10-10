@@ -1,15 +1,11 @@
-name: Build and Push API Dev
+name: Build and Push API
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "apps/hono-api/**"
   workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}-api-dev
+  IMAGE_NAME: ${{ github.repository }}-api
 
 jobs:
   build-and-push:

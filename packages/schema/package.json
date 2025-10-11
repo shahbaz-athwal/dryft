@@ -6,14 +6,11 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
-    "zod": "^3.24.2"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "typescript": "5.8.3"
-  },
-  "peerDependencies": {
-    "zod": "^3"
+    "typescript": "catalog:"
   },
   "exports": {
     "./*": "./src/*.ts"

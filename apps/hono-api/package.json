@@ -12,10 +12,10 @@
     "@repo/orpc": "workspace:*",
     "hono": "^4.9.7",
     "inngest": "^3.44.2",
-    "zod": "^4.1.11"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   }
 }

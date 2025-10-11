@@ -10,12 +10,12 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
-    "@prisma/client": "^6.6.0",
-    "prisma": "^6.6.0"
+    "@prisma/client": "^6.17.1",
+    "prisma": "^6.17.1"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   },
   "exports": {
     "./client": "./src/client.ts"

@@ -7,6 +7,15 @@
 **/tmp
 **/cache
 **/temp
+**/.git
+**/.gitignore
+**/.DS_Store
+**/out
+**/*.log
+**/.vscode
+**/.idea
+**/README.md
+**/*.md
 
 ## VCS
 .git
@@ -70,3 +79,7 @@ docker-compose*.yml
 *.tgz
 *.zip
 .cursor
+.dockerignore
+.turbo
+README.node_modules
+biome.jsonc

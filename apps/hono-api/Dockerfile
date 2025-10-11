@@ -1,40 +1,32 @@
 # ---------- Build Stage ----------
-FROM node:20 AS builder
-
+FROM oven/bun:1.3.0-alpine AS base
 WORKDIR /app
 
-RUN npm install -g bun turbo
-
+RUN bun install -g turbo
 COPY . .
 RUN turbo prune hono-api --docker
 
 # ---------- Install Dependencies ----------
-FROM node:20 AS installer
+FROM base AS installer
 
 WORKDIR /app
 
-RUN npm install -g bun
-
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/bun.lock ./bun.lock
-
-RUN bun install
-
-COPY --from=builder /app/out/full/ .
-
+COPY --from=base /app/out/json/ .
+COPY --from=base /app/package.json ./package.json
+COPY --from=base /app/bun.lock ./bun.lock
+RUN bun install --filter hono-api --production --frozen-lockfile
+COPY --from=base /app/out/full/ .
 RUN bun run turbo db:generate
 
 # ---------- Final Stage ----------
-FROM oven/bun:alpine AS runner
+FROM oven/bun:1.3.0-alpine AS runner
 
 WORKDIR /app
 
+RUN addgroup --system --gid 1001 hono-api
+RUN adduser --system --uid 1001 hono-api
+USER hono-api
 COPY --from=installer /app .
-
-RUN addgroup -S hono && adduser -S -G hono hono
-
-USER hono
 
 EXPOSE 4000
 

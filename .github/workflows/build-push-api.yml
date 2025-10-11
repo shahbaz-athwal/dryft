@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "apps/hono-api/**"
   workflow_dispatch:
 
 env:

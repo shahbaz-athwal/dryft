@@ -1,6 +1,9 @@
 name: Build and Push API
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 env:

@@ -5,12 +5,13 @@ services:
     image: ghcr.io/shahbaz-athwal/dryft-api:latest
     environment:
       - PORT=4000
-      - DATABASE_URL
       - NODE_ENV=production
       - FRONTEND_URL
       - BETTER_AUTH_SECRET
       - ACADIA_USERNAME
       - ACADIA_PASSWORD
+      - INNGEST_EVENT_KEY
+      - INNGEST_SIGNING_KEY
     command: "bun run api:start"
     labels:
       - "traefik.enable=true"
@@ -29,12 +30,14 @@ services:
     image: ghcr.io/shahbaz-athwal/dryft-api:latest
     environment:
       - PORT=4000
-      - DEV_DATABASE_URL
-      - NODE_ENV=development
-      - FRONTEND_URL
-      - BETTER_AUTH_SECRET
+      - NODE_ENV=production
+      - DATABASE_URL=${DEV_DATABASE_URL}
+      - FRONTEND_URL=${DEV_FRONTEND_URL}
+      - BETTER_AUTH_SECRET=${DEV_BETTER_AUTH_SECRET}
       - ACADIA_USERNAME
       - ACADIA_PASSWORD
+      - INNGEST_EVENT_KEY=${DEV_INNGEST_EVENT_KEY}
+      - INNGEST_SIGNING_KEY=${DEV_INNGEST_SIGNING_KEY}
     command: "bun run api:start"
     labels:
       - "traefik.enable=true"

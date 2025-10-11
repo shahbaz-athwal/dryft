@@ -1,10 +1,14 @@
 import { handler } from "@repo/orpc/handler";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { serve } from "inngest/hono";
+import { functions, inngest } from "./inngest";
 
 const app = new Hono();
 
 app.use("*", cors());
+
+app.use("/api/inngest/*", serve({ client: inngest, functions }));
 
 app.use("/rpc/*", async (c, next) => {
   const { matched, response } = await handler.handle(c.req.raw, {

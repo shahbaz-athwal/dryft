@@ -9,9 +9,9 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
+    "@repo/auth": "workspace:*",
     "@repo/orpc": "workspace:*",
     "@repo/db": "workspace:*",
-    "better-auth": "^1.3.27",
     "hono": "^4.9.7",
     "inngest": "^3.44.2",
     "zod": "catalog:"

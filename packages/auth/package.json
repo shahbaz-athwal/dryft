@@ -1,5 +1,5 @@
 {
-  "name": "@repo/orpc",
+  "name": "@repo/auth",
   "version": "1.0.0",
   "type": "module",
   "private": true,
@@ -7,18 +7,14 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
-    "@repo/auth": "workspace:*",
     "@repo/db": "workspace:*",
-    "@repo/scraper": "workspace:*",
-    "@orpc/server": "^1.9.3",
-    "zod": "catalog:"
+    "better-auth": "catalog:"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {
-    "./router": "./src/router.ts",
-    "./handler": "./src/handler.ts"
+    ".": "./src/index.ts"
   }
 }

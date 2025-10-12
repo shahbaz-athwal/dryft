@@ -1,9 +1,9 @@
+import { auth } from "@repo/auth";
 import { handler } from "@repo/orpc/handler";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serve } from "inngest/hono";
 import { functions, inngest } from "./inngest";
-import { auth } from "./utils/auth";
 
 const app = new Hono();
 

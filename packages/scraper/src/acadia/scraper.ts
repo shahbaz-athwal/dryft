@@ -51,6 +51,8 @@ export class AcadiaScraper {
         }
       );
 
+      console.log("response", response.data);
+
       const setCookieHeaders = response.headers["set-cookie"];
       let allCookies: string[] = [];
 
@@ -94,6 +96,7 @@ export class AcadiaScraper {
       }
 
       this.cookies = allCookies.join("; ");
+      console.log("this.cookies", this.cookies);
       this.authTimestamp = Date.now();
       return { success: true };
     } catch (error) {
@@ -142,6 +145,38 @@ export class AcadiaScraper {
     return PostSearchCriteriaFilteredResponseSchema.parse(response.data);
   }
 
+  async getAllDepartments() {
+    const data = await this.postSearchCriteria();
+    return data.Subjects.map((subject) => ({
+      prefix: subject.Value,
+      name: subject.Description,
+    }));
+  }
+
+  async getFacultiesByDepartment(departmentPrefix: string) {
+    const data = await this.postSearchCriteria({
+      subjects: [departmentPrefix],
+    });
+    return data.Faculty.map((faculty) => ({
+      id: faculty.Value,
+      name: faculty.Description,
+    }));
+  }
+
+  async getCoursesPage(pageNumber: number) {
+    const data = await this.postSearchCriteria({ pageNumber });
+    return {
+      pagination: {
+        totalItems: data.TotalItems,
+        totalPages: data.TotalPages,
+        nextPage:
+          data.CurrentPageIndex < data.TotalPages
+            ? data.CurrentPageIndex + 1
+            : null,
+      },
+      courses: data.Courses,
+    };
+  }
   clearSession(): void {
     this.cookies = null;
     this.authTimestamp = null;

@@ -12,6 +12,7 @@
     "@repo/auth": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/orpc": "workspace:*",
+    "@repo/scraper": "workspace:*",
     "hono": "^4.9.7",
     "inngest": "^3.44.2",
     "zod": "catalog:"

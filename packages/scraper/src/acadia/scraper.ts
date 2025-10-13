@@ -51,8 +51,6 @@ export class AcadiaScraper {
         }
       );
 
-      console.log("response", response.data);
-
       const setCookieHeaders = response.headers["set-cookie"];
       let allCookies: string[] = [];
 
@@ -96,7 +94,6 @@ export class AcadiaScraper {
       }
 
       this.cookies = allCookies.join("; ");
-      console.log("this.cookies", this.cookies);
       this.authTimestamp = Date.now();
       return { success: true };
     } catch (error) {
@@ -107,7 +104,7 @@ export class AcadiaScraper {
     }
   }
 
-  async postSearchCriteria(
+  private async postSearchCriteria(
     searchCriteria?: Partial<PostSearchCriteriaRequestInferred>
   ): Promise<PostSearchCriteriaFilteredResponseInferred> {
     if (!this.validateAuth()) {

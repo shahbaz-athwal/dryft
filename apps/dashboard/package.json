@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "bun --env-file ../../.env next dev",
     "build": "next build",
     "start": "next start",
     "clean": "rm -rf node_modules && rm -rf .next"

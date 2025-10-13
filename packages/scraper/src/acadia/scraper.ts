@@ -1,10 +1,10 @@
+import type { AxiosError, AxiosInstance } from "axios";
 import {
   type PostSearchCriteriaFilteredResponseInferred,
   PostSearchCriteriaFilteredResponseSchema,
   type PostSearchCriteriaRequestInferred,
   PostSearchCriteriaRequestSchema,
-} from "@repo/schema/post-search-criteria";
-import type { AxiosError, AxiosInstance } from "axios";
+} from "./schemas/post-search-criteria";
 import { client } from "./utils/axios";
 
 type ScraperCredentials = {

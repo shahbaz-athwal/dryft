@@ -1,4 +1,4 @@
-import { RateMyProfScraper } from "../src/rmp-scraper";
+import { RateMyProfScraper } from "../src/rmp/scraper";
 
 const rmp = new RateMyProfScraper();
 

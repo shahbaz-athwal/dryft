@@ -91,24 +91,13 @@
         "typescript": "catalog:",
       },
     },
-    "packages/schema": {
-      "name": "@repo/schema",
-      "version": "1.0.0",
-      "dependencies": {
-        "zod": "catalog:",
-      },
-      "devDependencies": {
-        "@repo/typescript-config": "workspace:*",
-        "typescript": "catalog:",
-      },
-    },
     "packages/scraper": {
       "name": "@repo/scraper",
       "version": "1.0.0",
       "dependencies": {
-        "@repo/schema": "workspace:*",
         "axios": "^1.10.0",
         "graphql-request": "^7.2.0",
+        "zod": "catalog:",
       },
       "devDependencies": {
         "@repo/typescript-config": "workspace:*",
@@ -738,8 +727,6 @@
     "@repo/db": ["@repo/db@workspace:packages/db"],
 
     "@repo/orpc": ["@repo/orpc@workspace:packages/orpc"],
-
-    "@repo/schema": ["@repo/schema@workspace:packages/schema"],
 
     "@repo/scraper": ["@repo/scraper@workspace:packages/scraper"],
 

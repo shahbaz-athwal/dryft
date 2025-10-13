@@ -9,15 +9,13 @@
   "dependencies": {
     "@repo/db": "workspace:*",
     "better-auth": "catalog:",
-    "zod": "catalog:",
-    "@t3-oss/env-core": "catalog:"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./env": "./src/env.ts"
+    ".": "./src/index.ts"
   }
 }

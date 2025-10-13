@@ -57,7 +57,6 @@
       "version": "1.0.0",
       "dependencies": {
         "@repo/db": "workspace:*",
-        "@t3-oss/env-core": "catalog:",
         "better-auth": "catalog:",
         "zod": "catalog:",
       },

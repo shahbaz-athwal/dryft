@@ -7,16 +7,16 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
-    "@repo/schema": "workspace:*",
     "axios": "^1.10.0",
-    "graphql-request": "^7.2.0"
+    "graphql-request": "^7.2.0",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {
-    "./acadia": "./src/acadia-scraper.ts",
-    "./rmp": "./src/rmp-scraper.ts"
+    "./acadia": "./src/acadia/scraper.ts",
+    "./rmp": "./src/rmp/scraper.ts"
   }
 }

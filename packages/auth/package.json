@@ -1,11 +1,14 @@
 {
-  "name": "@repo/schema",
+  "name": "@repo/auth",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
+    "@repo/db": "workspace:*",
+    "better-auth": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
@@ -13,6 +16,6 @@
     "typescript": "catalog:"
   },
   "exports": {
-    "./*": "./src/*.ts"
+    ".": "./src/index.ts"
   }
 }

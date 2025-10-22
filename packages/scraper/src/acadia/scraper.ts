@@ -1,10 +1,10 @@
+import type { AxiosError, AxiosInstance } from "axios";
 import {
   type PostSearchCriteriaFilteredResponseInferred,
   PostSearchCriteriaFilteredResponseSchema,
   type PostSearchCriteriaRequestInferred,
   PostSearchCriteriaRequestSchema,
-} from "@repo/schema/post-search-criteria";
-import type { AxiosError, AxiosInstance } from "axios";
+} from "./schemas/post-search-criteria";
 import { client } from "./utils/axios";
 
 type ScraperCredentials = {
@@ -104,7 +104,7 @@ export class AcadiaScraper {
     }
   }
 
-  async postSearchCriteria(
+  private async postSearchCriteria(
     searchCriteria?: Partial<PostSearchCriteriaRequestInferred>
   ): Promise<PostSearchCriteriaFilteredResponseInferred> {
     if (!this.validateAuth()) {
@@ -142,6 +142,38 @@ export class AcadiaScraper {
     return PostSearchCriteriaFilteredResponseSchema.parse(response.data);
   }
 
+  async getAllDepartments() {
+    const data = await this.postSearchCriteria();
+    return data.Subjects.map((subject) => ({
+      prefix: subject.Value,
+      name: subject.Description,
+    }));
+  }
+
+  async getFacultiesByDepartment(departmentPrefix: string) {
+    const data = await this.postSearchCriteria({
+      subjects: [departmentPrefix],
+    });
+    return data.Faculty.map((faculty) => ({
+      id: faculty.Value,
+      name: faculty.Description,
+    }));
+  }
+
+  async getCoursesPage(pageNumber: number) {
+    const data = await this.postSearchCriteria({ pageNumber });
+    return {
+      pagination: {
+        totalItems: data.TotalItems,
+        totalPages: data.TotalPages,
+        nextPage:
+          data.CurrentPageIndex < data.TotalPages
+            ? data.CurrentPageIndex + 1
+            : null,
+      },
+      courses: data.Courses,
+    };
+  }
   clearSession(): void {
     this.cookies = null;
     this.authTimestamp = null;

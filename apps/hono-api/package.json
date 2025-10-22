@@ -4,12 +4,15 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --watch src/server.ts",
+    "dev": "bun run --watch src/server.ts --env-file ../../.env ",
     "start": "bun run src/server.ts",
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
+    "@repo/auth": "workspace:*",
+    "@repo/db": "workspace:*",
     "@repo/orpc": "workspace:*",
+    "@repo/scraper": "workspace:*",
     "hono": "^4.9.7",
     "inngest": "^3.44.2",
     "zod": "catalog:"

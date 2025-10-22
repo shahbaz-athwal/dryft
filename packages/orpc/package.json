@@ -7,6 +7,7 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
+    "@repo/auth": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/scraper": "workspace:*",
     "@orpc/server": "^1.9.3",

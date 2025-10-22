@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio",
+    "db:generate": "bun with-env prisma generate",
+    "db:migrate": "bun with-env prisma migrate dev",
+    "db:studio": "bun with-env prisma studio",
     "db:push": "prisma db push --skip-generate",
-    "clean": "rm -rf node_modules"
+    "clean": "rm -rf node_modules",
+    "with-env": "bun --env-file ../../.env"
   },
   "dependencies": {
     "@prisma/client": "^6.17.1",

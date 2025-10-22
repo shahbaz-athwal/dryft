@@ -1,3 +1,4 @@
+import { auth } from "@repo/auth";
 import { handler } from "@repo/orpc/handler";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
@@ -6,9 +7,19 @@ import { functions, inngest } from "./inngest";
 
 const app = new Hono();
 
-app.use("*", cors());
+app.use(
+  "*",
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.use("/api/inngest/*", serve({ client: inngest, functions }));
+
+app.on(["POST", "GET"], "/api/auth/*", (c) => {
+  return auth.handler(c.req.raw);
+});
 
 app.use("/rpc/*", async (c, next) => {
   const { matched, response } = await handler.handle(c.req.raw, {

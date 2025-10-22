@@ -1,4 +1,3 @@
-import { SchoolSearchResponseSchema } from "@repo/schema/gql/school-search-response";
 import type { GraphQLClient } from "graphql-request";
 import { COURSES_BY_PROFESSOR_QUERY } from "./queries/courses-by-prof-id";
 import {
@@ -6,7 +5,8 @@ import {
   SchoolDepartmentsResponseSchema,
 } from "./queries/departments-by-school";
 import { SEARCH_SCHOOL_QUERY } from "./queries/search-school-query";
-import { gqlClient } from "./utils/rmp-gql-client";
+import { SchoolSearchResponseSchema } from "./schemas/school-search-response";
+import { gqlClient } from "./utils/gql-client";
 
 export class RateMyProfScraper {
   private readonly client: GraphQLClient;

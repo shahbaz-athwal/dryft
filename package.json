@@ -12,9 +12,9 @@
     "test": "turbo run test",
     "api:start": "bun --filter hono-api start",
     "api:dev": "bun --filter hono-api dev",
-    "db:studio": "bun --filter @repo/db db:studio",
-    "db:generate": "bun --filter @repo/db db:generate",
-    "db:migrate": "bun --filter @repo/db db:migrate"
+    "db:studio": "bun --filter hono-api db:studio",
+    "db:generate": "bun --filter hono-api db:generate",
+    "db:migrate": "bun --filter hono-api db:migrate"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4",

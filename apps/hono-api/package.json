@@ -6,19 +6,26 @@
   "scripts": {
     "dev": "bun run --watch src/server.ts --env-file ../../.env ",
     "start": "bun run src/server.ts",
-    "clean": "rm -rf node_modules"
+    "clean": "rm -rf node_modules",
+    "db:generate": "bun with-env prisma generate",
+    "db:migrate": "bun with-env prisma migrate dev",
+    "db:studio": "bun with-env prisma studio",
+    "db:push": "prisma db push --skip-generate",
+    "with-env": "bun --env-file ../../.env"
   },
   "dependencies": {
-    "@repo/auth": "workspace:*",
-    "@repo/db": "workspace:*",
-    "@repo/orpc": "workspace:*",
-    "@repo/scraper": "workspace:*",
+    "@orpc/server": "^1.9.3",
+    "@prisma/client": "^6.17.1",
+    "axios": "^1.10.0",
+    "better-auth": "catalog:",
+    "graphql-request": "^7.2.0",
     "hono": "^4.9.7",
     "inngest": "^3.44.2",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
+    "prisma": "^6.17.1",
     "typescript": "catalog:"
   }
 }

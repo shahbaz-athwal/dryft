@@ -1,5 +1,21 @@
 {
-  "extends": "@repo/typescript-config/base.json",
-  "compilerOptions": {},
-  "include": ["@types", "src/**/*.ts"]
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "incremental": false,
+    "isolatedModules": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleDetection": "force",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "noUncheckedIndexedAccess": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2022",
+    "verbatimModuleSyntax": true,
+    "strictNullChecks": true
+  },
+  "include": ["src/**/*.ts"]
 }

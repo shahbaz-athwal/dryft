@@ -19,12 +19,11 @@
     "axios": "^1.10.0",
     "better-auth": "catalog:",
     "graphql-request": "^7.2.0",
-    "hono": "^4.9.7",
+    "hono": "^4.10.2",
     "inngest": "^3.44.2",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
     "prisma": "^6.17.1",
     "typescript": "catalog:"
   }

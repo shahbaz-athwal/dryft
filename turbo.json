@@ -7,12 +7,13 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "dev": {
-      "dependsOn": ["@repo/db#db:generate"],
+      "dependsOn": ["hono-api#db:generate"],
       "cache": false,
       "persistent": true
     },
-    "@repo/db#db:generate": {
-      "inputs": ["prisma/**"]
+    "hono-api#db:generate": {
+      "inputs": ["prisma/schema.prisma"],
+      "outputs": ["node_modules/.prisma/**"]
     },
     "clean": {
       "cache": false

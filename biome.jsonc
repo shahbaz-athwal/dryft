@@ -2,7 +2,13 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["ultracite"],
   "files": {
-    "includes": ["**", "!apps/hono-api/prisma/migrations"]
+    "includes": [
+      "**",
+      "!apps/hono-api/prisma/migrations",
+      "!apps/dashboard/src/routeTree.gen.ts",
+      "!apps/dashboard/src/main.tsx",
+      "!apps/dashboard/src/reportWebVitals.ts"
+    ]
   },
   "linter": {
     "rules": {

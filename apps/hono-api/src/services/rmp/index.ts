@@ -5,10 +5,14 @@ import {
   SCHOOL_DEPARTMENTS_QUERY,
   SchoolDepartmentsResponseSchema,
 } from "./queries/departments-by-school";
-import { SEARCH_SCHOOL_QUERY } from "./queries/search-school-query";
-import { TEACHER_SEARCH_QUERY } from "./queries/teacher-search-query";
-import { SchoolSearchResponseSchema } from "./schemas/school-search-response";
-import { TeacherSearchResponseSchema } from "./schemas/teacher-search-response";
+import {
+  SchoolSearchResponseSchema,
+  SEARCH_SCHOOL_QUERY,
+} from "./queries/search-school-query";
+import {
+  TEACHER_SEARCH_QUERY,
+  TeacherSearchResponseSchema,
+} from "./queries/teacher-search-query";
 
 export class RateMyProfScraper {
   private static instance: RateMyProfScraper | null = null;

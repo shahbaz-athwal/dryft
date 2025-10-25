@@ -1,7 +1,7 @@
 import { google } from "@ai-sdk/google";
 import { generateObject } from "ai";
 import { z } from "zod";
-import type { TeacherNode } from "../services/rmp/schemas/teacher-search-response";
+import type { TeacherNode } from "../services/rmp/queries/teacher-search-query";
 import { AI_MAPPING_PROMPT } from "./constants";
 
 const ProfessorMatchSchema = z.object({

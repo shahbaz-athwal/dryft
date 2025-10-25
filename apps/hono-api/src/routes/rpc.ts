@@ -79,9 +79,61 @@ export const syncProfessors = os
 export const linkProfessorsWithRmp = os.handler(async () => {
   const professors = await prisma.professor.findMany({
     where: { rmpId: null },
+    select: {
+      id: true,
+      name: true,
+      department: {
+        select: {
+          name: true,
+        },
+      },
+    },
   });
 
-  return { success: true };
+  if (professors.length === 0) {
+    return {
+      success: true,
+      message: "No professors to link",
+      totalProcessed: 0,
+      totalMatched: 0,
+      totalUpdated: 0,
+    };
+  }
+
+  const formattedProfessors = professors.map((professor) => ({
+    id: professor.id,
+    name: professor.name,
+    department: professor.department.name,
+  }));
+
+  const { scraper: rmpScraper } = await import("../services/scrapers/rmp");
+  const { RMP_ACADIA_ID } = await import("../utils/constants");
+  const rmpProfessors =
+    await rmpScraper.searchTeachersBySchoolId(RMP_ACADIA_ID);
+
+  const { matchProfessorsWithRMP } = await import("../utils/ai-matcher");
+  const matches = await matchProfessorsWithRMP(
+    formattedProfessors,
+    rmpProfessors
+  );
+
+  const matchesWithRmpId = matches.filter((match) => match.rmpId !== null);
+
+  let totalUpdated = 0;
+  for (const match of matchesWithRmpId) {
+    await prisma.professor.update({
+      where: { id: match.professorId },
+      data: { rmpId: match.rmpId },
+    });
+    totalUpdated++;
+  }
+
+  return {
+    success: true,
+    totalProcessed: professors.length,
+    totalMatched: matchesWithRmpId.length,
+    totalUpdated,
+  };
 });
 
 export const router = {

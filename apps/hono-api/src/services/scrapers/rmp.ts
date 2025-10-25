@@ -6,13 +6,24 @@ import {
   SchoolDepartmentsResponseSchema,
 } from "./rmp/queries/departments-by-school";
 import { SEARCH_SCHOOL_QUERY } from "./rmp/queries/search-school-query";
+import { TEACHER_SEARCH_QUERY } from "./rmp/queries/teacher-search-query";
 import { SchoolSearchResponseSchema } from "./rmp/schemas/school-search-response";
+import { TeacherSearchResponseSchema } from "./rmp/schemas/teacher-search-response";
 
 export class RateMyProfScraper {
+  private static instance: RateMyProfScraper | null = null;
   private readonly client: GraphQLClient;
 
-  constructor() {
+  private constructor() {
     this.client = gqlClient;
+  }
+
+  static getInstance(): RateMyProfScraper {
+    if (!RateMyProfScraper.instance) {
+      RateMyProfScraper.instance = new RateMyProfScraper();
+    }
+
+    return RateMyProfScraper.instance;
   }
 
   private async executeQuery(
@@ -45,4 +56,21 @@ export class RateMyProfScraper {
     return SchoolDepartmentsResponseSchema.parse(response).search.teachers
       .filters[0]?.options;
   }
+
+  async searchTeachersBySchoolId(schoolId: string) {
+    const query = TEACHER_SEARCH_QUERY;
+    const variables = {
+      count: 1000,
+      query: {
+        text: "",
+        schoolID: schoolId,
+        fallback: true,
+      },
+    };
+    const response = await this.executeQuery(query, variables);
+    const parsed = TeacherSearchResponseSchema.parse(response);
+    return parsed.search.teachers.edges.map((edge) => edge.node);
+  }
 }
+
+export const scraper = RateMyProfScraper.getInstance();

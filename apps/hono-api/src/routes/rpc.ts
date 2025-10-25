@@ -1,8 +1,8 @@
 import { os } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { z } from "zod";
-import { scraper } from "../services/scrapers/acadia";
-import { prisma } from "../utils/db";
+import { scraper } from "../services/acadia";
+import { prisma } from "../services/db";
 
 export const syncProfessors = os
   .input(
@@ -106,7 +106,7 @@ export const linkProfessorsWithRmp = os.handler(async () => {
     department: professor.department.name,
   }));
 
-  const { scraper: rmpScraper } = await import("../services/scrapers/rmp");
+  const { scraper: rmpScraper } = await import("../services/rmp");
   const { RMP_ACADIA_ID } = await import("../utils/constants");
   const rmpProfessors =
     await rmpScraper.searchTeachersBySchoolId(RMP_ACADIA_ID);

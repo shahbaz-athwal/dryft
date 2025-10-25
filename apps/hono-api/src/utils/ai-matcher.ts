@@ -1,16 +1,16 @@
 import { google } from "@ai-sdk/google";
 import { generateObject } from "ai";
 import { z } from "zod";
-import type { TeacherNode } from "../services/scrapers/rmp/schemas/teacher-search-response";
+import type { TeacherNode } from "../services/rmp/schemas/teacher-search-response";
 import { AI_MAPPING_PROMPT } from "./constants";
 
 const ProfessorMatchSchema = z.object({
-  professorId: z.string(),
-  rmpId: z.string().nullable(),
-});
-
-const ProfessorMatchArraySchema = z.object({
-  matches: z.array(ProfessorMatchSchema),
+  matches: z.array(
+    z.object({
+      professorId: z.string(),
+      rmpId: z.string().nullable(),
+    })
+  ),
 });
 
 type LocalProfessor = {
@@ -33,7 +33,7 @@ export async function matchProfessorsWithRMP(
 
   const result = await generateObject({
     model: google("gemini-2.5-flash"),
-    schema: ProfessorMatchArraySchema,
+    schema: ProfessorMatchSchema,
     prompt,
   });
 

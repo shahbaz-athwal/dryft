@@ -1,14 +1,14 @@
 import type { GraphQLClient } from "graphql-request";
-import { gqlClient } from "./rmp/gql-client";
-import { COURSES_BY_PROFESSOR_QUERY } from "./rmp/queries/courses-by-prof-id";
+import { gqlClient } from "./gql-client";
+import { COURSES_BY_PROFESSOR_QUERY } from "./queries/courses-by-prof-id";
 import {
   SCHOOL_DEPARTMENTS_QUERY,
   SchoolDepartmentsResponseSchema,
-} from "./rmp/queries/departments-by-school";
-import { SEARCH_SCHOOL_QUERY } from "./rmp/queries/search-school-query";
-import { TEACHER_SEARCH_QUERY } from "./rmp/queries/teacher-search-query";
-import { SchoolSearchResponseSchema } from "./rmp/schemas/school-search-response";
-import { TeacherSearchResponseSchema } from "./rmp/schemas/teacher-search-response";
+} from "./queries/departments-by-school";
+import { SEARCH_SCHOOL_QUERY } from "./queries/search-school-query";
+import { TEACHER_SEARCH_QUERY } from "./queries/teacher-search-query";
+import { SchoolSearchResponseSchema } from "./schemas/school-search-response";
+import { TeacherSearchResponseSchema } from "./schemas/teacher-search-response";
 
 export class RateMyProfScraper {
   private static instance: RateMyProfScraper | null = null;

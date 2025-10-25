@@ -1,11 +1,11 @@
 import type { AxiosError, AxiosInstance } from "axios";
-import { client } from "./acadia/axios-client";
+import { client } from "./axios-client";
 import {
   type PostSearchCriteriaFilteredResponseInferred,
   PostSearchCriteriaFilteredResponseSchema,
   type PostSearchCriteriaRequestInferred,
   PostSearchCriteriaRequestSchema,
-} from "./acadia/schemas/post-search-criteria";
+} from "./schemas/post-search-criteria";
 
 type ScraperCredentials = {
   username: string;

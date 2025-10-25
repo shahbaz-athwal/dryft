@@ -5,7 +5,7 @@ export const PostSearchCriteriaRequestSchema = z.object({
   terms: z.array(z.string()),
   courseIds: z.null(),
   sectionIds: z.null(),
-  subjects: z.array(z.string().length(4)),
+  subjects: z.array(z.string()),
   faculty: z.array(z.coerce.number()),
   pageNumber: z.number(),
   quantityPerPage: z.number(),

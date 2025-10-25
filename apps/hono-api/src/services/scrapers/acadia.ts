@@ -14,15 +14,35 @@ type ScraperCredentials = {
 
 const AUTH_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes
 
-export class AcadiaScraper {
+class AcadiaScraper {
+  private static instance: AcadiaScraper | null = null;
   private readonly client: AxiosInstance;
   private cookies: string | null = null;
   private readonly config: ScraperCredentials;
   private authTimestamp: number | null = null;
 
-  constructor(config: ScraperCredentials) {
+  private constructor(config: ScraperCredentials) {
     this.config = config;
     this.client = client;
+  }
+
+  static getInstance(): AcadiaScraper {
+    if (!process.env.ACADIA_USERNAME) {
+      throw new Error("ACADIA_USERNAME is not set");
+    }
+
+    if (!process.env.ACADIA_PASSWORD) {
+      throw new Error("ACADIA_PASSWORD is not set");
+    }
+
+    if (!AcadiaScraper.instance) {
+      AcadiaScraper.instance = new AcadiaScraper({
+        username: process.env.ACADIA_USERNAME,
+        password: process.env.ACADIA_PASSWORD,
+      });
+    }
+
+    return AcadiaScraper.instance;
   }
 
   private validateAuth(): boolean {
@@ -174,8 +194,6 @@ export class AcadiaScraper {
       courses: data.Courses,
     };
   }
-  clearSession(): void {
-    this.cookies = null;
-    this.authTimestamp = null;
-  }
 }
+
+export const scraper = AcadiaScraper.getInstance();

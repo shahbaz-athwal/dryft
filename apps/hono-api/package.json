@@ -14,8 +14,10 @@
     "with-env": "bun --env-file ../../.env"
   },
   "dependencies": {
+    "@ai-sdk/google": "^2.0.23",
     "@orpc/server": "^1.9.3",
     "@prisma/client": "^6.17.1",
+    "ai": "^5.0.78",
     "axios": "^1.10.0",
     "better-auth": "catalog:",
     "graphql-request": "^7.2.0",

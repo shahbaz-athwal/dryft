@@ -28,5 +28,8 @@
   "devDependencies": {
     "prisma": "^6.17.1",
     "typescript": "catalog:"
+  },
+  "exports": {
+    "./rpc": "./src/routes/rpc.ts"
   }
 }

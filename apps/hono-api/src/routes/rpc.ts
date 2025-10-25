@@ -1,4 +1,4 @@
-import { os } from "@orpc/server";
+import { os, type RouterClient } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { z } from "zod";
 import { scraper } from "../services/acadia";
@@ -142,5 +142,7 @@ export const router = {
     linkProfessorsWithRmp,
   },
 };
+
+export type RouterType = RouterClient<typeof router>;
 
 export const handler = new RPCHandler(router);

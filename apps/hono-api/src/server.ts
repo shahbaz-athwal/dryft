@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serve } from "inngest/hono";
 import { functions, inngest } from "./inngest";
-import { handler } from "./routes/rpc";
+import { handler as rpcHandler } from "./routes/rpc";
 import { auth } from "./services/auth";
 
 const app = new Hono();
@@ -22,7 +22,7 @@ app.on(["POST", "GET"], "/api/auth/*", (c) => {
 });
 
 app.use("/rpc/*", async (c, next) => {
-  const { matched, response } = await handler.handle(c.req.raw, {
+  const { matched, response } = await rpcHandler.handle(c.req.raw, {
     prefix: "/rpc",
     context: {}, // Provide initial context if needed
   });

@@ -31,6 +31,7 @@ export const SectionDetailsFilteredResponseSchema = z.object({
               Capacity: z.number(),
               Enrolled: z.number(),
               Waitlisted: z.number(),
+              CourseName: z.string(),
             }),
             InstructorDetails: z.array(
               z.object({

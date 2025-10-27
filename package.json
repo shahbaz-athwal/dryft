@@ -5,7 +5,8 @@
   "scripts": {
     "build": "turbo run build",
     "clean": "turbo run clean",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev inngest",
+    "inngest": "inngest-cli dev -u http://localhost:4000/api/inngest",
     "ci": "biome ci",
     "format": "biome format --write",
     "lint": "biome lint --fix",

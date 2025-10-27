@@ -11,6 +11,10 @@
       "cache": false,
       "persistent": true
     },
+    "//#inngest": {
+      "cache": false,
+      "persistent": true
+    },
     "hono-api#db:generate": {
       "inputs": ["prisma/schema.prisma"],
       "outputs": ["node_modules/.prisma/**"]

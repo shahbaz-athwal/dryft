@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --watch src/server.ts --env-file ../../.env ",
+    "dev": "bun with-env --watch src/server.ts",
     "start": "bun run src/server.ts",
     "clean": "rm -rf node_modules",
     "db:generate": "bun with-env prisma generate",

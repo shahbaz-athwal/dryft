@@ -136,10 +136,35 @@ export const linkProfessorsWithRmp = os.handler(async () => {
   };
 });
 
+export const populateCourses = os.handler(async () => {
+  const { courses } = await scraper.getAllCourses();
+
+  const coursesToInsert = courses.map((course) => ({
+    id: course.Id,
+    code: course.SubjectCode + course.Number,
+    title: course.Title,
+    description: course.Description,
+    departmentPrefix: course.SubjectCode,
+    sectionIds: course.MatchingSectionIds,
+  }));
+
+  const result = await prisma.course.createMany({
+    data: coursesToInsert,
+    skipDuplicates: true,
+  });
+
+  return {
+    success: true,
+    totalFetched: courses.length,
+    totalCreated: result.count,
+  };
+});
+
 export const router = {
   internal: {
     syncProfessors,
     linkProfessorsWithRmp,
+    populateCourses,
   },
 };
 

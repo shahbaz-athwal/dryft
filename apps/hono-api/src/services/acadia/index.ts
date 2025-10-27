@@ -180,17 +180,9 @@ class AcadiaScraper {
     }));
   }
 
-  async getCoursesPage(pageNumber: number) {
-    const data = await this.postSearchCriteria({ pageNumber });
+  async getAllCourses() {
+    const data = await this.postSearchCriteria({ quantityPerPage: 3000 });
     return {
-      pagination: {
-        totalItems: data.TotalItems,
-        totalPages: data.TotalPages,
-        nextPage:
-          data.CurrentPageIndex < data.TotalPages
-            ? data.CurrentPageIndex + 1
-            : null,
-      },
       courses: data.Courses,
     };
   }

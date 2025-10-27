@@ -1,11 +1,11 @@
 import type { AxiosError, AxiosInstance } from "axios";
 import { client } from "./axios-client";
 import {
-  type PostSearchCriteriaFilteredResponseInferred,
   PostSearchCriteriaFilteredResponseSchema,
-  type PostSearchCriteriaRequestInferred,
+  type PostSearchCriteriaRequest,
   PostSearchCriteriaRequestSchema,
 } from "./schemas/post-search-criteria";
+import { SectionDetailsFilteredResponseSchema } from "./schemas/section";
 
 type ScraperCredentials = {
   username: string;
@@ -125,14 +125,13 @@ class AcadiaScraper {
   }
 
   private async postSearchCriteria(
-    searchCriteria?: Partial<PostSearchCriteriaRequestInferred>
-  ): Promise<PostSearchCriteriaFilteredResponseInferred> {
+    searchCriteria?: Partial<PostSearchCriteriaRequest>
+  ) {
     if (!this.validateAuth()) {
       await this.authenticate();
     }
 
-    // Validate and set default values for search criteria
-    const defaultCriteria: PostSearchCriteriaRequestInferred = {
+    const defaultCriteria: PostSearchCriteriaRequest = {
       keyword: null,
       terms: [],
       courseIds: null,
@@ -185,6 +184,26 @@ class AcadiaScraper {
     return {
       courses: data.Courses,
     };
+  }
+
+  async getSectionDetails(courseId: string, sectionIds: string[]) {
+    if (!this.validateAuth()) {
+      await this.authenticate();
+    }
+    const response = await this.client.post(
+      "/student/Student/Courses/Sections",
+      {
+        courseId,
+        sectionIds,
+      },
+      {
+        headers: {
+          Cookie: this.cookies,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return SectionDetailsFilteredResponseSchema.parse(response.data);
   }
 }
 

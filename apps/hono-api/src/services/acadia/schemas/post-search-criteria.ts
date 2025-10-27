@@ -11,7 +11,7 @@ export const PostSearchCriteriaRequestSchema = z.object({
   quantityPerPage: z.number(),
 });
 
-export type PostSearchCriteriaRequestInferred = z.infer<
+export type PostSearchCriteriaRequest = z.infer<
   typeof PostSearchCriteriaRequestSchema
 >;
 
@@ -52,7 +52,3 @@ export const PostSearchCriteriaFilteredResponseSchema = z.object({
     })
   ),
 });
-
-export type PostSearchCriteriaFilteredResponseInferred = z.infer<
-  typeof PostSearchCriteriaFilteredResponseSchema
->;

@@ -1,14 +1,16 @@
-import { Inngest } from "inngest";
+import { EventSchemas, Inngest } from "inngest";
+import { z } from "zod";
+import { processCourse } from "./process-course";
 
-export const inngest = new Inngest({ id: "dryft" });
+export const inngest = new Inngest({
+  id: "dryft",
+  schemas: new EventSchemas().fromSchema({
+    "course/process": z.object({
+      courseId: z.string(),
+      sectionIds: z.array(z.string()),
+      departmentPrefix: z.string(),
+    }),
+  }),
+});
 
-const helloWorld = inngest.createFunction(
-  { id: "hello-world" },
-  { event: "test/hello.world" },
-  async ({ event, step }) => {
-    await step.sleep("wait-a-moment", "1s");
-    return { message: `Hello ${event.data.email}!` };
-  }
-);
-
-export const functions = [helloWorld];
+export const functions = [processCourse];

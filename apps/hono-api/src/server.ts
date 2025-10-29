@@ -1,11 +1,14 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { connect } from "inngest/connect";
 import { serve } from "inngest/hono";
-import { functions, inngest } from "./inngest";
+import { inngest } from "./inngest/client";
+import { processCourse } from "./inngest/process-course";
 import { handler as rpcHandler } from "./routes/rpc";
 import { auth } from "./services/auth";
 
 const app = new Hono();
+const functions = [processCourse];
 
 app.use(
   "*",
@@ -35,6 +38,12 @@ app.use("/rpc/*", async (c, next) => {
 });
 
 app.get("/", (c) => c.text("Hono API with oRPC"));
+
+(async () => {
+  await connect({
+    apps: [{ client: inngest, functions }],
+  });
+})();
 
 export default {
   fetch: app.fetch,

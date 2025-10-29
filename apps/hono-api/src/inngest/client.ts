@@ -1,6 +1,5 @@
 import { EventSchemas, Inngest } from "inngest";
 import { z } from "zod";
-import { processCourse } from "./process-course";
 
 export const inngest = new Inngest({
   id: "dryft",
@@ -12,5 +11,3 @@ export const inngest = new Inngest({
     }),
   }),
 });
-
-export const functions = [processCourse];

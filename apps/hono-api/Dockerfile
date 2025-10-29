@@ -14,9 +14,10 @@ WORKDIR /app
 COPY --from=base /app/out/json/ .
 COPY --from=base /app/package.json ./package.json
 COPY --from=base /app/bun.lock ./bun.lock
-RUN bun install --filter hono-api --production --frozen-lockfile
+RUN bun install --filter hono-api --frozen-lockfile
 COPY --from=base /app/out/full/ .
 RUN bun run turbo db:generate
+RUN bun install --filter hono-api --production --frozen-lockfile
 
 # ---------- Final Stage ----------
 FROM oven/bun:1.3.0-alpine AS runner

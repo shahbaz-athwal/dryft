@@ -10,15 +10,13 @@ datasource db {
 }
 
 model Department {
-  prefix     String      @id @unique
+  prefix     String      @id
   name       String
   rmpId      String?     @unique
   lastSync   DateTime?
   professors Professor[]
   courses    Course[]
 
-  @@index([prefix])
-  @@index([rmpId])
   @@map("department")
 }
 
@@ -37,7 +35,6 @@ model Professor {
 
   @@index([name])
   @@index([departmentPrefix])
-  @@index([rmpId])
   @@map("professor")
 }
 
@@ -47,15 +44,14 @@ model Course {
   title            String
   description      String?
   departmentPrefix String
-  sectionIds       String[]
   sections         Section[]
   department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
   professors       CourseProfessor[]
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   lastSync         DateTime?
+  metadata         Json?
 
-  @@index([code])
   @@index([departmentPrefix])
   @@map("course")
 }
@@ -64,7 +60,7 @@ model Section {
   id          String    @id
   code        String
   description String?
-  Course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
   courseId    String
   professorId String
   startDate   DateTime
@@ -75,6 +71,8 @@ model Section {
   professor   Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now())
 
+  @@index([courseId])
+  @@index([professorId])
   @@map("section")
 }
 
@@ -86,6 +84,8 @@ model CourseProfessor {
   professor   Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
 
   @@unique([courseId, professorId])
+  @@index([courseId])
+  @@index([professorId])
   @@map("course_professor")
 }
 
@@ -100,7 +100,6 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
-  @@index([email])
   @@map("user")
 }
 
@@ -108,7 +107,7 @@ model User {
 model Session {
   id        String   @id
   expiresAt DateTime
-  token     String
+  token     String   @unique
   createdAt DateTime
   updatedAt DateTime
   ipAddress String?
@@ -116,7 +115,6 @@ model Session {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
   @@index([userId])
   @@map("session")
 }

@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { NonRetriableError } from "inngest";
 import { prisma } from "../services/db";
 import { scraper } from "../services/rmp";
@@ -15,21 +16,26 @@ export const linkProfessorsWithRmp = inngest.createFunction(
   },
   { event: "sync/link-professors-with-rmp" },
   async ({ step }) => {
-    // Step 1: Fetch professors without RMP ID
-    const professors = await step.run("fetch-professors", async () => {
-      return await prisma.professor.findMany({
-        where: { rmpId: null },
-        select: {
-          id: true,
-          name: true,
-          department: {
-            select: {
-              name: true,
+    // Steps 1: Fetch professors and RMP professors in parallel
+    const [professors, rmpProfessors] = await Promise.all([
+      step.run("fetch-professors", async () => {
+        return await prisma.professor.findMany({
+          where: { rmpId: null },
+          select: {
+            id: true,
+            name: true,
+            department: {
+              select: {
+                name: true,
+              },
             },
           },
-        },
-      });
-    });
+        });
+      }),
+      step.run("fetch-rmp-professors", async () => {
+        return await scraper.searchTeachersBySchoolId(RMP_ACADIA_ID);
+      }),
+    ]);
 
     if (professors.length === 0) {
       throw new NonRetriableError("No professors to link");
@@ -44,36 +50,36 @@ export const linkProfessorsWithRmp = inngest.createFunction(
       }));
     });
 
-    // Step 3: Fetch RMP professors
-    const rmpProfessors = await step.run("fetch-rmp-professors", async () => {
-      return await scraper.searchTeachersBySchoolId(RMP_ACADIA_ID);
+    // Step 3: AI Extracted Matches
+    const matchesWithRmpId = await step.run("match-professors", async () => {
+      const matches = await matchProfessorsWithRMP(
+        formattedProfessors,
+        rmpProfessors
+      );
+      return matches.filter((match) => match.rmpId !== null);
     });
 
-    // Step 4: Match professors with RMP
-    const matches = await step.run("match-professors", async () => {
-      return await matchProfessorsWithRMP(formattedProfessors, rmpProfessors);
+    if (matchesWithRmpId.length === 0) {
+      throw new NonRetriableError("No professors to link with RMP");
+    }
+
+    // Step 4: Update professors in database (bulk raw SQL update)
+    await step.run("update-professors", async () => {
+      const caseStatements = matchesWithRmpId.map(
+        (match) =>
+          Prisma.sql`WHEN ${match.professorId} THEN ${match.rmpId}::text`
+      );
+      const professorIds = matchesWithRmpId.map((match) => match.professorId);
+
+      await prisma.$executeRaw`
+        UPDATE "Professor"
+        SET "rmpId" = (CASE "id"
+          ${Prisma.join(caseStatements, " ")}
+        END)
+        WHERE "id" IN (${Prisma.join(professorIds)})
+      `;
+
+      return matchesWithRmpId.length;
     });
-
-    const matchesWithRmpId = matches.filter((match) => match.rmpId !== null);
-
-    // Step 5: Update professors with RMP IDs
-    const totalUpdated = await step.run("update-professors", async () => {
-      let count = 0;
-      for (const match of matchesWithRmpId) {
-        await prisma.professor.update({
-          where: { id: match.professorId },
-          data: { rmpId: match.rmpId },
-        });
-        count++;
-      }
-      return count;
-    });
-
-    return {
-      success: true,
-      totalProcessed: professors.length,
-      totalMatched: matchesWithRmpId.length,
-      totalUpdated,
-    };
   }
 );

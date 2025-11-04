@@ -3,12 +3,20 @@ import { cors } from "hono/cors";
 import { connect } from "inngest/connect";
 import { serve } from "inngest/hono";
 import { inngest } from "./inngest/client";
+import { linkProfessorsWithRmp } from "./inngest/link-professors-with-rmp";
+import { populateCourses } from "./inngest/populate-courses";
 import { processCourse } from "./inngest/process-course";
+import { syncProfessors } from "./inngest/sync-professors";
 import { handler as rpcHandler } from "./routes/rpc";
 import { auth } from "./services/auth";
 
 const app = new Hono();
-const functions = [processCourse];
+const functions = [
+  processCourse,
+  syncProfessors,
+  linkProfessorsWithRmp,
+  populateCourses,
+];
 
 app.use(
   "*",

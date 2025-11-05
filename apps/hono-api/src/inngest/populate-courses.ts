@@ -24,22 +24,18 @@ export const populateCourses = inngest.createFunction(
         title: course.Title,
         description: course.Description,
         departmentPrefix: course.SubjectCode,
-        sectionIds: course.MatchingSectionIds,
+        metadata: {
+          matchingSectionIds: course.MatchingSectionIds,
+        },
       }));
     });
 
     // Step 3: Insert courses into database
-    const result = await step.run("insert-courses", async () => {
+    await step.run("insert-courses", async () => {
       return await prisma.course.createMany({
         data: coursesToInsert,
         skipDuplicates: true,
       });
     });
-
-    return {
-      success: true,
-      totalFetched: courses.length,
-      totalCreated: result.count,
-    };
   }
 );

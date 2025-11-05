@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 import { NonRetriableError } from "inngest";
 import { prisma } from "../services/db";
 import { scraper } from "../services/rmp";
@@ -63,21 +62,16 @@ export const linkProfessorsWithRmp = inngest.createFunction(
       throw new NonRetriableError("No professors to link with RMP");
     }
 
-    // Step 4: Update professors in database (bulk raw SQL update)
+    // Step 4: Update professors in database
     await step.run("update-professors", async () => {
-      const caseStatements = matchesWithRmpId.map(
-        (match) =>
-          Prisma.sql`WHEN ${match.professorId} THEN ${match.rmpId}::text`
+      await Promise.all(
+        matchesWithRmpId.map((match) =>
+          prisma.professor.update({
+            where: { id: match.professorId },
+            data: { rmpId: match.rmpId },
+          })
+        )
       );
-      const professorIds = matchesWithRmpId.map((match) => match.professorId);
-
-      await prisma.$executeRaw`
-        UPDATE "Professor"
-        SET "rmpId" = (CASE "id"
-          ${Prisma.join(caseStatements, " ")}
-        END)
-        WHERE "id" IN (${Prisma.join(professorIds)})
-      `;
 
       return matchesWithRmpId.length;
     });

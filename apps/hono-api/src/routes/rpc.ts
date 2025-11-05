@@ -12,7 +12,7 @@ export const syncProfessors = os
   )
   .handler(async ({ input }) => {
     const { ids } = await inngest.send({
-      name: "professors/sync",
+      name: "populate/acadia-department-professors",
       data: {
         waitTimeSeconds: input.waitTimeSeconds,
         onlyUnsyncedDepartments: input.onlyUnsyncedDepartments,
@@ -26,7 +26,7 @@ export const syncProfessors = os
 
 export const linkProfessorsWithRmp = os.handler(async () => {
   const { ids } = await inngest.send({
-    name: "professors/link-with-rmp",
+    name: "sync/link-professors-with-rmp",
     data: {},
   });
 

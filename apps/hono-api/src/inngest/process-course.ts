@@ -22,41 +22,49 @@ export const processCourse = inngest.createFunction(
       return await scraper.getSectionDetails(courseId, sectionIds);
     });
 
-    // Step 2: Save sections and instructors to database
-    await step.run("save-sections-to-db", async () => {
-      // Collect all unique instructors across all terms and sections
+    // Step 2: Collect all unique instructors
+    const instructorData = await step.run("collect-instructors", () => {
       const allInstructors = new Set<string>();
-      const instructorNames = new Map<string, string>();
+      const instructorNames: Record<string, string> = {};
 
       for (const term of sectionDetails) {
         for (const section of term.sections) {
           for (const instructor of section.instructors) {
             allInstructors.add(instructor.id);
-            instructorNames.set(instructor.id, instructor.name);
+            instructorNames[instructor.id] = instructor.name;
           }
         }
       }
 
-      // Upsert all professors
+      return {
+        instructorIds: Array.from(allInstructors),
+        instructorNames,
+      };
+    });
+
+    // Step 3: Upsert all professors
+    await step.run("upsert-professors", async () => {
       await Promise.all(
-        Array.from(allInstructors).map((instructorId) =>
+        instructorData.instructorIds.map((instructorId) =>
           prisma.professor.upsert({
             where: { id: instructorId },
             update: {
-              name: instructorNames.get(instructorId) ?? "",
+              name: instructorData.instructorNames[instructorId] ?? "",
             },
             create: {
               id: instructorId,
-              name: instructorNames.get(instructorId) ?? "",
+              name: instructorData.instructorNames[instructorId] ?? "",
               departmentPrefix,
             },
           })
         )
       );
+    });
 
-      // Link all instructors to the course
+    // Step 4: Link all instructors to the course
+    await step.run("link-instructors-to-course", async () => {
       await Promise.all(
-        Array.from(allInstructors).map((instructorId) =>
+        instructorData.instructorIds.map((instructorId) =>
           prisma.courseProfessor.upsert({
             where: {
               courseId_professorId: {
@@ -72,15 +80,19 @@ export const processCourse = inngest.createFunction(
           })
         )
       );
+    });
 
-      // Upsert all sections
+    // Step 5: Upsert all sections
+    const createdSectionIds = await step.run("upsert-sections", async () => {
+      const processedSectionIds: string[] = [];
+
       for (const term of sectionDetails) {
-        await Promise.all(
+        const sections = await Promise.all(
           term.sections.map((section) => {
             // Use first instructor as the section's professor
             const primaryInstructor = section.instructors[0];
             if (!primaryInstructor) {
-              return Promise.resolve();
+              return Promise.resolve(null);
             }
 
             // Format meeting times
@@ -119,15 +131,43 @@ export const processCourse = inngest.createFunction(
             });
           })
         );
+
+        for (const section of sections) {
+          if (section) {
+            processedSectionIds.push(section.id);
+          }
+        }
       }
 
-      return {
-        professorsUpserted: allInstructors.size,
-        sectionsUpserted: sectionDetails.reduce(
-          (acc, term) => acc + term.sections.length,
-          0
-        ),
+      return processedSectionIds;
+    });
+
+    // Step 6: Update course metadata
+    await step.run("update-course-metadata", async () => {
+      const course = await prisma.course.findUnique({
+        where: { id: courseId },
+        select: { metadata: true },
+      });
+
+      // biome-ignore lint: no-non-null-assertion
+      const existingMetadata = course!.metadata as unknown as {
+        matchingSectionIds: string[];
+        processed: { sectionIds: string[]; timestamp: Date };
       };
+
+      await prisma.course.update({
+        where: { id: courseId },
+        data: {
+          metadata: {
+            matchingSectionIds: existingMetadata.matchingSectionIds,
+            processed: {
+              ...(existingMetadata.processed ?? {}),
+              sectionIds: createdSectionIds,
+              timestamp: new Date(),
+            },
+          },
+        },
+      });
     });
   }
 );

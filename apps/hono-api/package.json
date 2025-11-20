@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "bun with-env --watch src/server.ts",
+    "agent": "bun run src/agents.ts",
     "start": "bun run src/server.ts",
     "clean": "rm -rf node_modules",
     "db:generate": "bun with-env prisma generate",
@@ -15,6 +16,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^2.0.23",
+    "@inngest/agent-kit": "^0.13.2",
     "@orpc/server": "^1.9.3",
     "@prisma/client": "^6.17.1",
     "ai": "^5.0.78",

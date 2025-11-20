@@ -12,6 +12,7 @@ import { handler as rpcHandler } from "./routes/rpc";
 import { auth } from "./services/auth";
 
 const app = new Hono();
+
 const functions = [
   processCourse,
   populateProfessors,

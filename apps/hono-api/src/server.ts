@@ -3,6 +3,7 @@ import { cors } from "hono/cors";
 import { connect } from "inngest/connect";
 import { serve } from "inngest/hono";
 import { inngest } from "./inngest/client";
+import { triggerCourseProcessing } from "./inngest/event-producers";
 import { linkProfessorsWithRmp } from "./inngest/link-professors-with-rmp";
 import { populateCourses } from "./inngest/populate-courses";
 import { populateProfessors } from "./inngest/populate-professors";
@@ -16,6 +17,7 @@ const functions = [
   populateProfessors,
   linkProfessorsWithRmp,
   populateCourses,
+  triggerCourseProcessing,
 ];
 
 app.use(

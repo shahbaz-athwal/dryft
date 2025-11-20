@@ -15,5 +15,6 @@ export const inngest = new Inngest({
     }),
     "sync/link-professors-with-rmp": z.object({}),
     "courses/populate": z.object({}),
+    "courses/trigger-processing": z.object({}),
   }),
 });

@@ -5,12 +5,16 @@ import { inngest } from "./client";
 export const processCourse = inngest.createFunction(
   {
     id: "process-course",
+    description:
+      "Pull and populates sections and instructors for a course.\n" +
+      "- Triggered by the `courses/trigger-processing` event\n" +
+      "- Fetches section details from Acadia\n" +
+      "- Collects all unique instructors across all terms and sections\n" +
+      "- Upserts all professors\n" +
+      "- Links all instructors to the course\n" +
+      "- Upserts all sections",
     concurrency: {
       limit: 1,
-    },
-    rateLimit: {
-      limit: 30,
-      period: "1m",
     },
   },
   { event: "course/process" },

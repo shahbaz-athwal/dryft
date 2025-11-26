@@ -1,6 +1,13 @@
 "use client";
 
-import { Suspense, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  Suspense,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import {
   Drawer,
@@ -12,10 +19,22 @@ import { Spinner } from "@/components/ui/spinner";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 import { DRAWER_REGISTRY, type DrawerKey } from "@/lib/drawer-registry";
 
+const NESTED_DISPLACEMENT = 16;
+const TRANSITION_DURATION = 0.5;
+const TRANSITION_EASE = [0.32, 0.72, 0, 1];
+
 type DrawerComponentProps = {
   onClose: () => void;
   onCloseAll: () => void;
 };
+
+type ParentDrawerContextValue = {
+  contentRef: React.RefObject<HTMLDivElement | null>;
+};
+
+const ParentDrawerContext = createContext<ParentDrawerContextValue | null>(
+  null
+);
 
 type RecursiveDrawerProps = {
   stack: DrawerKey[];
@@ -32,6 +51,25 @@ function DrawerLoadingFallback() {
   );
 }
 
+function applyNestedTransform(
+  element: HTMLElement,
+  isOpen: boolean,
+  direction: "left" | "right" | "top" | "bottom"
+) {
+  const isVertical = direction === "top" || direction === "bottom";
+  const dim = isVertical ? window.innerHeight : window.innerWidth;
+  const scale = isOpen ? (dim - NESTED_DISPLACEMENT) / dim : 1;
+  const translate = isOpen ? -NESTED_DISPLACEMENT : 0;
+
+  element.style.transition = `transform ${TRANSITION_DURATION}s cubic-bezier(${TRANSITION_EASE.join(",")})`;
+
+  if (isVertical) {
+    element.style.transform = `scale(${scale}) translate3d(0, ${translate}px, 0)`;
+  } else {
+    element.style.transform = `scale(${scale}) translate3d(${translate}px, 0, 0)`;
+  }
+}
+
 function RecursiveDrawer({
   stack,
   index,
@@ -44,6 +82,8 @@ function RecursiveDrawer({
   const [isClosing, setIsClosing] = useState(false);
   const hasClosedRef = useRef(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const parentContext = useContext(ParentDrawerContext);
 
   if (prevKey !== currentKey) {
     setPrevKey(currentKey);
@@ -51,6 +91,23 @@ function RecursiveDrawer({
     setIsClosing(false);
     hasClosedRef.current = false;
   }
+
+  // Apply parent scale transform when nested drawer mounts
+  useEffect(() => {
+    if (index === 0 || !parentContext?.contentRef.current) {
+      return;
+    }
+
+    const parentElement = parentContext.contentRef.current;
+
+    // Apply the scale transform to parent
+    applyNestedTransform(parentElement, true, "right");
+
+    // Cleanup: reset parent transform when unmounting
+    return () => {
+      applyNestedTransform(parentElement, false, "right");
+    };
+  }, [index, parentContext]);
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -108,29 +165,34 @@ function RecursiveDrawer({
   const DrawerComponent = isNested ? DrawerNested : Drawer;
 
   return (
-    <DrawerComponent
-      direction="right"
-      onAnimationEnd={handleAnimationEnd}
-      onOpenChange={handleOpenChange}
-      open={isOpen}
-    >
-      <DrawerContent className="w-[400px] rounded-l-3xl outline-none">
-        <Suspense fallback={<DrawerLoadingFallback />}>
-          <CurrentDrawerComponent
-            onClose={handleClose}
-            onCloseAll={onCloseAll}
-          />
-        </Suspense>
-        {hasNext && (
-          <RecursiveDrawer
-            index={index + 1}
-            onCloseAll={onCloseAll}
-            onCloseAtIndex={onCloseAtIndex}
-            stack={stack}
-          />
-        )}
-      </DrawerContent>
-    </DrawerComponent>
+    <ParentDrawerContext.Provider value={{ contentRef }}>
+      <DrawerComponent
+        direction="right"
+        onAnimationEnd={handleAnimationEnd}
+        onOpenChange={handleOpenChange}
+        open={isOpen}
+      >
+        <DrawerContent
+          className="w-[400px] rounded-l-3xl outline-none"
+          ref={contentRef}
+        >
+          <Suspense fallback={<DrawerLoadingFallback />}>
+            <CurrentDrawerComponent
+              onClose={handleClose}
+              onCloseAll={onCloseAll}
+            />
+          </Suspense>
+          {hasNext && (
+            <RecursiveDrawer
+              index={index + 1}
+              onCloseAll={onCloseAll}
+              onCloseAtIndex={onCloseAtIndex}
+              stack={stack}
+            />
+          )}
+        </DrawerContent>
+      </DrawerComponent>
+    </ParentDrawerContext.Provider>
   );
 }
 

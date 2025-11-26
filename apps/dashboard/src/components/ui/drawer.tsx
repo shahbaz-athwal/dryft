@@ -1,4 +1,5 @@
 import * as React from "react"
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { Drawer as DrawerPrimitive } from "vaul"
 
 import { cn } from "@/lib/utils"
@@ -63,6 +64,9 @@ function DrawerContent({
         )}
         {...props}
       >
+        <VisuallyHidden.Root asChild>
+          <DrawerPrimitive.Title>Drawer</DrawerPrimitive.Title>
+        </VisuallyHidden.Root>
         <div className="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block" />
         {children}
       </DrawerPrimitive.Content>

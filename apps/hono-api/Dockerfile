@@ -16,7 +16,6 @@ COPY --from=base /app/package.json ./package.json
 COPY --from=base /app/bun.lock ./bun.lock
 RUN bun install --filter hono-api --frozen-lockfile
 COPY --from=base /app/out/full/ .
-RUN bun run turbo db:generate
 
 # ---------- Final Stage ----------
 FROM oven/bun:1.3.0-alpine AS runner

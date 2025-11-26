@@ -42,7 +42,7 @@ services:
     environment:
       - HOME=/app
     user: "root"
-    command: "bun run db:studio --browser=none --hostname=0.0.0.0"
+    command: "bun run db:studio --browser none --port 5555"
 
   inngest:
     container_name: inngest

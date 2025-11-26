@@ -1,10 +1,10 @@
-import { Spinner as ShadcnSpinner } from "@repo/shadcn-ui/components/ui/spinner";
 import {
   LoaderCircleIcon,
   LoaderIcon,
   LoaderPinwheelIcon,
   type LucideProps,
 } from "lucide-react";
+import { Spinner as ShadcnSpinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
 
 type SpinnerVariantProps = Omit<SpinnerProps, "variant">;

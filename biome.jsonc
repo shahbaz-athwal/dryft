@@ -5,10 +5,9 @@
     "includes": [
       "**",
       "!apps/hono-api/prisma/migrations",
-      "!apps/dashboard/src/routeTree.gen.ts",
-      "!apps/dashboard/src/main.tsx",
-      "!apps/dashboard/src/reportWebVitals.ts",
-      "!bun.lock"
+      "!bun.lock",
+      "!apps/dashboard/src/components/kibo-ui",
+      "!apps/dashboard/src/components/ui"
     ]
   },
   "linter": {

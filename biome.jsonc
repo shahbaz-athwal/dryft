@@ -7,7 +7,8 @@
       "!apps/hono-api/prisma/migrations",
       "!bun.lock",
       "!apps/dashboard/src/components/kibo-ui",
-      "!apps/dashboard/src/components/ui"
+      "!apps/dashboard/src/components/ui",
+      "!apps/hono-api/prisma/generated"
     ]
   },
   "linter": {

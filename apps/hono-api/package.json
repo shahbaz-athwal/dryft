@@ -15,21 +15,22 @@
     "with-env": "bun --env-file ../../.env"
   },
   "dependencies": {
-    "@ai-sdk/google": "^2.0.23",
+    "@ai-sdk/google": "^2.0.43",
     "@inngest/agent-kit": "^0.13.2",
-    "@orpc/server": "^1.9.3",
-    "@prisma/client": "^6.17.1",
-    "ai": "^5.0.78",
-    "axios": "^1.10.0",
-    "better-auth": "catalog:",
-    "graphql-request": "^7.2.0",
-    "hono": "^4.10.2",
-    "inngest": "^3.44.2",
-    "zod": "catalog:"
+    "@orpc/server": "^1.11.3",
+    "@prisma/adapter-pg": "^7.0.1",
+    "@prisma/client": "^7.0.1",
+    "ai": "^5.0.102",
+    "axios": "^1.13.2",
+    "better-auth": "^1.4.3",
+    "graphql-request": "^7.3.5",
+    "hono": "^4.10.7",
+    "inngest": "^3.46.0",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
-    "prisma": "^6.17.1",
-    "typescript": "catalog:"
+    "prisma": "^7.0.1",
+    "typescript": "^5.9.3"
   },
   "exports": {
     "./rpc": "./src/routes/rpc.ts"

@@ -1,5 +1,5 @@
 import { scraper } from "../services/acadia";
-import { prisma } from "../services/db";
+import { db } from "../services/db";
 import { inngest } from "./client";
 
 export const processCourse = inngest.createFunction(
@@ -50,7 +50,7 @@ export const processCourse = inngest.createFunction(
     await step.run("upsert-professors", async () => {
       await Promise.all(
         instructorData.instructorIds.map((instructorId) =>
-          prisma.professor.upsert({
+          db.professor.upsert({
             where: { id: instructorId },
             update: {
               name: instructorData.instructorNames[instructorId] ?? "",
@@ -69,7 +69,7 @@ export const processCourse = inngest.createFunction(
     await step.run("link-instructors-to-course", async () => {
       await Promise.all(
         instructorData.instructorIds.map((instructorId) =>
-          prisma.courseProfessor.upsert({
+          db.courseProfessor.upsert({
             where: {
               courseId_professorId: {
                 courseId,
@@ -109,7 +109,7 @@ export const processCourse = inngest.createFunction(
               : "TBD";
             const days = meetingTime?.days ?? [];
 
-            return prisma.section.upsert({
+            return db.section.upsert({
               where: { id: section.id },
               update: {
                 code: section.id,
@@ -148,7 +148,7 @@ export const processCourse = inngest.createFunction(
 
     // Step 6: Update course metadata
     await step.run("update-course-metadata", async () => {
-      const course = await prisma.course.findUnique({
+      const course = await db.course.findUnique({
         where: { id: courseId },
         select: { metadata: true },
       });
@@ -159,7 +159,7 @@ export const processCourse = inngest.createFunction(
         processed: { sectionIds: string[]; timestamp: Date };
       };
 
-      await prisma.course.update({
+      await db.course.update({
         where: { id: courseId },
         data: {
           metadata: {

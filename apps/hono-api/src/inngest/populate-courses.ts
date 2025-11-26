@@ -1,5 +1,5 @@
 import { scraper } from "../services/acadia";
-import { prisma } from "../services/db";
+import { db } from "../services/db";
 import { inngest } from "./client";
 
 export const populateCourses = inngest.createFunction(
@@ -32,7 +32,7 @@ export const populateCourses = inngest.createFunction(
 
     // Step 3: Insert courses into database
     await step.run("insert-courses", async () => {
-      return await prisma.course.createMany({
+      return await db.course.createMany({
         data: coursesToInsert,
         skipDuplicates: true,
       });

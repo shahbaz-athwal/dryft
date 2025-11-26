@@ -1,5 +1,5 @@
 import { scraper } from "../services/acadia";
-import { prisma } from "../services/db";
+import { db } from "../services/db";
 import { inngest } from "./client";
 
 export const populateProfessors = inngest.createFunction(
@@ -16,7 +16,7 @@ export const populateProfessors = inngest.createFunction(
 
     // Step 1: Fetch departments to process
     const departments = await step.run("fetch-departments", async () => {
-      return await prisma.department.findMany({
+      return await db.department.findMany({
         where: onlyUnsyncedDepartments
           ? {
               lastSync: null,
@@ -51,7 +51,7 @@ export const populateProfessors = inngest.createFunction(
       for (const [departmentPrefix, faculties] of facultiesByDepartment) {
         for (const faculty of faculties) {
           upsertPromises.push(
-            prisma.professor.upsert({
+            db.professor.upsert({
               where: { id: faculty.id },
               update: {
                 name: faculty.name,
@@ -72,7 +72,7 @@ export const populateProfessors = inngest.createFunction(
     // Step 4: Update all department sync timestamps concurrently
     await step.run("update-all-sync-timestamps", async () => {
       const updatePromises = departments.map((department) =>
-        prisma.department.update({
+        db.department.update({
           where: { prefix: department.prefix },
           data: { lastSync: new Date() },
         })

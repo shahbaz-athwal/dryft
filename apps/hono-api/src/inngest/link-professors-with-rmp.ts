@@ -1,5 +1,5 @@
 import { NonRetriableError } from "inngest";
-import { prisma } from "../services/db";
+import { db } from "../services/db";
 import { scraper } from "../services/rmp";
 import { matchProfessorsWithRMP } from "../utils/ai-matcher";
 import { RMP_ACADIA_ID } from "../utils/constants";
@@ -18,7 +18,7 @@ export const linkProfessorsWithRmp = inngest.createFunction(
     // Steps 1: Fetch professors and RMP professors in parallel
     const [professors, rmpProfessors] = await Promise.all([
       step.run("fetch-professors", async () => {
-        return await prisma.professor.findMany({
+        return await db.professor.findMany({
           where: { rmpId: null },
           select: {
             id: true,
@@ -66,7 +66,7 @@ export const linkProfessorsWithRmp = inngest.createFunction(
     await step.run("update-professors", async () => {
       await Promise.all(
         matchesWithRmpId.map((match) =>
-          prisma.professor.update({
+          db.professor.update({
             where: { id: match.professorId },
             data: { rmpId: match.rmpId },
           })

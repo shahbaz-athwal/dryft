@@ -1,4 +1,4 @@
-import { prisma } from "../services/db";
+import { db } from "../services/db";
 import { inngest } from "./client";
 
 export const triggerCourseProcessing = inngest.createFunction(
@@ -25,7 +25,7 @@ export const triggerCourseProcessing = inngest.createFunction(
       const courses = await step.run(
         `fetch-courses-batch-${skip}`,
         async () => {
-          const result = await prisma.course.findMany({
+          const result = await db.course.findMany({
             select: {
               id: true,
               departmentPrefix: true,

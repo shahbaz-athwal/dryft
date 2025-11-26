@@ -1,8 +1,13 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 
-import { Drawer, DrawerContent, DrawerHeader } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerNested,
+} from "@/components/ui/drawer";
 import { Spinner } from "@/components/ui/spinner";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 import { DRAWER_REGISTRY, type DrawerKey } from "@/lib/drawer-registry";
@@ -34,6 +39,27 @@ function RecursiveDrawer({
   onCloseAll,
 }: RecursiveDrawerProps) {
   const currentKey = stack.at(index);
+  const [prevKey, setPrevKey] = useState(currentKey);
+  const [isOpen, setIsOpen] = useState(true);
+  const [isClosing, setIsClosing] = useState(false);
+  const hasClosedRef = useRef(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  if (prevKey !== currentKey) {
+    setPrevKey(currentKey);
+    setIsOpen(true);
+    setIsClosing(false);
+    hasClosedRef.current = false;
+  }
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   if (!currentKey) {
     return null;
@@ -43,18 +69,55 @@ function RecursiveDrawer({
   const hasNext = index + 1 < stack.length;
   const isNested = index > 0;
 
-  const handleOpenChange = (open: boolean) => {
-    if (!open) {
-      onCloseAtIndex(index);
+  const performClose = () => {
+    if (hasClosedRef.current) {
+      return;
     }
+    hasClosedRef.current = true;
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    onCloseAtIndex(index);
   };
 
+  const handleOpenChange = (open: boolean) => {
+    if (open || isClosing) {
+      return;
+    }
+    setIsClosing(true);
+    setIsOpen(false);
+
+    timeoutRef.current = setTimeout(performClose, 200);
+  };
+
+  const handleAnimationEnd = (open: boolean) => {
+    if (open || !isClosing) {
+      return;
+    }
+    performClose();
+  };
+
+  const handleClose = () => {
+    if (isClosing) {
+      return;
+    }
+    setIsClosing(true);
+    setIsOpen(false);
+  };
+
+  const DrawerComponent = isNested ? DrawerNested : Drawer;
+
   return (
-    <Drawer nested={isNested} onOpenChange={handleOpenChange} open>
-      <DrawerContent>
+    <DrawerComponent
+      direction="right"
+      onAnimationEnd={handleAnimationEnd}
+      onOpenChange={handleOpenChange}
+      open={isOpen}
+    >
+      <DrawerContent className="w-[400px] rounded-l-3xl outline-none">
         <Suspense fallback={<DrawerLoadingFallback />}>
           <CurrentDrawerComponent
-            onClose={() => onCloseAtIndex(index)}
+            onClose={handleClose}
             onCloseAll={onCloseAll}
           />
         </Suspense>
@@ -67,7 +130,7 @@ function RecursiveDrawer({
           />
         )}
       </DrawerContent>
-    </Drawer>
+    </DrawerComponent>
   );
 }
 

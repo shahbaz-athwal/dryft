@@ -1,12 +1,16 @@
 name: dryft
+
+x-common: &common
+  build:
+    context: ../
+    dockerfile: apps/hono-api/Dockerfile
+  env_file:
+    - ../.env
+
 services:
   api:
+    <<: *common
     container_name: api-dev
-    build:
-      context: ../
-      dockerfile: apps/hono-api/Dockerfile
-    env_file:
-      - ../.env
     ports:
       - 4000:4000
     environment:
@@ -15,33 +19,24 @@ services:
       - FRONTEND_URL=http://localhost:3000
       - INNGEST_DEV=1
       - INNGEST_BASE_URL=http://inngest:8288
-    volumes:
+    volumes: &src-volume
       - ../apps/hono-api/src:/app/apps/hono-api/src
     command: "bun run api:dev"
 
   agent:
+    <<: *common
     container_name: agent
-    build:
-      context: ../
-      dockerfile: apps/hono-api/Dockerfile
-    env_file:
-      - ../.env
     ports:
       - 5000:5000
     environment:
       - INNGEST_DEV=1
       - INNGEST_BASE_URL=http://inngest:8288
-    volumes:
-      - ../apps/hono-api/src:/app/apps/hono-api/src
+    volumes: *src-volume
     command: "bun --filter hono-api agent"
 
   prisma-studio:
+    <<: *common
     container_name: prisma-studio
-    build:
-      context: ../
-      dockerfile: apps/hono-api/Dockerfile
-    env_file:
-      - ../.env
     ports:
       - 5555:5555
     environment:

@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Moon, Shield, X } from "lucide-react";
+import { Bell, Moon, Shield, UserCog, X } from "lucide-react";
 
 import type { DrawerComponentProps } from "@/components/global-drawer";
 import { Button } from "@/components/ui/button";
@@ -14,8 +14,10 @@ import {
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
+import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 function SettingsDrawer({ onClose, onCloseAll }: DrawerComponentProps) {
+  const { open } = useDrawerStack();
   return (
     <>
       <DrawerHeader className="relative">
@@ -82,6 +84,17 @@ function SettingsDrawer({ onClose, onCloseAll }: DrawerComponentProps) {
             <Switch id="2fa" />
           </div>
         </div>
+
+        <Separator />
+
+        <Button
+          className="w-full justify-start"
+          onClick={() => open("account")}
+          variant="outline"
+        >
+          <UserCog className="mr-2 size-4" />
+          Manage Account
+        </Button>
       </div>
 
       <DrawerFooter>

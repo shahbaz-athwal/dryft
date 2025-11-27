@@ -6,9 +6,15 @@ import type { ComponentType } from "react";
 import type { DrawerComponentProps } from "@/components/global-drawer";
 
 const DRAWER_REGISTRY = {
-  profile: dynamic(() => import("@/components/drawers/profile-drawer")),
-  settings: dynamic(() => import("@/components/drawers/settings-drawer")),
-  account: dynamic(() => import("@/components/drawers/account-drawer")),
+  profile: dynamic(() => import("@/components/drawers/profile-drawer"), {
+    ssr: false,
+  }),
+  settings: dynamic(() => import("@/components/drawers/settings-drawer"), {
+    ssr: false,
+  }),
+  account: dynamic(() => import("@/components/drawers/account-drawer"), {
+    ssr: false,
+  }),
 } as const satisfies Record<string, ComponentType<DrawerComponentProps>>;
 
 type DrawerKey = keyof typeof DRAWER_REGISTRY;

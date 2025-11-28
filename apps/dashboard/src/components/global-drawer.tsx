@@ -3,6 +3,7 @@
 import {
   createContext,
   Suspense,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -11,6 +12,7 @@ import {
 
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerNested,
@@ -61,6 +63,7 @@ function RecursiveDrawer({
   const currentKey = stack.at(index);
   const [isOpen, setIsOpen] = useState(true);
   const contentRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const parentContext = useContext(ParentDrawerContext);
 
   // Apply parent scale transform when nested drawer mounts
@@ -83,6 +86,20 @@ function RecursiveDrawer({
     };
   }, [index, parentContext]);
 
+  // Hack: Click the hidden DrawerClose button to trigger vaul's native close
+  const handleClose = useCallback(() => {
+    closeButtonRef.current?.click();
+  }, []);
+
+  const handleAnimationEnd = useCallback(
+    (open: boolean) => {
+      if (!open) {
+        onCloseAtIndex(index);
+      }
+    },
+    [index, onCloseAtIndex]
+  );
+
   if (!currentKey) {
     return null;
   }
@@ -90,12 +107,6 @@ function RecursiveDrawer({
   const CurrentDrawerComponent = DRAWER_REGISTRY[currentKey];
   const hasNext = index + 1 < stack.length;
   const DrawerComponent = index > 0 ? DrawerNested : Drawer;
-
-  const handleAnimationEnd = (open: boolean) => {
-    if (!open) {
-      onCloseAtIndex(index);
-    }
-  };
 
   return (
     <ParentDrawerContext.Provider value={{ contentRef }}>
@@ -109,9 +120,13 @@ function RecursiveDrawer({
           className="w-[520px] rounded-l-3xl outline-none"
           ref={contentRef}
         >
+          {/* Hidden close button for programmatic close */}
+          <DrawerClose className="sr-only" ref={closeButtonRef}>
+            Close
+          </DrawerClose>
           <Suspense fallback={<DrawerLoadingFallback />}>
             <CurrentDrawerComponent
-              onClose={() => setIsOpen(false)}
+              onClose={handleClose}
               onCloseAll={onCloseAll}
             />
           </Suspense>

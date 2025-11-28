@@ -13,10 +13,8 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerHeader,
   DrawerNested,
 } from "@/components/ui/drawer";
-import { Spinner } from "@/components/ui/spinner";
 import { registerDrawerClose, useDrawerStack } from "@/hooks/use-drawer-stack";
 import { DRAWER_REGISTRY, type DrawerKey } from "@/lib/drawer-registry";
 
@@ -29,14 +27,6 @@ type RecursiveDrawerProps = {
   stack: DrawerKey[];
   index: number;
 };
-
-function DrawerLoadingFallback() {
-  return (
-    <DrawerHeader className="flex items-center justify-center py-12">
-      <Spinner />
-    </DrawerHeader>
-  );
-}
 
 const ParentDrawerContext = createContext<{
   contentRef: React.RefObject<HTMLDivElement | null>;
@@ -108,7 +98,7 @@ function RecursiveDrawer({ stack, index }: RecursiveDrawerProps) {
           <DrawerClose className="sr-only" ref={closeButtonRef}>
             Close
           </DrawerClose>
-          <Suspense fallback={<DrawerLoadingFallback />}>
+          <Suspense>
             <CurrentDrawerComponent />
           </Suspense>
           {hasNext && <RecursiveDrawer index={index + 1} stack={stack} />}

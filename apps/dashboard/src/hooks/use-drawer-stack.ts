@@ -3,7 +3,7 @@
 import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
 
 import type { DrawerKey } from "@/lib/drawer-registry";
-import { isValidDrawerKey } from "@/lib/drawer-registry";
+import { isValidDrawerKey, preloadDrawer } from "@/lib/drawer-registry";
 
 const drawerParser = parseAsArrayOf(parseAsString).withDefault([]);
 
@@ -42,7 +42,9 @@ function useDrawerStack() {
     closeFn?.();
   }
 
-  function loadDrawer(key: DrawerKey) {}
+  function loadDrawer(key: DrawerKey) {
+    preloadDrawer(key);
+  }
 
   return {
     stack: validStack,

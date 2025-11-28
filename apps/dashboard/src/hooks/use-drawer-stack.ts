@@ -27,10 +27,12 @@ function useDrawerStack() {
     });
   }
 
-  function closeAllDrawers() {
+  async function closeAllDrawers() {
     for (const fn of closeRegistry.values()) {
       fn();
+      await new Promise((resolve) => setTimeout(resolve, 100));
     }
+    setStack([]);
   }
 
   function closeTopDrawer() {

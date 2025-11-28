@@ -30,12 +30,14 @@ type RecursiveDrawerProps = {
 
 const ParentDrawerContext = createContext<{
   contentRef: React.RefObject<HTMLDivElement | null>;
+  isReady: boolean;
 } | null>(null);
 
 function RecursiveDrawer({ stack, index }: RecursiveDrawerProps) {
   const currentKey = stack.at(index);
 
   const [isOpen, setIsOpen] = useState(true);
+  const [isReady, setIsReady] = useState(false);
 
   const contentRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -43,10 +45,22 @@ function RecursiveDrawer({ stack, index }: RecursiveDrawerProps) {
   const parentContext = useContext(ParentDrawerContext);
   const { pop } = useDrawerStack();
 
-  // Apply parent scale transform when nested drawer mounts
-  // This is needed because vaul's onNestedOpenChange doesn't fire in controlled mode
   useEffect(() => {
-    if (index === 0 || !parentContext?.contentRef.current) {
+    const timeout = setTimeout(
+      () => {
+        setIsReady(true);
+      },
+      TRANSITION_DURATION * 1000 + 100
+    );
+    return () => clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    if (
+      index === 0 ||
+      !parentContext?.contentRef.current ||
+      !parentContext.isReady
+    ) {
       return;
     }
 
@@ -55,7 +69,9 @@ function RecursiveDrawer({ stack, index }: RecursiveDrawerProps) {
     const translate = -NESTED_DISPLACEMENT;
 
     parentElement.style.transition = `transform ${TRANSITION_DURATION}s cubic-bezier(${TRANSITION_EASE.join(",")})`;
-    parentElement.style.transform = `scale(${scale}) translate3d(${translate}px, 0, 0)`;
+    requestAnimationFrame(() => {
+      parentElement.style.transform = `scale(${scale}) translate3d(${translate}px, 0, 0)`;
+    });
 
     return () => {
       parentElement.style.transition = `transform ${TRANSITION_DURATION}s cubic-bezier(${TRANSITION_EASE.join(",")})`;
@@ -63,7 +79,7 @@ function RecursiveDrawer({ stack, index }: RecursiveDrawerProps) {
     };
   }, [index, parentContext]);
 
-  // Click the hidden DrawerClose button to trigger vaul's native close
+  // Register close callback for drawer
   useEffect(() => {
     return registerDrawerClose(index, () => {
       closeButtonRef.current?.click();
@@ -79,7 +95,7 @@ function RecursiveDrawer({ stack, index }: RecursiveDrawerProps) {
   const DrawerComponent = index > 0 ? DrawerNested : Drawer;
 
   return (
-    <ParentDrawerContext.Provider value={{ contentRef }}>
+    <ParentDrawerContext.Provider value={{ contentRef, isReady }}>
       <DrawerComponent
         direction="right"
         onAnimationEnd={(open: boolean) => {

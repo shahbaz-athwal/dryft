@@ -28,8 +28,11 @@ function useDrawerStack() {
   }
 
   async function closeAllDrawers() {
-    for (const fn of closeRegistry.values()) {
-      fn();
+    // Get all indices and sort in descending order (close from inside-out)
+    const indices = Array.from(closeRegistry.keys()).sort((a, b) => b - a);
+    for (const index of indices) {
+      const fn = closeRegistry.get(index);
+      fn?.();
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
     setStack([]);
@@ -40,8 +43,7 @@ function useDrawerStack() {
     if (topIndex < 0) {
       return;
     }
-    const closeFn = closeRegistry.get(topIndex);
-    closeFn?.();
+    closeRegistry.get(topIndex)?.();
   }
 
   function loadDrawer(key: DrawerKey) {

@@ -6,11 +6,14 @@ import { Button } from "@/components/ui/button";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 export default function Home() {
-  const { open } = useDrawerStack();
+  const { openDrawer, loadDrawer } = useDrawerStack();
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <Button onClick={() => open("profile")}>
+      <Button
+        onClick={() => openDrawer("profile")}
+        onMouseOver={() => loadDrawer("profile")}
+      >
         <User className="mr-2 size-4" />
         Open Profile Drawer
       </Button>

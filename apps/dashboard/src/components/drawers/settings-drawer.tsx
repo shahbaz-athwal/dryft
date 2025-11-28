@@ -2,7 +2,6 @@
 
 import { Bell, Moon, Shield, UserCog, X } from "lucide-react";
 
-import type { DrawerComponentProps } from "@/components/global-drawer";
 import { Button } from "@/components/ui/button";
 import {
   DrawerClose,
@@ -16,8 +15,10 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
-function SettingsDrawer({ onClose, onCloseAll }: DrawerComponentProps) {
-  const { open } = useDrawerStack();
+function SettingsDrawer() {
+  const { openDrawer, closeTopDrawer, closeAllDrawers, loadDrawer } =
+    useDrawerStack();
+
   return (
     <>
       <DrawerHeader className="relative">
@@ -89,7 +90,8 @@ function SettingsDrawer({ onClose, onCloseAll }: DrawerComponentProps) {
 
         <Button
           className="w-full justify-start"
-          onClick={() => open("account")}
+          onClick={() => openDrawer("account")}
+          onMouseOver={() => loadDrawer("account")}
           variant="outline"
         >
           <UserCog className="mr-2 size-4" />
@@ -99,10 +101,10 @@ function SettingsDrawer({ onClose, onCloseAll }: DrawerComponentProps) {
 
       <DrawerFooter>
         <Button className="w-full">Save Changes</Button>
-        <Button className="w-full" onClick={onClose} variant="outline">
+        <Button className="w-full" onClick={closeTopDrawer} variant="outline">
           Close Settings
         </Button>
-        <Button className="w-full" onClick={onCloseAll} variant="ghost">
+        <Button className="w-full" onClick={closeAllDrawers} variant="ghost">
           Close All Drawers
         </Button>
       </DrawerFooter>

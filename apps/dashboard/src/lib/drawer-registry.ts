@@ -3,8 +3,6 @@
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 
-import type { DrawerComponentProps } from "@/components/global-drawer";
-
 const DRAWER_REGISTRY = {
   profile: dynamic(() => import("@/components/drawers/profile-drawer"), {
     ssr: false,
@@ -15,7 +13,7 @@ const DRAWER_REGISTRY = {
   account: dynamic(() => import("@/components/drawers/account-drawer"), {
     ssr: false,
   }),
-} as const satisfies Record<string, ComponentType<DrawerComponentProps>>;
+} as const satisfies Record<string, ComponentType>;
 
 type DrawerKey = keyof typeof DRAWER_REGISTRY;
 

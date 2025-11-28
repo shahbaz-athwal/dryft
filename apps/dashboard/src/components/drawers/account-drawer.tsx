@@ -2,7 +2,6 @@
 
 import { CreditCard, Key, Trash2, X } from "lucide-react";
 
-import type { DrawerComponentProps } from "@/components/global-drawer";
 import { Button } from "@/components/ui/button";
 import {
   DrawerClose,
@@ -12,8 +11,11 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
+import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
-function AccountDrawer({ onClose, onCloseAll }: DrawerComponentProps) {
+function AccountDrawer() {
+  const { closeAllDrawers, closeTopDrawer } = useDrawerStack();
+
   return (
     <>
       <DrawerHeader className="relative">
@@ -91,10 +93,10 @@ function AccountDrawer({ onClose, onCloseAll }: DrawerComponentProps) {
       </div>
 
       <DrawerFooter>
-        <Button className="w-full" onClick={onClose} variant="outline">
+        <Button className="w-full" onClick={closeTopDrawer} variant="outline">
           Back to Settings
         </Button>
-        <Button className="w-full" onClick={onCloseAll} variant="ghost">
+        <Button className="w-full" onClick={closeAllDrawers} variant="ghost">
           Close All Drawers
         </Button>
       </DrawerFooter>

@@ -2,7 +2,6 @@
 
 import { Settings, User, X } from "lucide-react";
 
-import type { DrawerComponentProps } from "@/components/global-drawer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,8 +14,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
-function ProfileDrawer({ onClose }: DrawerComponentProps) {
-  const { open } = useDrawerStack();
+function ProfileDrawer() {
+  const { openDrawer, closeTopDrawer, loadDrawer } = useDrawerStack();
 
   return (
     <>
@@ -74,13 +73,14 @@ function ProfileDrawer({ onClose }: DrawerComponentProps) {
       <DrawerFooter>
         <Button
           className="w-full"
-          onClick={() => open("settings")}
+          onClick={() => openDrawer("settings")}
+          onMouseOver={() => loadDrawer("settings")}
           variant="outline"
         >
           <Settings className="mr-2 size-4" />
           Open Settings
         </Button>
-        <Button className="w-full" onClick={onClose} variant="ghost">
+        <Button className="w-full" onClick={closeTopDrawer} variant="ghost">
           Close Profile
         </Button>
       </DrawerFooter>

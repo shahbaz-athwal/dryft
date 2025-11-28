@@ -1,65 +1,64 @@
 "use client";
 
 import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
-import { useCallback } from "react";
 
 import type { DrawerKey } from "@/lib/drawer-registry";
 import { isValidDrawerKey } from "@/lib/drawer-registry";
 
 const drawerParser = parseAsArrayOf(parseAsString).withDefault([]);
 
+const closeRegistry = new Map<number, () => void>();
+
 function useDrawerStack() {
   const [stack, setStack] = useQueryState("drawer", drawerParser);
 
   const validStack = stack.filter(isValidDrawerKey);
 
-  const open = useCallback(
-    (key: DrawerKey) => {
-      setStack((prev) => [...prev, key]);
-    },
-    [setStack]
-  );
+  function openDrawer(key: DrawerKey) {
+    setStack((prev) => [...prev, key]);
+  }
 
-  const close = useCallback(() => {
+  function pop() {
     setStack((prev) => {
       if (prev.length === 0) {
         return prev;
       }
       return prev.slice(0, -1);
     });
-  }, [setStack]);
+  }
 
-  const closeAll = useCallback(() => {
-    setStack([]);
-  }, [setStack]);
+  function closeAllDrawers() {
+    for (const fn of closeRegistry.values()) {
+      fn();
+    }
+  }
 
-  const replace = useCallback(
-    (key: DrawerKey) => {
-      setStack((prev) => {
-        if (prev.length === 0) {
-          return [key];
-        }
-        return [...prev.slice(0, -1), key];
-      });
-    },
-    [setStack]
-  );
+  function closeTopDrawer() {
+    const topIndex = validStack.length - 1;
+    if (topIndex < 0) {
+      return;
+    }
+    const closeFn = closeRegistry.get(topIndex);
+    closeFn?.();
+  }
 
-  const closeToIndex = useCallback(
-    (index: number) => {
-      setStack((prev) => prev.slice(0, index));
-    },
-    [setStack]
-  );
+  function loadDrawer(key: DrawerKey) {}
 
   return {
     stack: validStack,
-    open,
-    close,
-    closeAll,
-    replace,
-    closeToIndex,
+    openDrawer,
+    pop,
+    closeTopDrawer,
+    closeAllDrawers,
+    loadDrawer,
   };
 }
 
-export { useDrawerStack };
+function registerDrawerClose(index: number, closeFn: () => void) {
+  closeRegistry.set(index, closeFn);
+  return () => {
+    closeRegistry.delete(index);
+  };
+}
+
+export { registerDrawerClose, useDrawerStack };

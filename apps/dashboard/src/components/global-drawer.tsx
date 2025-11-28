@@ -3,7 +3,6 @@
 import {
   createContext,
   Suspense,
-  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -18,7 +17,7 @@ import {
   DrawerNested,
 } from "@/components/ui/drawer";
 import { Spinner } from "@/components/ui/spinner";
-import { useDrawerStack } from "@/hooks/use-drawer-stack";
+import { registerDrawerClose, useDrawerStack } from "@/hooks/use-drawer-stack";
 import { DRAWER_REGISTRY, type DrawerKey } from "@/lib/drawer-registry";
 
 // Match vaul's internal constants
@@ -26,16 +25,9 @@ const NESTED_DISPLACEMENT = 16;
 const TRANSITION_DURATION = 0.5;
 const TRANSITION_EASE = [0.32, 0.72, 0, 1];
 
-type DrawerComponentProps = {
-  onClose: () => void;
-  onCloseAll: () => void;
-};
-
 type RecursiveDrawerProps = {
   stack: DrawerKey[];
   index: number;
-  onCloseAtIndex: (index: number) => void;
-  onCloseAll: () => void;
 };
 
 function DrawerLoadingFallback() {
@@ -50,12 +42,7 @@ const ParentDrawerContext = createContext<{
   contentRef: React.RefObject<HTMLDivElement | null>;
 } | null>(null);
 
-function RecursiveDrawer({
-  stack,
-  index,
-  onCloseAtIndex,
-  onCloseAll,
-}: RecursiveDrawerProps) {
+function RecursiveDrawer({ stack, index }: RecursiveDrawerProps) {
   const currentKey = stack.at(index);
 
   const [isOpen, setIsOpen] = useState(true);
@@ -64,6 +51,7 @@ function RecursiveDrawer({
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const parentContext = useContext(ParentDrawerContext);
+  const { pop } = useDrawerStack();
 
   // Apply parent scale transform when nested drawer mounts
   // This is needed because vaul's onNestedOpenChange doesn't fire in controlled mode
@@ -85,10 +73,12 @@ function RecursiveDrawer({
     };
   }, [index, parentContext]);
 
-  // Hack: Click the hidden DrawerClose button to trigger vaul's native close
-  const handleClose = () => {
-    closeButtonRef.current?.click();
-  };
+  // Click the hidden DrawerClose button to trigger vaul's native close
+  useEffect(() => {
+    return registerDrawerClose(index, () => {
+      closeButtonRef.current?.click();
+    });
+  });
 
   if (!currentKey) {
     return null;
@@ -104,7 +94,7 @@ function RecursiveDrawer({
         direction="right"
         onAnimationEnd={(open: boolean) => {
           if (!open) {
-            onCloseAtIndex(index);
+            pop();
           }
         }}
         onOpenChange={setIsOpen}
@@ -119,19 +109,9 @@ function RecursiveDrawer({
             Close
           </DrawerClose>
           <Suspense fallback={<DrawerLoadingFallback />}>
-            <CurrentDrawerComponent
-              onClose={handleClose}
-              onCloseAll={onCloseAll}
-            />
+            <CurrentDrawerComponent />
           </Suspense>
-          {hasNext && (
-            <RecursiveDrawer
-              index={index + 1}
-              onCloseAll={onCloseAll}
-              onCloseAtIndex={onCloseAtIndex}
-              stack={stack}
-            />
-          )}
+          {hasNext && <RecursiveDrawer index={index + 1} stack={stack} />}
         </DrawerContent>
       </DrawerComponent>
     </ParentDrawerContext.Provider>
@@ -139,21 +119,13 @@ function RecursiveDrawer({
 }
 
 function GlobalDrawer() {
-  const { stack, closeToIndex, closeAll } = useDrawerStack();
+  const { stack } = useDrawerStack();
 
   if (stack.length === 0) {
     return null;
   }
 
-  return (
-    <RecursiveDrawer
-      index={0}
-      onCloseAll={closeAll}
-      onCloseAtIndex={closeToIndex}
-      stack={stack}
-    />
-  );
+  return <RecursiveDrawer index={0} stack={stack} />;
 }
 
 export { GlobalDrawer };
-export type { DrawerComponentProps };

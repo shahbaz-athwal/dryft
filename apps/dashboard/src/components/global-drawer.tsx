@@ -38,14 +38,6 @@ type RecursiveDrawerProps = {
   onCloseAll: () => void;
 };
 
-type ParentDrawerContextValue = {
-  contentRef: React.RefObject<HTMLDivElement | null>;
-};
-
-const ParentDrawerContext = createContext<ParentDrawerContextValue | null>(
-  null
-);
-
 function DrawerLoadingFallback() {
   return (
     <DrawerHeader className="flex items-center justify-center py-12">
@@ -54,6 +46,10 @@ function DrawerLoadingFallback() {
   );
 }
 
+const ParentDrawerContext = createContext<{
+  contentRef: React.RefObject<HTMLDivElement | null>;
+} | null>(null);
+
 function RecursiveDrawer({
   stack,
   index,
@@ -61,9 +57,12 @@ function RecursiveDrawer({
   onCloseAll,
 }: RecursiveDrawerProps) {
   const currentKey = stack.at(index);
+
   const [isOpen, setIsOpen] = useState(true);
+
   const contentRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
   const parentContext = useContext(ParentDrawerContext);
 
   // Apply parent scale transform when nested drawer mounts
@@ -87,18 +86,9 @@ function RecursiveDrawer({
   }, [index, parentContext]);
 
   // Hack: Click the hidden DrawerClose button to trigger vaul's native close
-  const handleClose = useCallback(() => {
+  const handleClose = () => {
     closeButtonRef.current?.click();
-  }, []);
-
-  const handleAnimationEnd = useCallback(
-    (open: boolean) => {
-      if (!open) {
-        onCloseAtIndex(index);
-      }
-    },
-    [index, onCloseAtIndex]
-  );
+  };
 
   if (!currentKey) {
     return null;
@@ -112,7 +102,11 @@ function RecursiveDrawer({
     <ParentDrawerContext.Provider value={{ contentRef }}>
       <DrawerComponent
         direction="right"
-        onAnimationEnd={handleAnimationEnd}
+        onAnimationEnd={(open: boolean) => {
+          if (!open) {
+            onCloseAtIndex(index);
+          }
+        }}
         onOpenChange={setIsOpen}
         open={isOpen}
       >

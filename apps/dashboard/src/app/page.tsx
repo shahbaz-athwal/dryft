@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <Button
-        onClick={() => openDrawer("profile")}
+        onClick={() => openDrawer("profile", {})}
         onMouseOver={() => loadDrawer("profile")}
       >
         <User className="mr-2 size-4" />

@@ -90,7 +90,7 @@ function SettingsDrawer() {
 
         <Button
           className="w-full justify-start"
-          onClick={() => openDrawer("account")}
+          onClick={() => openDrawer("account", {})}
           onMouseOver={() => loadDrawer("account")}
           variant="outline"
         >

@@ -1,29 +1,34 @@
 "use client";
 
-import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
+import { parseAsJson, useQueryState } from "nuqs";
 
-import type { DrawerKey } from "@/lib/drawer-registry";
-import { isValidDrawerKey, preloadDrawer } from "@/lib/drawer-registry";
+import type {
+  DrawerKey,
+  DrawerPropsMap,
+  DrawerStackItem,
+} from "@/lib/drawer-registry";
+import { drawerStackSchema, preloadDrawer } from "@/lib/drawer-registry";
 
-const drawerParser = parseAsArrayOf(parseAsString).withDefault([]);
+const drawerParser = parseAsJson(drawerStackSchema).withDefault([]);
 
 const closeRegistry = new Map<number, () => void>();
 
 function useDrawerStack() {
   const [stack, setStack] = useQueryState("drawer", drawerParser);
 
-  const validStack = stack.filter(isValidDrawerKey);
+  const validStack = stack ?? [];
 
-  function openDrawer(key: DrawerKey) {
-    setStack((prev) => [...prev, key]);
+  function openDrawer<K extends DrawerKey>(key: K, props: DrawerPropsMap[K]) {
+    setStack((prev) => [...(prev ?? []), { key, props } as DrawerStackItem]);
   }
 
   function pop() {
     setStack((prev) => {
-      if (prev.length === 0) {
-        return prev;
+      const current = prev ?? [];
+      if (current.length === 0) {
+        return current;
       }
-      return prev.slice(0, -1);
+      return current.slice(0, -1);
     });
   }
 

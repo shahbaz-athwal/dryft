@@ -49,8 +49,10 @@ type DrawerStackItemWithProps = {
 
 type DrawerStackItem = DrawerStackItemWithoutProps | DrawerStackItemWithProps;
 
+const drawerKeys = Object.keys(drawerConfig) as DrawerKey[];
+
 const DRAWER_REGISTRY = Object.fromEntries(
-  (Object.keys(drawerConfig) as DrawerKey[]).map((key) => [
+  drawerKeys.map((key) => [
     key,
     dynamic(drawerConfig[key].loader, { ssr: false }),
   ])
@@ -61,7 +63,7 @@ const DRAWER_REGISTRY = Object.fromEntries(
 };
 
 function buildStackSchema() {
-  const itemSchemas = (Object.keys(drawerConfig) as DrawerKey[]).map((key) => {
+  const itemSchemas = drawerKeys.map((key) => {
     const config = drawerConfig[key];
     if ("schema" in config) {
       return z.object({ key: z.literal(key), props: config.schema });
@@ -69,9 +71,7 @@ function buildStackSchema() {
     return z.object({ key: z.literal(key) });
   });
 
-  return z.array(
-    z.union(itemSchemas as unknown as [z.ZodType, z.ZodType, ...z.ZodType[]])
-  );
+  return z.array(z.union(itemSchemas));
 }
 
 const drawerStackSchema = buildStackSchema();

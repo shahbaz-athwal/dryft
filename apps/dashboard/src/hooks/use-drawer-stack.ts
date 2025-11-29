@@ -52,7 +52,7 @@ function useDrawerStack() {
     for (const index of indices) {
       const fn = closeRegistry.get(index);
       fn?.();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 120));
     }
     setStack([]);
   }

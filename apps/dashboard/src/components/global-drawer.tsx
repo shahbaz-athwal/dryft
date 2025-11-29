@@ -1,6 +1,5 @@
 "use client";
 
-import type { ComponentType } from "react";
 import {
   createContext,
   Suspense,
@@ -17,20 +16,16 @@ import {
 } from "@/components/ui/drawer";
 import { registerDrawerClose, useDrawerStack } from "@/hooks/use-drawer-stack";
 
-import { DRAWER_REGISTRY, type DrawerStackItem } from "@/lib/drawer-registry";
+import {
+  type DrawerStackItem,
+  getDrawerComponent,
+  hasProps,
+} from "@/lib/drawer-registry";
 
 // Match vaul's internal constants
 const NESTED_DISPLACEMENT = 16;
 const TRANSITION_DURATION = 0.5;
 const TRANSITION_EASE = [0.32, 0.72, 0, 1];
-
-function renderDrawer(item: DrawerStackItem) {
-  // Type assertion is safe because discriminated union guarantees key/props match
-  const Component = DRAWER_REGISTRY[item.key] as ComponentType<
-    typeof item.props
-  >;
-  return <Component {...item.props} />;
-}
 
 type RecursiveDrawerProps = {
   stack: DrawerStackItem[];
@@ -102,6 +97,9 @@ function RecursiveDrawer({ stack, index }: RecursiveDrawerProps) {
   const hasNext = index + 1 < stack.length;
   const DrawerComponent = index > 0 ? DrawerNested : Drawer;
 
+  const Component = getDrawerComponent(currentItem.key);
+  const props = hasProps(currentItem) ? currentItem.props : {};
+
   return (
     <ParentDrawerContext.Provider value={{ contentRef, isReady }}>
       <DrawerComponent
@@ -122,7 +120,9 @@ function RecursiveDrawer({ stack, index }: RecursiveDrawerProps) {
           <DrawerClose className="sr-only" ref={closeButtonRef}>
             Close
           </DrawerClose>
-          <Suspense>{renderDrawer(currentItem)}</Suspense>
+          <Suspense>
+            <Component {...props} />
+          </Suspense>
           {hasNext && <RecursiveDrawer index={index + 1} stack={stack} />}
         </DrawerContent>
       </DrawerComponent>

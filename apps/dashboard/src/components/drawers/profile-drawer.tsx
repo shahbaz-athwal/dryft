@@ -73,7 +73,7 @@ function ProfileDrawer() {
       <DrawerFooter>
         <Button
           className="w-full"
-          onClick={() => openDrawer("settings", {})}
+          onClick={() => openDrawer("settings")}
           onMouseOver={() => loadDrawer("settings")}
           variant="outline"
         >

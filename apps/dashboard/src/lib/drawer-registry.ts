@@ -1,77 +1,106 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import type { ComponentType } from "react";
 import { z } from "zod";
 
-// Props schemas for each drawer
-const drawerPropsSchemas = {
-  profile: z.object({}),
-  settings: z.object({}),
-  account: z.object({}),
-  rating: z.object({
-    type: z.enum(["course", "prof"]),
-    id: z.string(),
-  }),
+const drawerConfig = {
+  profile: {
+    loader: () => import("@/components/drawers/profile-drawer"),
+  },
+  settings: {
+    loader: () => import("@/components/drawers/settings-drawer"),
+  },
+  account: {
+    loader: () => import("@/components/drawers/account-drawer"),
+  },
+  rating: {
+    loader: () => import("@/components/drawers/rating-drawer"),
+    schema: z.object({
+      type: z.enum(["course", "prof"]),
+      id: z.string(),
+    }),
+  },
 } as const;
 
-// Zod schema for drawer stack items (discriminated union)
-const drawerStackItemSchema = z.discriminatedUnion("key", [
-  z.object({ key: z.literal("profile"), props: drawerPropsSchemas.profile }),
-  z.object({ key: z.literal("settings"), props: drawerPropsSchemas.settings }),
-  z.object({ key: z.literal("account"), props: drawerPropsSchemas.account }),
-  z.object({ key: z.literal("rating"), props: drawerPropsSchemas.rating }),
-]);
+type DrawerConfig = typeof drawerConfig;
 
-const drawerStackSchema = z.array(drawerStackItemSchema);
+type DrawerKey = keyof DrawerConfig;
 
-// Derive types from schemas
+type DrawerKeyWithProps = {
+  [K in DrawerKey]: DrawerConfig[K] extends { schema: z.ZodType } ? K : never;
+}[DrawerKey];
+
+type DrawerKeyWithoutProps = Exclude<DrawerKey, DrawerKeyWithProps>;
+
 type DrawerPropsMap = {
-  [K in keyof typeof drawerPropsSchemas]: z.infer<
-    (typeof drawerPropsSchemas)[K]
+  [K in DrawerKeyWithProps]: DrawerConfig[K] extends { schema: z.ZodType }
+    ? z.infer<DrawerConfig[K]["schema"]>
+    : never;
+};
+
+type DrawerStackItemWithoutProps = {
+  [K in DrawerKeyWithoutProps]: { key: K };
+}[DrawerKeyWithoutProps];
+
+type DrawerStackItemWithProps = {
+  [K in DrawerKeyWithProps]: { key: K; props: DrawerPropsMap[K] };
+}[DrawerKeyWithProps];
+
+type DrawerStackItem = DrawerStackItemWithoutProps | DrawerStackItemWithProps;
+
+const DRAWER_REGISTRY = Object.fromEntries(
+  (Object.keys(drawerConfig) as DrawerKey[]).map((key) => [
+    key,
+    dynamic(drawerConfig[key].loader, { ssr: false }),
+  ])
+) as {
+  [K in DrawerKey]: ComponentType<
+    K extends DrawerKeyWithProps ? DrawerPropsMap[K] : object
   >;
 };
 
-type DrawerKey = keyof DrawerPropsMap;
+function buildStackSchema() {
+  const itemSchemas = (Object.keys(drawerConfig) as DrawerKey[]).map((key) => {
+    const config = drawerConfig[key];
+    if ("schema" in config) {
+      return z.object({ key: z.literal(key), props: config.schema });
+    }
+    return z.object({ key: z.literal(key) });
+  });
 
-type DrawerStackItem = z.infer<typeof drawerStackItemSchema>;
-
-const DRAWER_LOADERS = {
-  profile: () => import("@/components/drawers/profile-drawer"),
-  settings: () => import("@/components/drawers/settings-drawer"),
-  account: () => import("@/components/drawers/account-drawer"),
-  rating: () => import("@/components/drawers/rating-drawer"),
-} as const;
-
-const DRAWER_REGISTRY = {
-  profile: dynamic(DRAWER_LOADERS.profile, { ssr: false }),
-  settings: dynamic(DRAWER_LOADERS.settings, { ssr: false }),
-  account: dynamic(DRAWER_LOADERS.account, { ssr: false }),
-  rating: dynamic(DRAWER_LOADERS.rating, { ssr: false }),
-} as const;
-
-function isValidDrawerKey(key: unknown): key is DrawerKey {
-  return typeof key === "string" && key in DRAWER_REGISTRY;
-}
-
-function isValidDrawerStackItem(item: unknown): item is DrawerStackItem {
-  return (
-    typeof item === "object" &&
-    item !== null &&
-    "key" in item &&
-    "props" in item &&
-    isValidDrawerKey((item as { key: unknown }).key)
+  return z.array(
+    z.union(itemSchemas as unknown as [z.ZodType, z.ZodType, ...z.ZodType[]])
   );
 }
 
+const drawerStackSchema = buildStackSchema();
+
 function preloadDrawer(key: DrawerKey) {
-  DRAWER_LOADERS[key]();
+  drawerConfig[key].loader();
+}
+
+function getDrawerComponent<K extends DrawerKey>(
+  key: K
+): ComponentType<K extends DrawerKeyWithProps ? DrawerPropsMap[K] : object> {
+  return DRAWER_REGISTRY[key];
+}
+
+function hasProps(item: DrawerStackItem): item is DrawerStackItemWithProps {
+  return "props" in item;
 }
 
 export {
   DRAWER_REGISTRY,
   drawerStackSchema,
-  isValidDrawerKey,
-  isValidDrawerStackItem,
+  getDrawerComponent,
+  hasProps,
   preloadDrawer,
 };
-export type { DrawerKey, DrawerPropsMap, DrawerStackItem };
+export type {
+  DrawerKey,
+  DrawerKeyWithoutProps,
+  DrawerKeyWithProps,
+  DrawerPropsMap,
+  DrawerStackItem,
+};

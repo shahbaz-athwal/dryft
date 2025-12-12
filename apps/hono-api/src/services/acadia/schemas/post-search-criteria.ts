@@ -64,7 +64,7 @@ export const PostSearchCriteriaFilteredResponseSchema = z
       title: course.Title,
       description: course.Description,
       courseRequisites: course.CourseRequisites.map((req) => ({
-        code: req.DisplayText.split(" ")[0]?.split("-").join("") || "",
+        code: req.DisplayText.split(" ")[0]?.split("-").join("") || "", // Not robust
         displayText: req.DisplayText,
         displayTextExtension: req.DisplayTextExtension,
       })),

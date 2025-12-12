@@ -14,9 +14,8 @@ export const SectionDetailsFilteredResponseSchema = z
           }),
           Sections: z.array(
             z.object({
-              CourseId: z.string(),
-
               Section: z.object({
+                CourseId: z.string(),
                 FormattedMeetingTimes: z.array(
                   z.object({
                     InstructionalMethodDisplay: z.string(),
@@ -28,7 +27,7 @@ export const SectionDetailsFilteredResponseSchema = z
                     ShowTBD: z.boolean(),
                     Days: z.array(z.number()),
                     Room: z.string(),
-                    isOnline: z.boolean(),
+                    IsOnline: z.boolean(),
                   })
                 ),
                 Id: z.string(),
@@ -54,9 +53,10 @@ export const SectionDetailsFilteredResponseSchema = z
     }),
   })
   .transform((data) =>
-    data.SectionsRetrieved.TermsAndSections.map((termData) => ({
-      sections: termData.Sections.map((sectionData) => ({
-        courseId: sectionData.CourseId,
+    data.SectionsRetrieved.TermsAndSections.flatMap((termData) =>
+      termData.Sections.map((sectionData) => ({
+        id: sectionData.Section.Id,
+        courseId: sectionData.Section.CourseId,
         term: {
           code: termData.Term.Code,
           name: termData.Term.Description,
@@ -64,7 +64,6 @@ export const SectionDetailsFilteredResponseSchema = z
           endDate: termData.Term.EndDate,
           isActive: termData.Term.IsActive,
         },
-        id: sectionData.Section.Id,
         sectionCode: sectionData.Section.SectionNameDisplay.split("-")[2] || "",
         sectionSearchName: sectionData.Section.SectionNameDisplay,
         courseName: sectionData.Section.CourseName,
@@ -75,7 +74,6 @@ export const SectionDetailsFilteredResponseSchema = z
           enrolled: sectionData.Section.Enrolled,
           waitlisted: sectionData.Section.Waitlisted,
         },
-
         meetingTimes: sectionData.Section.FormattedMeetingTimes.map(
           (meeting) => ({
             instructionalMethod: meeting.InstructionalMethodDisplay,
@@ -86,16 +84,15 @@ export const SectionDetailsFilteredResponseSchema = z
             roomNumber: meeting.RoomDisplay,
             showTBD: meeting.ShowTBD,
             days: meeting.Days,
-            isOnline: meeting.isOnline,
+            isOnline: meeting.IsOnline,
           })
         ),
-
         instructors: sectionData.InstructorDetails.map((instructor) => ({
           id: instructor.FacultyId,
           name: instructor.FacultyName,
         })),
-      })),
-    }))
+      }))
+    )
   );
 
 export type SectionDetailsTransformed = z.infer<

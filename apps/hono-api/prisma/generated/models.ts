@@ -8,10 +8,13 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Log'
 export type * from './models/Department'
+export type * from './models/Term'
 export type * from './models/Professor'
 export type * from './models/Course'
 export type * from './models/Section'
+export type * from './models/Rating'
 export type * from './models/CourseProfessor'
 export type * from './models/User'
 export type * from './models/Session'

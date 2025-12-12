@@ -26,70 +26,58 @@ export type AggregateProfessor = {
 
 export type ProfessorMinAggregateOutputType = {
   id: string | null
+  rmpId: string | null
   departmentPrefix: string | null
   name: string | null
-  rmpId: string | null
   imageUrl: string | null
-  lastSync: Date | null
-  createdAt: Date | null
-  updatedAt: Date | null
+  lastPullFromRmp: Date | null
 }
 
 export type ProfessorMaxAggregateOutputType = {
   id: string | null
+  rmpId: string | null
   departmentPrefix: string | null
   name: string | null
-  rmpId: string | null
   imageUrl: string | null
-  lastSync: Date | null
-  createdAt: Date | null
-  updatedAt: Date | null
+  lastPullFromRmp: Date | null
 }
 
 export type ProfessorCountAggregateOutputType = {
   id: number
+  rmpId: number
   departmentPrefix: number
   name: number
-  rmpId: number
   imageUrl: number
-  lastSync: number
-  createdAt: number
-  updatedAt: number
+  lastPullFromRmp: number
   _all: number
 }
 
 
 export type ProfessorMinAggregateInputType = {
   id?: true
+  rmpId?: true
   departmentPrefix?: true
   name?: true
-  rmpId?: true
   imageUrl?: true
-  lastSync?: true
-  createdAt?: true
-  updatedAt?: true
+  lastPullFromRmp?: true
 }
 
 export type ProfessorMaxAggregateInputType = {
   id?: true
+  rmpId?: true
   departmentPrefix?: true
   name?: true
-  rmpId?: true
   imageUrl?: true
-  lastSync?: true
-  createdAt?: true
-  updatedAt?: true
+  lastPullFromRmp?: true
 }
 
 export type ProfessorCountAggregateInputType = {
   id?: true
+  rmpId?: true
   departmentPrefix?: true
   name?: true
-  rmpId?: true
   imageUrl?: true
-  lastSync?: true
-  createdAt?: true
-  updatedAt?: true
+  lastPullFromRmp?: true
   _all?: true
 }
 
@@ -167,13 +155,11 @@ export type ProfessorGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type ProfessorGroupByOutputType = {
   id: string
+  rmpId: string | null
   departmentPrefix: string
   name: string
-  rmpId: string | null
   imageUrl: string | null
-  lastSync: Date | null
-  createdAt: Date
-  updatedAt: Date
+  lastPullFromRmp: Date | null
   _count: ProfessorCountAggregateOutputType | null
   _min: ProfessorMinAggregateOutputType | null
   _max: ProfessorMaxAggregateOutputType | null
@@ -199,13 +185,11 @@ export type ProfessorWhereInput = {
   OR?: Prisma.ProfessorWhereInput[]
   NOT?: Prisma.ProfessorWhereInput | Prisma.ProfessorWhereInput[]
   id?: Prisma.StringFilter<"Professor"> | string
+  rmpId?: Prisma.StringNullableFilter<"Professor"> | string | null
   departmentPrefix?: Prisma.StringFilter<"Professor"> | string
   name?: Prisma.StringFilter<"Professor"> | string
-  rmpId?: Prisma.StringNullableFilter<"Professor"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Professor"> | string | null
-  lastSync?: Prisma.DateTimeNullableFilter<"Professor"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"Professor"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Professor"> | Date | string
+  lastPullFromRmp?: Prisma.DateTimeNullableFilter<"Professor"> | Date | string | null
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
   courses?: Prisma.CourseProfessorListRelationFilter
   sections?: Prisma.SectionListRelationFilter
@@ -213,13 +197,11 @@ export type ProfessorWhereInput = {
 
 export type ProfessorOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  rmpId?: Prisma.SortOrderInput | Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  rmpId?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  lastSync?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  lastPullFromRmp?: Prisma.SortOrderInput | Prisma.SortOrder
   department?: Prisma.DepartmentOrderByWithRelationInput
   courses?: Prisma.CourseProfessorOrderByRelationAggregateInput
   sections?: Prisma.SectionOrderByRelationAggregateInput
@@ -234,9 +216,7 @@ export type ProfessorWhereUniqueInput = Prisma.AtLeast<{
   departmentPrefix?: Prisma.StringFilter<"Professor"> | string
   name?: Prisma.StringFilter<"Professor"> | string
   imageUrl?: Prisma.StringNullableFilter<"Professor"> | string | null
-  lastSync?: Prisma.DateTimeNullableFilter<"Professor"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"Professor"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Professor"> | Date | string
+  lastPullFromRmp?: Prisma.DateTimeNullableFilter<"Professor"> | Date | string | null
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
   courses?: Prisma.CourseProfessorListRelationFilter
   sections?: Prisma.SectionListRelationFilter
@@ -244,13 +224,11 @@ export type ProfessorWhereUniqueInput = Prisma.AtLeast<{
 
 export type ProfessorOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  rmpId?: Prisma.SortOrderInput | Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  rmpId?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  lastSync?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  lastPullFromRmp?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ProfessorCountOrderByAggregateInput
   _max?: Prisma.ProfessorMaxOrderByAggregateInput
   _min?: Prisma.ProfessorMinOrderByAggregateInput
@@ -261,23 +239,19 @@ export type ProfessorScalarWhereWithAggregatesInput = {
   OR?: Prisma.ProfessorScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProfessorScalarWhereWithAggregatesInput | Prisma.ProfessorScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Professor"> | string
+  rmpId?: Prisma.StringNullableWithAggregatesFilter<"Professor"> | string | null
   departmentPrefix?: Prisma.StringWithAggregatesFilter<"Professor"> | string
   name?: Prisma.StringWithAggregatesFilter<"Professor"> | string
-  rmpId?: Prisma.StringNullableWithAggregatesFilter<"Professor"> | string | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Professor"> | string | null
-  lastSync?: Prisma.DateTimeNullableWithAggregatesFilter<"Professor"> | Date | string | null
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Professor"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Professor"> | Date | string
+  lastPullFromRmp?: Prisma.DateTimeNullableWithAggregatesFilter<"Professor"> | Date | string | null
 }
 
 export type ProfessorCreateInput = {
   id: string
-  name: string
   rmpId?: string | null
+  name: string
   imageUrl?: string | null
-  lastSync?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  lastPullFromRmp?: Date | string | null
   department: Prisma.DepartmentCreateNestedOneWithoutProfessorsInput
   courses?: Prisma.CourseProfessorCreateNestedManyWithoutProfessorInput
   sections?: Prisma.SectionCreateNestedManyWithoutProfessorInput
@@ -285,25 +259,21 @@ export type ProfessorCreateInput = {
 
 export type ProfessorUncheckedCreateInput = {
   id: string
+  rmpId?: string | null
   departmentPrefix: string
   name: string
-  rmpId?: string | null
   imageUrl?: string | null
-  lastSync?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  lastPullFromRmp?: Date | string | null
   courses?: Prisma.CourseProfessorUncheckedCreateNestedManyWithoutProfessorInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutProfessorInput
 }
 
 export type ProfessorUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastPullFromRmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   department?: Prisma.DepartmentUpdateOneRequiredWithoutProfessorsNestedInput
   courses?: Prisma.CourseProfessorUpdateManyWithoutProfessorNestedInput
   sections?: Prisma.SectionUpdateManyWithoutProfessorNestedInput
@@ -311,47 +281,39 @@ export type ProfessorUpdateInput = {
 
 export type ProfessorUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastPullFromRmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courses?: Prisma.CourseProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutProfessorNestedInput
 }
 
 export type ProfessorCreateManyInput = {
   id: string
+  rmpId?: string | null
   departmentPrefix: string
   name: string
-  rmpId?: string | null
   imageUrl?: string | null
-  lastSync?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  lastPullFromRmp?: Date | string | null
 }
 
 export type ProfessorUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastPullFromRmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ProfessorUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastPullFromRmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ProfessorListRelationFilter = {
@@ -366,35 +328,29 @@ export type ProfessorOrderByRelationAggregateInput = {
 
 export type ProfessorCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  rmpId?: Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  rmpId?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
-  lastSync?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  lastPullFromRmp?: Prisma.SortOrder
 }
 
 export type ProfessorMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  rmpId?: Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  rmpId?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
-  lastSync?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  lastPullFromRmp?: Prisma.SortOrder
 }
 
 export type ProfessorMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  rmpId?: Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  rmpId?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
-  lastSync?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  lastPullFromRmp?: Prisma.SortOrder
 }
 
 export type ProfessorScalarRelationFilter = {
@@ -444,8 +400,12 @@ export type ProfessorUncheckedUpdateManyWithoutDepartmentNestedInput = {
   deleteMany?: Prisma.ProfessorScalarWhereInput | Prisma.ProfessorScalarWhereInput[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type ProfessorCreateNestedOneWithoutSectionsInput = {
@@ -478,24 +438,20 @@ export type ProfessorUpdateOneRequiredWithoutCoursesNestedInput = {
 
 export type ProfessorCreateWithoutDepartmentInput = {
   id: string
-  name: string
   rmpId?: string | null
+  name: string
   imageUrl?: string | null
-  lastSync?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  lastPullFromRmp?: Date | string | null
   courses?: Prisma.CourseProfessorCreateNestedManyWithoutProfessorInput
   sections?: Prisma.SectionCreateNestedManyWithoutProfessorInput
 }
 
 export type ProfessorUncheckedCreateWithoutDepartmentInput = {
   id: string
-  name: string
   rmpId?: string | null
+  name: string
   imageUrl?: string | null
-  lastSync?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  lastPullFromRmp?: Date | string | null
   courses?: Prisma.CourseProfessorUncheckedCreateNestedManyWithoutProfessorInput
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutProfessorInput
 }
@@ -531,36 +487,30 @@ export type ProfessorScalarWhereInput = {
   OR?: Prisma.ProfessorScalarWhereInput[]
   NOT?: Prisma.ProfessorScalarWhereInput | Prisma.ProfessorScalarWhereInput[]
   id?: Prisma.StringFilter<"Professor"> | string
+  rmpId?: Prisma.StringNullableFilter<"Professor"> | string | null
   departmentPrefix?: Prisma.StringFilter<"Professor"> | string
   name?: Prisma.StringFilter<"Professor"> | string
-  rmpId?: Prisma.StringNullableFilter<"Professor"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Professor"> | string | null
-  lastSync?: Prisma.DateTimeNullableFilter<"Professor"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"Professor"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Professor"> | Date | string
+  lastPullFromRmp?: Prisma.DateTimeNullableFilter<"Professor"> | Date | string | null
 }
 
 export type ProfessorCreateWithoutSectionsInput = {
   id: string
-  name: string
   rmpId?: string | null
+  name: string
   imageUrl?: string | null
-  lastSync?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  lastPullFromRmp?: Date | string | null
   department: Prisma.DepartmentCreateNestedOneWithoutProfessorsInput
   courses?: Prisma.CourseProfessorCreateNestedManyWithoutProfessorInput
 }
 
 export type ProfessorUncheckedCreateWithoutSectionsInput = {
   id: string
+  rmpId?: string | null
   departmentPrefix: string
   name: string
-  rmpId?: string | null
   imageUrl?: string | null
-  lastSync?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  lastPullFromRmp?: Date | string | null
   courses?: Prisma.CourseProfessorUncheckedCreateNestedManyWithoutProfessorInput
 }
 
@@ -582,49 +532,41 @@ export type ProfessorUpdateToOneWithWhereWithoutSectionsInput = {
 
 export type ProfessorUpdateWithoutSectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastPullFromRmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   department?: Prisma.DepartmentUpdateOneRequiredWithoutProfessorsNestedInput
   courses?: Prisma.CourseProfessorUpdateManyWithoutProfessorNestedInput
 }
 
 export type ProfessorUncheckedUpdateWithoutSectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastPullFromRmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courses?: Prisma.CourseProfessorUncheckedUpdateManyWithoutProfessorNestedInput
 }
 
 export type ProfessorCreateWithoutCoursesInput = {
   id: string
-  name: string
   rmpId?: string | null
+  name: string
   imageUrl?: string | null
-  lastSync?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  lastPullFromRmp?: Date | string | null
   department: Prisma.DepartmentCreateNestedOneWithoutProfessorsInput
   sections?: Prisma.SectionCreateNestedManyWithoutProfessorInput
 }
 
 export type ProfessorUncheckedCreateWithoutCoursesInput = {
   id: string
+  rmpId?: string | null
   departmentPrefix: string
   name: string
-  rmpId?: string | null
   imageUrl?: string | null
-  lastSync?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  lastPullFromRmp?: Date | string | null
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutProfessorInput
 }
 
@@ -646,70 +588,58 @@ export type ProfessorUpdateToOneWithWhereWithoutCoursesInput = {
 
 export type ProfessorUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastPullFromRmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   department?: Prisma.DepartmentUpdateOneRequiredWithoutProfessorsNestedInput
   sections?: Prisma.SectionUpdateManyWithoutProfessorNestedInput
 }
 
 export type ProfessorUncheckedUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastPullFromRmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sections?: Prisma.SectionUncheckedUpdateManyWithoutProfessorNestedInput
 }
 
 export type ProfessorCreateManyDepartmentInput = {
   id: string
-  name: string
   rmpId?: string | null
+  name: string
   imageUrl?: string | null
-  lastSync?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  lastPullFromRmp?: Date | string | null
 }
 
 export type ProfessorUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastPullFromRmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courses?: Prisma.CourseProfessorUpdateManyWithoutProfessorNestedInput
   sections?: Prisma.SectionUpdateManyWithoutProfessorNestedInput
 }
 
 export type ProfessorUncheckedUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastPullFromRmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courses?: Prisma.CourseProfessorUncheckedUpdateManyWithoutProfessorNestedInput
   sections?: Prisma.SectionUncheckedUpdateManyWithoutProfessorNestedInput
 }
 
 export type ProfessorUncheckedUpdateManyWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastPullFromRmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -754,13 +684,11 @@ export type ProfessorCountOutputTypeCountSectionsArgs<ExtArgs extends runtime.Ty
 
 export type ProfessorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  rmpId?: boolean
   departmentPrefix?: boolean
   name?: boolean
-  rmpId?: boolean
   imageUrl?: boolean
-  lastSync?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  lastPullFromRmp?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   courses?: boolean | Prisma.Professor$coursesArgs<ExtArgs>
   sections?: boolean | Prisma.Professor$sectionsArgs<ExtArgs>
@@ -769,40 +697,34 @@ export type ProfessorSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type ProfessorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  rmpId?: boolean
   departmentPrefix?: boolean
   name?: boolean
-  rmpId?: boolean
   imageUrl?: boolean
-  lastSync?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  lastPullFromRmp?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["professor"]>
 
 export type ProfessorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  rmpId?: boolean
   departmentPrefix?: boolean
   name?: boolean
-  rmpId?: boolean
   imageUrl?: boolean
-  lastSync?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  lastPullFromRmp?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["professor"]>
 
 export type ProfessorSelectScalar = {
   id?: boolean
+  rmpId?: boolean
   departmentPrefix?: boolean
   name?: boolean
-  rmpId?: boolean
   imageUrl?: boolean
-  lastSync?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  lastPullFromRmp?: boolean
 }
 
-export type ProfessorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "departmentPrefix" | "name" | "rmpId" | "imageUrl" | "lastSync" | "createdAt" | "updatedAt", ExtArgs["result"]["professor"]>
+export type ProfessorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rmpId" | "departmentPrefix" | "name" | "imageUrl" | "lastPullFromRmp", ExtArgs["result"]["professor"]>
 export type ProfessorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   courses?: boolean | Prisma.Professor$coursesArgs<ExtArgs>
@@ -825,13 +747,11 @@ export type $ProfessorPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    rmpId: string | null
     departmentPrefix: string
     name: string
-    rmpId: string | null
     imageUrl: string | null
-    lastSync: Date | null
-    createdAt: Date
-    updatedAt: Date
+    lastPullFromRmp: Date | null
   }, ExtArgs["result"]["professor"]>
   composites: {}
 }
@@ -1259,13 +1179,11 @@ export interface Prisma__ProfessorClient<T, Null = never, ExtArgs extends runtim
  */
 export interface ProfessorFieldRefs {
   readonly id: Prisma.FieldRef<"Professor", 'String'>
+  readonly rmpId: Prisma.FieldRef<"Professor", 'String'>
   readonly departmentPrefix: Prisma.FieldRef<"Professor", 'String'>
   readonly name: Prisma.FieldRef<"Professor", 'String'>
-  readonly rmpId: Prisma.FieldRef<"Professor", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Professor", 'String'>
-  readonly lastSync: Prisma.FieldRef<"Professor", 'DateTime'>
-  readonly createdAt: Prisma.FieldRef<"Professor", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"Professor", 'DateTime'>
+  readonly lastPullFromRmp: Prisma.FieldRef<"Professor", 'DateTime'>
 }
     
 

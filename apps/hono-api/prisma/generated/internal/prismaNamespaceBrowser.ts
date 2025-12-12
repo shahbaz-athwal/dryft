@@ -51,10 +51,13 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Log: 'Log',
   Department: 'Department',
+  Term: 'Term',
   Professor: 'Professor',
   Course: 'Course',
   Section: 'Section',
+  Rating: 'Rating',
   CourseProfessor: 'CourseProfessor',
   User: 'User',
   Session: 'Session',
@@ -78,14 +81,13 @@ export const TransactionIsolationLevel = {
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const DepartmentScalarFieldEnum = {
-  prefix: 'prefix',
-  name: 'name',
-  rmpId: 'rmpId',
-  lastSync: 'lastSync'
+export const LogScalarFieldEnum = {
+  id: 'id',
+  message: 'message',
+  createdAt: 'createdAt'
 } as const
 
-export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
+export type LogScalarFieldEnum = (typeof LogScalarFieldEnum)[keyof typeof LogScalarFieldEnum]
 
 
 export const RelationLoadStrategy = {
@@ -96,15 +98,30 @@ export const RelationLoadStrategy = {
 export type RelationLoadStrategy = (typeof RelationLoadStrategy)[keyof typeof RelationLoadStrategy]
 
 
+export const DepartmentScalarFieldEnum = {
+  prefix: 'prefix',
+  name: 'name'
+} as const
+
+export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
+
+
+export const TermScalarFieldEnum = {
+  code: 'code',
+  name: 'name',
+  isActive: 'isActive'
+} as const
+
+export type TermScalarFieldEnum = (typeof TermScalarFieldEnum)[keyof typeof TermScalarFieldEnum]
+
+
 export const ProfessorScalarFieldEnum = {
   id: 'id',
+  rmpId: 'rmpId',
   departmentPrefix: 'departmentPrefix',
   name: 'name',
-  rmpId: 'rmpId',
   imageUrl: 'imageUrl',
-  lastSync: 'lastSync',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  lastPullFromRmp: 'lastPullFromRmp'
 } as const
 
 export type ProfessorScalarFieldEnum = (typeof ProfessorScalarFieldEnum)[keyof typeof ProfessorScalarFieldEnum]
@@ -116,10 +133,9 @@ export const CourseScalarFieldEnum = {
   title: 'title',
   description: 'description',
   departmentPrefix: 'departmentPrefix',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  lastSync: 'lastSync',
-  metadata: 'metadata'
+  credits: 'credits',
+  requisites: 'requisites',
+  lastSectionPulledAt: 'lastSectionPulledAt'
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
@@ -127,19 +143,27 @@ export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof 
 
 export const SectionScalarFieldEnum = {
   id: 'id',
-  code: 'code',
-  description: 'description',
-  courseId: 'courseId',
-  professorId: 'professorId',
-  startDate: 'startDate',
-  endDate: 'endDate',
-  classTime: 'classTime',
-  room: 'room',
+  termCode: 'termCode',
+  sectionCode: 'sectionCode',
+  sectionSearchName: 'sectionSearchName',
+  classStartTime: 'classStartTime',
+  classEndTime: 'classEndTime',
+  buildingName: 'buildingName',
+  roomNumber: 'roomNumber',
   days: 'days',
-  createdAt: 'createdAt'
+  courseId: 'courseId',
+  refreshedAt: 'refreshedAt',
+  professorId: 'professorId'
 } as const
 
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
+
+
+export const RatingScalarFieldEnum = {
+  id: 'id'
+} as const
+
+export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
 
 
 export const CourseProfessorScalarFieldEnum = {

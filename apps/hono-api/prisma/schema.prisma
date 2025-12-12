@@ -9,28 +9,40 @@ datasource db {
   provider = "postgresql"
 }
 
+// Audit Logs
+model Log {
+  id        Int      @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now())
+
+  @@map("log")
+}
+
 model Department {
   prefix     String      @id
   name       String
-  rmpId      String?     @unique
-  lastSync   DateTime?
   professors Professor[]
   courses    Course[]
 
   @@map("department")
 }
 
+model Term {
+  code     String    @id
+  name     String
+  isActive Boolean
+  sections Section[]
+}
+
 model Professor {
   id               String            @id
+  rmpId            String?           @unique
   departmentPrefix String
   department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
   name             String
-  rmpId            String?           @unique
   imageUrl         String?
-  lastSync         DateTime?
+  lastPullFromRmp  DateTime?
   courses          CourseProfessor[]
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
   sections         Section[]
 
   @@index([name])
@@ -39,41 +51,49 @@ model Professor {
 }
 
 model Course {
-  id               String            @id
-  code             String            @unique
-  title            String
-  description      String?
-  departmentPrefix String
-  sections         Section[]
-  department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
-  professors       CourseProfessor[]
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  lastSync         DateTime?
-  metadata         Json?
+  id                  String            @id
+  code                String            @unique
+  title               String
+  description         String?
+  departmentPrefix    String
+  department          Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
+  credits             Int
+  requisites          Json?
+  lastSectionPulledAt DateTime?
+  sections            Section[]
+  professors          CourseProfessor[]
 
   @@index([departmentPrefix])
   @@map("course")
 }
 
 model Section {
-  id          String    @id
-  code        String
-  description String?
-  course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId    String
-  professorId String
-  startDate   DateTime
-  endDate     DateTime
-  classTime   String
-  room        String
-  days        Int[]
-  professor   Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
-  createdAt   DateTime  @default(now())
+  id                String    @id
+  termCode          String
+  term              Term      @relation(fields: [termCode], references: [code], onDelete: Cascade)
+  sectionCode       String
+  sectionSearchName String
+  classStartTime    String
+  classEndTime      String
+  buildingName      String
+  roomNumber        String
+  days              Int[]
+  courseId          String
+  refreshedAt       DateTime
+  course            Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  professorId       String
+  professor         Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
 
   @@index([courseId])
   @@index([professorId])
+  @@index([termCode])
   @@map("section")
+}
+
+model Rating {
+  id String @id @default(uuid())
+
+  @@map("rating")
 }
 
 model CourseProfessor {

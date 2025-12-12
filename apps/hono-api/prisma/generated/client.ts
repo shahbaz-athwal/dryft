@@ -29,8 +29,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Departments
- * const departments = await prisma.department.findMany()
+ * // Fetch zero or more Logs
+ * const logs = await prisma.log.findMany()
  * ```
  * 
  * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
@@ -40,10 +40,20 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
+ * Model Log
+ * 
+ */
+export type Log = Prisma.LogModel
+/**
  * Model Department
  * 
  */
 export type Department = Prisma.DepartmentModel
+/**
+ * Model Term
+ * 
+ */
+export type Term = Prisma.TermModel
 /**
  * Model Professor
  * 
@@ -59,6 +69,11 @@ export type Course = Prisma.CourseModel
  * 
  */
 export type Section = Prisma.SectionModel
+/**
+ * Model Rating
+ * 
+ */
+export type Rating = Prisma.RatingModel
 /**
  * Model CourseProfessor
  * 

@@ -36,42 +36,45 @@ export type SectionSumAggregateOutputType = {
 
 export type SectionMinAggregateOutputType = {
   id: string | null
-  code: string | null
-  description: string | null
+  termCode: string | null
+  sectionCode: string | null
+  sectionSearchName: string | null
+  classStartTime: string | null
+  classEndTime: string | null
+  buildingName: string | null
+  roomNumber: string | null
   courseId: string | null
+  refreshedAt: Date | null
   professorId: string | null
-  startDate: Date | null
-  endDate: Date | null
-  classTime: string | null
-  room: string | null
-  createdAt: Date | null
 }
 
 export type SectionMaxAggregateOutputType = {
   id: string | null
-  code: string | null
-  description: string | null
+  termCode: string | null
+  sectionCode: string | null
+  sectionSearchName: string | null
+  classStartTime: string | null
+  classEndTime: string | null
+  buildingName: string | null
+  roomNumber: string | null
   courseId: string | null
+  refreshedAt: Date | null
   professorId: string | null
-  startDate: Date | null
-  endDate: Date | null
-  classTime: string | null
-  room: string | null
-  createdAt: Date | null
 }
 
 export type SectionCountAggregateOutputType = {
   id: number
-  code: number
-  description: number
-  courseId: number
-  professorId: number
-  startDate: number
-  endDate: number
-  classTime: number
-  room: number
+  termCode: number
+  sectionCode: number
+  sectionSearchName: number
+  classStartTime: number
+  classEndTime: number
+  buildingName: number
+  roomNumber: number
   days: number
-  createdAt: number
+  courseId: number
+  refreshedAt: number
+  professorId: number
   _all: number
 }
 
@@ -86,42 +89,45 @@ export type SectionSumAggregateInputType = {
 
 export type SectionMinAggregateInputType = {
   id?: true
-  code?: true
-  description?: true
+  termCode?: true
+  sectionCode?: true
+  sectionSearchName?: true
+  classStartTime?: true
+  classEndTime?: true
+  buildingName?: true
+  roomNumber?: true
   courseId?: true
+  refreshedAt?: true
   professorId?: true
-  startDate?: true
-  endDate?: true
-  classTime?: true
-  room?: true
-  createdAt?: true
 }
 
 export type SectionMaxAggregateInputType = {
   id?: true
-  code?: true
-  description?: true
+  termCode?: true
+  sectionCode?: true
+  sectionSearchName?: true
+  classStartTime?: true
+  classEndTime?: true
+  buildingName?: true
+  roomNumber?: true
   courseId?: true
+  refreshedAt?: true
   professorId?: true
-  startDate?: true
-  endDate?: true
-  classTime?: true
-  room?: true
-  createdAt?: true
 }
 
 export type SectionCountAggregateInputType = {
   id?: true
-  code?: true
-  description?: true
-  courseId?: true
-  professorId?: true
-  startDate?: true
-  endDate?: true
-  classTime?: true
-  room?: true
+  termCode?: true
+  sectionCode?: true
+  sectionSearchName?: true
+  classStartTime?: true
+  classEndTime?: true
+  buildingName?: true
+  roomNumber?: true
   days?: true
-  createdAt?: true
+  courseId?: true
+  refreshedAt?: true
+  professorId?: true
   _all?: true
 }
 
@@ -213,16 +219,17 @@ export type SectionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type SectionGroupByOutputType = {
   id: string
-  code: string
-  description: string | null
-  courseId: string
-  professorId: string
-  startDate: Date
-  endDate: Date
-  classTime: string
-  room: string
+  termCode: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
   days: number[]
-  createdAt: Date
+  courseId: string
+  refreshedAt: Date
+  professorId: string
   _count: SectionCountAggregateOutputType | null
   _avg: SectionAvgAggregateOutputType | null
   _sum: SectionSumAggregateOutputType | null
@@ -250,32 +257,36 @@ export type SectionWhereInput = {
   OR?: Prisma.SectionWhereInput[]
   NOT?: Prisma.SectionWhereInput | Prisma.SectionWhereInput[]
   id?: Prisma.StringFilter<"Section"> | string
-  code?: Prisma.StringFilter<"Section"> | string
-  description?: Prisma.StringNullableFilter<"Section"> | string | null
-  courseId?: Prisma.StringFilter<"Section"> | string
-  professorId?: Prisma.StringFilter<"Section"> | string
-  startDate?: Prisma.DateTimeFilter<"Section"> | Date | string
-  endDate?: Prisma.DateTimeFilter<"Section"> | Date | string
-  classTime?: Prisma.StringFilter<"Section"> | string
-  room?: Prisma.StringFilter<"Section"> | string
+  termCode?: Prisma.StringFilter<"Section"> | string
+  sectionCode?: Prisma.StringFilter<"Section"> | string
+  sectionSearchName?: Prisma.StringFilter<"Section"> | string
+  classStartTime?: Prisma.StringFilter<"Section"> | string
+  classEndTime?: Prisma.StringFilter<"Section"> | string
+  buildingName?: Prisma.StringFilter<"Section"> | string
+  roomNumber?: Prisma.StringFilter<"Section"> | string
   days?: Prisma.IntNullableListFilter<"Section">
-  createdAt?: Prisma.DateTimeFilter<"Section"> | Date | string
+  courseId?: Prisma.StringFilter<"Section"> | string
+  refreshedAt?: Prisma.DateTimeFilter<"Section"> | Date | string
+  professorId?: Prisma.StringFilter<"Section"> | string
+  term?: Prisma.XOR<Prisma.TermScalarRelationFilter, Prisma.TermWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   professor?: Prisma.XOR<Prisma.ProfessorScalarRelationFilter, Prisma.ProfessorWhereInput>
 }
 
 export type SectionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  code?: Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
-  courseId?: Prisma.SortOrder
-  professorId?: Prisma.SortOrder
-  startDate?: Prisma.SortOrder
-  endDate?: Prisma.SortOrder
-  classTime?: Prisma.SortOrder
-  room?: Prisma.SortOrder
+  termCode?: Prisma.SortOrder
+  sectionCode?: Prisma.SortOrder
+  sectionSearchName?: Prisma.SortOrder
+  classStartTime?: Prisma.SortOrder
+  classEndTime?: Prisma.SortOrder
+  buildingName?: Prisma.SortOrder
+  roomNumber?: Prisma.SortOrder
   days?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
+  courseId?: Prisma.SortOrder
+  refreshedAt?: Prisma.SortOrder
+  professorId?: Prisma.SortOrder
+  term?: Prisma.TermOrderByWithRelationInput
   course?: Prisma.CourseOrderByWithRelationInput
   professor?: Prisma.ProfessorOrderByWithRelationInput
 }
@@ -285,32 +296,35 @@ export type SectionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SectionWhereInput | Prisma.SectionWhereInput[]
   OR?: Prisma.SectionWhereInput[]
   NOT?: Prisma.SectionWhereInput | Prisma.SectionWhereInput[]
-  code?: Prisma.StringFilter<"Section"> | string
-  description?: Prisma.StringNullableFilter<"Section"> | string | null
-  courseId?: Prisma.StringFilter<"Section"> | string
-  professorId?: Prisma.StringFilter<"Section"> | string
-  startDate?: Prisma.DateTimeFilter<"Section"> | Date | string
-  endDate?: Prisma.DateTimeFilter<"Section"> | Date | string
-  classTime?: Prisma.StringFilter<"Section"> | string
-  room?: Prisma.StringFilter<"Section"> | string
+  termCode?: Prisma.StringFilter<"Section"> | string
+  sectionCode?: Prisma.StringFilter<"Section"> | string
+  sectionSearchName?: Prisma.StringFilter<"Section"> | string
+  classStartTime?: Prisma.StringFilter<"Section"> | string
+  classEndTime?: Prisma.StringFilter<"Section"> | string
+  buildingName?: Prisma.StringFilter<"Section"> | string
+  roomNumber?: Prisma.StringFilter<"Section"> | string
   days?: Prisma.IntNullableListFilter<"Section">
-  createdAt?: Prisma.DateTimeFilter<"Section"> | Date | string
+  courseId?: Prisma.StringFilter<"Section"> | string
+  refreshedAt?: Prisma.DateTimeFilter<"Section"> | Date | string
+  professorId?: Prisma.StringFilter<"Section"> | string
+  term?: Prisma.XOR<Prisma.TermScalarRelationFilter, Prisma.TermWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   professor?: Prisma.XOR<Prisma.ProfessorScalarRelationFilter, Prisma.ProfessorWhereInput>
 }, "id">
 
 export type SectionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  code?: Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
-  courseId?: Prisma.SortOrder
-  professorId?: Prisma.SortOrder
-  startDate?: Prisma.SortOrder
-  endDate?: Prisma.SortOrder
-  classTime?: Prisma.SortOrder
-  room?: Prisma.SortOrder
+  termCode?: Prisma.SortOrder
+  sectionCode?: Prisma.SortOrder
+  sectionSearchName?: Prisma.SortOrder
+  classStartTime?: Prisma.SortOrder
+  classEndTime?: Prisma.SortOrder
+  buildingName?: Prisma.SortOrder
+  roomNumber?: Prisma.SortOrder
   days?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
+  courseId?: Prisma.SortOrder
+  refreshedAt?: Prisma.SortOrder
+  professorId?: Prisma.SortOrder
   _count?: Prisma.SectionCountOrderByAggregateInput
   _avg?: Prisma.SectionAvgOrderByAggregateInput
   _max?: Prisma.SectionMaxOrderByAggregateInput
@@ -323,112 +337,119 @@ export type SectionScalarWhereWithAggregatesInput = {
   OR?: Prisma.SectionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SectionScalarWhereWithAggregatesInput | Prisma.SectionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Section"> | string
-  code?: Prisma.StringWithAggregatesFilter<"Section"> | string
-  description?: Prisma.StringNullableWithAggregatesFilter<"Section"> | string | null
-  courseId?: Prisma.StringWithAggregatesFilter<"Section"> | string
-  professorId?: Prisma.StringWithAggregatesFilter<"Section"> | string
-  startDate?: Prisma.DateTimeWithAggregatesFilter<"Section"> | Date | string
-  endDate?: Prisma.DateTimeWithAggregatesFilter<"Section"> | Date | string
-  classTime?: Prisma.StringWithAggregatesFilter<"Section"> | string
-  room?: Prisma.StringWithAggregatesFilter<"Section"> | string
+  termCode?: Prisma.StringWithAggregatesFilter<"Section"> | string
+  sectionCode?: Prisma.StringWithAggregatesFilter<"Section"> | string
+  sectionSearchName?: Prisma.StringWithAggregatesFilter<"Section"> | string
+  classStartTime?: Prisma.StringWithAggregatesFilter<"Section"> | string
+  classEndTime?: Prisma.StringWithAggregatesFilter<"Section"> | string
+  buildingName?: Prisma.StringWithAggregatesFilter<"Section"> | string
+  roomNumber?: Prisma.StringWithAggregatesFilter<"Section"> | string
   days?: Prisma.IntNullableListFilter<"Section">
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Section"> | Date | string
+  courseId?: Prisma.StringWithAggregatesFilter<"Section"> | string
+  refreshedAt?: Prisma.DateTimeWithAggregatesFilter<"Section"> | Date | string
+  professorId?: Prisma.StringWithAggregatesFilter<"Section"> | string
 }
 
 export type SectionCreateInput = {
   id: string
-  code: string
-  description?: string | null
-  startDate: Date | string
-  endDate: Date | string
-  classTime: string
-  room: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
-  createdAt?: Date | string
+  refreshedAt: Date | string
+  term: Prisma.TermCreateNestedOneWithoutSectionsInput
   course: Prisma.CourseCreateNestedOneWithoutSectionsInput
   professor: Prisma.ProfessorCreateNestedOneWithoutSectionsInput
 }
 
 export type SectionUncheckedCreateInput = {
   id: string
-  code: string
-  description?: string | null
-  courseId: string
-  professorId: string
-  startDate: Date | string
-  endDate: Date | string
-  classTime: string
-  room: string
+  termCode: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
-  createdAt?: Date | string
+  courseId: string
+  refreshedAt: Date | string
+  professorId: string
 }
 
 export type SectionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  classTime?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  term?: Prisma.TermUpdateOneRequiredWithoutSectionsNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
   professor?: Prisma.ProfessorUpdateOneRequiredWithoutSectionsNestedInput
 }
 
 export type SectionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  classTime?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
+  termCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SectionCreateManyInput = {
   id: string
-  code: string
-  description?: string | null
-  courseId: string
-  professorId: string
-  startDate: Date | string
-  endDate: Date | string
-  classTime: string
-  room: string
+  termCode: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
-  createdAt?: Date | string
+  courseId: string
+  refreshedAt: Date | string
+  professorId: string
 }
 
 export type SectionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  classTime?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SectionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  classTime?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
+  termCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SectionListRelationFilter = {
@@ -451,16 +472,17 @@ export type IntNullableListFilter<$PrismaModel = never> = {
 
 export type SectionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  code?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  courseId?: Prisma.SortOrder
-  professorId?: Prisma.SortOrder
-  startDate?: Prisma.SortOrder
-  endDate?: Prisma.SortOrder
-  classTime?: Prisma.SortOrder
-  room?: Prisma.SortOrder
+  termCode?: Prisma.SortOrder
+  sectionCode?: Prisma.SortOrder
+  sectionSearchName?: Prisma.SortOrder
+  classStartTime?: Prisma.SortOrder
+  classEndTime?: Prisma.SortOrder
+  buildingName?: Prisma.SortOrder
+  roomNumber?: Prisma.SortOrder
   days?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
+  courseId?: Prisma.SortOrder
+  refreshedAt?: Prisma.SortOrder
+  professorId?: Prisma.SortOrder
 }
 
 export type SectionAvgOrderByAggregateInput = {
@@ -469,32 +491,76 @@ export type SectionAvgOrderByAggregateInput = {
 
 export type SectionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  code?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  termCode?: Prisma.SortOrder
+  sectionCode?: Prisma.SortOrder
+  sectionSearchName?: Prisma.SortOrder
+  classStartTime?: Prisma.SortOrder
+  classEndTime?: Prisma.SortOrder
+  buildingName?: Prisma.SortOrder
+  roomNumber?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
+  refreshedAt?: Prisma.SortOrder
   professorId?: Prisma.SortOrder
-  startDate?: Prisma.SortOrder
-  endDate?: Prisma.SortOrder
-  classTime?: Prisma.SortOrder
-  room?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
 }
 
 export type SectionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  code?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  termCode?: Prisma.SortOrder
+  sectionCode?: Prisma.SortOrder
+  sectionSearchName?: Prisma.SortOrder
+  classStartTime?: Prisma.SortOrder
+  classEndTime?: Prisma.SortOrder
+  buildingName?: Prisma.SortOrder
+  roomNumber?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
+  refreshedAt?: Prisma.SortOrder
   professorId?: Prisma.SortOrder
-  startDate?: Prisma.SortOrder
-  endDate?: Prisma.SortOrder
-  classTime?: Prisma.SortOrder
-  room?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
 }
 
 export type SectionSumOrderByAggregateInput = {
   days?: Prisma.SortOrder
+}
+
+export type SectionCreateNestedManyWithoutTermInput = {
+  create?: Prisma.XOR<Prisma.SectionCreateWithoutTermInput, Prisma.SectionUncheckedCreateWithoutTermInput> | Prisma.SectionCreateWithoutTermInput[] | Prisma.SectionUncheckedCreateWithoutTermInput[]
+  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutTermInput | Prisma.SectionCreateOrConnectWithoutTermInput[]
+  createMany?: Prisma.SectionCreateManyTermInputEnvelope
+  connect?: Prisma.SectionWhereUniqueInput | Prisma.SectionWhereUniqueInput[]
+}
+
+export type SectionUncheckedCreateNestedManyWithoutTermInput = {
+  create?: Prisma.XOR<Prisma.SectionCreateWithoutTermInput, Prisma.SectionUncheckedCreateWithoutTermInput> | Prisma.SectionCreateWithoutTermInput[] | Prisma.SectionUncheckedCreateWithoutTermInput[]
+  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutTermInput | Prisma.SectionCreateOrConnectWithoutTermInput[]
+  createMany?: Prisma.SectionCreateManyTermInputEnvelope
+  connect?: Prisma.SectionWhereUniqueInput | Prisma.SectionWhereUniqueInput[]
+}
+
+export type SectionUpdateManyWithoutTermNestedInput = {
+  create?: Prisma.XOR<Prisma.SectionCreateWithoutTermInput, Prisma.SectionUncheckedCreateWithoutTermInput> | Prisma.SectionCreateWithoutTermInput[] | Prisma.SectionUncheckedCreateWithoutTermInput[]
+  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutTermInput | Prisma.SectionCreateOrConnectWithoutTermInput[]
+  upsert?: Prisma.SectionUpsertWithWhereUniqueWithoutTermInput | Prisma.SectionUpsertWithWhereUniqueWithoutTermInput[]
+  createMany?: Prisma.SectionCreateManyTermInputEnvelope
+  set?: Prisma.SectionWhereUniqueInput | Prisma.SectionWhereUniqueInput[]
+  disconnect?: Prisma.SectionWhereUniqueInput | Prisma.SectionWhereUniqueInput[]
+  delete?: Prisma.SectionWhereUniqueInput | Prisma.SectionWhereUniqueInput[]
+  connect?: Prisma.SectionWhereUniqueInput | Prisma.SectionWhereUniqueInput[]
+  update?: Prisma.SectionUpdateWithWhereUniqueWithoutTermInput | Prisma.SectionUpdateWithWhereUniqueWithoutTermInput[]
+  updateMany?: Prisma.SectionUpdateManyWithWhereWithoutTermInput | Prisma.SectionUpdateManyWithWhereWithoutTermInput[]
+  deleteMany?: Prisma.SectionScalarWhereInput | Prisma.SectionScalarWhereInput[]
+}
+
+export type SectionUncheckedUpdateManyWithoutTermNestedInput = {
+  create?: Prisma.XOR<Prisma.SectionCreateWithoutTermInput, Prisma.SectionUncheckedCreateWithoutTermInput> | Prisma.SectionCreateWithoutTermInput[] | Prisma.SectionUncheckedCreateWithoutTermInput[]
+  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutTermInput | Prisma.SectionCreateOrConnectWithoutTermInput[]
+  upsert?: Prisma.SectionUpsertWithWhereUniqueWithoutTermInput | Prisma.SectionUpsertWithWhereUniqueWithoutTermInput[]
+  createMany?: Prisma.SectionCreateManyTermInputEnvelope
+  set?: Prisma.SectionWhereUniqueInput | Prisma.SectionWhereUniqueInput[]
+  disconnect?: Prisma.SectionWhereUniqueInput | Prisma.SectionWhereUniqueInput[]
+  delete?: Prisma.SectionWhereUniqueInput | Prisma.SectionWhereUniqueInput[]
+  connect?: Prisma.SectionWhereUniqueInput | Prisma.SectionWhereUniqueInput[]
+  update?: Prisma.SectionUpdateWithWhereUniqueWithoutTermInput | Prisma.SectionUpdateWithWhereUniqueWithoutTermInput[]
+  updateMany?: Prisma.SectionUpdateManyWithWhereWithoutTermInput | Prisma.SectionUpdateManyWithWhereWithoutTermInput[]
+  deleteMany?: Prisma.SectionScalarWhereInput | Prisma.SectionScalarWhereInput[]
 }
 
 export type SectionCreateNestedManyWithoutProfessorInput = {
@@ -590,30 +656,104 @@ export type SectionUpdatedaysInput = {
   push?: number | number[]
 }
 
+export type SectionCreateWithoutTermInput = {
+  id: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
+  days?: Prisma.SectionCreatedaysInput | number[]
+  refreshedAt: Date | string
+  course: Prisma.CourseCreateNestedOneWithoutSectionsInput
+  professor: Prisma.ProfessorCreateNestedOneWithoutSectionsInput
+}
+
+export type SectionUncheckedCreateWithoutTermInput = {
+  id: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
+  days?: Prisma.SectionCreatedaysInput | number[]
+  courseId: string
+  refreshedAt: Date | string
+  professorId: string
+}
+
+export type SectionCreateOrConnectWithoutTermInput = {
+  where: Prisma.SectionWhereUniqueInput
+  create: Prisma.XOR<Prisma.SectionCreateWithoutTermInput, Prisma.SectionUncheckedCreateWithoutTermInput>
+}
+
+export type SectionCreateManyTermInputEnvelope = {
+  data: Prisma.SectionCreateManyTermInput | Prisma.SectionCreateManyTermInput[]
+  skipDuplicates?: boolean
+}
+
+export type SectionUpsertWithWhereUniqueWithoutTermInput = {
+  where: Prisma.SectionWhereUniqueInput
+  update: Prisma.XOR<Prisma.SectionUpdateWithoutTermInput, Prisma.SectionUncheckedUpdateWithoutTermInput>
+  create: Prisma.XOR<Prisma.SectionCreateWithoutTermInput, Prisma.SectionUncheckedCreateWithoutTermInput>
+}
+
+export type SectionUpdateWithWhereUniqueWithoutTermInput = {
+  where: Prisma.SectionWhereUniqueInput
+  data: Prisma.XOR<Prisma.SectionUpdateWithoutTermInput, Prisma.SectionUncheckedUpdateWithoutTermInput>
+}
+
+export type SectionUpdateManyWithWhereWithoutTermInput = {
+  where: Prisma.SectionScalarWhereInput
+  data: Prisma.XOR<Prisma.SectionUpdateManyMutationInput, Prisma.SectionUncheckedUpdateManyWithoutTermInput>
+}
+
+export type SectionScalarWhereInput = {
+  AND?: Prisma.SectionScalarWhereInput | Prisma.SectionScalarWhereInput[]
+  OR?: Prisma.SectionScalarWhereInput[]
+  NOT?: Prisma.SectionScalarWhereInput | Prisma.SectionScalarWhereInput[]
+  id?: Prisma.StringFilter<"Section"> | string
+  termCode?: Prisma.StringFilter<"Section"> | string
+  sectionCode?: Prisma.StringFilter<"Section"> | string
+  sectionSearchName?: Prisma.StringFilter<"Section"> | string
+  classStartTime?: Prisma.StringFilter<"Section"> | string
+  classEndTime?: Prisma.StringFilter<"Section"> | string
+  buildingName?: Prisma.StringFilter<"Section"> | string
+  roomNumber?: Prisma.StringFilter<"Section"> | string
+  days?: Prisma.IntNullableListFilter<"Section">
+  courseId?: Prisma.StringFilter<"Section"> | string
+  refreshedAt?: Prisma.DateTimeFilter<"Section"> | Date | string
+  professorId?: Prisma.StringFilter<"Section"> | string
+}
+
 export type SectionCreateWithoutProfessorInput = {
   id: string
-  code: string
-  description?: string | null
-  startDate: Date | string
-  endDate: Date | string
-  classTime: string
-  room: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
-  createdAt?: Date | string
+  refreshedAt: Date | string
+  term: Prisma.TermCreateNestedOneWithoutSectionsInput
   course: Prisma.CourseCreateNestedOneWithoutSectionsInput
 }
 
 export type SectionUncheckedCreateWithoutProfessorInput = {
   id: string
-  code: string
-  description?: string | null
-  courseId: string
-  startDate: Date | string
-  endDate: Date | string
-  classTime: string
-  room: string
+  termCode: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
-  createdAt?: Date | string
+  courseId: string
+  refreshedAt: Date | string
 }
 
 export type SectionCreateOrConnectWithoutProfessorInput = {
@@ -642,47 +782,32 @@ export type SectionUpdateManyWithWhereWithoutProfessorInput = {
   data: Prisma.XOR<Prisma.SectionUpdateManyMutationInput, Prisma.SectionUncheckedUpdateManyWithoutProfessorInput>
 }
 
-export type SectionScalarWhereInput = {
-  AND?: Prisma.SectionScalarWhereInput | Prisma.SectionScalarWhereInput[]
-  OR?: Prisma.SectionScalarWhereInput[]
-  NOT?: Prisma.SectionScalarWhereInput | Prisma.SectionScalarWhereInput[]
-  id?: Prisma.StringFilter<"Section"> | string
-  code?: Prisma.StringFilter<"Section"> | string
-  description?: Prisma.StringNullableFilter<"Section"> | string | null
-  courseId?: Prisma.StringFilter<"Section"> | string
-  professorId?: Prisma.StringFilter<"Section"> | string
-  startDate?: Prisma.DateTimeFilter<"Section"> | Date | string
-  endDate?: Prisma.DateTimeFilter<"Section"> | Date | string
-  classTime?: Prisma.StringFilter<"Section"> | string
-  room?: Prisma.StringFilter<"Section"> | string
-  days?: Prisma.IntNullableListFilter<"Section">
-  createdAt?: Prisma.DateTimeFilter<"Section"> | Date | string
-}
-
 export type SectionCreateWithoutCourseInput = {
   id: string
-  code: string
-  description?: string | null
-  startDate: Date | string
-  endDate: Date | string
-  classTime: string
-  room: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
-  createdAt?: Date | string
+  refreshedAt: Date | string
+  term: Prisma.TermCreateNestedOneWithoutSectionsInput
   professor: Prisma.ProfessorCreateNestedOneWithoutSectionsInput
 }
 
 export type SectionUncheckedCreateWithoutCourseInput = {
   id: string
-  code: string
-  description?: string | null
-  professorId: string
-  startDate: Date | string
-  endDate: Date | string
-  classTime: string
-  room: string
+  termCode: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
-  createdAt?: Date | string
+  refreshedAt: Date | string
+  professorId: string
 }
 
 export type SectionCreateOrConnectWithoutCourseInput = {
@@ -711,184 +836,258 @@ export type SectionUpdateManyWithWhereWithoutCourseInput = {
   data: Prisma.XOR<Prisma.SectionUpdateManyMutationInput, Prisma.SectionUncheckedUpdateManyWithoutCourseInput>
 }
 
+export type SectionCreateManyTermInput = {
+  id: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
+  days?: Prisma.SectionCreatedaysInput | number[]
+  courseId: string
+  refreshedAt: Date | string
+  professorId: string
+}
+
+export type SectionUpdateWithoutTermInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  days?: Prisma.SectionUpdatedaysInput | number[]
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
+  professor?: Prisma.ProfessorUpdateOneRequiredWithoutSectionsNestedInput
+}
+
+export type SectionUncheckedUpdateWithoutTermInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  days?: Prisma.SectionUpdatedaysInput | number[]
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type SectionUncheckedUpdateManyWithoutTermInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  days?: Prisma.SectionUpdatedaysInput | number[]
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
 export type SectionCreateManyProfessorInput = {
   id: string
-  code: string
-  description?: string | null
-  courseId: string
-  startDate: Date | string
-  endDate: Date | string
-  classTime: string
-  room: string
+  termCode: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
-  createdAt?: Date | string
+  courseId: string
+  refreshedAt: Date | string
 }
 
 export type SectionUpdateWithoutProfessorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  classTime?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  term?: Prisma.TermUpdateOneRequiredWithoutSectionsNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutProfessorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  classTime?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
+  termCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SectionUncheckedUpdateManyWithoutProfessorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  classTime?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
+  termCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SectionCreateManyCourseInput = {
   id: string
-  code: string
-  description?: string | null
-  professorId: string
-  startDate: Date | string
-  endDate: Date | string
-  classTime: string
-  room: string
+  termCode: string
+  sectionCode: string
+  sectionSearchName: string
+  classStartTime: string
+  classEndTime: string
+  buildingName: string
+  roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
-  createdAt?: Date | string
+  refreshedAt: Date | string
+  professorId: string
 }
 
 export type SectionUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  classTime?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  term?: Prisma.TermUpdateOneRequiredWithoutSectionsNestedInput
   professor?: Prisma.ProfessorUpdateOneRequiredWithoutSectionsNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  classTime?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
+  termCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SectionUncheckedUpdateManyWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  classTime?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
+  termCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionCode?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionSearchName?: Prisma.StringFieldUpdateOperationsInput | string
+  classStartTime?: Prisma.StringFieldUpdateOperationsInput | string
+  classEndTime?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingName?: Prisma.StringFieldUpdateOperationsInput | string
+  roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
 
 export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  code?: boolean
-  description?: boolean
-  courseId?: boolean
-  professorId?: boolean
-  startDate?: boolean
-  endDate?: boolean
-  classTime?: boolean
-  room?: boolean
+  termCode?: boolean
+  sectionCode?: boolean
+  sectionSearchName?: boolean
+  classStartTime?: boolean
+  classEndTime?: boolean
+  buildingName?: boolean
+  roomNumber?: boolean
   days?: boolean
-  createdAt?: boolean
+  courseId?: boolean
+  refreshedAt?: boolean
+  professorId?: boolean
+  term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["section"]>
 
 export type SectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  code?: boolean
-  description?: boolean
-  courseId?: boolean
-  professorId?: boolean
-  startDate?: boolean
-  endDate?: boolean
-  classTime?: boolean
-  room?: boolean
+  termCode?: boolean
+  sectionCode?: boolean
+  sectionSearchName?: boolean
+  classStartTime?: boolean
+  classEndTime?: boolean
+  buildingName?: boolean
+  roomNumber?: boolean
   days?: boolean
-  createdAt?: boolean
+  courseId?: boolean
+  refreshedAt?: boolean
+  professorId?: boolean
+  term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["section"]>
 
 export type SectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  code?: boolean
-  description?: boolean
-  courseId?: boolean
-  professorId?: boolean
-  startDate?: boolean
-  endDate?: boolean
-  classTime?: boolean
-  room?: boolean
+  termCode?: boolean
+  sectionCode?: boolean
+  sectionSearchName?: boolean
+  classStartTime?: boolean
+  classEndTime?: boolean
+  buildingName?: boolean
+  roomNumber?: boolean
   days?: boolean
-  createdAt?: boolean
+  courseId?: boolean
+  refreshedAt?: boolean
+  professorId?: boolean
+  term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["section"]>
 
 export type SectionSelectScalar = {
   id?: boolean
-  code?: boolean
-  description?: boolean
-  courseId?: boolean
-  professorId?: boolean
-  startDate?: boolean
-  endDate?: boolean
-  classTime?: boolean
-  room?: boolean
+  termCode?: boolean
+  sectionCode?: boolean
+  sectionSearchName?: boolean
+  classStartTime?: boolean
+  classEndTime?: boolean
+  buildingName?: boolean
+  roomNumber?: boolean
   days?: boolean
-  createdAt?: boolean
+  courseId?: boolean
+  refreshedAt?: boolean
+  professorId?: boolean
 }
 
-export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "description" | "courseId" | "professorId" | "startDate" | "endDate" | "classTime" | "room" | "days" | "createdAt", ExtArgs["result"]["section"]>
+export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "termCode" | "sectionCode" | "sectionSearchName" | "classStartTime" | "classEndTime" | "buildingName" | "roomNumber" | "days" | "courseId" | "refreshedAt" | "professorId", ExtArgs["result"]["section"]>
 export type SectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
 }
 export type SectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
 }
 export type SectionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
 }
@@ -896,21 +1095,23 @@ export type SectionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Section"
   objects: {
+    term: Prisma.$TermPayload<ExtArgs>
     course: Prisma.$CoursePayload<ExtArgs>
     professor: Prisma.$ProfessorPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    code: string
-    description: string | null
-    courseId: string
-    professorId: string
-    startDate: Date
-    endDate: Date
-    classTime: string
-    room: string
+    termCode: string
+    sectionCode: string
+    sectionSearchName: string
+    classStartTime: string
+    classEndTime: string
+    buildingName: string
+    roomNumber: string
     days: number[]
-    createdAt: Date
+    courseId: string
+    refreshedAt: Date
+    professorId: string
   }, ExtArgs["result"]["section"]>
   composites: {}
 }
@@ -1305,6 +1506,7 @@ readonly fields: SectionFieldRefs;
  */
 export interface Prisma__SectionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  term<T extends Prisma.TermDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TermDefaultArgs<ExtArgs>>): Prisma.Prisma__TermClient<runtime.Types.Result.GetResult<Prisma.$TermPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   professor<T extends Prisma.ProfessorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfessorDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfessorClient<runtime.Types.Result.GetResult<Prisma.$ProfessorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1337,16 +1539,17 @@ export interface Prisma__SectionClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface SectionFieldRefs {
   readonly id: Prisma.FieldRef<"Section", 'String'>
-  readonly code: Prisma.FieldRef<"Section", 'String'>
-  readonly description: Prisma.FieldRef<"Section", 'String'>
-  readonly courseId: Prisma.FieldRef<"Section", 'String'>
-  readonly professorId: Prisma.FieldRef<"Section", 'String'>
-  readonly startDate: Prisma.FieldRef<"Section", 'DateTime'>
-  readonly endDate: Prisma.FieldRef<"Section", 'DateTime'>
-  readonly classTime: Prisma.FieldRef<"Section", 'String'>
-  readonly room: Prisma.FieldRef<"Section", 'String'>
+  readonly termCode: Prisma.FieldRef<"Section", 'String'>
+  readonly sectionCode: Prisma.FieldRef<"Section", 'String'>
+  readonly sectionSearchName: Prisma.FieldRef<"Section", 'String'>
+  readonly classStartTime: Prisma.FieldRef<"Section", 'String'>
+  readonly classEndTime: Prisma.FieldRef<"Section", 'String'>
+  readonly buildingName: Prisma.FieldRef<"Section", 'String'>
+  readonly roomNumber: Prisma.FieldRef<"Section", 'String'>
   readonly days: Prisma.FieldRef<"Section", 'Int[]'>
-  readonly createdAt: Prisma.FieldRef<"Section", 'DateTime'>
+  readonly courseId: Prisma.FieldRef<"Section", 'String'>
+  readonly refreshedAt: Prisma.FieldRef<"Section", 'DateTime'>
+  readonly professorId: Prisma.FieldRef<"Section", 'String'>
 }
     
 

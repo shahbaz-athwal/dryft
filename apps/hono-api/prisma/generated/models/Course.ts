@@ -20,8 +20,18 @@ export type CourseModel = runtime.Types.Result.DefaultSelection<Prisma.$CoursePa
 
 export type AggregateCourse = {
   _count: CourseCountAggregateOutputType | null
+  _avg: CourseAvgAggregateOutputType | null
+  _sum: CourseSumAggregateOutputType | null
   _min: CourseMinAggregateOutputType | null
   _max: CourseMaxAggregateOutputType | null
+}
+
+export type CourseAvgAggregateOutputType = {
+  credits: number | null
+}
+
+export type CourseSumAggregateOutputType = {
+  credits: number | null
 }
 
 export type CourseMinAggregateOutputType = {
@@ -30,9 +40,8 @@ export type CourseMinAggregateOutputType = {
   title: string | null
   description: string | null
   departmentPrefix: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  lastSync: Date | null
+  credits: number | null
+  lastSectionPulledAt: Date | null
 }
 
 export type CourseMaxAggregateOutputType = {
@@ -41,9 +50,8 @@ export type CourseMaxAggregateOutputType = {
   title: string | null
   description: string | null
   departmentPrefix: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  lastSync: Date | null
+  credits: number | null
+  lastSectionPulledAt: Date | null
 }
 
 export type CourseCountAggregateOutputType = {
@@ -52,13 +60,20 @@ export type CourseCountAggregateOutputType = {
   title: number
   description: number
   departmentPrefix: number
-  createdAt: number
-  updatedAt: number
-  lastSync: number
-  metadata: number
+  credits: number
+  requisites: number
+  lastSectionPulledAt: number
   _all: number
 }
 
+
+export type CourseAvgAggregateInputType = {
+  credits?: true
+}
+
+export type CourseSumAggregateInputType = {
+  credits?: true
+}
 
 export type CourseMinAggregateInputType = {
   id?: true
@@ -66,9 +81,8 @@ export type CourseMinAggregateInputType = {
   title?: true
   description?: true
   departmentPrefix?: true
-  createdAt?: true
-  updatedAt?: true
-  lastSync?: true
+  credits?: true
+  lastSectionPulledAt?: true
 }
 
 export type CourseMaxAggregateInputType = {
@@ -77,9 +91,8 @@ export type CourseMaxAggregateInputType = {
   title?: true
   description?: true
   departmentPrefix?: true
-  createdAt?: true
-  updatedAt?: true
-  lastSync?: true
+  credits?: true
+  lastSectionPulledAt?: true
 }
 
 export type CourseCountAggregateInputType = {
@@ -88,10 +101,9 @@ export type CourseCountAggregateInputType = {
   title?: true
   description?: true
   departmentPrefix?: true
-  createdAt?: true
-  updatedAt?: true
-  lastSync?: true
-  metadata?: true
+  credits?: true
+  requisites?: true
+  lastSectionPulledAt?: true
   _all?: true
 }
 
@@ -133,6 +145,18 @@ export type CourseAggregateArgs<ExtArgs extends runtime.Types.Extensions.Interna
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: CourseAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: CourseSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: CourseMinAggregateInputType
@@ -163,6 +187,8 @@ export type CourseGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   _count?: CourseCountAggregateInputType | true
+  _avg?: CourseAvgAggregateInputType
+  _sum?: CourseSumAggregateInputType
   _min?: CourseMinAggregateInputType
   _max?: CourseMaxAggregateInputType
 }
@@ -173,11 +199,12 @@ export type CourseGroupByOutputType = {
   title: string
   description: string | null
   departmentPrefix: string
-  createdAt: Date
-  updatedAt: Date
-  lastSync: Date | null
-  metadata: runtime.JsonValue | null
+  credits: number
+  requisites: runtime.JsonValue | null
+  lastSectionPulledAt: Date | null
   _count: CourseCountAggregateOutputType | null
+  _avg: CourseAvgAggregateOutputType | null
+  _sum: CourseSumAggregateOutputType | null
   _min: CourseMinAggregateOutputType | null
   _max: CourseMaxAggregateOutputType | null
 }
@@ -206,12 +233,11 @@ export type CourseWhereInput = {
   title?: Prisma.StringFilter<"Course"> | string
   description?: Prisma.StringNullableFilter<"Course"> | string | null
   departmentPrefix?: Prisma.StringFilter<"Course"> | string
-  createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
-  lastSync?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
-  metadata?: Prisma.JsonNullableFilter<"Course">
-  sections?: Prisma.SectionListRelationFilter
+  credits?: Prisma.IntFilter<"Course"> | number
+  requisites?: Prisma.JsonNullableFilter<"Course">
+  lastSectionPulledAt?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
+  sections?: Prisma.SectionListRelationFilter
   professors?: Prisma.CourseProfessorListRelationFilter
 }
 
@@ -221,12 +247,11 @@ export type CourseOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  lastSync?: Prisma.SortOrderInput | Prisma.SortOrder
-  metadata?: Prisma.SortOrderInput | Prisma.SortOrder
-  sections?: Prisma.SectionOrderByRelationAggregateInput
+  credits?: Prisma.SortOrder
+  requisites?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastSectionPulledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   department?: Prisma.DepartmentOrderByWithRelationInput
+  sections?: Prisma.SectionOrderByRelationAggregateInput
   professors?: Prisma.CourseProfessorOrderByRelationAggregateInput
 }
 
@@ -239,12 +264,11 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Course"> | string
   description?: Prisma.StringNullableFilter<"Course"> | string | null
   departmentPrefix?: Prisma.StringFilter<"Course"> | string
-  createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
-  lastSync?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
-  metadata?: Prisma.JsonNullableFilter<"Course">
-  sections?: Prisma.SectionListRelationFilter
+  credits?: Prisma.IntFilter<"Course"> | number
+  requisites?: Prisma.JsonNullableFilter<"Course">
+  lastSectionPulledAt?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
+  sections?: Prisma.SectionListRelationFilter
   professors?: Prisma.CourseProfessorListRelationFilter
 }, "id" | "code">
 
@@ -254,13 +278,14 @@ export type CourseOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  lastSync?: Prisma.SortOrderInput | Prisma.SortOrder
-  metadata?: Prisma.SortOrderInput | Prisma.SortOrder
+  credits?: Prisma.SortOrder
+  requisites?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastSectionPulledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CourseCountOrderByAggregateInput
+  _avg?: Prisma.CourseAvgOrderByAggregateInput
   _max?: Prisma.CourseMaxOrderByAggregateInput
   _min?: Prisma.CourseMinOrderByAggregateInput
+  _sum?: Prisma.CourseSumOrderByAggregateInput
 }
 
 export type CourseScalarWhereWithAggregatesInput = {
@@ -272,10 +297,9 @@ export type CourseScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Course"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   departmentPrefix?: Prisma.StringWithAggregatesFilter<"Course"> | string
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Course"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Course"> | Date | string
-  lastSync?: Prisma.DateTimeNullableWithAggregatesFilter<"Course"> | Date | string | null
-  metadata?: Prisma.JsonNullableWithAggregatesFilter<"Course">
+  credits?: Prisma.IntWithAggregatesFilter<"Course"> | number
+  requisites?: Prisma.JsonNullableWithAggregatesFilter<"Course">
+  lastSectionPulledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Course"> | Date | string | null
 }
 
 export type CourseCreateInput = {
@@ -283,12 +307,11 @@ export type CourseCreateInput = {
   code: string
   title: string
   description?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  lastSync?: Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  sections?: Prisma.SectionCreateNestedManyWithoutCourseInput
+  credits: number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Date | string | null
   department: Prisma.DepartmentCreateNestedOneWithoutCoursesInput
+  sections?: Prisma.SectionCreateNestedManyWithoutCourseInput
   professors?: Prisma.CourseProfessorCreateNestedManyWithoutCourseInput
 }
 
@@ -298,10 +321,9 @@ export type CourseUncheckedCreateInput = {
   title: string
   description?: string | null
   departmentPrefix: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  lastSync?: Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits: number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Date | string | null
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutCourseInput
   professors?: Prisma.CourseProfessorUncheckedCreateNestedManyWithoutCourseInput
 }
@@ -311,12 +333,11 @@ export type CourseUpdateInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  sections?: Prisma.SectionUpdateManyWithoutCourseNestedInput
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   department?: Prisma.DepartmentUpdateOneRequiredWithoutCoursesNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutCourseNestedInput
   professors?: Prisma.CourseProfessorUpdateManyWithoutCourseNestedInput
 }
 
@@ -326,10 +347,9 @@ export type CourseUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sections?: Prisma.SectionUncheckedUpdateManyWithoutCourseNestedInput
   professors?: Prisma.CourseProfessorUncheckedUpdateManyWithoutCourseNestedInput
 }
@@ -340,10 +360,9 @@ export type CourseCreateManyInput = {
   title: string
   description?: string | null
   departmentPrefix: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  lastSync?: Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits: number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Date | string | null
 }
 
 export type CourseUpdateManyMutationInput = {
@@ -351,10 +370,9 @@ export type CourseUpdateManyMutationInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CourseUncheckedUpdateManyInput = {
@@ -363,10 +381,9 @@ export type CourseUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CourseListRelationFilter = {
@@ -385,10 +402,13 @@ export type CourseCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  lastSync?: Prisma.SortOrder
-  metadata?: Prisma.SortOrder
+  credits?: Prisma.SortOrder
+  requisites?: Prisma.SortOrder
+  lastSectionPulledAt?: Prisma.SortOrder
+}
+
+export type CourseAvgOrderByAggregateInput = {
+  credits?: Prisma.SortOrder
 }
 
 export type CourseMaxOrderByAggregateInput = {
@@ -397,9 +417,8 @@ export type CourseMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  lastSync?: Prisma.SortOrder
+  credits?: Prisma.SortOrder
+  lastSectionPulledAt?: Prisma.SortOrder
 }
 
 export type CourseMinOrderByAggregateInput = {
@@ -408,9 +427,12 @@ export type CourseMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  lastSync?: Prisma.SortOrder
+  credits?: Prisma.SortOrder
+  lastSectionPulledAt?: Prisma.SortOrder
+}
+
+export type CourseSumOrderByAggregateInput = {
+  credits?: Prisma.SortOrder
 }
 
 export type CourseScalarRelationFilter = {
@@ -493,10 +515,9 @@ export type CourseCreateWithoutDepartmentInput = {
   code: string
   title: string
   description?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  lastSync?: Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits: number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Date | string | null
   sections?: Prisma.SectionCreateNestedManyWithoutCourseInput
   professors?: Prisma.CourseProfessorCreateNestedManyWithoutCourseInput
 }
@@ -506,10 +527,9 @@ export type CourseUncheckedCreateWithoutDepartmentInput = {
   code: string
   title: string
   description?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  lastSync?: Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits: number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Date | string | null
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutCourseInput
   professors?: Prisma.CourseProfessorUncheckedCreateNestedManyWithoutCourseInput
 }
@@ -549,10 +569,9 @@ export type CourseScalarWhereInput = {
   title?: Prisma.StringFilter<"Course"> | string
   description?: Prisma.StringNullableFilter<"Course"> | string | null
   departmentPrefix?: Prisma.StringFilter<"Course"> | string
-  createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
-  lastSync?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
-  metadata?: Prisma.JsonNullableFilter<"Course">
+  credits?: Prisma.IntFilter<"Course"> | number
+  requisites?: Prisma.JsonNullableFilter<"Course">
+  lastSectionPulledAt?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
 }
 
 export type CourseCreateWithoutSectionsInput = {
@@ -560,10 +579,9 @@ export type CourseCreateWithoutSectionsInput = {
   code: string
   title: string
   description?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  lastSync?: Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits: number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Date | string | null
   department: Prisma.DepartmentCreateNestedOneWithoutCoursesInput
   professors?: Prisma.CourseProfessorCreateNestedManyWithoutCourseInput
 }
@@ -574,10 +592,9 @@ export type CourseUncheckedCreateWithoutSectionsInput = {
   title: string
   description?: string | null
   departmentPrefix: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  lastSync?: Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits: number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Date | string | null
   professors?: Prisma.CourseProfessorUncheckedCreateNestedManyWithoutCourseInput
 }
 
@@ -602,10 +619,9 @@ export type CourseUpdateWithoutSectionsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   department?: Prisma.DepartmentUpdateOneRequiredWithoutCoursesNestedInput
   professors?: Prisma.CourseProfessorUpdateManyWithoutCourseNestedInput
 }
@@ -616,10 +632,9 @@ export type CourseUncheckedUpdateWithoutSectionsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   professors?: Prisma.CourseProfessorUncheckedUpdateManyWithoutCourseNestedInput
 }
 
@@ -628,12 +643,11 @@ export type CourseCreateWithoutProfessorsInput = {
   code: string
   title: string
   description?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  lastSync?: Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  sections?: Prisma.SectionCreateNestedManyWithoutCourseInput
+  credits: number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Date | string | null
   department: Prisma.DepartmentCreateNestedOneWithoutCoursesInput
+  sections?: Prisma.SectionCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutProfessorsInput = {
@@ -642,10 +656,9 @@ export type CourseUncheckedCreateWithoutProfessorsInput = {
   title: string
   description?: string | null
   departmentPrefix: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  lastSync?: Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits: number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Date | string | null
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutCourseInput
 }
 
@@ -670,12 +683,11 @@ export type CourseUpdateWithoutProfessorsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  sections?: Prisma.SectionUpdateManyWithoutCourseNestedInput
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   department?: Prisma.DepartmentUpdateOneRequiredWithoutCoursesNestedInput
+  sections?: Prisma.SectionUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutProfessorsInput = {
@@ -684,10 +696,9 @@ export type CourseUncheckedUpdateWithoutProfessorsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sections?: Prisma.SectionUncheckedUpdateManyWithoutCourseNestedInput
 }
 
@@ -696,10 +707,9 @@ export type CourseCreateManyDepartmentInput = {
   code: string
   title: string
   description?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  lastSync?: Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits: number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Date | string | null
 }
 
 export type CourseUpdateWithoutDepartmentInput = {
@@ -707,10 +717,9 @@ export type CourseUpdateWithoutDepartmentInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sections?: Prisma.SectionUpdateManyWithoutCourseNestedInput
   professors?: Prisma.CourseProfessorUpdateManyWithoutCourseNestedInput
 }
@@ -720,10 +729,9 @@ export type CourseUncheckedUpdateWithoutDepartmentInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sections?: Prisma.SectionUncheckedUpdateManyWithoutCourseNestedInput
   professors?: Prisma.CourseProfessorUncheckedUpdateManyWithoutCourseNestedInput
 }
@@ -733,10 +741,9 @@ export type CourseUncheckedUpdateManyWithoutDepartmentInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastSync?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  credits?: Prisma.IntFieldUpdateOperationsInput | number
+  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -785,12 +792,11 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   title?: boolean
   description?: boolean
   departmentPrefix?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  lastSync?: boolean
-  metadata?: boolean
-  sections?: boolean | Prisma.Course$sectionsArgs<ExtArgs>
+  credits?: boolean
+  requisites?: boolean
+  lastSectionPulledAt?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
+  sections?: boolean | Prisma.Course$sectionsArgs<ExtArgs>
   professors?: boolean | Prisma.Course$professorsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
@@ -801,10 +807,9 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   title?: boolean
   description?: boolean
   departmentPrefix?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  lastSync?: boolean
-  metadata?: boolean
+  credits?: boolean
+  requisites?: boolean
+  lastSectionPulledAt?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
@@ -814,10 +819,9 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   title?: boolean
   description?: boolean
   departmentPrefix?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  lastSync?: boolean
-  metadata?: boolean
+  credits?: boolean
+  requisites?: boolean
+  lastSectionPulledAt?: boolean
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
@@ -827,16 +831,15 @@ export type CourseSelectScalar = {
   title?: boolean
   description?: boolean
   departmentPrefix?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  lastSync?: boolean
-  metadata?: boolean
+  credits?: boolean
+  requisites?: boolean
+  lastSectionPulledAt?: boolean
 }
 
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "title" | "description" | "departmentPrefix" | "createdAt" | "updatedAt" | "lastSync" | "metadata", ExtArgs["result"]["course"]>
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "title" | "description" | "departmentPrefix" | "credits" | "requisites" | "lastSectionPulledAt", ExtArgs["result"]["course"]>
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sections?: boolean | Prisma.Course$sectionsArgs<ExtArgs>
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
+  sections?: boolean | Prisma.Course$sectionsArgs<ExtArgs>
   professors?: boolean | Prisma.Course$professorsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -850,8 +853,8 @@ export type CourseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Course"
   objects: {
-    sections: Prisma.$SectionPayload<ExtArgs>[]
     department: Prisma.$DepartmentPayload<ExtArgs>
+    sections: Prisma.$SectionPayload<ExtArgs>[]
     professors: Prisma.$CourseProfessorPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -860,10 +863,9 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     title: string
     description: string | null
     departmentPrefix: string
-    createdAt: Date
-    updatedAt: Date
-    lastSync: Date | null
-    metadata: runtime.JsonValue | null
+    credits: number
+    requisites: runtime.JsonValue | null
+    lastSectionPulledAt: Date | null
   }, ExtArgs["result"]["course"]>
   composites: {}
 }
@@ -1258,8 +1260,8 @@ readonly fields: CourseFieldRefs;
  */
 export interface Prisma__CourseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  sections<T extends Prisma.Course$sectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   department<T extends Prisma.DepartmentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DepartmentDefaultArgs<ExtArgs>>): Prisma.Prisma__DepartmentClient<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  sections<T extends Prisma.Course$sectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   professors<T extends Prisma.Course$professorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$professorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseProfessorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1295,10 +1297,9 @@ export interface CourseFieldRefs {
   readonly title: Prisma.FieldRef<"Course", 'String'>
   readonly description: Prisma.FieldRef<"Course", 'String'>
   readonly departmentPrefix: Prisma.FieldRef<"Course", 'String'>
-  readonly createdAt: Prisma.FieldRef<"Course", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"Course", 'DateTime'>
-  readonly lastSync: Prisma.FieldRef<"Course", 'DateTime'>
-  readonly metadata: Prisma.FieldRef<"Course", 'Json'>
+  readonly credits: Prisma.FieldRef<"Course", 'Int'>
+  readonly requisites: Prisma.FieldRef<"Course", 'Json'>
+  readonly lastSectionPulledAt: Prisma.FieldRef<"Course", 'DateTime'>
 }
     
 

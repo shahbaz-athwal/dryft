@@ -151,27 +151,19 @@ class AcadiaScraper {
 
   async getAllDepartments() {
     const data = await this.postSearchCriteria();
-    return data.Subjects.map((subject) => ({
-      prefix: subject.Value,
-      name: subject.Description,
-    }));
+    return data.subjects;
   }
 
   async getFacultiesByDepartment(departmentPrefix: string) {
     const data = await this.postSearchCriteria({
       subjects: [departmentPrefix],
     });
-    return data.Faculty.map((faculty) => ({
-      id: faculty.Value,
-      name: faculty.Description,
-    }));
+    return data.faculties;
   }
 
   async getAllCourses() {
     const data = await this.postSearchCriteria({ quantityPerPage: 3000 });
-    return {
-      courses: data.Courses,
-    };
+    return data.courses;
   }
 
   async getSectionDetails(courseId: string, sectionIds: string[]) {

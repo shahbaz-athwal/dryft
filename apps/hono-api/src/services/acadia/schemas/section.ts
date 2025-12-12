@@ -10,13 +10,16 @@ export const SectionDetailsFilteredResponseSchema = z
             Description: z.string(),
             StartDate: z.string(),
             EndDate: z.string(),
-            ReportingTerm: z.string(),
+            IsActive: z.boolean(),
           }),
           Sections: z.array(
             z.object({
+              CourseId: z.string(),
+
               Section: z.object({
                 FormattedMeetingTimes: z.array(
                   z.object({
+                    InstructionalMethodDisplay: z.string(),
                     DaysOfWeekDisplay: z.string(),
                     StartTimeDisplay: z.string(),
                     EndTimeDisplay: z.string(),
@@ -25,6 +28,7 @@ export const SectionDetailsFilteredResponseSchema = z
                     ShowTBD: z.boolean(),
                     Days: z.array(z.number()),
                     Room: z.string(),
+                    isOnline: z.boolean(),
                   })
                 ),
                 Id: z.string(),
@@ -33,6 +37,9 @@ export const SectionDetailsFilteredResponseSchema = z
                 Enrolled: z.number(),
                 Waitlisted: z.number(),
                 CourseName: z.string(),
+                SectionNameDisplay: z.string(),
+                Number: z.string(),
+                LocationDisplay: z.string(),
               }),
               InstructorDetails: z.array(
                 z.object({
@@ -48,16 +55,20 @@ export const SectionDetailsFilteredResponseSchema = z
   })
   .transform((data) =>
     data.SectionsRetrieved.TermsAndSections.map((termData) => ({
-      code: termData.Term.Code,
-      description: termData.Term.Description,
-      startDate: termData.Term.StartDate,
-      endDate: termData.Term.EndDate,
-      reportingTerm: termData.Term.ReportingTerm,
-
       sections: termData.Sections.map((sectionData) => ({
+        courseId: sectionData.CourseId,
+        term: {
+          code: termData.Term.Code,
+          name: termData.Term.Description,
+          startDate: termData.Term.StartDate,
+          endDate: termData.Term.EndDate,
+          isActive: termData.Term.IsActive,
+        },
         id: sectionData.Section.Id,
+        sectionCode: sectionData.Section.SectionNameDisplay.split("-")[2] || "",
+        sectionSearchName: sectionData.Section.SectionNameDisplay,
         courseName: sectionData.Section.CourseName,
-
+        location: sectionData.Section.LocationDisplay,
         enrollment: {
           available: sectionData.Section.Available,
           capacity: sectionData.Section.Capacity,
@@ -67,14 +78,15 @@ export const SectionDetailsFilteredResponseSchema = z
 
         meetingTimes: sectionData.Section.FormattedMeetingTimes.map(
           (meeting) => ({
+            instructionalMethod: meeting.InstructionalMethodDisplay,
             daysOfWeek: meeting.DaysOfWeekDisplay,
             startTime: meeting.StartTimeDisplay,
             endTime: meeting.EndTimeDisplay,
-            building: meeting.BuildingDisplay,
-            room: meeting.RoomDisplay,
-            roomCode: meeting.Room,
+            buildingName: meeting.BuildingDisplay,
+            roomNumber: meeting.RoomDisplay,
             showTBD: meeting.ShowTBD,
             days: meeting.Days,
+            isOnline: meeting.isOnline,
           })
         ),
 

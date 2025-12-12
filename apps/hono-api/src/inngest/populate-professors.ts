@@ -1,3 +1,4 @@
+import type { ProfessorCreateManyInput } from "../../prisma/generated/models";
 import { scraper } from "../services/acadia";
 import { db } from "../services/db";
 import { inngest } from "./client";
@@ -9,20 +10,13 @@ export const populateProfessors = inngest.createFunction(
       key: "populate-professors",
       mode: "skip",
     },
+    concurrency: 1,
   },
   { event: "populate/acadia-department-professors" },
-  async ({ event, step }) => {
-    const { waitTimeSeconds, onlyUnsyncedDepartments } = event.data;
-
+  async ({ step }) => {
     // Step 1: Fetch departments to process
     const departments = await step.run("fetch-departments", async () => {
-      return await db.department.findMany({
-        where: onlyUnsyncedDepartments
-          ? {
-              lastSync: null,
-            }
-          : undefined,
-      });
+      return await db.department.findMany();
     });
 
     // Step 2: Fetch all faculties from all departments
@@ -38,47 +32,42 @@ export const populateProfessors = inngest.createFunction(
           return await scraper.getFacultiesByDepartment(department.prefix);
         }
       );
-
       facultiesByDepartment.set(department.prefix, faculties);
-
-      await step.sleep("throttle", `${waitTimeSeconds}s`);
     }
 
-    // Step 3: Upsert all professors concurrently
-    await step.run("upsert-all-professors", async () => {
-      const upsertPromises: Promise<unknown>[] = [];
+    // Step 3: Insert all professors concurrently
+    const createdProfessors = await step.run(
+      "insert-all-professors",
+      async () => {
+        const allProfessors: ProfessorCreateManyInput[] = [];
 
-      for (const [departmentPrefix, faculties] of facultiesByDepartment) {
-        for (const faculty of faculties) {
-          upsertPromises.push(
-            db.professor.upsert({
-              where: { id: faculty.id },
-              update: {
-                name: faculty.name,
-              },
-              create: {
-                id: faculty.id,
-                name: faculty.name,
-                departmentPrefix,
-              },
-            })
-          );
+        for (const [departmentPrefix, faculties] of facultiesByDepartment) {
+          for (const faculty of faculties) {
+            allProfessors.push({
+              id: faculty.id,
+              name: faculty.name,
+              departmentPrefix,
+            });
+          }
         }
+
+        return await db.professor.createMany({
+          data: allProfessors,
+          skipDuplicates: true,
+        });
       }
+    );
 
-      await Promise.all(upsertPromises);
+    // Step 4: Insert log
+    const message = `Populated ${createdProfessors.count} professors in ${departments.length} departments`;
+    await step.run("insert-log", async () => {
+      return await db.log.create({
+        data: {
+          message,
+        },
+      });
     });
 
-    // Step 4: Update all department sync timestamps concurrently
-    await step.run("update-all-sync-timestamps", async () => {
-      const updatePromises = departments.map((department) =>
-        db.department.update({
-          where: { prefix: department.prefix },
-          data: { lastSync: new Date() },
-        })
-      );
-
-      await Promise.all(updatePromises);
-    });
+    return message;
   }
 );

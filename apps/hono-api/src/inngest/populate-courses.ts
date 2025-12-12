@@ -5,6 +5,10 @@ import { inngest } from "./client";
 export const populateCourses = inngest.createFunction(
   {
     id: "populate-courses",
+    singleton: {
+      key: "populate-courses",
+      mode: "skip",
+    },
   },
   { event: "courses/populate" },
   async ({ step }) => {
@@ -29,7 +33,16 @@ export const populateCourses = inngest.createFunction(
         skipDuplicates: true,
       });
     });
+    // Step 3: Insert log
+    const message = `Populated ${createdCourses.count} courses`;
+    await step.run("insert-log", async () => {
+      return await db.log.create({
+        data: {
+          message,
+        },
+      });
+    });
 
-    return `${createdCourses.count} courses created`;
+    return message;
   }
 );

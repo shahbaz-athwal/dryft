@@ -54,8 +54,9 @@ model Course {
   id                  String            @id
   code                String            @unique
   title               String
-  description         String?
+  description         String
   departmentPrefix    String
+  matchingSectionIds  String[]
   department          Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
   credits             Int
   requisites          Json?

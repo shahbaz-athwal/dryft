@@ -1394,6 +1394,7 @@ export const CourseScalarFieldEnum = {
   title: 'title',
   description: 'description',
   departmentPrefix: 'departmentPrefix',
+  matchingSectionIds: 'matchingSectionIds',
   credits: 'credits',
   requisites: 'requisites',
   lastSectionPulledAt: 'lastSectionPulledAt'

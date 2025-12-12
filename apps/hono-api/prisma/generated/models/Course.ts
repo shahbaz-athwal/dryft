@@ -60,6 +60,7 @@ export type CourseCountAggregateOutputType = {
   title: number
   description: number
   departmentPrefix: number
+  matchingSectionIds: number
   credits: number
   requisites: number
   lastSectionPulledAt: number
@@ -101,6 +102,7 @@ export type CourseCountAggregateInputType = {
   title?: true
   description?: true
   departmentPrefix?: true
+  matchingSectionIds?: true
   credits?: true
   requisites?: true
   lastSectionPulledAt?: true
@@ -197,8 +199,9 @@ export type CourseGroupByOutputType = {
   id: string
   code: string
   title: string
-  description: string | null
+  description: string
   departmentPrefix: string
+  matchingSectionIds: string[]
   credits: number
   requisites: runtime.JsonValue | null
   lastSectionPulledAt: Date | null
@@ -231,8 +234,9 @@ export type CourseWhereInput = {
   id?: Prisma.StringFilter<"Course"> | string
   code?: Prisma.StringFilter<"Course"> | string
   title?: Prisma.StringFilter<"Course"> | string
-  description?: Prisma.StringNullableFilter<"Course"> | string | null
+  description?: Prisma.StringFilter<"Course"> | string
   departmentPrefix?: Prisma.StringFilter<"Course"> | string
+  matchingSectionIds?: Prisma.StringNullableListFilter<"Course">
   credits?: Prisma.IntFilter<"Course"> | number
   requisites?: Prisma.JsonNullableFilter<"Course">
   lastSectionPulledAt?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
@@ -245,8 +249,9 @@ export type CourseOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
+  matchingSectionIds?: Prisma.SortOrder
   credits?: Prisma.SortOrder
   requisites?: Prisma.SortOrderInput | Prisma.SortOrder
   lastSectionPulledAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -262,8 +267,9 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CourseWhereInput[]
   NOT?: Prisma.CourseWhereInput | Prisma.CourseWhereInput[]
   title?: Prisma.StringFilter<"Course"> | string
-  description?: Prisma.StringNullableFilter<"Course"> | string | null
+  description?: Prisma.StringFilter<"Course"> | string
   departmentPrefix?: Prisma.StringFilter<"Course"> | string
+  matchingSectionIds?: Prisma.StringNullableListFilter<"Course">
   credits?: Prisma.IntFilter<"Course"> | number
   requisites?: Prisma.JsonNullableFilter<"Course">
   lastSectionPulledAt?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
@@ -276,8 +282,9 @@ export type CourseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
+  matchingSectionIds?: Prisma.SortOrder
   credits?: Prisma.SortOrder
   requisites?: Prisma.SortOrderInput | Prisma.SortOrder
   lastSectionPulledAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -295,8 +302,9 @@ export type CourseScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Course"> | string
   code?: Prisma.StringWithAggregatesFilter<"Course"> | string
   title?: Prisma.StringWithAggregatesFilter<"Course"> | string
-  description?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
+  description?: Prisma.StringWithAggregatesFilter<"Course"> | string
   departmentPrefix?: Prisma.StringWithAggregatesFilter<"Course"> | string
+  matchingSectionIds?: Prisma.StringNullableListFilter<"Course">
   credits?: Prisma.IntWithAggregatesFilter<"Course"> | number
   requisites?: Prisma.JsonNullableWithAggregatesFilter<"Course">
   lastSectionPulledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Course"> | Date | string | null
@@ -306,7 +314,8 @@ export type CourseCreateInput = {
   id: string
   code: string
   title: string
-  description?: string | null
+  description: string
+  matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Date | string | null
@@ -319,8 +328,9 @@ export type CourseUncheckedCreateInput = {
   id: string
   code: string
   title: string
-  description?: string | null
+  description: string
   departmentPrefix: string
+  matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Date | string | null
@@ -332,7 +342,8 @@ export type CourseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -345,8 +356,9 @@ export type CourseUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -358,8 +370,9 @@ export type CourseCreateManyInput = {
   id: string
   code: string
   title: string
-  description?: string | null
+  description: string
   departmentPrefix: string
+  matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Date | string | null
@@ -369,7 +382,8 @@ export type CourseUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -379,8 +393,9 @@ export type CourseUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -396,12 +411,21 @@ export type CourseOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type CourseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
+  matchingSectionIds?: Prisma.SortOrder
   credits?: Prisma.SortOrder
   requisites?: Prisma.SortOrder
   lastSectionPulledAt?: Prisma.SortOrder
@@ -482,6 +506,15 @@ export type CourseUncheckedUpdateManyWithoutDepartmentNestedInput = {
   deleteMany?: Prisma.CourseScalarWhereInput | Prisma.CourseScalarWhereInput[]
 }
 
+export type CourseCreatematchingSectionIdsInput = {
+  set: string[]
+}
+
+export type CourseUpdatematchingSectionIdsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type CourseCreateNestedOneWithoutSectionsInput = {
   create?: Prisma.XOR<Prisma.CourseCreateWithoutSectionsInput, Prisma.CourseUncheckedCreateWithoutSectionsInput>
   connectOrCreate?: Prisma.CourseCreateOrConnectWithoutSectionsInput
@@ -514,7 +547,8 @@ export type CourseCreateWithoutDepartmentInput = {
   id: string
   code: string
   title: string
-  description?: string | null
+  description: string
+  matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Date | string | null
@@ -526,7 +560,8 @@ export type CourseUncheckedCreateWithoutDepartmentInput = {
   id: string
   code: string
   title: string
-  description?: string | null
+  description: string
+  matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Date | string | null
@@ -567,8 +602,9 @@ export type CourseScalarWhereInput = {
   id?: Prisma.StringFilter<"Course"> | string
   code?: Prisma.StringFilter<"Course"> | string
   title?: Prisma.StringFilter<"Course"> | string
-  description?: Prisma.StringNullableFilter<"Course"> | string | null
+  description?: Prisma.StringFilter<"Course"> | string
   departmentPrefix?: Prisma.StringFilter<"Course"> | string
+  matchingSectionIds?: Prisma.StringNullableListFilter<"Course">
   credits?: Prisma.IntFilter<"Course"> | number
   requisites?: Prisma.JsonNullableFilter<"Course">
   lastSectionPulledAt?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
@@ -578,7 +614,8 @@ export type CourseCreateWithoutSectionsInput = {
   id: string
   code: string
   title: string
-  description?: string | null
+  description: string
+  matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Date | string | null
@@ -590,8 +627,9 @@ export type CourseUncheckedCreateWithoutSectionsInput = {
   id: string
   code: string
   title: string
-  description?: string | null
+  description: string
   departmentPrefix: string
+  matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Date | string | null
@@ -618,7 +656,8 @@ export type CourseUpdateWithoutSectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -630,8 +669,9 @@ export type CourseUncheckedUpdateWithoutSectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -642,7 +682,8 @@ export type CourseCreateWithoutProfessorsInput = {
   id: string
   code: string
   title: string
-  description?: string | null
+  description: string
+  matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Date | string | null
@@ -654,8 +695,9 @@ export type CourseUncheckedCreateWithoutProfessorsInput = {
   id: string
   code: string
   title: string
-  description?: string | null
+  description: string
   departmentPrefix: string
+  matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Date | string | null
@@ -682,7 +724,8 @@ export type CourseUpdateWithoutProfessorsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -694,8 +737,9 @@ export type CourseUncheckedUpdateWithoutProfessorsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -706,7 +750,8 @@ export type CourseCreateManyDepartmentInput = {
   id: string
   code: string
   title: string
-  description?: string | null
+  description: string
+  matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Date | string | null
@@ -716,7 +761,8 @@ export type CourseUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -728,7 +774,8 @@ export type CourseUncheckedUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -740,7 +787,8 @@ export type CourseUncheckedUpdateManyWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
   requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -792,6 +840,7 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   title?: boolean
   description?: boolean
   departmentPrefix?: boolean
+  matchingSectionIds?: boolean
   credits?: boolean
   requisites?: boolean
   lastSectionPulledAt?: boolean
@@ -807,6 +856,7 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   title?: boolean
   description?: boolean
   departmentPrefix?: boolean
+  matchingSectionIds?: boolean
   credits?: boolean
   requisites?: boolean
   lastSectionPulledAt?: boolean
@@ -819,6 +869,7 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   title?: boolean
   description?: boolean
   departmentPrefix?: boolean
+  matchingSectionIds?: boolean
   credits?: boolean
   requisites?: boolean
   lastSectionPulledAt?: boolean
@@ -831,12 +882,13 @@ export type CourseSelectScalar = {
   title?: boolean
   description?: boolean
   departmentPrefix?: boolean
+  matchingSectionIds?: boolean
   credits?: boolean
   requisites?: boolean
   lastSectionPulledAt?: boolean
 }
 
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "title" | "description" | "departmentPrefix" | "credits" | "requisites" | "lastSectionPulledAt", ExtArgs["result"]["course"]>
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "title" | "description" | "departmentPrefix" | "matchingSectionIds" | "credits" | "requisites" | "lastSectionPulledAt", ExtArgs["result"]["course"]>
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   sections?: boolean | Prisma.Course$sectionsArgs<ExtArgs>
@@ -861,8 +913,9 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: string
     code: string
     title: string
-    description: string | null
+    description: string
     departmentPrefix: string
+    matchingSectionIds: string[]
     credits: number
     requisites: runtime.JsonValue | null
     lastSectionPulledAt: Date | null
@@ -1297,6 +1350,7 @@ export interface CourseFieldRefs {
   readonly title: Prisma.FieldRef<"Course", 'String'>
   readonly description: Prisma.FieldRef<"Course", 'String'>
   readonly departmentPrefix: Prisma.FieldRef<"Course", 'String'>
+  readonly matchingSectionIds: Prisma.FieldRef<"Course", 'String[]'>
   readonly credits: Prisma.FieldRef<"Course", 'Int'>
   readonly requisites: Prisma.FieldRef<"Course", 'Json'>
   readonly lastSectionPulledAt: Prisma.FieldRef<"Course", 'DateTime'>

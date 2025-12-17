@@ -390,8 +390,10 @@ export const ModelName = {
   Professor: 'Professor',
   Course: 'Course',
   Section: 'Section',
+  Flag: 'Flag',
   Rating: 'Rating',
   CourseProfessor: 'CourseProfessor',
+  File: 'File',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -411,7 +413,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "log" | "department" | "term" | "professor" | "course" | "section" | "rating" | "courseProfessor" | "user" | "session" | "account" | "verification"
+    modelProps: "log" | "department" | "term" | "professor" | "course" | "section" | "flag" | "rating" | "courseProfessor" | "file" | "user" | "session" | "account" | "verification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -859,6 +861,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Flag: {
+      payload: Prisma.$FlagPayload<ExtArgs>
+      fields: Prisma.FlagFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FlagFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlagPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FlagFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlagPayload>
+        }
+        findFirst: {
+          args: Prisma.FlagFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlagPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FlagFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlagPayload>
+        }
+        findMany: {
+          args: Prisma.FlagFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlagPayload>[]
+        }
+        create: {
+          args: Prisma.FlagCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlagPayload>
+        }
+        createMany: {
+          args: Prisma.FlagCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FlagCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlagPayload>[]
+        }
+        delete: {
+          args: Prisma.FlagDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlagPayload>
+        }
+        update: {
+          args: Prisma.FlagUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlagPayload>
+        }
+        deleteMany: {
+          args: Prisma.FlagDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FlagUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FlagUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlagPayload>[]
+        }
+        upsert: {
+          args: Prisma.FlagUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FlagPayload>
+        }
+        aggregate: {
+          args: Prisma.FlagAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFlag>
+        }
+        groupBy: {
+          args: Prisma.FlagGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FlagGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FlagCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FlagCountAggregateOutputType> | number
+        }
+      }
+    }
     Rating: {
       payload: Prisma.$RatingPayload<ExtArgs>
       fields: Prisma.RatingFieldRefs
@@ -1004,6 +1080,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CourseProfessorCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CourseProfessorCountAggregateOutputType> | number
+        }
+      }
+    }
+    File: {
+      payload: Prisma.$FilePayload<ExtArgs>
+      fields: Prisma.FileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FilePayload>
+        }
+        findFirst: {
+          args: Prisma.FileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FilePayload>
+        }
+        findMany: {
+          args: Prisma.FileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FilePayload>[]
+        }
+        create: {
+          args: Prisma.FileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FilePayload>
+        }
+        createMany: {
+          args: Prisma.FileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FilePayload>[]
+        }
+        delete: {
+          args: Prisma.FileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FilePayload>
+        }
+        update: {
+          args: Prisma.FileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FilePayload>
+        }
+        deleteMany: {
+          args: Prisma.FileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FilePayload>[]
+        }
+        upsert: {
+          args: Prisma.FileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FilePayload>
+        }
+        aggregate: {
+          args: Prisma.FileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFile>
+        }
+        groupBy: {
+          args: Prisma.FileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FileCountAggregateOutputType> | number
         }
       }
     }
@@ -1381,6 +1531,12 @@ export const ProfessorScalarFieldEnum = {
   rmpId: 'rmpId',
   departmentPrefix: 'departmentPrefix',
   name: 'name',
+  designation: 'designation',
+  officeLocation: 'officeLocation',
+  email: 'email',
+  phone: 'phone',
+  linkedinUrl: 'linkedinUrl',
+  websiteUrl: 'websiteUrl',
   imageUrl: 'imageUrl',
   lastPullFromRmp: 'lastPullFromRmp'
 } as const
@@ -1421,8 +1577,39 @@ export const SectionScalarFieldEnum = {
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
 
 
+export const FlagScalarFieldEnum = {
+  id: 'id',
+  ratingId: 'ratingId',
+  fileId: 'fileId',
+  reason: 'reason',
+  reviewStatus: 'reviewStatus',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type FlagScalarFieldEnum = (typeof FlagScalarFieldEnum)[keyof typeof FlagScalarFieldEnum]
+
+
 export const RatingScalarFieldEnum = {
-  id: 'id'
+  id: 'id',
+  rmpId: 'rmpId',
+  status: 'status',
+  quality: 'quality',
+  difficulty: 'difficulty',
+  isForCredit: 'isForCredit',
+  comment: 'comment',
+  textBookRequired: 'textBookRequired',
+  attendanceRequired: 'attendanceRequired',
+  gradeReceived: 'gradeReceived',
+  wouldTakeAgain: 'wouldTakeAgain',
+  thumbsUpTotal: 'thumbsUpTotal',
+  thumbsDownTotal: 'thumbsDownTotal',
+  tags: 'tags',
+  professorId: 'professorId',
+  courseId: 'courseId',
+  postedAt: 'postedAt',
+  userId: 'userId'
 } as const
 
 export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
@@ -1435,6 +1622,22 @@ export const CourseProfessorScalarFieldEnum = {
 } as const
 
 export type CourseProfessorScalarFieldEnum = (typeof CourseProfessorScalarFieldEnum)[keyof typeof CourseProfessorScalarFieldEnum]
+
+
+export const FileScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  key: 'key',
+  mimeType: 'mimeType',
+  size: 'size',
+  courseId: 'courseId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -1606,6 +1809,34 @@ export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 
 
 /**
+ * Reference to a field of type 'ReviewStatus'
+ */
+export type EnumReviewStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ReviewStatus[]'
+ */
+export type ListEnumReviewStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Status'
+ */
+export type EnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status'>
+    
+
+
+/**
+ * Reference to a field of type 'Status[]'
+ */
+export type ListEnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1703,8 +1934,10 @@ export type GlobalOmitConfig = {
   professor?: Prisma.ProfessorOmit
   course?: Prisma.CourseOmit
   section?: Prisma.SectionOmit
+  flag?: Prisma.FlagOmit
   rating?: Prisma.RatingOmit
   courseProfessor?: Prisma.CourseProfessorOmit
+  file?: Prisma.FileOmit
   user?: Prisma.UserOmit
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit

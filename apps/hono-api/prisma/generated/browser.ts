@@ -48,6 +48,11 @@ export type Course = Prisma.CourseModel
  */
 export type Section = Prisma.SectionModel
 /**
+ * Model Flag
+ * 
+ */
+export type Flag = Prisma.FlagModel
+/**
  * Model Rating
  * 
  */
@@ -57,6 +62,11 @@ export type Rating = Prisma.RatingModel
  * 
  */
 export type CourseProfessor = Prisma.CourseProfessorModel
+/**
+ * Model File
+ * 
+ */
+export type File = Prisma.FileModel
 /**
  * Model User
  * 

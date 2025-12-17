@@ -9,7 +9,21 @@
 * 🟢 You can import this file directly.
 */
 
+export const Status = {
+  PENDING_ANALYSIS: 'PENDING_ANALYSIS',
+  APPROVED: 'APPROVED',
+  AI_FLAGGED: 'AI_FLAGGED',
+  USER_FLAGGED: 'USER_FLAGGED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type Status = (typeof Status)[keyof typeof Status]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const ReviewStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ReviewStatus = (typeof ReviewStatus)[keyof typeof ReviewStatus]

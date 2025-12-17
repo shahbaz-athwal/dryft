@@ -20,34 +20,162 @@ export type RatingModel = runtime.Types.Result.DefaultSelection<Prisma.$RatingPa
 
 export type AggregateRating = {
   _count: RatingCountAggregateOutputType | null
+  _avg: RatingAvgAggregateOutputType | null
+  _sum: RatingSumAggregateOutputType | null
   _min: RatingMinAggregateOutputType | null
   _max: RatingMaxAggregateOutputType | null
 }
 
+export type RatingAvgAggregateOutputType = {
+  quality: number | null
+  difficulty: number | null
+  thumbsUpTotal: number | null
+  thumbsDownTotal: number | null
+}
+
+export type RatingSumAggregateOutputType = {
+  quality: number | null
+  difficulty: number | null
+  thumbsUpTotal: number | null
+  thumbsDownTotal: number | null
+}
+
 export type RatingMinAggregateOutputType = {
   id: string | null
+  rmpId: string | null
+  status: $Enums.Status | null
+  quality: number | null
+  difficulty: number | null
+  isForCredit: boolean | null
+  comment: string | null
+  textBookRequired: boolean | null
+  attendanceRequired: boolean | null
+  gradeReceived: string | null
+  wouldTakeAgain: boolean | null
+  thumbsUpTotal: number | null
+  thumbsDownTotal: number | null
+  professorId: string | null
+  courseId: string | null
+  postedAt: Date | null
+  userId: string | null
 }
 
 export type RatingMaxAggregateOutputType = {
   id: string | null
+  rmpId: string | null
+  status: $Enums.Status | null
+  quality: number | null
+  difficulty: number | null
+  isForCredit: boolean | null
+  comment: string | null
+  textBookRequired: boolean | null
+  attendanceRequired: boolean | null
+  gradeReceived: string | null
+  wouldTakeAgain: boolean | null
+  thumbsUpTotal: number | null
+  thumbsDownTotal: number | null
+  professorId: string | null
+  courseId: string | null
+  postedAt: Date | null
+  userId: string | null
 }
 
 export type RatingCountAggregateOutputType = {
   id: number
+  rmpId: number
+  status: number
+  quality: number
+  difficulty: number
+  isForCredit: number
+  comment: number
+  textBookRequired: number
+  attendanceRequired: number
+  gradeReceived: number
+  wouldTakeAgain: number
+  thumbsUpTotal: number
+  thumbsDownTotal: number
+  tags: number
+  professorId: number
+  courseId: number
+  postedAt: number
+  userId: number
   _all: number
 }
 
 
+export type RatingAvgAggregateInputType = {
+  quality?: true
+  difficulty?: true
+  thumbsUpTotal?: true
+  thumbsDownTotal?: true
+}
+
+export type RatingSumAggregateInputType = {
+  quality?: true
+  difficulty?: true
+  thumbsUpTotal?: true
+  thumbsDownTotal?: true
+}
+
 export type RatingMinAggregateInputType = {
   id?: true
+  rmpId?: true
+  status?: true
+  quality?: true
+  difficulty?: true
+  isForCredit?: true
+  comment?: true
+  textBookRequired?: true
+  attendanceRequired?: true
+  gradeReceived?: true
+  wouldTakeAgain?: true
+  thumbsUpTotal?: true
+  thumbsDownTotal?: true
+  professorId?: true
+  courseId?: true
+  postedAt?: true
+  userId?: true
 }
 
 export type RatingMaxAggregateInputType = {
   id?: true
+  rmpId?: true
+  status?: true
+  quality?: true
+  difficulty?: true
+  isForCredit?: true
+  comment?: true
+  textBookRequired?: true
+  attendanceRequired?: true
+  gradeReceived?: true
+  wouldTakeAgain?: true
+  thumbsUpTotal?: true
+  thumbsDownTotal?: true
+  professorId?: true
+  courseId?: true
+  postedAt?: true
+  userId?: true
 }
 
 export type RatingCountAggregateInputType = {
   id?: true
+  rmpId?: true
+  status?: true
+  quality?: true
+  difficulty?: true
+  isForCredit?: true
+  comment?: true
+  textBookRequired?: true
+  attendanceRequired?: true
+  gradeReceived?: true
+  wouldTakeAgain?: true
+  thumbsUpTotal?: true
+  thumbsDownTotal?: true
+  tags?: true
+  professorId?: true
+  courseId?: true
+  postedAt?: true
+  userId?: true
   _all?: true
 }
 
@@ -89,6 +217,18 @@ export type RatingAggregateArgs<ExtArgs extends runtime.Types.Extensions.Interna
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: RatingAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: RatingSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: RatingMinAggregateInputType
@@ -119,13 +259,34 @@ export type RatingGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   _count?: RatingCountAggregateInputType | true
+  _avg?: RatingAvgAggregateInputType
+  _sum?: RatingSumAggregateInputType
   _min?: RatingMinAggregateInputType
   _max?: RatingMaxAggregateInputType
 }
 
 export type RatingGroupByOutputType = {
   id: string
+  rmpId: string | null
+  status: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit: boolean | null
+  comment: string | null
+  textBookRequired: boolean | null
+  attendanceRequired: boolean
+  gradeReceived: string | null
+  wouldTakeAgain: boolean | null
+  thumbsUpTotal: number
+  thumbsDownTotal: number
+  tags: string[]
+  professorId: string
+  courseId: string
+  postedAt: Date
+  userId: string | null
   _count: RatingCountAggregateOutputType | null
+  _avg: RatingAvgAggregateOutputType | null
+  _sum: RatingSumAggregateOutputType | null
   _min: RatingMinAggregateOutputType | null
   _max: RatingMaxAggregateOutputType | null
 }
@@ -150,24 +311,106 @@ export type RatingWhereInput = {
   OR?: Prisma.RatingWhereInput[]
   NOT?: Prisma.RatingWhereInput | Prisma.RatingWhereInput[]
   id?: Prisma.StringFilter<"Rating"> | string
+  rmpId?: Prisma.StringNullableFilter<"Rating"> | string | null
+  status?: Prisma.EnumStatusFilter<"Rating"> | $Enums.Status
+  quality?: Prisma.IntFilter<"Rating"> | number
+  difficulty?: Prisma.IntFilter<"Rating"> | number
+  isForCredit?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
+  comment?: Prisma.StringNullableFilter<"Rating"> | string | null
+  textBookRequired?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
+  attendanceRequired?: Prisma.BoolFilter<"Rating"> | boolean
+  gradeReceived?: Prisma.StringNullableFilter<"Rating"> | string | null
+  wouldTakeAgain?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
+  thumbsUpTotal?: Prisma.IntFilter<"Rating"> | number
+  thumbsDownTotal?: Prisma.IntFilter<"Rating"> | number
+  tags?: Prisma.StringNullableListFilter<"Rating">
+  professorId?: Prisma.StringFilter<"Rating"> | string
+  courseId?: Prisma.StringFilter<"Rating"> | string
+  postedAt?: Prisma.DateTimeFilter<"Rating"> | Date | string
+  userId?: Prisma.StringNullableFilter<"Rating"> | string | null
+  professor?: Prisma.XOR<Prisma.ProfessorScalarRelationFilter, Prisma.ProfessorWhereInput>
+  course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  flags?: Prisma.FlagListRelationFilter
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type RatingOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  rmpId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  quality?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  isForCredit?: Prisma.SortOrderInput | Prisma.SortOrder
+  comment?: Prisma.SortOrderInput | Prisma.SortOrder
+  textBookRequired?: Prisma.SortOrderInput | Prisma.SortOrder
+  attendanceRequired?: Prisma.SortOrder
+  gradeReceived?: Prisma.SortOrderInput | Prisma.SortOrder
+  wouldTakeAgain?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbsUpTotal?: Prisma.SortOrder
+  thumbsDownTotal?: Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  professorId?: Prisma.SortOrder
+  courseId?: Prisma.SortOrder
+  postedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
+  professor?: Prisma.ProfessorOrderByWithRelationInput
+  course?: Prisma.CourseOrderByWithRelationInput
+  flags?: Prisma.FlagOrderByRelationAggregateInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type RatingWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  rmpId?: string
   AND?: Prisma.RatingWhereInput | Prisma.RatingWhereInput[]
   OR?: Prisma.RatingWhereInput[]
   NOT?: Prisma.RatingWhereInput | Prisma.RatingWhereInput[]
-}, "id">
+  status?: Prisma.EnumStatusFilter<"Rating"> | $Enums.Status
+  quality?: Prisma.IntFilter<"Rating"> | number
+  difficulty?: Prisma.IntFilter<"Rating"> | number
+  isForCredit?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
+  comment?: Prisma.StringNullableFilter<"Rating"> | string | null
+  textBookRequired?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
+  attendanceRequired?: Prisma.BoolFilter<"Rating"> | boolean
+  gradeReceived?: Prisma.StringNullableFilter<"Rating"> | string | null
+  wouldTakeAgain?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
+  thumbsUpTotal?: Prisma.IntFilter<"Rating"> | number
+  thumbsDownTotal?: Prisma.IntFilter<"Rating"> | number
+  tags?: Prisma.StringNullableListFilter<"Rating">
+  professorId?: Prisma.StringFilter<"Rating"> | string
+  courseId?: Prisma.StringFilter<"Rating"> | string
+  postedAt?: Prisma.DateTimeFilter<"Rating"> | Date | string
+  userId?: Prisma.StringNullableFilter<"Rating"> | string | null
+  professor?: Prisma.XOR<Prisma.ProfessorScalarRelationFilter, Prisma.ProfessorWhereInput>
+  course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  flags?: Prisma.FlagListRelationFilter
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+}, "id" | "rmpId">
 
 export type RatingOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  rmpId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  quality?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  isForCredit?: Prisma.SortOrderInput | Prisma.SortOrder
+  comment?: Prisma.SortOrderInput | Prisma.SortOrder
+  textBookRequired?: Prisma.SortOrderInput | Prisma.SortOrder
+  attendanceRequired?: Prisma.SortOrder
+  gradeReceived?: Prisma.SortOrderInput | Prisma.SortOrder
+  wouldTakeAgain?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbsUpTotal?: Prisma.SortOrder
+  thumbsDownTotal?: Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  professorId?: Prisma.SortOrder
+  courseId?: Prisma.SortOrder
+  postedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.RatingCountOrderByAggregateInput
+  _avg?: Prisma.RatingAvgOrderByAggregateInput
   _max?: Prisma.RatingMaxOrderByAggregateInput
   _min?: Prisma.RatingMinOrderByAggregateInput
+  _sum?: Prisma.RatingSumOrderByAggregateInput
 }
 
 export type RatingScalarWhereWithAggregatesInput = {
@@ -175,73 +418,1168 @@ export type RatingScalarWhereWithAggregatesInput = {
   OR?: Prisma.RatingScalarWhereWithAggregatesInput[]
   NOT?: Prisma.RatingScalarWhereWithAggregatesInput | Prisma.RatingScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Rating"> | string
+  rmpId?: Prisma.StringNullableWithAggregatesFilter<"Rating"> | string | null
+  status?: Prisma.EnumStatusWithAggregatesFilter<"Rating"> | $Enums.Status
+  quality?: Prisma.IntWithAggregatesFilter<"Rating"> | number
+  difficulty?: Prisma.IntWithAggregatesFilter<"Rating"> | number
+  isForCredit?: Prisma.BoolNullableWithAggregatesFilter<"Rating"> | boolean | null
+  comment?: Prisma.StringNullableWithAggregatesFilter<"Rating"> | string | null
+  textBookRequired?: Prisma.BoolNullableWithAggregatesFilter<"Rating"> | boolean | null
+  attendanceRequired?: Prisma.BoolWithAggregatesFilter<"Rating"> | boolean
+  gradeReceived?: Prisma.StringNullableWithAggregatesFilter<"Rating"> | string | null
+  wouldTakeAgain?: Prisma.BoolNullableWithAggregatesFilter<"Rating"> | boolean | null
+  thumbsUpTotal?: Prisma.IntWithAggregatesFilter<"Rating"> | number
+  thumbsDownTotal?: Prisma.IntWithAggregatesFilter<"Rating"> | number
+  tags?: Prisma.StringNullableListFilter<"Rating">
+  professorId?: Prisma.StringWithAggregatesFilter<"Rating"> | string
+  courseId?: Prisma.StringWithAggregatesFilter<"Rating"> | string
+  postedAt?: Prisma.DateTimeWithAggregatesFilter<"Rating"> | Date | string
+  userId?: Prisma.StringNullableWithAggregatesFilter<"Rating"> | string | null
 }
 
 export type RatingCreateInput = {
   id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  postedAt: Date | string
+  professor: Prisma.ProfessorCreateNestedOneWithoutRatingsInput
+  course: Prisma.CourseCreateNestedOneWithoutRatingsInput
+  flags?: Prisma.FlagCreateNestedManyWithoutRatingInput
+  user?: Prisma.UserCreateNestedOneWithoutRatingsInput
 }
 
 export type RatingUncheckedCreateInput = {
   id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  professorId: string
+  courseId: string
+  postedAt: Date | string
+  userId?: string | null
+  flags?: Prisma.FlagUncheckedCreateNestedManyWithoutRatingInput
 }
 
 export type RatingUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  professor?: Prisma.ProfessorUpdateOneRequiredWithoutRatingsNestedInput
+  course?: Prisma.CourseUpdateOneRequiredWithoutRatingsNestedInput
+  flags?: Prisma.FlagUpdateManyWithoutRatingNestedInput
+  user?: Prisma.UserUpdateOneWithoutRatingsNestedInput
 }
 
 export type RatingUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  flags?: Prisma.FlagUncheckedUpdateManyWithoutRatingNestedInput
 }
 
 export type RatingCreateManyInput = {
   id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  professorId: string
+  courseId: string
+  postedAt: Date | string
+  userId?: string | null
 }
 
 export type RatingUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RatingUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type RatingListRelationFilter = {
+  every?: Prisma.RatingWhereInput
+  some?: Prisma.RatingWhereInput
+  none?: Prisma.RatingWhereInput
+}
+
+export type RatingOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type RatingNullableScalarRelationFilter = {
+  is?: Prisma.RatingWhereInput | null
+  isNot?: Prisma.RatingWhereInput | null
 }
 
 export type RatingCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  rmpId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  quality?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  isForCredit?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
+  textBookRequired?: Prisma.SortOrder
+  attendanceRequired?: Prisma.SortOrder
+  gradeReceived?: Prisma.SortOrder
+  wouldTakeAgain?: Prisma.SortOrder
+  thumbsUpTotal?: Prisma.SortOrder
+  thumbsDownTotal?: Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  professorId?: Prisma.SortOrder
+  courseId?: Prisma.SortOrder
+  postedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+}
+
+export type RatingAvgOrderByAggregateInput = {
+  quality?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  thumbsUpTotal?: Prisma.SortOrder
+  thumbsDownTotal?: Prisma.SortOrder
 }
 
 export type RatingMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  rmpId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  quality?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  isForCredit?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
+  textBookRequired?: Prisma.SortOrder
+  attendanceRequired?: Prisma.SortOrder
+  gradeReceived?: Prisma.SortOrder
+  wouldTakeAgain?: Prisma.SortOrder
+  thumbsUpTotal?: Prisma.SortOrder
+  thumbsDownTotal?: Prisma.SortOrder
+  professorId?: Prisma.SortOrder
+  courseId?: Prisma.SortOrder
+  postedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type RatingMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  rmpId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  quality?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  isForCredit?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
+  textBookRequired?: Prisma.SortOrder
+  attendanceRequired?: Prisma.SortOrder
+  gradeReceived?: Prisma.SortOrder
+  wouldTakeAgain?: Prisma.SortOrder
+  thumbsUpTotal?: Prisma.SortOrder
+  thumbsDownTotal?: Prisma.SortOrder
+  professorId?: Prisma.SortOrder
+  courseId?: Prisma.SortOrder
+  postedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
+export type RatingSumOrderByAggregateInput = {
+  quality?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  thumbsUpTotal?: Prisma.SortOrder
+  thumbsDownTotal?: Prisma.SortOrder
+}
+
+export type RatingCreateNestedManyWithoutProfessorInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutProfessorInput, Prisma.RatingUncheckedCreateWithoutProfessorInput> | Prisma.RatingCreateWithoutProfessorInput[] | Prisma.RatingUncheckedCreateWithoutProfessorInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutProfessorInput | Prisma.RatingCreateOrConnectWithoutProfessorInput[]
+  createMany?: Prisma.RatingCreateManyProfessorInputEnvelope
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+}
+
+export type RatingUncheckedCreateNestedManyWithoutProfessorInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutProfessorInput, Prisma.RatingUncheckedCreateWithoutProfessorInput> | Prisma.RatingCreateWithoutProfessorInput[] | Prisma.RatingUncheckedCreateWithoutProfessorInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutProfessorInput | Prisma.RatingCreateOrConnectWithoutProfessorInput[]
+  createMany?: Prisma.RatingCreateManyProfessorInputEnvelope
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+}
+
+export type RatingUpdateManyWithoutProfessorNestedInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutProfessorInput, Prisma.RatingUncheckedCreateWithoutProfessorInput> | Prisma.RatingCreateWithoutProfessorInput[] | Prisma.RatingUncheckedCreateWithoutProfessorInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutProfessorInput | Prisma.RatingCreateOrConnectWithoutProfessorInput[]
+  upsert?: Prisma.RatingUpsertWithWhereUniqueWithoutProfessorInput | Prisma.RatingUpsertWithWhereUniqueWithoutProfessorInput[]
+  createMany?: Prisma.RatingCreateManyProfessorInputEnvelope
+  set?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  disconnect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  delete?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  update?: Prisma.RatingUpdateWithWhereUniqueWithoutProfessorInput | Prisma.RatingUpdateWithWhereUniqueWithoutProfessorInput[]
+  updateMany?: Prisma.RatingUpdateManyWithWhereWithoutProfessorInput | Prisma.RatingUpdateManyWithWhereWithoutProfessorInput[]
+  deleteMany?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
+}
+
+export type RatingUncheckedUpdateManyWithoutProfessorNestedInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutProfessorInput, Prisma.RatingUncheckedCreateWithoutProfessorInput> | Prisma.RatingCreateWithoutProfessorInput[] | Prisma.RatingUncheckedCreateWithoutProfessorInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutProfessorInput | Prisma.RatingCreateOrConnectWithoutProfessorInput[]
+  upsert?: Prisma.RatingUpsertWithWhereUniqueWithoutProfessorInput | Prisma.RatingUpsertWithWhereUniqueWithoutProfessorInput[]
+  createMany?: Prisma.RatingCreateManyProfessorInputEnvelope
+  set?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  disconnect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  delete?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  update?: Prisma.RatingUpdateWithWhereUniqueWithoutProfessorInput | Prisma.RatingUpdateWithWhereUniqueWithoutProfessorInput[]
+  updateMany?: Prisma.RatingUpdateManyWithWhereWithoutProfessorInput | Prisma.RatingUpdateManyWithWhereWithoutProfessorInput[]
+  deleteMany?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
+}
+
+export type RatingCreateNestedManyWithoutCourseInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutCourseInput, Prisma.RatingUncheckedCreateWithoutCourseInput> | Prisma.RatingCreateWithoutCourseInput[] | Prisma.RatingUncheckedCreateWithoutCourseInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutCourseInput | Prisma.RatingCreateOrConnectWithoutCourseInput[]
+  createMany?: Prisma.RatingCreateManyCourseInputEnvelope
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+}
+
+export type RatingUncheckedCreateNestedManyWithoutCourseInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutCourseInput, Prisma.RatingUncheckedCreateWithoutCourseInput> | Prisma.RatingCreateWithoutCourseInput[] | Prisma.RatingUncheckedCreateWithoutCourseInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutCourseInput | Prisma.RatingCreateOrConnectWithoutCourseInput[]
+  createMany?: Prisma.RatingCreateManyCourseInputEnvelope
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+}
+
+export type RatingUpdateManyWithoutCourseNestedInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutCourseInput, Prisma.RatingUncheckedCreateWithoutCourseInput> | Prisma.RatingCreateWithoutCourseInput[] | Prisma.RatingUncheckedCreateWithoutCourseInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutCourseInput | Prisma.RatingCreateOrConnectWithoutCourseInput[]
+  upsert?: Prisma.RatingUpsertWithWhereUniqueWithoutCourseInput | Prisma.RatingUpsertWithWhereUniqueWithoutCourseInput[]
+  createMany?: Prisma.RatingCreateManyCourseInputEnvelope
+  set?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  disconnect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  delete?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  update?: Prisma.RatingUpdateWithWhereUniqueWithoutCourseInput | Prisma.RatingUpdateWithWhereUniqueWithoutCourseInput[]
+  updateMany?: Prisma.RatingUpdateManyWithWhereWithoutCourseInput | Prisma.RatingUpdateManyWithWhereWithoutCourseInput[]
+  deleteMany?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
+}
+
+export type RatingUncheckedUpdateManyWithoutCourseNestedInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutCourseInput, Prisma.RatingUncheckedCreateWithoutCourseInput> | Prisma.RatingCreateWithoutCourseInput[] | Prisma.RatingUncheckedCreateWithoutCourseInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutCourseInput | Prisma.RatingCreateOrConnectWithoutCourseInput[]
+  upsert?: Prisma.RatingUpsertWithWhereUniqueWithoutCourseInput | Prisma.RatingUpsertWithWhereUniqueWithoutCourseInput[]
+  createMany?: Prisma.RatingCreateManyCourseInputEnvelope
+  set?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  disconnect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  delete?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  update?: Prisma.RatingUpdateWithWhereUniqueWithoutCourseInput | Prisma.RatingUpdateWithWhereUniqueWithoutCourseInput[]
+  updateMany?: Prisma.RatingUpdateManyWithWhereWithoutCourseInput | Prisma.RatingUpdateManyWithWhereWithoutCourseInput[]
+  deleteMany?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
+}
+
+export type RatingCreateNestedOneWithoutFlagsInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutFlagsInput, Prisma.RatingUncheckedCreateWithoutFlagsInput>
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutFlagsInput
+  connect?: Prisma.RatingWhereUniqueInput
+}
+
+export type RatingUpdateOneWithoutFlagsNestedInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutFlagsInput, Prisma.RatingUncheckedCreateWithoutFlagsInput>
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutFlagsInput
+  upsert?: Prisma.RatingUpsertWithoutFlagsInput
+  disconnect?: Prisma.RatingWhereInput | boolean
+  delete?: Prisma.RatingWhereInput | boolean
+  connect?: Prisma.RatingWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RatingUpdateToOneWithWhereWithoutFlagsInput, Prisma.RatingUpdateWithoutFlagsInput>, Prisma.RatingUncheckedUpdateWithoutFlagsInput>
+}
+
+export type RatingCreatetagsInput = {
+  set: string[]
+}
+
+export type EnumStatusFieldUpdateOperationsInput = {
+  set?: $Enums.Status
+}
+
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
+export type RatingUpdatetagsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type RatingCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput> | Prisma.RatingCreateWithoutUserInput[] | Prisma.RatingUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutUserInput | Prisma.RatingCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.RatingCreateManyUserInputEnvelope
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+}
+
+export type RatingUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput> | Prisma.RatingCreateWithoutUserInput[] | Prisma.RatingUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutUserInput | Prisma.RatingCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.RatingCreateManyUserInputEnvelope
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+}
+
+export type RatingUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput> | Prisma.RatingCreateWithoutUserInput[] | Prisma.RatingUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutUserInput | Prisma.RatingCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.RatingUpsertWithWhereUniqueWithoutUserInput | Prisma.RatingUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.RatingCreateManyUserInputEnvelope
+  set?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  disconnect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  delete?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  update?: Prisma.RatingUpdateWithWhereUniqueWithoutUserInput | Prisma.RatingUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.RatingUpdateManyWithWhereWithoutUserInput | Prisma.RatingUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
+}
+
+export type RatingUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput> | Prisma.RatingCreateWithoutUserInput[] | Prisma.RatingUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutUserInput | Prisma.RatingCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.RatingUpsertWithWhereUniqueWithoutUserInput | Prisma.RatingUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.RatingCreateManyUserInputEnvelope
+  set?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  disconnect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  delete?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
+  update?: Prisma.RatingUpdateWithWhereUniqueWithoutUserInput | Prisma.RatingUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.RatingUpdateManyWithWhereWithoutUserInput | Prisma.RatingUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
+}
+
+export type RatingCreateWithoutProfessorInput = {
+  id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  postedAt: Date | string
+  course: Prisma.CourseCreateNestedOneWithoutRatingsInput
+  flags?: Prisma.FlagCreateNestedManyWithoutRatingInput
+  user?: Prisma.UserCreateNestedOneWithoutRatingsInput
+}
+
+export type RatingUncheckedCreateWithoutProfessorInput = {
+  id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  courseId: string
+  postedAt: Date | string
+  userId?: string | null
+  flags?: Prisma.FlagUncheckedCreateNestedManyWithoutRatingInput
+}
+
+export type RatingCreateOrConnectWithoutProfessorInput = {
+  where: Prisma.RatingWhereUniqueInput
+  create: Prisma.XOR<Prisma.RatingCreateWithoutProfessorInput, Prisma.RatingUncheckedCreateWithoutProfessorInput>
+}
+
+export type RatingCreateManyProfessorInputEnvelope = {
+  data: Prisma.RatingCreateManyProfessorInput | Prisma.RatingCreateManyProfessorInput[]
+  skipDuplicates?: boolean
+}
+
+export type RatingUpsertWithWhereUniqueWithoutProfessorInput = {
+  where: Prisma.RatingWhereUniqueInput
+  update: Prisma.XOR<Prisma.RatingUpdateWithoutProfessorInput, Prisma.RatingUncheckedUpdateWithoutProfessorInput>
+  create: Prisma.XOR<Prisma.RatingCreateWithoutProfessorInput, Prisma.RatingUncheckedCreateWithoutProfessorInput>
+}
+
+export type RatingUpdateWithWhereUniqueWithoutProfessorInput = {
+  where: Prisma.RatingWhereUniqueInput
+  data: Prisma.XOR<Prisma.RatingUpdateWithoutProfessorInput, Prisma.RatingUncheckedUpdateWithoutProfessorInput>
+}
+
+export type RatingUpdateManyWithWhereWithoutProfessorInput = {
+  where: Prisma.RatingScalarWhereInput
+  data: Prisma.XOR<Prisma.RatingUpdateManyMutationInput, Prisma.RatingUncheckedUpdateManyWithoutProfessorInput>
+}
+
+export type RatingScalarWhereInput = {
+  AND?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
+  OR?: Prisma.RatingScalarWhereInput[]
+  NOT?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
+  id?: Prisma.StringFilter<"Rating"> | string
+  rmpId?: Prisma.StringNullableFilter<"Rating"> | string | null
+  status?: Prisma.EnumStatusFilter<"Rating"> | $Enums.Status
+  quality?: Prisma.IntFilter<"Rating"> | number
+  difficulty?: Prisma.IntFilter<"Rating"> | number
+  isForCredit?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
+  comment?: Prisma.StringNullableFilter<"Rating"> | string | null
+  textBookRequired?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
+  attendanceRequired?: Prisma.BoolFilter<"Rating"> | boolean
+  gradeReceived?: Prisma.StringNullableFilter<"Rating"> | string | null
+  wouldTakeAgain?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
+  thumbsUpTotal?: Prisma.IntFilter<"Rating"> | number
+  thumbsDownTotal?: Prisma.IntFilter<"Rating"> | number
+  tags?: Prisma.StringNullableListFilter<"Rating">
+  professorId?: Prisma.StringFilter<"Rating"> | string
+  courseId?: Prisma.StringFilter<"Rating"> | string
+  postedAt?: Prisma.DateTimeFilter<"Rating"> | Date | string
+  userId?: Prisma.StringNullableFilter<"Rating"> | string | null
+}
+
+export type RatingCreateWithoutCourseInput = {
+  id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  postedAt: Date | string
+  professor: Prisma.ProfessorCreateNestedOneWithoutRatingsInput
+  flags?: Prisma.FlagCreateNestedManyWithoutRatingInput
+  user?: Prisma.UserCreateNestedOneWithoutRatingsInput
+}
+
+export type RatingUncheckedCreateWithoutCourseInput = {
+  id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  professorId: string
+  postedAt: Date | string
+  userId?: string | null
+  flags?: Prisma.FlagUncheckedCreateNestedManyWithoutRatingInput
+}
+
+export type RatingCreateOrConnectWithoutCourseInput = {
+  where: Prisma.RatingWhereUniqueInput
+  create: Prisma.XOR<Prisma.RatingCreateWithoutCourseInput, Prisma.RatingUncheckedCreateWithoutCourseInput>
+}
+
+export type RatingCreateManyCourseInputEnvelope = {
+  data: Prisma.RatingCreateManyCourseInput | Prisma.RatingCreateManyCourseInput[]
+  skipDuplicates?: boolean
+}
+
+export type RatingUpsertWithWhereUniqueWithoutCourseInput = {
+  where: Prisma.RatingWhereUniqueInput
+  update: Prisma.XOR<Prisma.RatingUpdateWithoutCourseInput, Prisma.RatingUncheckedUpdateWithoutCourseInput>
+  create: Prisma.XOR<Prisma.RatingCreateWithoutCourseInput, Prisma.RatingUncheckedCreateWithoutCourseInput>
+}
+
+export type RatingUpdateWithWhereUniqueWithoutCourseInput = {
+  where: Prisma.RatingWhereUniqueInput
+  data: Prisma.XOR<Prisma.RatingUpdateWithoutCourseInput, Prisma.RatingUncheckedUpdateWithoutCourseInput>
+}
+
+export type RatingUpdateManyWithWhereWithoutCourseInput = {
+  where: Prisma.RatingScalarWhereInput
+  data: Prisma.XOR<Prisma.RatingUpdateManyMutationInput, Prisma.RatingUncheckedUpdateManyWithoutCourseInput>
+}
+
+export type RatingCreateWithoutFlagsInput = {
+  id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  postedAt: Date | string
+  professor: Prisma.ProfessorCreateNestedOneWithoutRatingsInput
+  course: Prisma.CourseCreateNestedOneWithoutRatingsInput
+  user?: Prisma.UserCreateNestedOneWithoutRatingsInput
+}
+
+export type RatingUncheckedCreateWithoutFlagsInput = {
+  id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  professorId: string
+  courseId: string
+  postedAt: Date | string
+  userId?: string | null
+}
+
+export type RatingCreateOrConnectWithoutFlagsInput = {
+  where: Prisma.RatingWhereUniqueInput
+  create: Prisma.XOR<Prisma.RatingCreateWithoutFlagsInput, Prisma.RatingUncheckedCreateWithoutFlagsInput>
+}
+
+export type RatingUpsertWithoutFlagsInput = {
+  update: Prisma.XOR<Prisma.RatingUpdateWithoutFlagsInput, Prisma.RatingUncheckedUpdateWithoutFlagsInput>
+  create: Prisma.XOR<Prisma.RatingCreateWithoutFlagsInput, Prisma.RatingUncheckedCreateWithoutFlagsInput>
+  where?: Prisma.RatingWhereInput
+}
+
+export type RatingUpdateToOneWithWhereWithoutFlagsInput = {
+  where?: Prisma.RatingWhereInput
+  data: Prisma.XOR<Prisma.RatingUpdateWithoutFlagsInput, Prisma.RatingUncheckedUpdateWithoutFlagsInput>
+}
+
+export type RatingUpdateWithoutFlagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  professor?: Prisma.ProfessorUpdateOneRequiredWithoutRatingsNestedInput
+  course?: Prisma.CourseUpdateOneRequiredWithoutRatingsNestedInput
+  user?: Prisma.UserUpdateOneWithoutRatingsNestedInput
+}
+
+export type RatingUncheckedUpdateWithoutFlagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type RatingCreateWithoutUserInput = {
+  id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  postedAt: Date | string
+  professor: Prisma.ProfessorCreateNestedOneWithoutRatingsInput
+  course: Prisma.CourseCreateNestedOneWithoutRatingsInput
+  flags?: Prisma.FlagCreateNestedManyWithoutRatingInput
+}
+
+export type RatingUncheckedCreateWithoutUserInput = {
+  id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  professorId: string
+  courseId: string
+  postedAt: Date | string
+  flags?: Prisma.FlagUncheckedCreateNestedManyWithoutRatingInput
+}
+
+export type RatingCreateOrConnectWithoutUserInput = {
+  where: Prisma.RatingWhereUniqueInput
+  create: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput>
+}
+
+export type RatingCreateManyUserInputEnvelope = {
+  data: Prisma.RatingCreateManyUserInput | Prisma.RatingCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type RatingUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.RatingWhereUniqueInput
+  update: Prisma.XOR<Prisma.RatingUpdateWithoutUserInput, Prisma.RatingUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput>
+}
+
+export type RatingUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.RatingWhereUniqueInput
+  data: Prisma.XOR<Prisma.RatingUpdateWithoutUserInput, Prisma.RatingUncheckedUpdateWithoutUserInput>
+}
+
+export type RatingUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.RatingScalarWhereInput
+  data: Prisma.XOR<Prisma.RatingUpdateManyMutationInput, Prisma.RatingUncheckedUpdateManyWithoutUserInput>
+}
+
+export type RatingCreateManyProfessorInput = {
+  id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  courseId: string
+  postedAt: Date | string
+  userId?: string | null
+}
+
+export type RatingUpdateWithoutProfessorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  course?: Prisma.CourseUpdateOneRequiredWithoutRatingsNestedInput
+  flags?: Prisma.FlagUpdateManyWithoutRatingNestedInput
+  user?: Prisma.UserUpdateOneWithoutRatingsNestedInput
+}
+
+export type RatingUncheckedUpdateWithoutProfessorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  flags?: Prisma.FlagUncheckedUpdateManyWithoutRatingNestedInput
+}
+
+export type RatingUncheckedUpdateManyWithoutProfessorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type RatingCreateManyCourseInput = {
+  id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  professorId: string
+  postedAt: Date | string
+  userId?: string | null
+}
+
+export type RatingUpdateWithoutCourseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  professor?: Prisma.ProfessorUpdateOneRequiredWithoutRatingsNestedInput
+  flags?: Prisma.FlagUpdateManyWithoutRatingNestedInput
+  user?: Prisma.UserUpdateOneWithoutRatingsNestedInput
+}
+
+export type RatingUncheckedUpdateWithoutCourseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  flags?: Prisma.FlagUncheckedUpdateManyWithoutRatingNestedInput
+}
+
+export type RatingUncheckedUpdateManyWithoutCourseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type RatingCreateManyUserInput = {
+  id?: string
+  rmpId?: string | null
+  status?: $Enums.Status
+  quality: number
+  difficulty: number
+  isForCredit?: boolean | null
+  comment?: string | null
+  textBookRequired?: boolean | null
+  attendanceRequired: boolean
+  gradeReceived?: string | null
+  wouldTakeAgain?: boolean | null
+  thumbsUpTotal?: number
+  thumbsDownTotal?: number
+  tags?: Prisma.RatingCreatetagsInput | string[]
+  professorId: string
+  courseId: string
+  postedAt: Date | string
+}
+
+export type RatingUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  professor?: Prisma.ProfessorUpdateOneRequiredWithoutRatingsNestedInput
+  course?: Prisma.CourseUpdateOneRequiredWithoutRatingsNestedInput
+  flags?: Prisma.FlagUpdateManyWithoutRatingNestedInput
+}
+
+export type RatingUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  flags?: Prisma.FlagUncheckedUpdateManyWithoutRatingNestedInput
+}
+
+export type RatingUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  quality?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.RatingUpdatetagsInput | string[]
+  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type RatingCountOutputType
+ */
+
+export type RatingCountOutputType = {
+  flags: number
+}
+
+export type RatingCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  flags?: boolean | RatingCountOutputTypeCountFlagsArgs
+}
+
+/**
+ * RatingCountOutputType without action
+ */
+export type RatingCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RatingCountOutputType
+   */
+  select?: Prisma.RatingCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * RatingCountOutputType without action
+ */
+export type RatingCountOutputTypeCountFlagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FlagWhereInput
+}
 
 
 export type RatingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  rmpId?: boolean
+  status?: boolean
+  quality?: boolean
+  difficulty?: boolean
+  isForCredit?: boolean
+  comment?: boolean
+  textBookRequired?: boolean
+  attendanceRequired?: boolean
+  gradeReceived?: boolean
+  wouldTakeAgain?: boolean
+  thumbsUpTotal?: boolean
+  thumbsDownTotal?: boolean
+  tags?: boolean
+  professorId?: boolean
+  courseId?: boolean
+  postedAt?: boolean
+  userId?: boolean
+  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  flags?: boolean | Prisma.Rating$flagsArgs<ExtArgs>
+  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
+  _count?: boolean | Prisma.RatingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["rating"]>
 
 export type RatingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  rmpId?: boolean
+  status?: boolean
+  quality?: boolean
+  difficulty?: boolean
+  isForCredit?: boolean
+  comment?: boolean
+  textBookRequired?: boolean
+  attendanceRequired?: boolean
+  gradeReceived?: boolean
+  wouldTakeAgain?: boolean
+  thumbsUpTotal?: boolean
+  thumbsDownTotal?: boolean
+  tags?: boolean
+  professorId?: boolean
+  courseId?: boolean
+  postedAt?: boolean
+  userId?: boolean
+  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
 }, ExtArgs["result"]["rating"]>
 
 export type RatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  rmpId?: boolean
+  status?: boolean
+  quality?: boolean
+  difficulty?: boolean
+  isForCredit?: boolean
+  comment?: boolean
+  textBookRequired?: boolean
+  attendanceRequired?: boolean
+  gradeReceived?: boolean
+  wouldTakeAgain?: boolean
+  thumbsUpTotal?: boolean
+  thumbsDownTotal?: boolean
+  tags?: boolean
+  professorId?: boolean
+  courseId?: boolean
+  postedAt?: boolean
+  userId?: boolean
+  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
 }, ExtArgs["result"]["rating"]>
 
 export type RatingSelectScalar = {
   id?: boolean
+  rmpId?: boolean
+  status?: boolean
+  quality?: boolean
+  difficulty?: boolean
+  isForCredit?: boolean
+  comment?: boolean
+  textBookRequired?: boolean
+  attendanceRequired?: boolean
+  gradeReceived?: boolean
+  wouldTakeAgain?: boolean
+  thumbsUpTotal?: boolean
+  thumbsDownTotal?: boolean
+  tags?: boolean
+  professorId?: boolean
+  courseId?: boolean
+  postedAt?: boolean
+  userId?: boolean
 }
 
-export type RatingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id", ExtArgs["result"]["rating"]>
+export type RatingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rmpId" | "status" | "quality" | "difficulty" | "isForCredit" | "comment" | "textBookRequired" | "attendanceRequired" | "gradeReceived" | "wouldTakeAgain" | "thumbsUpTotal" | "thumbsDownTotal" | "tags" | "professorId" | "courseId" | "postedAt" | "userId", ExtArgs["result"]["rating"]>
+export type RatingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  flags?: boolean | Prisma.Rating$flagsArgs<ExtArgs>
+  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
+  _count?: boolean | Prisma.RatingCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type RatingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
+}
+export type RatingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
+}
 
 export type $RatingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Rating"
-  objects: {}
+  objects: {
+    professor: Prisma.$ProfessorPayload<ExtArgs>
+    course: Prisma.$CoursePayload<ExtArgs>
+    flags: Prisma.$FlagPayload<ExtArgs>[]
+    user: Prisma.$UserPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    rmpId: string | null
+    status: $Enums.Status
+    quality: number
+    difficulty: number
+    isForCredit: boolean | null
+    comment: string | null
+    textBookRequired: boolean | null
+    attendanceRequired: boolean
+    gradeReceived: string | null
+    wouldTakeAgain: boolean | null
+    thumbsUpTotal: number
+    thumbsDownTotal: number
+    tags: string[]
+    professorId: string
+    courseId: string
+    postedAt: Date
+    userId: string | null
   }, ExtArgs["result"]["rating"]>
   composites: {}
 }
@@ -636,6 +1974,10 @@ readonly fields: RatingFieldRefs;
  */
 export interface Prisma__RatingClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  professor<T extends Prisma.ProfessorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfessorDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfessorClient<runtime.Types.Result.GetResult<Prisma.$ProfessorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  flags<T extends Prisma.Rating$flagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Rating$flagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  user<T extends Prisma.Rating$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Rating$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -666,6 +2008,23 @@ export interface Prisma__RatingClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface RatingFieldRefs {
   readonly id: Prisma.FieldRef<"Rating", 'String'>
+  readonly rmpId: Prisma.FieldRef<"Rating", 'String'>
+  readonly status: Prisma.FieldRef<"Rating", 'Status'>
+  readonly quality: Prisma.FieldRef<"Rating", 'Int'>
+  readonly difficulty: Prisma.FieldRef<"Rating", 'Int'>
+  readonly isForCredit: Prisma.FieldRef<"Rating", 'Boolean'>
+  readonly comment: Prisma.FieldRef<"Rating", 'String'>
+  readonly textBookRequired: Prisma.FieldRef<"Rating", 'Boolean'>
+  readonly attendanceRequired: Prisma.FieldRef<"Rating", 'Boolean'>
+  readonly gradeReceived: Prisma.FieldRef<"Rating", 'String'>
+  readonly wouldTakeAgain: Prisma.FieldRef<"Rating", 'Boolean'>
+  readonly thumbsUpTotal: Prisma.FieldRef<"Rating", 'Int'>
+  readonly thumbsDownTotal: Prisma.FieldRef<"Rating", 'Int'>
+  readonly tags: Prisma.FieldRef<"Rating", 'String[]'>
+  readonly professorId: Prisma.FieldRef<"Rating", 'String'>
+  readonly courseId: Prisma.FieldRef<"Rating", 'String'>
+  readonly postedAt: Prisma.FieldRef<"Rating", 'DateTime'>
+  readonly userId: Prisma.FieldRef<"Rating", 'String'>
 }
     
 
@@ -682,6 +2041,10 @@ export type RatingFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Rating
    */
   omit?: Prisma.RatingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
   /**
    * Filter, which Rating to fetch.
    */
@@ -702,6 +2065,10 @@ export type RatingFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.RatingOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
+  /**
    * Filter, which Rating to fetch.
    */
   where: Prisma.RatingWhereUniqueInput
@@ -720,6 +2087,10 @@ export type RatingFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Rating
    */
   omit?: Prisma.RatingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
   /**
    * Filter, which Rating to fetch.
    */
@@ -770,6 +2141,10 @@ export type RatingFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.RatingOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
+  /**
    * Filter, which Rating to fetch.
    */
   where?: Prisma.RatingWhereInput
@@ -819,6 +2194,10 @@ export type RatingFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.RatingOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
+  /**
    * Filter, which Ratings to fetch.
    */
   where?: Prisma.RatingWhereInput
@@ -863,9 +2242,13 @@ export type RatingCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.RatingOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
+  /**
    * The data needed to create a Rating.
    */
-  data?: Prisma.XOR<Prisma.RatingCreateInput, Prisma.RatingUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.RatingCreateInput, Prisma.RatingUncheckedCreateInput>
   relationLoadStrategy?: Prisma.RelationLoadStrategy
 }
 
@@ -897,6 +2280,10 @@ export type RatingCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.RatingCreateManyInput | Prisma.RatingCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -911,6 +2298,10 @@ export type RatingUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Rating
    */
   omit?: Prisma.RatingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
   /**
    * The data needed to update a Rating.
    */
@@ -964,6 +2355,10 @@ export type RatingUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many Ratings to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -978,6 +2373,10 @@ export type RatingUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Rating
    */
   omit?: Prisma.RatingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
   /**
    * The filter to search for the Rating to update in case it exists.
    */
@@ -1006,6 +2405,10 @@ export type RatingDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.RatingOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
+  /**
    * Filter which Rating to delete.
    */
   where: Prisma.RatingWhereUniqueInput
@@ -1027,6 +2430,49 @@ export type RatingDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Rating.flags
+ */
+export type Rating$flagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Flag
+   */
+  select?: Prisma.FlagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Flag
+   */
+  omit?: Prisma.FlagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlagInclude<ExtArgs> | null
+  where?: Prisma.FlagWhereInput
+  orderBy?: Prisma.FlagOrderByWithRelationInput | Prisma.FlagOrderByWithRelationInput[]
+  cursor?: Prisma.FlagWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FlagScalarFieldEnum | Prisma.FlagScalarFieldEnum[]
+}
+
+/**
+ * Rating.user
+ */
+export type Rating$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
  * Rating without action
  */
 export type RatingDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1038,4 +2484,8 @@ export type RatingDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Rating
    */
   omit?: Prisma.RatingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
 }

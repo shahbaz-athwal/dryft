@@ -57,8 +57,10 @@ export const ModelName = {
   Professor: 'Professor',
   Course: 'Course',
   Section: 'Section',
+  Flag: 'Flag',
   Rating: 'Rating',
   CourseProfessor: 'CourseProfessor',
+  File: 'File',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -120,6 +122,12 @@ export const ProfessorScalarFieldEnum = {
   rmpId: 'rmpId',
   departmentPrefix: 'departmentPrefix',
   name: 'name',
+  designation: 'designation',
+  officeLocation: 'officeLocation',
+  email: 'email',
+  phone: 'phone',
+  linkedinUrl: 'linkedinUrl',
+  websiteUrl: 'websiteUrl',
   imageUrl: 'imageUrl',
   lastPullFromRmp: 'lastPullFromRmp'
 } as const
@@ -160,8 +168,39 @@ export const SectionScalarFieldEnum = {
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
 
 
+export const FlagScalarFieldEnum = {
+  id: 'id',
+  ratingId: 'ratingId',
+  fileId: 'fileId',
+  reason: 'reason',
+  reviewStatus: 'reviewStatus',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type FlagScalarFieldEnum = (typeof FlagScalarFieldEnum)[keyof typeof FlagScalarFieldEnum]
+
+
 export const RatingScalarFieldEnum = {
-  id: 'id'
+  id: 'id',
+  rmpId: 'rmpId',
+  status: 'status',
+  quality: 'quality',
+  difficulty: 'difficulty',
+  isForCredit: 'isForCredit',
+  comment: 'comment',
+  textBookRequired: 'textBookRequired',
+  attendanceRequired: 'attendanceRequired',
+  gradeReceived: 'gradeReceived',
+  wouldTakeAgain: 'wouldTakeAgain',
+  thumbsUpTotal: 'thumbsUpTotal',
+  thumbsDownTotal: 'thumbsDownTotal',
+  tags: 'tags',
+  professorId: 'professorId',
+  courseId: 'courseId',
+  postedAt: 'postedAt',
+  userId: 'userId'
 } as const
 
 export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
@@ -174,6 +213,22 @@ export const CourseProfessorScalarFieldEnum = {
 } as const
 
 export type CourseProfessorScalarFieldEnum = (typeof CourseProfessorScalarFieldEnum)[keyof typeof CourseProfessorScalarFieldEnum]
+
+
+export const FileScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  key: 'key',
+  mimeType: 'mimeType',
+  size: 'size',
+  courseId: 'courseId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

@@ -40,10 +40,17 @@ model Professor {
   departmentPrefix String
   department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
   name             String
+  designation      String            @default("Professor")
+  officeLocation   String?
+  email            String?
+  phone            String?
+  linkedinUrl      String?
+  websiteUrl       String?
   imageUrl         String?
   lastPullFromRmp  DateTime?
   courses          CourseProfessor[]
   sections         Section[]
+  ratings          Rating[]
 
   @@index([name])
   @@index([departmentPrefix])
@@ -63,6 +70,8 @@ model Course {
   lastSectionPulledAt DateTime?
   sections            Section[]
   professors          CourseProfessor[]
+  ratings             Rating[]
+  files               File[]
 
   @@index([departmentPrefix])
   @@map("course")
@@ -91,9 +100,66 @@ model Section {
   @@map("section")
 }
 
-model Rating {
-  id String @id @default(uuid())
+enum Status {
+  PENDING_ANALYSIS
+  APPROVED
+  AI_FLAGGED
+  USER_FLAGGED
+  REJECTED
+}
 
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Flag {
+  id           String       @id @default(uuid())
+  ratingId     String?
+  rating       Rating?      @relation(fields: [ratingId], references: [id], onDelete: Cascade)
+  fileId       String?
+  file         File?        @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  reason       String
+  reviewStatus ReviewStatus
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  userId       String?
+  user         User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([ratingId])
+  @@index([fileId])
+  @@index([reviewStatus])
+  @@map("flag")
+}
+
+model Rating {
+  id                 String    @id @default(uuid())
+  rmpId              String?   @unique
+  status             Status    @default(PENDING_ANALYSIS)
+  quality            Int
+  difficulty         Int
+  isForCredit        Boolean?
+  comment            String?
+  textBookRequired   Boolean?
+  attendanceRequired Boolean
+  gradeReceived      String?
+  wouldTakeAgain     Boolean?
+  thumbsUpTotal      Int       @default(0)
+  thumbsDownTotal    Int       @default(0)
+  tags               String[]
+  professorId        String
+  professor          Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
+  courseId           String
+  course             Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  postedAt           DateTime
+  flags              Flag[]
+  userId             String?
+  user               User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([professorId])
+  @@index([courseId])
+  @@index([status])
   @@map("rating")
 }
 
@@ -110,6 +176,26 @@ model CourseProfessor {
   @@map("course_professor")
 }
 
+model File {
+  id        String   @id @default(uuid())
+  name      String
+  key       String   @unique
+  mimeType  String
+  size      Int
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  status    Status   @default(PENDING_ANALYSIS)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  flags     Flag[]
+
+  @@index([courseId])
+  @@index([status])
+  @@map("file")
+}
+
 model User {
   id            String    @id @default(uuid())
   email         String    @unique
@@ -120,6 +206,9 @@ model User {
   image         String?
   sessions      Session[]
   accounts      Account[]
+  flags         Flag[]
+  ratings       Rating[]
+  files         File[]
 
   @@map("user")
 }

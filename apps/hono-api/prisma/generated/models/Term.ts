@@ -28,18 +28,24 @@ export type TermMinAggregateOutputType = {
   code: string | null
   name: string | null
   isActive: boolean | null
+  startDate: Date | null
+  endDate: Date | null
 }
 
 export type TermMaxAggregateOutputType = {
   code: string | null
   name: string | null
   isActive: boolean | null
+  startDate: Date | null
+  endDate: Date | null
 }
 
 export type TermCountAggregateOutputType = {
   code: number
   name: number
   isActive: number
+  startDate: number
+  endDate: number
   _all: number
 }
 
@@ -48,18 +54,24 @@ export type TermMinAggregateInputType = {
   code?: true
   name?: true
   isActive?: true
+  startDate?: true
+  endDate?: true
 }
 
 export type TermMaxAggregateInputType = {
   code?: true
   name?: true
   isActive?: true
+  startDate?: true
+  endDate?: true
 }
 
 export type TermCountAggregateInputType = {
   code?: true
   name?: true
   isActive?: true
+  startDate?: true
+  endDate?: true
   _all?: true
 }
 
@@ -139,6 +151,8 @@ export type TermGroupByOutputType = {
   code: string
   name: string
   isActive: boolean
+  startDate: Date
+  endDate: Date
   _count: TermCountAggregateOutputType | null
   _min: TermMinAggregateOutputType | null
   _max: TermMaxAggregateOutputType | null
@@ -166,6 +180,8 @@ export type TermWhereInput = {
   code?: Prisma.StringFilter<"Term"> | string
   name?: Prisma.StringFilter<"Term"> | string
   isActive?: Prisma.BoolFilter<"Term"> | boolean
+  startDate?: Prisma.DateTimeFilter<"Term"> | Date | string
+  endDate?: Prisma.DateTimeFilter<"Term"> | Date | string
   sections?: Prisma.SectionListRelationFilter
 }
 
@@ -173,6 +189,8 @@ export type TermOrderByWithRelationInput = {
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   sections?: Prisma.SectionOrderByRelationAggregateInput
 }
 
@@ -183,6 +201,8 @@ export type TermWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TermWhereInput | Prisma.TermWhereInput[]
   name?: Prisma.StringFilter<"Term"> | string
   isActive?: Prisma.BoolFilter<"Term"> | boolean
+  startDate?: Prisma.DateTimeFilter<"Term"> | Date | string
+  endDate?: Prisma.DateTimeFilter<"Term"> | Date | string
   sections?: Prisma.SectionListRelationFilter
 }, "code">
 
@@ -190,6 +210,8 @@ export type TermOrderByWithAggregationInput = {
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   _count?: Prisma.TermCountOrderByAggregateInput
   _max?: Prisma.TermMaxOrderByAggregateInput
   _min?: Prisma.TermMinOrderByAggregateInput
@@ -202,12 +224,16 @@ export type TermScalarWhereWithAggregatesInput = {
   code?: Prisma.StringWithAggregatesFilter<"Term"> | string
   name?: Prisma.StringWithAggregatesFilter<"Term"> | string
   isActive?: Prisma.BoolWithAggregatesFilter<"Term"> | boolean
+  startDate?: Prisma.DateTimeWithAggregatesFilter<"Term"> | Date | string
+  endDate?: Prisma.DateTimeWithAggregatesFilter<"Term"> | Date | string
 }
 
 export type TermCreateInput = {
   code: string
   name: string
   isActive: boolean
+  startDate: Date | string
+  endDate: Date | string
   sections?: Prisma.SectionCreateNestedManyWithoutTermInput
 }
 
@@ -215,6 +241,8 @@ export type TermUncheckedCreateInput = {
   code: string
   name: string
   isActive: boolean
+  startDate: Date | string
+  endDate: Date | string
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutTermInput
 }
 
@@ -222,6 +250,8 @@ export type TermUpdateInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.SectionUpdateManyWithoutTermNestedInput
 }
 
@@ -229,6 +259,8 @@ export type TermUncheckedUpdateInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.SectionUncheckedUpdateManyWithoutTermNestedInput
 }
 
@@ -236,36 +268,48 @@ export type TermCreateManyInput = {
   code: string
   name: string
   isActive: boolean
+  startDate: Date | string
+  endDate: Date | string
 }
 
 export type TermUpdateManyMutationInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TermUncheckedUpdateManyInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TermCountOrderByAggregateInput = {
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
 }
 
 export type TermMaxOrderByAggregateInput = {
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
 }
 
 export type TermMinOrderByAggregateInput = {
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
 }
 
 export type TermScalarRelationFilter = {
@@ -295,12 +339,16 @@ export type TermCreateWithoutSectionsInput = {
   code: string
   name: string
   isActive: boolean
+  startDate: Date | string
+  endDate: Date | string
 }
 
 export type TermUncheckedCreateWithoutSectionsInput = {
   code: string
   name: string
   isActive: boolean
+  startDate: Date | string
+  endDate: Date | string
 }
 
 export type TermCreateOrConnectWithoutSectionsInput = {
@@ -323,12 +371,16 @@ export type TermUpdateWithoutSectionsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TermUncheckedUpdateWithoutSectionsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -366,6 +418,8 @@ export type TermSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   code?: boolean
   name?: boolean
   isActive?: boolean
+  startDate?: boolean
+  endDate?: boolean
   sections?: boolean | Prisma.Term$sectionsArgs<ExtArgs>
   _count?: boolean | Prisma.TermCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["term"]>
@@ -374,21 +428,27 @@ export type TermSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   code?: boolean
   name?: boolean
   isActive?: boolean
+  startDate?: boolean
+  endDate?: boolean
 }, ExtArgs["result"]["term"]>
 
 export type TermSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   code?: boolean
   name?: boolean
   isActive?: boolean
+  startDate?: boolean
+  endDate?: boolean
 }, ExtArgs["result"]["term"]>
 
 export type TermSelectScalar = {
   code?: boolean
   name?: boolean
   isActive?: boolean
+  startDate?: boolean
+  endDate?: boolean
 }
 
-export type TermOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"code" | "name" | "isActive", ExtArgs["result"]["term"]>
+export type TermOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"code" | "name" | "isActive" | "startDate" | "endDate", ExtArgs["result"]["term"]>
 export type TermInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sections?: boolean | Prisma.Term$sectionsArgs<ExtArgs>
   _count?: boolean | Prisma.TermCountOutputTypeDefaultArgs<ExtArgs>
@@ -405,6 +465,8 @@ export type $TermPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     code: string
     name: string
     isActive: boolean
+    startDate: Date
+    endDate: Date
   }, ExtArgs["result"]["term"]>
   composites: {}
 }
@@ -832,6 +894,8 @@ export interface TermFieldRefs {
   readonly code: Prisma.FieldRef<"Term", 'String'>
   readonly name: Prisma.FieldRef<"Term", 'String'>
   readonly isActive: Prisma.FieldRef<"Term", 'Boolean'>
+  readonly startDate: Prisma.FieldRef<"Term", 'DateTime'>
+  readonly endDate: Prisma.FieldRef<"Term", 'DateTime'>
 }
     
 

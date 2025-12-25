@@ -111,7 +111,9 @@ export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof
 export const TermScalarFieldEnum = {
   code: 'code',
   name: 'name',
-  isActive: 'isActive'
+  isActive: 'isActive',
+  startDate: 'startDate',
+  endDate: 'endDate'
 } as const
 
 export type TermScalarFieldEnum = (typeof TermScalarFieldEnum)[keyof typeof TermScalarFieldEnum]

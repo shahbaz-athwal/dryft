@@ -28,10 +28,12 @@ model Department {
 }
 
 model Term {
-  code     String    @id
-  name     String
-  isActive Boolean
-  sections Section[]
+  code      String    @id
+  name      String
+  isActive  Boolean
+  startDate DateTime
+  endDate   DateTime
+  sections  Section[]
 }
 
 model Professor {

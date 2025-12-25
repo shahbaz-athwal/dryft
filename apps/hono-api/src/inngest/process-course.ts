@@ -13,165 +13,110 @@ export const processCourse = inngest.createFunction(
       "- Upserts all professors\n" +
       "- Links all instructors to the course\n" +
       "- Upserts all sections",
-    concurrency: {
-      limit: 1,
+    throttle: {
+      limit: 10,
+      period: "10s",
     },
   },
   { event: "course/process" },
   async ({ event, step }) => {
     const { courseId, sectionIds, departmentPrefix } = event.data;
 
-    // Step 1: Fetch section details
-    const sectionDetails = await step.run("fetch-section-details", async () => {
+    // Step 1: Fetch section details from Acadia
+    const sections = await step.run("fetch-sections", async () => {
       return await scraper.getSectionDetails(courseId, sectionIds);
     });
 
-    // Step 2: Collect all unique instructors
-    const instructorData = await step.run("collect-instructors", () => {
-      const allInstructors = new Set<string>();
-      const instructorNames: Record<string, string> = {};
-
-      for (const term of sectionDetails) {
-        for (const section of term.sections) {
-          for (const instructor of section.instructors) {
-            allInstructors.add(instructor.id);
-            instructorNames[instructor.id] = instructor.name;
-          }
-        }
-      }
-
-      return {
-        instructorIds: Array.from(allInstructors),
-        instructorNames,
-      };
+    // Step 2: Upsert terms
+    await step.run("upsert-terms", async () => {
+      const uniqueTerms = [
+        ...new Map(sections.map((s) => [s.term.code, s.term])).values(),
+      ];
+      await db.term.createMany({
+        data: uniqueTerms.map((t) => ({
+          code: t.code,
+          name: t.name,
+          isActive: t.isActive,
+          startDate: t.startDate,
+          endDate: t.endDate,
+        })),
+        skipDuplicates: true,
+      });
     });
 
-    // Step 3: Upsert all professors
+    // Step 3: Upsert professors
     await step.run("upsert-professors", async () => {
-      await Promise.all(
-        instructorData.instructorIds.map((instructorId) =>
-          db.professor.upsert({
-            where: { id: instructorId },
-            update: {
-              name: instructorData.instructorNames[instructorId] ?? "",
-            },
-            create: {
-              id: instructorId,
-              name: instructorData.instructorNames[instructorId] ?? "",
-              departmentPrefix,
-            },
-          })
-        )
-      );
+      const uniqueInstructors = [
+        ...new Map(
+          sections.flatMap((s) => s.instructors).map((i) => [i.id, i])
+        ).values(),
+      ];
+      await db.professor.createMany({
+        data: uniqueInstructors.map((i) => ({
+          id: i.id,
+          name: i.name,
+          departmentPrefix,
+        })),
+        skipDuplicates: true,
+      });
     });
 
-    // Step 4: Link all instructors to the course
-    await step.run("link-instructors-to-course", async () => {
-      await Promise.all(
-        instructorData.instructorIds.map((instructorId) =>
-          db.courseProfessor.upsert({
-            where: {
-              courseId_professorId: {
-                courseId,
-                professorId: instructorId,
-              },
-            },
-            update: {},
-            create: {
-              courseId,
-              professorId: instructorId,
-            },
-          })
-        )
-      );
+    // Step 4: Link professors to course
+    await step.run("link-professors-to-course", async () => {
+      const uniqueInstructorIds = [
+        ...new Set(sections.flatMap((s) => s.instructors.map((i) => i.id))),
+      ];
+      await db.courseProfessor.createMany({
+        data: uniqueInstructorIds.map((profId) => ({
+          courseId,
+          professorId: profId,
+        })),
+        skipDuplicates: true,
+      });
     });
 
-    // Step 5: Upsert all sections
-    const createdSectionIds = await step.run("upsert-sections", async () => {
-      const processedSectionIds: string[] = [];
-
-      for (const term of sectionDetails) {
-        const sections = await Promise.all(
-          term.sections.map((section) => {
-            // Use first instructor as the section's professor
-            const primaryInstructor = section.instructors[0];
-            if (!primaryInstructor) {
-              return Promise.resolve(null);
-            }
-
-            // Format meeting times
-            const meetingTime = section.meetingTimes[0];
-            const classTime = meetingTime
-              ? `${meetingTime.startTime} - ${meetingTime.endTime}`
-              : "TBD";
-            const room = meetingTime
-              ? `${meetingTime.building} ${meetingTime.room}`
-              : "TBD";
-            const days = meetingTime?.days ?? [];
-
-            return db.section.upsert({
-              where: { id: section.id },
-              update: {
-                code: section.id,
-                description: section.courseName,
-                startDate: new Date(term.startDate),
-                endDate: new Date(term.endDate),
-                classTime,
-                room,
-                days,
-              },
-              create: {
-                id: section.id,
-                code: section.id,
-                description: section.courseName,
-                courseId,
-                professorId: primaryInstructor.id,
-                startDate: new Date(term.startDate),
-                endDate: new Date(term.endDate),
-                classTime,
-                room,
-                days,
-              },
-            });
-          })
-        );
-
-        for (const section of sections) {
-          if (section) {
-            processedSectionIds.push(section.id);
-          }
+    // Step 5: Upsert sections
+    await step.run("upsert-sections", async () => {
+      const sectionData = sections.flatMap((s) => {
+        const meetingTime = s.meetingTimes[0];
+        const instructor = s.instructors[0];
+        if (!meetingTime) {
+          return [];
         }
-      }
-
-      return processedSectionIds;
-    });
-
-    // Step 6: Update course metadata
-    await step.run("update-course-metadata", async () => {
-      const course = await db.course.findUnique({
-        where: { id: courseId },
-        select: { metadata: true },
+        if (!instructor) {
+          return [];
+        }
+        return [
+          {
+            id: s.id,
+            termCode: s.term.code,
+            sectionCode: s.sectionCode,
+            sectionSearchName: s.sectionSearchName,
+            classStartTime: meetingTime.startTime,
+            classEndTime: meetingTime.endTime,
+            buildingName: meetingTime.buildingName,
+            roomNumber: meetingTime.roomNumber,
+            days: meetingTime.days,
+            courseId,
+            professorId: instructor.id,
+            refreshedAt: new Date(),
+          },
+        ];
       });
 
-      // biome-ignore lint: no-non-null-assertion
-      const existingMetadata = course!.metadata as unknown as {
-        matchingSectionIds: string[];
-        processed: { sectionIds: string[]; timestamp: Date };
-      };
+      // Delete and recreate for clean refresh
+      // await db.section.deleteMany({ where: { courseId } }); // TODO: Uncomment this when we want to delete all sections for a course
+      await db.section.createMany({ data: sectionData });
+    });
 
+    // Step 6: Update course lastSectionPulledAt
+    await step.run("update-course-timestamp", async () => {
       await db.course.update({
         where: { id: courseId },
-        data: {
-          metadata: {
-            matchingSectionIds: existingMetadata.matchingSectionIds,
-            processed: {
-              ...(existingMetadata.processed ?? {}),
-              sectionIds: createdSectionIds,
-              timestamp: new Date(),
-            },
-          },
-        },
+        data: { lastSectionPulledAt: new Date() },
       });
     });
+
+    return { sectionsProcessed: sections.length };
   }
 );

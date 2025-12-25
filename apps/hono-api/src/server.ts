@@ -6,6 +6,7 @@ import { inngest } from "./inngest/client";
 import { triggerCourseProcessing } from "./inngest/event-producers";
 import { linkProfessorsWithRmp } from "./inngest/link-professors-with-rmp";
 import { populateCourses } from "./inngest/populate-courses";
+import { populateDepartments } from "./inngest/populate-departments";
 import { populateProfessors } from "./inngest/populate-professors";
 import { processCourse } from "./inngest/process-course";
 import { handler as rpcHandler } from "./routes/rpc";
@@ -19,6 +20,7 @@ const functions = [
   linkProfessorsWithRmp,
   populateCourses,
   triggerCourseProcessing,
+  populateDepartments,
 ];
 
 app.use(

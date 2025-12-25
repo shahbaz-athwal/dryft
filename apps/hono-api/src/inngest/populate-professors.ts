@@ -29,6 +29,7 @@ export const populateProfessors = inngest.createFunction(
       const faculties = await step.run(
         `fetch-faculties-${department.prefix}`,
         async () => {
+          await new Promise((resolve) => setTimeout(resolve, 400));
           return await scraper.getFacultiesByDepartment(department.prefix);
         }
       );

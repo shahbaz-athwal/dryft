@@ -43,7 +43,7 @@ export type FileMinAggregateOutputType = {
   mimeType: string | null
   size: number | null
   courseId: string | null
-  status: $Enums.Status | null
+  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED') | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -56,7 +56,7 @@ export type FileMaxAggregateOutputType = {
   mimeType: string | null
   size: number | null
   courseId: string | null
-  status: $Enums.Status | null
+  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED') | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -69,7 +69,7 @@ export type FileCountAggregateOutputType = {
   mimeType: number
   size: number
   courseId: number
-  status: number
+  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt: number
   updatedAt: number
   userId: number
@@ -218,7 +218,7 @@ export type FileGroupByOutputType = {
   mimeType: string
   size: number
   courseId: string
-  status: $Enums.Status
+  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt: Date
   updatedAt: Date
   userId: string | null
@@ -254,7 +254,7 @@ export type FileWhereInput = {
   mimeType?: Prisma.StringFilter<"File"> | string
   size?: Prisma.IntFilter<"File"> | number
   courseId?: Prisma.StringFilter<"File"> | string
-  status?: Prisma.EnumStatusFilter<"File"> | $Enums.Status
+  status?:PJTG.TypedStringFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFilter<"File"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"File"> | Date | string
   userId?: Prisma.StringNullableFilter<"File"> | string | null
@@ -289,7 +289,7 @@ export type FileWhereUniqueInput = Prisma.AtLeast<{
   mimeType?: Prisma.StringFilter<"File"> | string
   size?: Prisma.IntFilter<"File"> | number
   courseId?: Prisma.StringFilter<"File"> | string
-  status?: Prisma.EnumStatusFilter<"File"> | $Enums.Status
+  status?: Prisma.StringFilter<"File"> | string
   createdAt?: Prisma.DateTimeFilter<"File"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"File"> | Date | string
   userId?: Prisma.StringNullableFilter<"File"> | string | null
@@ -326,7 +326,7 @@ export type FileScalarWhereWithAggregatesInput = {
   mimeType?: Prisma.StringWithAggregatesFilter<"File"> | string
   size?: Prisma.IntWithAggregatesFilter<"File"> | number
   courseId?: Prisma.StringWithAggregatesFilter<"File"> | string
-  status?: Prisma.EnumStatusWithAggregatesFilter<"File"> | $Enums.Status
+  status?:PJTG.TypedStringWithAggregatesFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"File"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"File"> | Date | string
   userId?: Prisma.StringNullableWithAggregatesFilter<"File"> | string | null
@@ -338,7 +338,7 @@ export type FileCreateInput = {
   key: string
   mimeType: string
   size: number
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutFilesInput
@@ -353,7 +353,7 @@ export type FileUncheckedCreateInput = {
   mimeType: string
   size: number
   courseId: string
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -366,7 +366,7 @@ export type FileUpdateInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutFilesNestedInput
@@ -381,7 +381,7 @@ export type FileUncheckedUpdateInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -395,7 +395,7 @@ export type FileCreateManyInput = {
   mimeType: string
   size: number
   courseId: string
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -407,7 +407,7 @@ export type FileUpdateManyMutationInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -419,7 +419,7 @@ export type FileUncheckedUpdateManyInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -593,7 +593,7 @@ export type FileCreateWithoutCourseInput = {
   key: string
   mimeType: string
   size: number
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutFilesInput
@@ -606,7 +606,7 @@ export type FileUncheckedCreateWithoutCourseInput = {
   key: string
   mimeType: string
   size: number
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -649,7 +649,7 @@ export type FileScalarWhereInput = {
   mimeType?: Prisma.StringFilter<"File"> | string
   size?: Prisma.IntFilter<"File"> | number
   courseId?: Prisma.StringFilter<"File"> | string
-  status?: Prisma.EnumStatusFilter<"File"> | $Enums.Status
+  status?:PJTG.TypedStringFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFilter<"File"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"File"> | Date | string
   userId?: Prisma.StringNullableFilter<"File"> | string | null
@@ -661,7 +661,7 @@ export type FileCreateWithoutFlagsInput = {
   key: string
   mimeType: string
   size: number
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutFilesInput
@@ -675,7 +675,7 @@ export type FileUncheckedCreateWithoutFlagsInput = {
   mimeType: string
   size: number
   courseId: string
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -703,7 +703,7 @@ export type FileUpdateWithoutFlagsInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutFilesNestedInput
@@ -717,7 +717,7 @@ export type FileUncheckedUpdateWithoutFlagsInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -729,7 +729,7 @@ export type FileCreateWithoutUserInput = {
   key: string
   mimeType: string
   size: number
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutFilesInput
@@ -743,7 +743,7 @@ export type FileUncheckedCreateWithoutUserInput = {
   mimeType: string
   size: number
   courseId: string
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   flags?: Prisma.FlagUncheckedCreateNestedManyWithoutFileInput
@@ -781,7 +781,7 @@ export type FileCreateManyCourseInput = {
   key: string
   mimeType: string
   size: number
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -793,7 +793,7 @@ export type FileUpdateWithoutCourseInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutFilesNestedInput
@@ -806,7 +806,7 @@ export type FileUncheckedUpdateWithoutCourseInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -819,7 +819,7 @@ export type FileUncheckedUpdateManyWithoutCourseInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -832,7 +832,7 @@ export type FileCreateManyUserInput = {
   mimeType: string
   size: number
   courseId: string
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -843,7 +843,7 @@ export type FileUpdateWithoutUserInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutFilesNestedInput
@@ -857,7 +857,7 @@ export type FileUncheckedUpdateWithoutUserInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flags?: Prisma.FlagUncheckedUpdateManyWithoutFileNestedInput
@@ -870,7 +870,7 @@ export type FileUncheckedUpdateManyWithoutUserInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -996,7 +996,10 @@ export type $FilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     mimeType: string
     size: number
     courseId: string
-    status: $Enums.Status
+    /**
+     * !['PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED']
+     */
+    status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
     createdAt: Date
     updatedAt: Date
     userId: string | null
@@ -1432,7 +1435,7 @@ export interface FileFieldRefs {
   readonly mimeType: Prisma.FieldRef<"File", 'String'>
   readonly size: Prisma.FieldRef<"File", 'Int'>
   readonly courseId: Prisma.FieldRef<"File", 'String'>
-  readonly status: Prisma.FieldRef<"File", 'Status'>
+  readonly status: Prisma.FieldRef<"File", 'String'>
   readonly createdAt: Prisma.FieldRef<"File", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"File", 'DateTime'>
   readonly userId: Prisma.FieldRef<"File", 'String'>

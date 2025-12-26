@@ -111,32 +111,19 @@ model Section {
   @@map("section")
 }
 
-enum Status {
-  PENDING_ANALYSIS
-  APPROVED
-  AI_FLAGGED
-  USER_FLAGGED
-  REJECTED
-}
-
-enum ReviewStatus {
-  PENDING
-  APPROVED
-  REJECTED
-}
-
 model Flag {
-  id           String       @id @default(uuid())
+  id           String   @id @default(uuid())
   ratingId     String?
-  rating       Rating?      @relation(fields: [ratingId], references: [id], onDelete: Cascade)
+  rating       Rating?  @relation(fields: [ratingId], references: [id], onDelete: Cascade)
   fileId       String?
-  file         File?        @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  file         File?    @relation(fields: [fileId], references: [id], onDelete: Cascade)
   reason       String
-  reviewStatus ReviewStatus
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  /// !['PENDING' | 'APPROVED' | 'REJECTED']
+  reviewStatus String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   userId       String?
-  user         User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([ratingId])
   @@index([fileId])
@@ -147,7 +134,8 @@ model Flag {
 model Rating {
   id                 String    @id @default(uuid())
   rmpId              String?   @unique
-  status             Status    @default(PENDING_ANALYSIS)
+  /// !['PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED']
+  status             String    @default("PENDING_ANALYSIS")
   quality            Int
   difficulty         Int
   isForCredit        Boolean?
@@ -195,7 +183,8 @@ model File {
   size      Int
   courseId  String
   course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  status    Status   @default(PENDING_ANALYSIS)
+  /// !['PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED']
+  status    String   @default("PENDING_ANALYSIS")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    String?

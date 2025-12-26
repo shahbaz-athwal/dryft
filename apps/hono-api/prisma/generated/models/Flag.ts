@@ -31,7 +31,7 @@ export type FlagMinAggregateOutputType = {
   ratingId: string | null
   fileId: string | null
   reason: string | null
-  reviewStatus: $Enums.ReviewStatus | null
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED') | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -42,7 +42,7 @@ export type FlagMaxAggregateOutputType = {
   ratingId: string | null
   fileId: string | null
   reason: string | null
-  reviewStatus: $Enums.ReviewStatus | null
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED') | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -53,7 +53,7 @@ export type FlagCountAggregateOutputType = {
   ratingId: number
   fileId: number
   reason: number
-  reviewStatus: number
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt: number
   updatedAt: number
   userId: number
@@ -172,7 +172,7 @@ export type FlagGroupByOutputType = {
   ratingId: string | null
   fileId: string | null
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt: Date
   updatedAt: Date
   userId: string | null
@@ -204,7 +204,7 @@ export type FlagWhereInput = {
   ratingId?: Prisma.StringNullableFilter<"Flag"> | string | null
   fileId?: Prisma.StringNullableFilter<"Flag"> | string | null
   reason?: Prisma.StringFilter<"Flag"> | string
-  reviewStatus?: Prisma.EnumReviewStatusFilter<"Flag"> | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFilter<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
   userId?: Prisma.StringNullableFilter<"Flag"> | string | null
@@ -235,7 +235,7 @@ export type FlagWhereUniqueInput = Prisma.AtLeast<{
   ratingId?: Prisma.StringNullableFilter<"Flag"> | string | null
   fileId?: Prisma.StringNullableFilter<"Flag"> | string | null
   reason?: Prisma.StringFilter<"Flag"> | string
-  reviewStatus?: Prisma.EnumReviewStatusFilter<"Flag"> | $Enums.ReviewStatus
+  reviewStatus?: Prisma.StringFilter<"Flag"> | string
   createdAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
   userId?: Prisma.StringNullableFilter<"Flag"> | string | null
@@ -266,7 +266,7 @@ export type FlagScalarWhereWithAggregatesInput = {
   ratingId?: Prisma.StringNullableWithAggregatesFilter<"Flag"> | string | null
   fileId?: Prisma.StringNullableWithAggregatesFilter<"Flag"> | string | null
   reason?: Prisma.StringWithAggregatesFilter<"Flag"> | string
-  reviewStatus?: Prisma.EnumReviewStatusWithAggregatesFilter<"Flag"> | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringWithAggregatesFilter<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Flag"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Flag"> | Date | string
   userId?: Prisma.StringNullableWithAggregatesFilter<"Flag"> | string | null
@@ -275,7 +275,7 @@ export type FlagScalarWhereWithAggregatesInput = {
 export type FlagCreateInput = {
   id?: string
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   rating?: Prisma.RatingCreateNestedOneWithoutFlagsInput
@@ -288,7 +288,7 @@ export type FlagUncheckedCreateInput = {
   ratingId?: string | null
   fileId?: string | null
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -297,7 +297,7 @@ export type FlagUncheckedCreateInput = {
 export type FlagUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rating?: Prisma.RatingUpdateOneWithoutFlagsNestedInput
@@ -310,7 +310,7 @@ export type FlagUncheckedUpdateInput = {
   ratingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -321,7 +321,7 @@ export type FlagCreateManyInput = {
   ratingId?: string | null
   fileId?: string | null
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -330,7 +330,7 @@ export type FlagCreateManyInput = {
 export type FlagUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -340,7 +340,7 @@ export type FlagUncheckedUpdateManyInput = {
   ratingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -387,10 +387,6 @@ export type FlagListRelationFilter = {
 
 export type FlagOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type EnumReviewStatusFieldUpdateOperationsInput = {
-  set?: $Enums.ReviewStatus
 }
 
 export type FlagCreateNestedManyWithoutRatingInput = {
@@ -522,7 +518,7 @@ export type FlagUncheckedUpdateManyWithoutUserNestedInput = {
 export type FlagCreateWithoutRatingInput = {
   id?: string
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   file?: Prisma.FileCreateNestedOneWithoutFlagsInput
@@ -533,7 +529,7 @@ export type FlagUncheckedCreateWithoutRatingInput = {
   id?: string
   fileId?: string | null
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -573,7 +569,7 @@ export type FlagScalarWhereInput = {
   ratingId?: Prisma.StringNullableFilter<"Flag"> | string | null
   fileId?: Prisma.StringNullableFilter<"Flag"> | string | null
   reason?: Prisma.StringFilter<"Flag"> | string
-  reviewStatus?: Prisma.EnumReviewStatusFilter<"Flag"> | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFilter<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
   userId?: Prisma.StringNullableFilter<"Flag"> | string | null
@@ -582,7 +578,7 @@ export type FlagScalarWhereInput = {
 export type FlagCreateWithoutFileInput = {
   id?: string
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   rating?: Prisma.RatingCreateNestedOneWithoutFlagsInput
@@ -593,7 +589,7 @@ export type FlagUncheckedCreateWithoutFileInput = {
   id?: string
   ratingId?: string | null
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -628,7 +624,7 @@ export type FlagUpdateManyWithWhereWithoutFileInput = {
 export type FlagCreateWithoutUserInput = {
   id?: string
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   rating?: Prisma.RatingCreateNestedOneWithoutFlagsInput
@@ -640,7 +636,7 @@ export type FlagUncheckedCreateWithoutUserInput = {
   ratingId?: string | null
   fileId?: string | null
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -675,7 +671,7 @@ export type FlagCreateManyRatingInput = {
   id?: string
   fileId?: string | null
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -684,7 +680,7 @@ export type FlagCreateManyRatingInput = {
 export type FlagUpdateWithoutRatingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   file?: Prisma.FileUpdateOneWithoutFlagsNestedInput
@@ -695,7 +691,7 @@ export type FlagUncheckedUpdateWithoutRatingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -705,7 +701,7 @@ export type FlagUncheckedUpdateManyWithoutRatingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -715,7 +711,7 @@ export type FlagCreateManyFileInput = {
   id?: string
   ratingId?: string | null
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -724,7 +720,7 @@ export type FlagCreateManyFileInput = {
 export type FlagUpdateWithoutFileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rating?: Prisma.RatingUpdateOneWithoutFlagsNestedInput
@@ -735,7 +731,7 @@ export type FlagUncheckedUpdateWithoutFileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ratingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -745,7 +741,7 @@ export type FlagUncheckedUpdateManyWithoutFileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ratingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -756,7 +752,7 @@ export type FlagCreateManyUserInput = {
   ratingId?: string | null
   fileId?: string | null
   reason: string
-  reviewStatus: $Enums.ReviewStatus
+  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -764,7 +760,7 @@ export type FlagCreateManyUserInput = {
 export type FlagUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rating?: Prisma.RatingUpdateOneWithoutFlagsNestedInput
@@ -776,7 +772,7 @@ export type FlagUncheckedUpdateWithoutUserInput = {
   ratingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -786,7 +782,7 @@ export type FlagUncheckedUpdateManyWithoutUserInput = {
   ratingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -875,7 +871,10 @@ export type $FlagPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     ratingId: string | null
     fileId: string | null
     reason: string
-    reviewStatus: $Enums.ReviewStatus
+    /**
+     * !['PENDING' | 'APPROVED' | 'REJECTED']
+     */
+    reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
     createdAt: Date
     updatedAt: Date
     userId: string | null
@@ -1309,7 +1308,7 @@ export interface FlagFieldRefs {
   readonly ratingId: Prisma.FieldRef<"Flag", 'String'>
   readonly fileId: Prisma.FieldRef<"Flag", 'String'>
   readonly reason: Prisma.FieldRef<"Flag", 'String'>
-  readonly reviewStatus: Prisma.FieldRef<"Flag", 'ReviewStatus'>
+  readonly reviewStatus: Prisma.FieldRef<"Flag", 'String'>
   readonly createdAt: Prisma.FieldRef<"Flag", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Flag", 'DateTime'>
   readonly userId: Prisma.FieldRef<"Flag", 'String'>

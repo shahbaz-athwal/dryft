@@ -45,7 +45,7 @@ export type RatingSumAggregateOutputType = {
 export type RatingMinAggregateOutputType = {
   id: string | null
   rmpId: string | null
-  status: $Enums.Status | null
+  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED') | null
   quality: number | null
   difficulty: number | null
   isForCredit: boolean | null
@@ -65,7 +65,7 @@ export type RatingMinAggregateOutputType = {
 export type RatingMaxAggregateOutputType = {
   id: string | null
   rmpId: string | null
-  status: $Enums.Status | null
+  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED') | null
   quality: number | null
   difficulty: number | null
   isForCredit: boolean | null
@@ -85,7 +85,7 @@ export type RatingMaxAggregateOutputType = {
 export type RatingCountAggregateOutputType = {
   id: number
   rmpId: number
-  status: number
+  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit: number
@@ -270,7 +270,7 @@ export type RatingGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type RatingGroupByOutputType = {
   id: string
   rmpId: string | null
-  status: $Enums.Status
+  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit: boolean | null
@@ -314,7 +314,7 @@ export type RatingWhereInput = {
   NOT?: Prisma.RatingWhereInput | Prisma.RatingWhereInput[]
   id?: Prisma.StringFilter<"Rating"> | string
   rmpId?: Prisma.StringNullableFilter<"Rating"> | string | null
-  status?: Prisma.EnumStatusFilter<"Rating"> | $Enums.Status
+  status?:PJTG.TypedStringFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFilter<"Rating"> | number
   difficulty?: Prisma.IntFilter<"Rating"> | number
   isForCredit?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
@@ -367,7 +367,7 @@ export type RatingWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.RatingWhereInput | Prisma.RatingWhereInput[]
   OR?: Prisma.RatingWhereInput[]
   NOT?: Prisma.RatingWhereInput | Prisma.RatingWhereInput[]
-  status?: Prisma.EnumStatusFilter<"Rating"> | $Enums.Status
+  status?: Prisma.StringFilter<"Rating"> | string
   quality?: Prisma.IntFilter<"Rating"> | number
   difficulty?: Prisma.IntFilter<"Rating"> | number
   isForCredit?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
@@ -421,7 +421,7 @@ export type RatingScalarWhereWithAggregatesInput = {
   NOT?: Prisma.RatingScalarWhereWithAggregatesInput | Prisma.RatingScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Rating"> | string
   rmpId?: Prisma.StringNullableWithAggregatesFilter<"Rating"> | string | null
-  status?: Prisma.EnumStatusWithAggregatesFilter<"Rating"> | $Enums.Status
+  status?:PJTG.TypedStringWithAggregatesFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntWithAggregatesFilter<"Rating"> | number
   difficulty?: Prisma.IntWithAggregatesFilter<"Rating"> | number
   isForCredit?: Prisma.BoolNullableWithAggregatesFilter<"Rating"> | boolean | null
@@ -442,7 +442,7 @@ export type RatingScalarWhereWithAggregatesInput = {
 export type RatingCreateInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -464,7 +464,7 @@ export type RatingCreateInput = {
 export type RatingUncheckedCreateInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -486,7 +486,7 @@ export type RatingUncheckedCreateInput = {
 export type RatingUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -508,7 +508,7 @@ export type RatingUpdateInput = {
 export type RatingUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -530,7 +530,7 @@ export type RatingUncheckedUpdateInput = {
 export type RatingCreateManyInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -551,7 +551,7 @@ export type RatingCreateManyInput = {
 export type RatingUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -569,7 +569,7 @@ export type RatingUpdateManyMutationInput = {
 export type RatingUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -781,10 +781,6 @@ export type RatingCreatetagsInput = {
   set: string[]
 }
 
-export type EnumStatusFieldUpdateOperationsInput = {
-  set?: $Enums.Status
-}
-
 export type NullableBoolFieldUpdateOperationsInput = {
   set?: boolean | null
 }
@@ -839,7 +835,7 @@ export type RatingUncheckedUpdateManyWithoutUserNestedInput = {
 export type RatingCreateWithoutProfessorInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -860,7 +856,7 @@ export type RatingCreateWithoutProfessorInput = {
 export type RatingUncheckedCreateWithoutProfessorInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -910,7 +906,7 @@ export type RatingScalarWhereInput = {
   NOT?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
   id?: Prisma.StringFilter<"Rating"> | string
   rmpId?: Prisma.StringNullableFilter<"Rating"> | string | null
-  status?: Prisma.EnumStatusFilter<"Rating"> | $Enums.Status
+  status?:PJTG.TypedStringFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFilter<"Rating"> | number
   difficulty?: Prisma.IntFilter<"Rating"> | number
   isForCredit?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
@@ -931,7 +927,7 @@ export type RatingScalarWhereInput = {
 export type RatingCreateWithoutCourseInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -952,7 +948,7 @@ export type RatingCreateWithoutCourseInput = {
 export type RatingUncheckedCreateWithoutCourseInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -999,7 +995,7 @@ export type RatingUpdateManyWithWhereWithoutCourseInput = {
 export type RatingCreateWithoutFlagsInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -1020,7 +1016,7 @@ export type RatingCreateWithoutFlagsInput = {
 export type RatingUncheckedCreateWithoutFlagsInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -1057,7 +1053,7 @@ export type RatingUpdateToOneWithWhereWithoutFlagsInput = {
 export type RatingUpdateWithoutFlagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1078,7 +1074,7 @@ export type RatingUpdateWithoutFlagsInput = {
 export type RatingUncheckedUpdateWithoutFlagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1099,7 +1095,7 @@ export type RatingUncheckedUpdateWithoutFlagsInput = {
 export type RatingCreateWithoutUserInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -1120,7 +1116,7 @@ export type RatingCreateWithoutUserInput = {
 export type RatingUncheckedCreateWithoutUserInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -1167,7 +1163,7 @@ export type RatingUpdateManyWithWhereWithoutUserInput = {
 export type RatingCreateManyProfessorInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -1187,7 +1183,7 @@ export type RatingCreateManyProfessorInput = {
 export type RatingUpdateWithoutProfessorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1208,7 +1204,7 @@ export type RatingUpdateWithoutProfessorInput = {
 export type RatingUncheckedUpdateWithoutProfessorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1229,7 +1225,7 @@ export type RatingUncheckedUpdateWithoutProfessorInput = {
 export type RatingUncheckedUpdateManyWithoutProfessorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1249,7 +1245,7 @@ export type RatingUncheckedUpdateManyWithoutProfessorInput = {
 export type RatingCreateManyCourseInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -1269,7 +1265,7 @@ export type RatingCreateManyCourseInput = {
 export type RatingUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1290,7 +1286,7 @@ export type RatingUpdateWithoutCourseInput = {
 export type RatingUncheckedUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1311,7 +1307,7 @@ export type RatingUncheckedUpdateWithoutCourseInput = {
 export type RatingUncheckedUpdateManyWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1331,7 +1327,7 @@ export type RatingUncheckedUpdateManyWithoutCourseInput = {
 export type RatingCreateManyUserInput = {
   id?: string
   rmpId?: string | null
-  status?: $Enums.Status
+  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -1351,7 +1347,7 @@ export type RatingCreateManyUserInput = {
 export type RatingUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1372,7 +1368,7 @@ export type RatingUpdateWithoutUserInput = {
 export type RatingUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1393,7 +1389,7 @@ export type RatingUncheckedUpdateWithoutUserInput = {
 export type RatingUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1566,7 +1562,10 @@ export type $RatingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     rmpId: string | null
-    status: $Enums.Status
+    /**
+     * !['PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED']
+     */
+    status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
     quality: number
     difficulty: number
     isForCredit: boolean | null
@@ -2011,7 +2010,7 @@ export interface Prisma__RatingClient<T, Null = never, ExtArgs extends runtime.T
 export interface RatingFieldRefs {
   readonly id: Prisma.FieldRef<"Rating", 'String'>
   readonly rmpId: Prisma.FieldRef<"Rating", 'String'>
-  readonly status: Prisma.FieldRef<"Rating", 'Status'>
+  readonly status: Prisma.FieldRef<"Rating", 'String'>
   readonly quality: Prisma.FieldRef<"Rating", 'Int'>
   readonly difficulty: Prisma.FieldRef<"Rating", 'Int'>
   readonly isForCredit: Prisma.FieldRef<"Rating", 'Boolean'>

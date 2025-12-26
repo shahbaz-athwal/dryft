@@ -1,13 +1,14 @@
+import { gql } from "graphql-request";
 import { z } from "zod";
 
-export const TEACHER_RATINGS_PAGE_QUERY = `
+export const TEACHER_RATINGS_PAGE_QUERY = gql`
 query TeacherRatingsPageQuery($id: ID!, $cursor: String) {
   node(id: $id) {
     __typename
     ... on Teacher {
       id
       legacyId
-      ratings(first: 20, after: $cursor) {
+      ratings(first: 30, after: $cursor) {
         edges {
           node {
             legacyId

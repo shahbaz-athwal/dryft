@@ -5,6 +5,10 @@ generator client {
   runtime         = "bun"
 }
 
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
 datasource db {
   provider = "postgresql"
 }
@@ -70,6 +74,7 @@ model Course {
   matchingSectionIds  String[]
   department          Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
   credits             Int
+  /// [Requisites]
   requisites          Json?
   lastSectionPulledAt DateTime?
   sections            Section[]

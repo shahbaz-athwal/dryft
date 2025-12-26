@@ -8,6 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
+
+import type * as PJTG from '../pjtg';
 import type * as runtime from "@prisma/client/runtime/client"
 import type * as $Enums from "../enums"
 import type * as Prisma from "../internal/prismaNamespace"
@@ -62,7 +64,7 @@ export type CourseCountAggregateOutputType = {
   departmentPrefix: number
   matchingSectionIds: number
   credits: number
-  requisites: number
+  requisites:PrismaJson.Requisites
   lastSectionPulledAt: number
   _all: number
 }
@@ -203,7 +205,7 @@ export type CourseGroupByOutputType = {
   departmentPrefix: string
   matchingSectionIds: string[]
   credits: number
-  requisites: runtime.JsonValue | null
+  requisites:PrismaJson.Requisites | null
   lastSectionPulledAt: Date | null
   _count: CourseCountAggregateOutputType | null
   _avg: CourseAvgAggregateOutputType | null
@@ -323,7 +325,7 @@ export type CourseCreateInput = {
   description: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   department: Prisma.DepartmentCreateNestedOneWithoutCoursesInput
   sections?: Prisma.SectionCreateNestedManyWithoutCourseInput
@@ -340,7 +342,7 @@ export type CourseUncheckedCreateInput = {
   departmentPrefix: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutCourseInput
   professors?: Prisma.CourseProfessorUncheckedCreateNestedManyWithoutCourseInput
@@ -355,7 +357,7 @@ export type CourseUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   department?: Prisma.DepartmentUpdateOneRequiredWithoutCoursesNestedInput
   sections?: Prisma.SectionUpdateManyWithoutCourseNestedInput
@@ -372,7 +374,7 @@ export type CourseUncheckedUpdateInput = {
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sections?: Prisma.SectionUncheckedUpdateManyWithoutCourseNestedInput
   professors?: Prisma.CourseProfessorUncheckedUpdateManyWithoutCourseNestedInput
@@ -388,7 +390,7 @@ export type CourseCreateManyInput = {
   departmentPrefix: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
 }
 
@@ -399,7 +401,7 @@ export type CourseUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -411,7 +413,7 @@ export type CourseUncheckedUpdateManyInput = {
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -592,7 +594,7 @@ export type CourseCreateWithoutDepartmentInput = {
   description: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   sections?: Prisma.SectionCreateNestedManyWithoutCourseInput
   professors?: Prisma.CourseProfessorCreateNestedManyWithoutCourseInput
@@ -607,7 +609,7 @@ export type CourseUncheckedCreateWithoutDepartmentInput = {
   description: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutCourseInput
   professors?: Prisma.CourseProfessorUncheckedCreateNestedManyWithoutCourseInput
@@ -663,7 +665,7 @@ export type CourseCreateWithoutSectionsInput = {
   description: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   department: Prisma.DepartmentCreateNestedOneWithoutCoursesInput
   professors?: Prisma.CourseProfessorCreateNestedManyWithoutCourseInput
@@ -679,7 +681,7 @@ export type CourseUncheckedCreateWithoutSectionsInput = {
   departmentPrefix: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   professors?: Prisma.CourseProfessorUncheckedCreateNestedManyWithoutCourseInput
   ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutCourseInput
@@ -709,7 +711,7 @@ export type CourseUpdateWithoutSectionsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   department?: Prisma.DepartmentUpdateOneRequiredWithoutCoursesNestedInput
   professors?: Prisma.CourseProfessorUpdateManyWithoutCourseNestedInput
@@ -725,7 +727,7 @@ export type CourseUncheckedUpdateWithoutSectionsInput = {
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   professors?: Prisma.CourseProfessorUncheckedUpdateManyWithoutCourseNestedInput
   ratings?: Prisma.RatingUncheckedUpdateManyWithoutCourseNestedInput
@@ -739,7 +741,7 @@ export type CourseCreateWithoutRatingsInput = {
   description: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   department: Prisma.DepartmentCreateNestedOneWithoutCoursesInput
   sections?: Prisma.SectionCreateNestedManyWithoutCourseInput
@@ -755,7 +757,7 @@ export type CourseUncheckedCreateWithoutRatingsInput = {
   departmentPrefix: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutCourseInput
   professors?: Prisma.CourseProfessorUncheckedCreateNestedManyWithoutCourseInput
@@ -785,7 +787,7 @@ export type CourseUpdateWithoutRatingsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   department?: Prisma.DepartmentUpdateOneRequiredWithoutCoursesNestedInput
   sections?: Prisma.SectionUpdateManyWithoutCourseNestedInput
@@ -801,7 +803,7 @@ export type CourseUncheckedUpdateWithoutRatingsInput = {
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sections?: Prisma.SectionUncheckedUpdateManyWithoutCourseNestedInput
   professors?: Prisma.CourseProfessorUncheckedUpdateManyWithoutCourseNestedInput
@@ -815,7 +817,7 @@ export type CourseCreateWithoutProfessorsInput = {
   description: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   department: Prisma.DepartmentCreateNestedOneWithoutCoursesInput
   sections?: Prisma.SectionCreateNestedManyWithoutCourseInput
@@ -831,7 +833,7 @@ export type CourseUncheckedCreateWithoutProfessorsInput = {
   departmentPrefix: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutCourseInput
   ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutCourseInput
@@ -861,7 +863,7 @@ export type CourseUpdateWithoutProfessorsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   department?: Prisma.DepartmentUpdateOneRequiredWithoutCoursesNestedInput
   sections?: Prisma.SectionUpdateManyWithoutCourseNestedInput
@@ -877,7 +879,7 @@ export type CourseUncheckedUpdateWithoutProfessorsInput = {
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sections?: Prisma.SectionUncheckedUpdateManyWithoutCourseNestedInput
   ratings?: Prisma.RatingUncheckedUpdateManyWithoutCourseNestedInput
@@ -891,7 +893,7 @@ export type CourseCreateWithoutFilesInput = {
   description: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   department: Prisma.DepartmentCreateNestedOneWithoutCoursesInput
   sections?: Prisma.SectionCreateNestedManyWithoutCourseInput
@@ -907,7 +909,7 @@ export type CourseUncheckedCreateWithoutFilesInput = {
   departmentPrefix: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutCourseInput
   professors?: Prisma.CourseProfessorUncheckedCreateNestedManyWithoutCourseInput
@@ -937,7 +939,7 @@ export type CourseUpdateWithoutFilesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   department?: Prisma.DepartmentUpdateOneRequiredWithoutCoursesNestedInput
   sections?: Prisma.SectionUpdateManyWithoutCourseNestedInput
@@ -953,7 +955,7 @@ export type CourseUncheckedUpdateWithoutFilesInput = {
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sections?: Prisma.SectionUncheckedUpdateManyWithoutCourseNestedInput
   professors?: Prisma.CourseProfessorUncheckedUpdateManyWithoutCourseNestedInput
@@ -967,7 +969,7 @@ export type CourseCreateManyDepartmentInput = {
   description: string
   matchingSectionIds?: Prisma.CourseCreatematchingSectionIdsInput | string[]
   credits: number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Date | string | null
 }
 
@@ -978,7 +980,7 @@ export type CourseUpdateWithoutDepartmentInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sections?: Prisma.SectionUpdateManyWithoutCourseNestedInput
   professors?: Prisma.CourseProfessorUpdateManyWithoutCourseNestedInput
@@ -993,7 +995,7 @@ export type CourseUncheckedUpdateWithoutDepartmentInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sections?: Prisma.SectionUncheckedUpdateManyWithoutCourseNestedInput
   professors?: Prisma.CourseProfessorUncheckedUpdateManyWithoutCourseNestedInput
@@ -1008,7 +1010,7 @@ export type CourseUncheckedUpdateManyWithoutDepartmentInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   matchingSectionIds?: Prisma.CourseUpdatematchingSectionIdsInput | string[]
   credits?: Prisma.IntFieldUpdateOperationsInput | number
-  requisites?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requisites?:PrismaJson.Requisites | Prisma.NullableJsonNullValueInput
   lastSectionPulledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -1159,7 +1161,10 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     departmentPrefix: string
     matchingSectionIds: string[]
     credits: number
-    requisites: runtime.JsonValue | null
+    /**
+     * [Requisites]
+     */
+    requisites:PrismaJson.Requisites | null
     lastSectionPulledAt: Date | null
   }, ExtArgs["result"]["course"]>
   composites: {}

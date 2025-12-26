@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "prisma": "^7.0.1",
+    "prisma-json-types-generator": "^4.0.1",
     "typescript": "^5.9.3"
   },
   "exports": {

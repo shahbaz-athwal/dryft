@@ -48,3 +48,50 @@ export const triggerCourseProcessing = inngest.createFunction(
     return message;
   }
 );
+
+export const triggerRmpReviewsPulling = inngest.createFunction(
+  {
+    id: "trigger-rmp-reviews-pulling",
+    singleton: {
+      key: "trigger-rmp-reviews-pulling",
+      mode: "skip",
+    },
+  },
+  { event: "rmp/trigger-reviews-pulling" },
+  async ({ step }) => {
+    const professors = await step.run(
+      "fetch-professors-with-rmp-id",
+      async () => {
+        return await db.professor.findMany({
+          where: {
+            rmpId: { not: null },
+          },
+          select: {
+            rmpId: true,
+          },
+        });
+      }
+    );
+
+    await step.sendEvent(
+      "send-pull-reviews-events",
+      professors.map((professor) => ({
+        name: "rmp/pull-reviews",
+        data: {
+          rmpId: professor.rmpId as string,
+        },
+      }))
+    );
+
+    const message = `Triggered pulling reviews for ${professors.length} professors`;
+    await step.run("insert-log", async () => {
+      return await db.log.create({
+        data: {
+          message,
+        },
+      });
+    });
+
+    return message;
+  }
+);

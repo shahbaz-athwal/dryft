@@ -17,5 +17,9 @@ export const inngest = new Inngest({
     "courses/populate": z.object({}),
     "courses/trigger-processing": z.object({}),
     "populate/departments": z.object({}),
+    "rmp/pull-reviews": z.object({
+      rmpId: z.string(),
+    }),
+    "rmp/trigger-reviews-pulling": z.object({}),
   }),
 });

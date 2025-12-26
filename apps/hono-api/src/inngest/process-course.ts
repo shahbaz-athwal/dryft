@@ -83,9 +83,6 @@ export const processCourse = inngest.createFunction(
         if (!meetingTime) {
           return [];
         }
-        if (!instructor) {
-          return [];
-        }
         return [
           {
             id: s.id,
@@ -98,8 +95,10 @@ export const processCourse = inngest.createFunction(
             roomNumber: meetingTime.roomNumber,
             days: meetingTime.days,
             courseId,
-            professorId: instructor.id,
+            professorId: instructor?.id ?? null,
+            instructorTBD: !instructor,
             refreshedAt: new Date(),
+            isOnline: meetingTime.isOnline,
           },
         ];
       });

@@ -492,6 +492,11 @@ export type ProfessorMinOrderByAggregateInput = {
   lastPullFromRmp?: Prisma.SortOrder
 }
 
+export type ProfessorNullableScalarRelationFilter = {
+  is?: Prisma.ProfessorWhereInput | null
+  isNot?: Prisma.ProfessorWhereInput | null
+}
+
 export type ProfessorScalarRelationFilter = {
   is?: Prisma.ProfessorWhereInput
   isNot?: Prisma.ProfessorWhereInput
@@ -553,10 +558,12 @@ export type ProfessorCreateNestedOneWithoutSectionsInput = {
   connect?: Prisma.ProfessorWhereUniqueInput
 }
 
-export type ProfessorUpdateOneRequiredWithoutSectionsNestedInput = {
+export type ProfessorUpdateOneWithoutSectionsNestedInput = {
   create?: Prisma.XOR<Prisma.ProfessorCreateWithoutSectionsInput, Prisma.ProfessorUncheckedCreateWithoutSectionsInput>
   connectOrCreate?: Prisma.ProfessorCreateOrConnectWithoutSectionsInput
   upsert?: Prisma.ProfessorUpsertWithoutSectionsInput
+  disconnect?: Prisma.ProfessorWhereInput | boolean
+  delete?: Prisma.ProfessorWhereInput | boolean
   connect?: Prisma.ProfessorWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProfessorUpdateToOneWithWhereWithoutSectionsInput, Prisma.ProfessorUpdateWithoutSectionsInput>, Prisma.ProfessorUncheckedUpdateWithoutSectionsInput>
 }

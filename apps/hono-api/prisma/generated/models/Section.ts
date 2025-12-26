@@ -45,6 +45,8 @@ export type SectionMinAggregateOutputType = {
   roomNumber: string | null
   courseId: string | null
   refreshedAt: Date | null
+  instructorTBD: boolean | null
+  isOnline: boolean | null
   professorId: string | null
 }
 
@@ -59,6 +61,8 @@ export type SectionMaxAggregateOutputType = {
   roomNumber: string | null
   courseId: string | null
   refreshedAt: Date | null
+  instructorTBD: boolean | null
+  isOnline: boolean | null
   professorId: string | null
 }
 
@@ -74,6 +78,8 @@ export type SectionCountAggregateOutputType = {
   days: number
   courseId: number
   refreshedAt: number
+  instructorTBD: number
+  isOnline: number
   professorId: number
   _all: number
 }
@@ -98,6 +104,8 @@ export type SectionMinAggregateInputType = {
   roomNumber?: true
   courseId?: true
   refreshedAt?: true
+  instructorTBD?: true
+  isOnline?: true
   professorId?: true
 }
 
@@ -112,6 +120,8 @@ export type SectionMaxAggregateInputType = {
   roomNumber?: true
   courseId?: true
   refreshedAt?: true
+  instructorTBD?: true
+  isOnline?: true
   professorId?: true
 }
 
@@ -127,6 +137,8 @@ export type SectionCountAggregateInputType = {
   days?: true
   courseId?: true
   refreshedAt?: true
+  instructorTBD?: true
+  isOnline?: true
   professorId?: true
   _all?: true
 }
@@ -229,7 +241,9 @@ export type SectionGroupByOutputType = {
   days: number[]
   courseId: string
   refreshedAt: Date
-  professorId: string
+  instructorTBD: boolean
+  isOnline: boolean
+  professorId: string | null
   _count: SectionCountAggregateOutputType | null
   _avg: SectionAvgAggregateOutputType | null
   _sum: SectionSumAggregateOutputType | null
@@ -267,10 +281,12 @@ export type SectionWhereInput = {
   days?: Prisma.IntNullableListFilter<"Section">
   courseId?: Prisma.StringFilter<"Section"> | string
   refreshedAt?: Prisma.DateTimeFilter<"Section"> | Date | string
-  professorId?: Prisma.StringFilter<"Section"> | string
+  instructorTBD?: Prisma.BoolFilter<"Section"> | boolean
+  isOnline?: Prisma.BoolFilter<"Section"> | boolean
+  professorId?: Prisma.StringNullableFilter<"Section"> | string | null
   term?: Prisma.XOR<Prisma.TermScalarRelationFilter, Prisma.TermWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
-  professor?: Prisma.XOR<Prisma.ProfessorScalarRelationFilter, Prisma.ProfessorWhereInput>
+  professor?: Prisma.XOR<Prisma.ProfessorNullableScalarRelationFilter, Prisma.ProfessorWhereInput> | null
 }
 
 export type SectionOrderByWithRelationInput = {
@@ -285,7 +301,9 @@ export type SectionOrderByWithRelationInput = {
   days?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   refreshedAt?: Prisma.SortOrder
-  professorId?: Prisma.SortOrder
+  instructorTBD?: Prisma.SortOrder
+  isOnline?: Prisma.SortOrder
+  professorId?: Prisma.SortOrderInput | Prisma.SortOrder
   term?: Prisma.TermOrderByWithRelationInput
   course?: Prisma.CourseOrderByWithRelationInput
   professor?: Prisma.ProfessorOrderByWithRelationInput
@@ -306,10 +324,12 @@ export type SectionWhereUniqueInput = Prisma.AtLeast<{
   days?: Prisma.IntNullableListFilter<"Section">
   courseId?: Prisma.StringFilter<"Section"> | string
   refreshedAt?: Prisma.DateTimeFilter<"Section"> | Date | string
-  professorId?: Prisma.StringFilter<"Section"> | string
+  instructorTBD?: Prisma.BoolFilter<"Section"> | boolean
+  isOnline?: Prisma.BoolFilter<"Section"> | boolean
+  professorId?: Prisma.StringNullableFilter<"Section"> | string | null
   term?: Prisma.XOR<Prisma.TermScalarRelationFilter, Prisma.TermWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
-  professor?: Prisma.XOR<Prisma.ProfessorScalarRelationFilter, Prisma.ProfessorWhereInput>
+  professor?: Prisma.XOR<Prisma.ProfessorNullableScalarRelationFilter, Prisma.ProfessorWhereInput> | null
 }, "id">
 
 export type SectionOrderByWithAggregationInput = {
@@ -324,7 +344,9 @@ export type SectionOrderByWithAggregationInput = {
   days?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   refreshedAt?: Prisma.SortOrder
-  professorId?: Prisma.SortOrder
+  instructorTBD?: Prisma.SortOrder
+  isOnline?: Prisma.SortOrder
+  professorId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.SectionCountOrderByAggregateInput
   _avg?: Prisma.SectionAvgOrderByAggregateInput
   _max?: Prisma.SectionMaxOrderByAggregateInput
@@ -347,7 +369,9 @@ export type SectionScalarWhereWithAggregatesInput = {
   days?: Prisma.IntNullableListFilter<"Section">
   courseId?: Prisma.StringWithAggregatesFilter<"Section"> | string
   refreshedAt?: Prisma.DateTimeWithAggregatesFilter<"Section"> | Date | string
-  professorId?: Prisma.StringWithAggregatesFilter<"Section"> | string
+  instructorTBD?: Prisma.BoolWithAggregatesFilter<"Section"> | boolean
+  isOnline?: Prisma.BoolWithAggregatesFilter<"Section"> | boolean
+  professorId?: Prisma.StringNullableWithAggregatesFilter<"Section"> | string | null
 }
 
 export type SectionCreateInput = {
@@ -360,9 +384,11 @@ export type SectionCreateInput = {
   roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
   refreshedAt: Date | string
+  instructorTBD?: boolean
+  isOnline?: boolean
   term: Prisma.TermCreateNestedOneWithoutSectionsInput
   course: Prisma.CourseCreateNestedOneWithoutSectionsInput
-  professor: Prisma.ProfessorCreateNestedOneWithoutSectionsInput
+  professor?: Prisma.ProfessorCreateNestedOneWithoutSectionsInput
 }
 
 export type SectionUncheckedCreateInput = {
@@ -377,7 +403,9 @@ export type SectionUncheckedCreateInput = {
   days?: Prisma.SectionCreatedaysInput | number[]
   courseId: string
   refreshedAt: Date | string
-  professorId: string
+  instructorTBD?: boolean
+  isOnline?: boolean
+  professorId?: string | null
 }
 
 export type SectionUpdateInput = {
@@ -390,9 +418,11 @@ export type SectionUpdateInput = {
   roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
   term?: Prisma.TermUpdateOneRequiredWithoutSectionsNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
-  professor?: Prisma.ProfessorUpdateOneRequiredWithoutSectionsNestedInput
+  professor?: Prisma.ProfessorUpdateOneWithoutSectionsNestedInput
 }
 
 export type SectionUncheckedUpdateInput = {
@@ -407,7 +437,9 @@ export type SectionUncheckedUpdateInput = {
   days?: Prisma.SectionUpdatedaysInput | number[]
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  professorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SectionCreateManyInput = {
@@ -422,7 +454,9 @@ export type SectionCreateManyInput = {
   days?: Prisma.SectionCreatedaysInput | number[]
   courseId: string
   refreshedAt: Date | string
-  professorId: string
+  instructorTBD?: boolean
+  isOnline?: boolean
+  professorId?: string | null
 }
 
 export type SectionUpdateManyMutationInput = {
@@ -435,6 +469,8 @@ export type SectionUpdateManyMutationInput = {
   roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type SectionUncheckedUpdateManyInput = {
@@ -449,7 +485,9 @@ export type SectionUncheckedUpdateManyInput = {
   days?: Prisma.SectionUpdatedaysInput | number[]
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  professorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SectionListRelationFilter = {
@@ -482,6 +520,8 @@ export type SectionCountOrderByAggregateInput = {
   days?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   refreshedAt?: Prisma.SortOrder
+  instructorTBD?: Prisma.SortOrder
+  isOnline?: Prisma.SortOrder
   professorId?: Prisma.SortOrder
 }
 
@@ -500,6 +540,8 @@ export type SectionMaxOrderByAggregateInput = {
   roomNumber?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   refreshedAt?: Prisma.SortOrder
+  instructorTBD?: Prisma.SortOrder
+  isOnline?: Prisma.SortOrder
   professorId?: Prisma.SortOrder
 }
 
@@ -514,6 +556,8 @@ export type SectionMinOrderByAggregateInput = {
   roomNumber?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   refreshedAt?: Prisma.SortOrder
+  instructorTBD?: Prisma.SortOrder
+  isOnline?: Prisma.SortOrder
   professorId?: Prisma.SortOrder
 }
 
@@ -666,8 +710,10 @@ export type SectionCreateWithoutTermInput = {
   roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
   refreshedAt: Date | string
+  instructorTBD?: boolean
+  isOnline?: boolean
   course: Prisma.CourseCreateNestedOneWithoutSectionsInput
-  professor: Prisma.ProfessorCreateNestedOneWithoutSectionsInput
+  professor?: Prisma.ProfessorCreateNestedOneWithoutSectionsInput
 }
 
 export type SectionUncheckedCreateWithoutTermInput = {
@@ -681,7 +727,9 @@ export type SectionUncheckedCreateWithoutTermInput = {
   days?: Prisma.SectionCreatedaysInput | number[]
   courseId: string
   refreshedAt: Date | string
-  professorId: string
+  instructorTBD?: boolean
+  isOnline?: boolean
+  professorId?: string | null
 }
 
 export type SectionCreateOrConnectWithoutTermInput = {
@@ -725,7 +773,9 @@ export type SectionScalarWhereInput = {
   days?: Prisma.IntNullableListFilter<"Section">
   courseId?: Prisma.StringFilter<"Section"> | string
   refreshedAt?: Prisma.DateTimeFilter<"Section"> | Date | string
-  professorId?: Prisma.StringFilter<"Section"> | string
+  instructorTBD?: Prisma.BoolFilter<"Section"> | boolean
+  isOnline?: Prisma.BoolFilter<"Section"> | boolean
+  professorId?: Prisma.StringNullableFilter<"Section"> | string | null
 }
 
 export type SectionCreateWithoutProfessorInput = {
@@ -738,6 +788,8 @@ export type SectionCreateWithoutProfessorInput = {
   roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
   refreshedAt: Date | string
+  instructorTBD?: boolean
+  isOnline?: boolean
   term: Prisma.TermCreateNestedOneWithoutSectionsInput
   course: Prisma.CourseCreateNestedOneWithoutSectionsInput
 }
@@ -754,6 +806,8 @@ export type SectionUncheckedCreateWithoutProfessorInput = {
   days?: Prisma.SectionCreatedaysInput | number[]
   courseId: string
   refreshedAt: Date | string
+  instructorTBD?: boolean
+  isOnline?: boolean
 }
 
 export type SectionCreateOrConnectWithoutProfessorInput = {
@@ -792,8 +846,10 @@ export type SectionCreateWithoutCourseInput = {
   roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
   refreshedAt: Date | string
+  instructorTBD?: boolean
+  isOnline?: boolean
   term: Prisma.TermCreateNestedOneWithoutSectionsInput
-  professor: Prisma.ProfessorCreateNestedOneWithoutSectionsInput
+  professor?: Prisma.ProfessorCreateNestedOneWithoutSectionsInput
 }
 
 export type SectionUncheckedCreateWithoutCourseInput = {
@@ -807,7 +863,9 @@ export type SectionUncheckedCreateWithoutCourseInput = {
   roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
   refreshedAt: Date | string
-  professorId: string
+  instructorTBD?: boolean
+  isOnline?: boolean
+  professorId?: string | null
 }
 
 export type SectionCreateOrConnectWithoutCourseInput = {
@@ -847,7 +905,9 @@ export type SectionCreateManyTermInput = {
   days?: Prisma.SectionCreatedaysInput | number[]
   courseId: string
   refreshedAt: Date | string
-  professorId: string
+  instructorTBD?: boolean
+  isOnline?: boolean
+  professorId?: string | null
 }
 
 export type SectionUpdateWithoutTermInput = {
@@ -860,8 +920,10 @@ export type SectionUpdateWithoutTermInput = {
   roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
   course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
-  professor?: Prisma.ProfessorUpdateOneRequiredWithoutSectionsNestedInput
+  professor?: Prisma.ProfessorUpdateOneWithoutSectionsNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutTermInput = {
@@ -875,7 +937,9 @@ export type SectionUncheckedUpdateWithoutTermInput = {
   days?: Prisma.SectionUpdatedaysInput | number[]
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  professorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SectionUncheckedUpdateManyWithoutTermInput = {
@@ -889,7 +953,9 @@ export type SectionUncheckedUpdateManyWithoutTermInput = {
   days?: Prisma.SectionUpdatedaysInput | number[]
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  professorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SectionCreateManyProfessorInput = {
@@ -904,6 +970,8 @@ export type SectionCreateManyProfessorInput = {
   days?: Prisma.SectionCreatedaysInput | number[]
   courseId: string
   refreshedAt: Date | string
+  instructorTBD?: boolean
+  isOnline?: boolean
 }
 
 export type SectionUpdateWithoutProfessorInput = {
@@ -916,6 +984,8 @@ export type SectionUpdateWithoutProfessorInput = {
   roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
   term?: Prisma.TermUpdateOneRequiredWithoutSectionsNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutSectionsNestedInput
 }
@@ -932,6 +1002,8 @@ export type SectionUncheckedUpdateWithoutProfessorInput = {
   days?: Prisma.SectionUpdatedaysInput | number[]
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type SectionUncheckedUpdateManyWithoutProfessorInput = {
@@ -946,6 +1018,8 @@ export type SectionUncheckedUpdateManyWithoutProfessorInput = {
   days?: Prisma.SectionUpdatedaysInput | number[]
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type SectionCreateManyCourseInput = {
@@ -959,7 +1033,9 @@ export type SectionCreateManyCourseInput = {
   roomNumber: string
   days?: Prisma.SectionCreatedaysInput | number[]
   refreshedAt: Date | string
-  professorId: string
+  instructorTBD?: boolean
+  isOnline?: boolean
+  professorId?: string | null
 }
 
 export type SectionUpdateWithoutCourseInput = {
@@ -972,8 +1048,10 @@ export type SectionUpdateWithoutCourseInput = {
   roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
   term?: Prisma.TermUpdateOneRequiredWithoutSectionsNestedInput
-  professor?: Prisma.ProfessorUpdateOneRequiredWithoutSectionsNestedInput
+  professor?: Prisma.ProfessorUpdateOneWithoutSectionsNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutCourseInput = {
@@ -987,7 +1065,9 @@ export type SectionUncheckedUpdateWithoutCourseInput = {
   roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  professorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SectionUncheckedUpdateManyWithoutCourseInput = {
@@ -1001,7 +1081,9 @@ export type SectionUncheckedUpdateManyWithoutCourseInput = {
   roomNumber?: Prisma.StringFieldUpdateOperationsInput | string
   days?: Prisma.SectionUpdatedaysInput | number[]
   refreshedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
+  instructorTBD?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  professorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1018,10 +1100,12 @@ export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   days?: boolean
   courseId?: boolean
   refreshedAt?: boolean
+  instructorTBD?: boolean
+  isOnline?: boolean
   professorId?: boolean
   term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  professor?: boolean | Prisma.Section$professorArgs<ExtArgs>
 }, ExtArgs["result"]["section"]>
 
 export type SectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1036,10 +1120,12 @@ export type SectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   days?: boolean
   courseId?: boolean
   refreshedAt?: boolean
+  instructorTBD?: boolean
+  isOnline?: boolean
   professorId?: boolean
   term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  professor?: boolean | Prisma.Section$professorArgs<ExtArgs>
 }, ExtArgs["result"]["section"]>
 
 export type SectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1054,10 +1140,12 @@ export type SectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   days?: boolean
   courseId?: boolean
   refreshedAt?: boolean
+  instructorTBD?: boolean
+  isOnline?: boolean
   professorId?: boolean
   term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  professor?: boolean | Prisma.Section$professorArgs<ExtArgs>
 }, ExtArgs["result"]["section"]>
 
 export type SectionSelectScalar = {
@@ -1072,24 +1160,26 @@ export type SectionSelectScalar = {
   days?: boolean
   courseId?: boolean
   refreshedAt?: boolean
+  instructorTBD?: boolean
+  isOnline?: boolean
   professorId?: boolean
 }
 
-export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "termCode" | "sectionCode" | "sectionSearchName" | "classStartTime" | "classEndTime" | "buildingName" | "roomNumber" | "days" | "courseId" | "refreshedAt" | "professorId", ExtArgs["result"]["section"]>
+export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "termCode" | "sectionCode" | "sectionSearchName" | "classStartTime" | "classEndTime" | "buildingName" | "roomNumber" | "days" | "courseId" | "refreshedAt" | "instructorTBD" | "isOnline" | "professorId", ExtArgs["result"]["section"]>
 export type SectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  professor?: boolean | Prisma.Section$professorArgs<ExtArgs>
 }
 export type SectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  professor?: boolean | Prisma.Section$professorArgs<ExtArgs>
 }
 export type SectionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   term?: boolean | Prisma.TermDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
+  professor?: boolean | Prisma.Section$professorArgs<ExtArgs>
 }
 
 export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1097,7 +1187,7 @@ export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     term: Prisma.$TermPayload<ExtArgs>
     course: Prisma.$CoursePayload<ExtArgs>
-    professor: Prisma.$ProfessorPayload<ExtArgs>
+    professor: Prisma.$ProfessorPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1111,7 +1201,9 @@ export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     days: number[]
     courseId: string
     refreshedAt: Date
-    professorId: string
+    instructorTBD: boolean
+    isOnline: boolean
+    professorId: string | null
   }, ExtArgs["result"]["section"]>
   composites: {}
 }
@@ -1508,7 +1600,7 @@ export interface Prisma__SectionClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   term<T extends Prisma.TermDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TermDefaultArgs<ExtArgs>>): Prisma.Prisma__TermClient<runtime.Types.Result.GetResult<Prisma.$TermPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  professor<T extends Prisma.ProfessorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfessorDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfessorClient<runtime.Types.Result.GetResult<Prisma.$ProfessorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  professor<T extends Prisma.Section$professorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$professorArgs<ExtArgs>>): Prisma.Prisma__ProfessorClient<runtime.Types.Result.GetResult<Prisma.$ProfessorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1549,6 +1641,8 @@ export interface SectionFieldRefs {
   readonly days: Prisma.FieldRef<"Section", 'Int[]'>
   readonly courseId: Prisma.FieldRef<"Section", 'String'>
   readonly refreshedAt: Prisma.FieldRef<"Section", 'DateTime'>
+  readonly instructorTBD: Prisma.FieldRef<"Section", 'Boolean'>
+  readonly isOnline: Prisma.FieldRef<"Section", 'Boolean'>
   readonly professorId: Prisma.FieldRef<"Section", 'String'>
 }
     
@@ -1952,6 +2046,25 @@ export type SectionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Sections to delete.
    */
   limit?: number
+}
+
+/**
+ * Section.professor
+ */
+export type Section$professorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Professor
+   */
+  select?: Prisma.ProfessorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Professor
+   */
+  omit?: Prisma.ProfessorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfessorInclude<ExtArgs> | null
+  where?: Prisma.ProfessorWhereInput
 }
 
 /**

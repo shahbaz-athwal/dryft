@@ -1573,6 +1573,8 @@ export const SectionScalarFieldEnum = {
   days: 'days',
   courseId: 'courseId',
   refreshedAt: 'refreshedAt',
+  instructorTBD: 'instructorTBD',
+  isOnline: 'isOnline',
   professorId: 'professorId'
 } as const
 

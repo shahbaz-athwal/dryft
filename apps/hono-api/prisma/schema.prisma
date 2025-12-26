@@ -80,9 +80,9 @@ model Course {
 }
 
 model Section {
-  id                String    @id
+  id                String     @id
   termCode          String
-  term              Term      @relation(fields: [termCode], references: [code], onDelete: Cascade)
+  term              Term       @relation(fields: [termCode], references: [code], onDelete: Cascade)
   sectionCode       String
   sectionSearchName String
   classStartTime    String
@@ -92,9 +92,11 @@ model Section {
   days              Int[]
   courseId          String
   refreshedAt       DateTime
-  course            Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  professorId       String
-  professor         Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
+  instructorTBD     Boolean    @default(false)
+  isOnline          Boolean    @default(false)
+  course            Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  professorId       String?
+  professor         Professor? @relation(fields: [professorId], references: [id], onDelete: Cascade)
 
   @@index([courseId])
   @@index([professorId])

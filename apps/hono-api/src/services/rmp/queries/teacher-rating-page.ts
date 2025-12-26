@@ -11,6 +11,7 @@ query TeacherRatingsPageQuery($id: ID!, $cursor: String) {
       ratings(first: 30, after: $cursor) {
         edges {
           node {
+            id
             legacyId
             date
             class
@@ -40,6 +41,7 @@ query TeacherRatingsPageQuery($id: ID!, $cursor: String) {
 
 const RatingNodeSchema = z
   .object({
+    id: z.string().nullable(),
     legacyId: z.number(),
     date: z.string(),
     class: z.string().nullable(),
@@ -57,6 +59,7 @@ const RatingNodeSchema = z
     ratingTags: z.string(),
   })
   .transform((raw) => ({
+    id: raw.id || raw.legacyId.toString(),
     quality: Math.round((raw.helpfulRating + raw.clarityRating) / 2),
     difficulty: raw.difficultyRating,
     isForCredit: raw.isForCredit,

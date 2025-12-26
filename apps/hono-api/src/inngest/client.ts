@@ -9,16 +9,14 @@ export const inngest = new Inngest({
       sectionIds: z.array(z.string()),
       departmentPrefix: z.string(),
     }),
-    "populate/acadia-department-professors": z.object({
-      waitTimeSeconds: z.number().min(0).max(10).default(1),
-      onlyUnsyncedDepartments: z.boolean().default(false),
-    }),
+    "populate/acadia-department-professors": z.object({}),
     "sync/link-professors-with-rmp": z.object({}),
     "courses/populate": z.object({}),
     "courses/trigger-processing": z.object({}),
     "populate/departments": z.object({}),
     "rmp/pull-reviews": z.object({
       rmpId: z.string(),
+      professorId: z.string(),
     }),
     "rmp/trigger-reviews-pulling": z.object({}),
   }),

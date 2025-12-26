@@ -10,6 +10,10 @@ import {
   SEARCH_SCHOOL_QUERY,
 } from "./queries/search-school-query";
 import {
+  TEACHER_RATINGS_PAGE_QUERY,
+  TeacherRatingsResponseSchema,
+} from "./queries/teacher-rating-page";
+import {
   TEACHER_SEARCH_QUERY,
   TeacherSearchResponseSchema,
 } from "./queries/teacher-search-query";
@@ -74,6 +78,24 @@ export class RateMyProfScraper {
     const response = await this.executeQuery(query, variables);
     const parsed = TeacherSearchResponseSchema.parse(response);
     return parsed.search.teachers.edges.map((edge) => edge.node);
+  }
+
+  async getTeacherRatings({
+    teacherId,
+    cursor,
+  }: {
+    teacherId: string;
+    cursor?: string;
+  }) {
+    const query = TEACHER_RATINGS_PAGE_QUERY;
+    const variables = { id: teacherId, cursor };
+    const response = await this.executeQuery(query, variables);
+    const parsed = TeacherRatingsResponseSchema.parse(response);
+
+    return {
+      ratings: parsed.node.ratings.edges.map((edge) => edge.node),
+      paging: parsed.node.ratings.pageInfo,
+    };
   }
 }
 

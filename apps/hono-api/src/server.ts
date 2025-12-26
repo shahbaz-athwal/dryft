@@ -3,12 +3,16 @@ import { cors } from "hono/cors";
 import { connect } from "inngest/connect";
 import { serve } from "inngest/hono";
 import { inngest } from "./inngest/client";
-import { triggerCourseProcessing } from "./inngest/event-producers";
+import {
+  triggerCourseProcessing,
+  triggerRmpReviewsPulling,
+} from "./inngest/event-producers";
 import { linkProfessorsWithRmp } from "./inngest/link-professors-with-rmp";
 import { populateCourses } from "./inngest/populate-courses";
 import { populateDepartments } from "./inngest/populate-departments";
 import { populateProfessors } from "./inngest/populate-professors";
 import { processCourse } from "./inngest/process-course";
+import { pullRmpReviews } from "./inngest/pull-rmp-reviews";
 import { handler as rpcHandler } from "./routes/rpc";
 import { auth } from "./services/auth";
 
@@ -21,6 +25,8 @@ const functions = [
   populateCourses,
   triggerCourseProcessing,
   populateDepartments,
+  pullRmpReviews,
+  triggerRmpReviewsPulling,
 ];
 
 app.use(

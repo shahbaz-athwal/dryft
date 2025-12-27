@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^2.0.43",
+    "@browserbasehq/sdk": "^2.6.0",
+    "@browserbasehq/stagehand": "^3.0.6",
     "@inngest/agent-kit": "^0.13.2",
     "@orpc/server": "^1.11.3",
     "@prisma/adapter-pg": "^7.0.1",
@@ -26,7 +28,7 @@
     "graphql-request": "^7.3.5",
     "hono": "^4.10.7",
     "inngest": "^3.46.0",
-    "zod": "^4.1.13"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "prisma": "^7.0.1",

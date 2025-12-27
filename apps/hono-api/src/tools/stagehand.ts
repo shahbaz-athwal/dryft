@@ -3,8 +3,6 @@ import z from "zod";
 import { getStagehand } from "../services/browser-base";
 import { stringToZodSchema } from "../utils/zod-parse";
 
-// TODO: Update deprecated kv
-
 export const navigate = createTool({
   name: "navigate",
   description: "Navigate to a given URL",
@@ -14,7 +12,7 @@ export const navigate = createTool({
   handler: async ({ url }, { step, network }) => {
     return await step?.run("navigate", async () => {
       const stagehand = await getStagehand(
-        network?.state.kv.get("browserbaseSessionID") as string
+        network?.state.data.browserbaseSessionID as string
       );
       try {
         await stagehand.context.pages()[0]?.goto(url);
@@ -37,7 +35,7 @@ export const act = createTool({
   handler: async ({ action }, { step, network }) => {
     return await step?.run("act", async () => {
       const stagehand = await getStagehand(
-        network?.state.kv.get("browserbaseSessionID") as string
+        network?.state.data.browserbaseSessionID as string
       );
       try {
         return await stagehand.act(action);
@@ -64,7 +62,7 @@ export const extract = createTool({
   handler: async ({ instruction, schema }, { step, network }) => {
     return await step?.run("extract", async () => {
       const stagehand = await getStagehand(
-        network?.state.kv.get("browserbaseSessionID") as string
+        network?.state.data.browserbaseSessionID as string
       );
       const zodSchema = stringToZodSchema(schema);
       try {
@@ -87,7 +85,7 @@ export const observe = createTool({
   handler: async ({ instruction }, { step, network }) => {
     return await step?.run("observe", async () => {
       const stagehand = await getStagehand(
-        network?.state.kv.get("browserbaseSessionID") as string
+        network?.state.data.browserbaseSessionID as string
       );
       try {
         return await stagehand.observe(instruction);

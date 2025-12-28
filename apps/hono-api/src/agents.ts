@@ -244,6 +244,7 @@ const router = createRoutingAgent({
     },
   },
 });
+
 export const enrichmentNetwork = createNetwork({
   name: "Professor Enrichment Network",
   agents: [searchAgent, extractionAgent],
@@ -258,13 +259,9 @@ export const enrichmentNetwork = createNetwork({
   maxIter: 50, // Allow sufficient iterations for processing multiple professors
 });
 
-/**
- * Inngest function that runs the professor enrichment workflow
- */
 export const enrichProfessorsByDepartment = inngestAgent.createFunction(
   {
     id: "enrich-professors-by-department",
-    retries: 2,
   },
   {
     event: "enrich/professors-by-department",
@@ -311,17 +308,9 @@ export const enrichProfessorsByDepartment = inngestAgent.createFunction(
   }
 );
 
-// ============================================================================
-// SERVER
-// ============================================================================
-
 const server = createServer({
-  appId: "Professor Enrichment Agent",
-  networks: [enrichmentNetwork],
+  appId: "Browsing Agent",
   functions: [enrichProfessorsByDepartment],
 });
 
-server.listen(5000, () => {
-  // biome-ignore lint/suspicious/noConsole: logging
-  console.log("Professor Enrichment Agent running on port 5000!");
-});
+server.listen(5000);

@@ -1,5 +1,5 @@
-import { inngestAgent } from "./src/inngest/client";
-import { db } from "./src/services/db";
+import { inngestAgent } from "../src/inngest/client";
+import { db } from "../src/services/db";
 
 async function main() {
   // Get all professors from the COMP department

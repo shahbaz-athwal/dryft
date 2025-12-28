@@ -1,5 +1,6 @@
+import { google } from "@ai-sdk/google";
 import BrowserBase from "@browserbasehq/sdk";
-import { Stagehand } from "@browserbasehq/stagehand";
+import { AISdkClient, Stagehand } from "@browserbasehq/stagehand";
 import { env } from "bun";
 
 export const browserBase = new BrowserBase({
@@ -12,7 +13,9 @@ export async function getStagehand(sessionId: string) {
     apiKey: env.BROWSERBASE_API_KEY,
     projectId: env.BROWSERBASE_PROJECT_ID,
     browserbaseSessionID: sessionId,
-    model: "google/gemini-2.5-flash",
+    llmClient: new AISdkClient({
+      model: google("gemini-flash-latest"),
+    }),
   });
   await stagehand.init();
   return stagehand;

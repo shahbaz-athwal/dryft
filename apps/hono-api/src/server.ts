@@ -1,3 +1,4 @@
+import { handleRequest } from "@better-upload/server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { connect } from "inngest/connect";
@@ -15,6 +16,7 @@ import { processCourse } from "./inngest/process-course";
 import { pullRmpReviews } from "./inngest/pull-rmp-reviews";
 import { handler as rpcHandler } from "./routes/rpc";
 import { auth } from "./services/auth";
+import { uploadRouter } from "./services/file-upload";
 
 const app = new Hono();
 
@@ -54,6 +56,10 @@ app.use("/rpc/*", async (c, next) => {
   }
 
   await next();
+});
+
+app.post("/upload", (c) => {
+  return handleRequest(c.req.raw, uploadRouter);
 });
 
 app.get("/", (c) => c.text("Hono API with oRPC"));

@@ -32,7 +32,7 @@ services:
       - INNGEST_DEV=1
       - INNGEST_BASE_URL=http://inngest:8288
     volumes: *src-volume
-    command: "bun --filter hono-api agent"
+    command: "bun --filter hono-api agent:dev"
 
   prisma-studio:
     <<: *common

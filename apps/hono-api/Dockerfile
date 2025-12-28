@@ -1,5 +1,5 @@
 # ---------- Build Stage ----------
-FROM oven/bun:1.3.0-alpine AS base
+FROM oven/bun:1.3.3-alpine AS base
 WORKDIR /app
 
 RUN bun install -g turbo
@@ -18,7 +18,7 @@ RUN bun install --filter hono-api --frozen-lockfile
 COPY --from=base /app/out/full/ .
 
 # ---------- Final Stage ----------
-FROM oven/bun:1.3.0-alpine AS runner
+FROM oven/bun:1.3.3-alpine AS runner
 
 WORKDIR /app
 

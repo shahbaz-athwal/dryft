@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "bun with-env --watch src/server.ts",
     "agent": "bun run src/agents.ts",
+    "agent:dev": "bun with-env --watch src/agents.ts",
     "start": "bun run src/server.ts",
     "clean": "rm -rf node_modules",
     "db:generate": "bun with-env prisma generate",

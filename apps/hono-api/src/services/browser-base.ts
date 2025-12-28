@@ -12,11 +12,7 @@ export async function getStagehand(sessionId: string) {
     apiKey: env.BROWSERBASE_API_KEY,
     projectId: env.BROWSERBASE_PROJECT_ID,
     browserbaseSessionID: sessionId,
-    model: {
-      modelName: "gemini-3-flash",
-      provider: "google",
-      apiKey: env.GOOGLE_API_KEY,
-    },
+    model: "google/gemini-2.5-flash",
   });
   await stagehand.init();
   return stagehand;

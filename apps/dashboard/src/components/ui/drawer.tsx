@@ -11,12 +11,6 @@ function Drawer({
 	return <DrawerPrimitive.Root data-slot="drawer" {...props} />;
 }
 
-function DrawerNested({
-  ...props
-}: React.ComponentProps<typeof DrawerPrimitive.NestedRoot>) {
-  return <DrawerPrimitive.NestedRoot data-slot="drawer-nested" {...props} />
-}
-
 function DrawerTrigger({
 	...props
 }: React.ComponentProps<typeof DrawerPrimitive.Trigger>) {
@@ -54,14 +48,11 @@ function DrawerOverlay({
 function DrawerContent({
 	className,
 	children,
-	onOverlayClick,
 	...props
-}: React.ComponentProps<typeof DrawerPrimitive.Content> & {
-	onOverlayClick?: () => void;
-}) {
+}: React.ComponentProps<typeof DrawerPrimitive.Content>) {
 	return (
 		<DrawerPortal data-slot="drawer-portal">
-			<DrawerOverlay onClick={onOverlayClick} />
+			<DrawerOverlay />
 			<DrawerPrimitive.Content
 				data-slot="drawer-content"
 				className={cn(
@@ -128,7 +119,6 @@ function DrawerDescription({
 
 export {
 	Drawer,
-	DrawerNested,
 	DrawerPortal,
 	DrawerOverlay,
 	DrawerTrigger,

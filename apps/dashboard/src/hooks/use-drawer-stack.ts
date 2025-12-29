@@ -13,8 +13,6 @@ import { drawerStackSchema, preloadDrawer } from "@/lib/drawer-registry";
 
 const drawerParser = parseAsJson(drawerStackSchema).withDefault([]);
 
-const closeRegistry = new Map<number, () => void>();
-
 type OpenDrawer = {
   <K extends DrawerKeyWithoutProps>(key: K): void;
   <K extends DrawerKeyWithProps>(key: K, props: DrawerPropsMap[K]): void;
@@ -46,23 +44,8 @@ function useDrawerStack() {
     });
   }
 
-  async function closeAllDrawers() {
-    // Get all indices and sort in descending order (close from inside-out)
-    const indices = Array.from(closeRegistry.keys()).sort((a, b) => b - a);
-    for (const index of indices) {
-      const fn = closeRegistry.get(index);
-      fn?.();
-      await new Promise((resolve) => setTimeout(resolve, 120));
-    }
+  function clearStack() {
     setStack([]);
-  }
-
-  function closeTopDrawer() {
-    const topIndex = validStack.length - 1;
-    if (topIndex < 0) {
-      return;
-    }
-    closeRegistry.get(topIndex)?.();
   }
 
   function loadDrawer(key: DrawerKey) {
@@ -73,17 +56,9 @@ function useDrawerStack() {
     stack: validStack,
     openDrawer,
     pop,
-    closeTopDrawer,
-    closeAllDrawers,
+    clearStack,
     loadDrawer,
   };
 }
 
-function registerDrawerClose(index: number, closeFn: () => void) {
-  closeRegistry.set(index, closeFn);
-  return () => {
-    closeRegistry.delete(index);
-  };
-}
-
-export { registerDrawerClose, useDrawerStack };
+export { useDrawerStack };

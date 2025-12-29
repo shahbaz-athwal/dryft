@@ -1,143 +1,55 @@
 "use client";
 
-import {
-  createContext,
-  Suspense,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerNested,
-} from "@/components/ui/drawer";
-import { registerDrawerClose, useDrawerStack } from "@/hooks/use-drawer-stack";
+import { ArrowLeft } from "lucide-react";
+import { Suspense } from "react";
 
-import {
-  type DrawerStackItem,
-  getDrawerComponent,
-  hasProps,
-} from "@/lib/drawer-registry";
+import { Button } from "@/components/ui/button";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import { useDrawerStack } from "@/hooks/use-drawer-stack";
+import { getDrawerComponent, hasProps } from "@/lib/drawer-registry";
 
-// Match vaul's internal constants
-const NESTED_DISPLACEMENT = 16;
-const TRANSITION_DURATION = 0.5;
-const TRANSITION_EASE = [0.32, 0.72, 0, 1];
+function GlobalDrawer() {
+  const { stack, pop, clearStack } = useDrawerStack();
 
-type RecursiveDrawerProps = {
-  stack: DrawerStackItem[];
-  index: number;
-};
-
-const ParentDrawerContext = createContext<{
-  contentRef: React.RefObject<HTMLDivElement | null>;
-  isReady: boolean;
-} | null>(null);
-
-function RecursiveDrawer({ stack, index }: RecursiveDrawerProps) {
-  const currentItem = stack.at(index);
-
-  const [isOpen, setIsOpen] = useState(true);
-  const [isReady, setIsReady] = useState(false);
-
-  const contentRef = useRef<HTMLDivElement | null>(null);
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
-
-  const parentContext = useContext(ParentDrawerContext);
-  const { pop } = useDrawerStack();
-
-  useEffect(() => {
-    const timeout = setTimeout(
-      () => {
-        setIsReady(true);
-      },
-      TRANSITION_DURATION * 1000 + 100
-    );
-    return () => clearTimeout(timeout);
-  }, []);
-
-  useEffect(() => {
-    if (
-      index === 0 ||
-      !parentContext?.contentRef.current ||
-      !parentContext.isReady
-    ) {
-      return;
-    }
-
-    const parentElement = parentContext.contentRef.current;
-    const scale = (window.innerWidth - NESTED_DISPLACEMENT) / window.innerWidth;
-    const translate = -NESTED_DISPLACEMENT;
-
-    parentElement.style.transition = `transform ${TRANSITION_DURATION}s cubic-bezier(${TRANSITION_EASE.join(",")})`;
-    requestAnimationFrame(() => {
-      parentElement.style.transform = `scale(${scale}) translate3d(${translate}px, 0, 0)`;
-    });
-
-    return () => {
-      parentElement.style.transition = `transform ${TRANSITION_DURATION}s cubic-bezier(${TRANSITION_EASE.join(",")})`;
-      parentElement.style.transform = "";
-    };
-  }, [index, parentContext]);
-
-  // Register close callback for drawer
-  useEffect(() => {
-    return registerDrawerClose(index, () => {
-      closeButtonRef.current?.click();
-    });
-  });
+  const isOpen = stack.length > 0;
+  const currentItem = stack.at(-1);
 
   if (!currentItem) {
     return null;
   }
 
-  const hasNext = index + 1 < stack.length;
-  const DrawerComponent = index > 0 ? DrawerNested : Drawer;
-
   const Component = getDrawerComponent(currentItem.key);
   const props = hasProps(currentItem) ? currentItem.props : {};
+  const canGoBack = stack.length > 1;
 
   return (
-    <ParentDrawerContext.Provider value={{ contentRef, isReady }}>
-      <DrawerComponent
-        direction="right"
-        onAnimationEnd={(open: boolean) => {
-          if (!open) {
-            pop();
-          }
-        }}
-        onOpenChange={setIsOpen}
-        open={isOpen}
-      >
-        <DrawerContent
-          className="w-[520px] rounded-l-3xl outline-none"
-          ref={contentRef}
-        >
-          {/* Hidden close button for programmatic close */}
-          <DrawerClose className="sr-only" ref={closeButtonRef}>
-            Close
-          </DrawerClose>
-          <Suspense>
-            <Component {...props} />
-          </Suspense>
-          {hasNext && <RecursiveDrawer index={index + 1} stack={stack} />}
-        </DrawerContent>
-      </DrawerComponent>
-    </ParentDrawerContext.Provider>
+    <Drawer
+      direction="right"
+      onOpenChange={(open) => {
+        if (!open) {
+          clearStack();
+        }
+      }}
+      open={isOpen}
+    >
+      <DrawerContent className="w-[520px] rounded-l-3xl outline-none">
+        {canGoBack && (
+          <Button
+            className="absolute top-4 left-4 z-10"
+            onClick={pop}
+            size="icon"
+            variant="ghost"
+          >
+            <ArrowLeft className="size-4" />
+            <span className="sr-only">Back</span>
+          </Button>
+        )}
+        <Suspense>
+          <Component {...props} />
+        </Suspense>
+      </DrawerContent>
+    </Drawer>
   );
-}
-
-function GlobalDrawer() {
-  const { stack } = useDrawerStack();
-
-  if (stack.length === 0) {
-    return null;
-  }
-
-  return <RecursiveDrawer index={0} stack={stack} />;
 }
 
 export { GlobalDrawer };

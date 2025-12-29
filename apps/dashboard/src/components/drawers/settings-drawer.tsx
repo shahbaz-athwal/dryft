@@ -16,8 +16,7 @@ import { Switch } from "@/components/ui/switch";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 function SettingsDrawer() {
-  const { openDrawer, closeTopDrawer, closeAllDrawers, loadDrawer } =
-    useDrawerStack();
+  const { openDrawer, pop, clearStack, loadDrawer } = useDrawerStack();
 
   return (
     <>
@@ -101,11 +100,11 @@ function SettingsDrawer() {
 
       <DrawerFooter>
         <Button className="w-full">Save Changes</Button>
-        <Button className="w-full" onClick={closeTopDrawer} variant="outline">
-          Close Settings
+        <Button className="w-full" onClick={pop} variant="outline">
+          Back
         </Button>
-        <Button className="w-full" onClick={closeAllDrawers} variant="ghost">
-          Close All Drawers
+        <Button className="w-full" onClick={clearStack} variant="ghost">
+          Close Drawer
         </Button>
       </DrawerFooter>
     </>

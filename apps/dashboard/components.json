@@ -1,12 +1,11 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
+  "style": "base-nova",
   "rsc": false,
-  "tsx": true,
   "tailwind": {
     "config": "",
     "css": "src/styles/globals.css",
-    "baseColor": "neutral",
+    "baseColor": "emerald",
     "cssVariables": true,
     "prefix": ""
   },
@@ -18,6 +17,8 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
+  "menuColor": "inverted",
+  "menuAccent": "subtle",
   "registries": {
     "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json",
     "@better-upload": "https://better-upload.com/r/{name}.json"

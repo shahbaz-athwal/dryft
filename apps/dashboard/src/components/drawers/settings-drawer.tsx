@@ -16,7 +16,7 @@ import { Switch } from "@/components/ui/switch";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 function SettingsDrawer() {
-  const { openDrawer, pop, clearStack, loadDrawer } = useDrawerStack();
+  const { openDrawer, pop, clearStack } = useDrawerStack();
 
   return (
     <>
@@ -90,7 +90,6 @@ function SettingsDrawer() {
         <Button
           className="w-full justify-start"
           onClick={() => openDrawer("account")}
-          onMouseOver={() => loadDrawer("account")}
           variant="outline"
         >
           <UserCog className="mr-2 size-4" />

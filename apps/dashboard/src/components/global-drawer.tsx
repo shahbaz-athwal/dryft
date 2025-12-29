@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowLeft } from "lucide-react";
-import { Suspense } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
@@ -44,9 +43,7 @@ function GlobalDrawer() {
             <span className="sr-only">Back</span>
           </Button>
         )}
-        <Suspense>
-          <Component {...props} />
-        </Suspense>
+        <Component {...props} />
       </DrawerContent>
     </Drawer>
   );

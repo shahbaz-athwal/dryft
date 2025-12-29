@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 export default function Home() {
-  const { openDrawer, loadDrawer, stack } = useDrawerStack();
+  const { openDrawer, stack } = useDrawerStack();
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8 p-8">
@@ -18,36 +18,23 @@ export default function Home() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-4">
-        <Button
-          onClick={() => openDrawer("profile")}
-          onMouseEnter={() => loadDrawer("profile")}
-          variant="outline"
-        >
+        <Button onClick={() => openDrawer("profile")} variant="outline">
           <User className="mr-2 size-4" />
           Open Profile
         </Button>
 
-        <Button
-          onClick={() => openDrawer("settings")}
-          onMouseEnter={() => loadDrawer("settings")}
-          variant="outline"
-        >
+        <Button onClick={() => openDrawer("settings")} variant="outline">
           <Settings className="mr-2 size-4" />
           Open Settings
         </Button>
 
-        <Button
-          onClick={() => openDrawer("account")}
-          onMouseEnter={() => loadDrawer("account")}
-          variant="outline"
-        >
+        <Button onClick={() => openDrawer("account")} variant="outline">
           <User className="mr-2 size-4" />
           Open Account
         </Button>
 
         <Button
           onClick={() => openDrawer("rating", { type: "prof", id: "123" })}
-          onMouseEnter={() => loadDrawer("rating")}
           variant="outline"
         >
           <Star className="mr-2 size-4" />

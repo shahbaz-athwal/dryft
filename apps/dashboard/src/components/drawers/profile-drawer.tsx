@@ -15,7 +15,7 @@ import { Separator } from "@/components/ui/separator";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 function ProfileDrawer() {
-  const { openDrawer, clearStack, loadDrawer } = useDrawerStack();
+  const { openDrawer, clearStack } = useDrawerStack();
 
   return (
     <>
@@ -74,7 +74,6 @@ function ProfileDrawer() {
         <Button
           className="w-full"
           onClick={() => openDrawer("settings")}
-          onMouseOver={() => loadDrawer("settings")}
           variant="outline"
         >
           <Settings className="mr-2 size-4" />

@@ -9,7 +9,7 @@ import type {
   DrawerPropsMap,
   DrawerStackItem,
 } from "@/lib/drawer-registry";
-import { drawerStackSchema, preloadDrawer } from "@/lib/drawer-registry";
+import { drawerStackSchema } from "@/lib/drawer-registry";
 
 const drawerParser = parseAsJson(drawerStackSchema).withDefault([]);
 
@@ -48,16 +48,11 @@ function useDrawerStack() {
     setStack([]);
   }
 
-  function loadDrawer(key: DrawerKey) {
-    preloadDrawer(key);
-  }
-
   return {
     stack: validStack,
     openDrawer,
     pop,
     clearStack,
-    loadDrawer,
   };
 }
 

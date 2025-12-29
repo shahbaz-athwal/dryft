@@ -3,9 +3,14 @@ import { ReactScan } from "@/lib/react-scan";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { GlobalDrawer } from "@/components/global-drawer";
+import dynamic from "next/dynamic";
 import { Toaster } from "@/components/ui/sonner";
 import Providers from "./providers";
+
+const GlobalDrawer = dynamic(
+  () => import("@/components/global-drawer").then((mod) => mod.GlobalDrawer),
+  { ssr: true }
+);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -17,7 +17,7 @@ import type { DrawerPropsMap } from "@/lib/drawer-registry";
 type RatingDrawerProps = DrawerPropsMap["rating"];
 
 function RatingDrawer({ type, id }: RatingDrawerProps) {
-  const { closeTopDrawer } = useDrawerStack();
+  const { clearStack } = useDrawerStack();
 
   const isCourse = type === "course";
   const Icon = isCourse ? GraduationCap : User;
@@ -88,7 +88,7 @@ function RatingDrawer({ type, id }: RatingDrawerProps) {
 
       <DrawerFooter>
         <Button className="w-full">Submit Rating</Button>
-        <Button className="w-full" onClick={closeTopDrawer} variant="ghost">
+        <Button className="w-full" onClick={clearStack} variant="ghost">
           Cancel
         </Button>
       </DrawerFooter>

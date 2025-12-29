@@ -14,7 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 function AccountDrawer() {
-  const { closeAllDrawers, closeTopDrawer } = useDrawerStack();
+  const { pop, clearStack } = useDrawerStack();
 
   return (
     <>
@@ -93,11 +93,11 @@ function AccountDrawer() {
       </div>
 
       <DrawerFooter>
-        <Button className="w-full" onClick={closeTopDrawer} variant="outline">
-          Back to Settings
+        <Button className="w-full" onClick={pop} variant="outline">
+          Back
         </Button>
-        <Button className="w-full" onClick={closeAllDrawers} variant="ghost">
-          Close All Drawers
+        <Button className="w-full" onClick={clearStack} variant="ghost">
+          Close Drawer
         </Button>
       </DrawerFooter>
     </>

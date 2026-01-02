@@ -1,6 +1,8 @@
 import { google } from "@ai-sdk/google";
+import { withTracing } from "@posthog/ai";
 import { generateObject } from "ai";
 import { z } from "zod";
+import { posthog } from "../services/posthog";
 import type { TeacherNode } from "../services/rmp/queries/teacher-search-query";
 import { AI_MAPPING_PROMPT } from "./constants";
 
@@ -19,6 +21,8 @@ type LocalProfessor = {
   department: string;
 };
 
+const model = withTracing(google("gemini-pro-latest"), posthog, {});
+
 export async function matchProfessorsWithRMP(
   localProfessors: LocalProfessor[],
   rmpProfessors: TeacherNode[]
@@ -32,7 +36,7 @@ export async function matchProfessorsWithRMP(
     `;
 
   const result = await generateObject({
-    model: google("gemini-pro-latest"),
+    model,
     schema: ProfessorMatchSchema,
     prompt,
   });

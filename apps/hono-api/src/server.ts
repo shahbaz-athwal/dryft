@@ -1,6 +1,8 @@
 import { handleRequest } from "@better-upload/server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { logger } from "hono/logger";
+import { poweredBy } from "hono/powered-by";
 import { connect } from "inngest/connect";
 import { serve } from "inngest/hono";
 import { inngest } from "./inngest/client";
@@ -17,6 +19,7 @@ import { pullRmpReviews } from "./inngest/pull-rmp-reviews";
 import { handler as rpcHandler } from "./routes/rpc";
 import { auth } from "./services/auth";
 import { uploadRouter } from "./services/file-upload";
+import { posthog } from "./services/posthog";
 
 const app = new Hono();
 
@@ -38,6 +41,26 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(
+  poweredBy({
+    serverName: "Acadia One API",
+  })
+);
+app.use(logger());
+// app.use(
+//   "*",
+//   createMiddleware(async (_, next) => {
+//     posthog.capture({
+//       distinctId: "distinct_id_of_user", // Their user id or email
+//       event: "user_did_something",
+//     });
+
+//     await next();
+
+//     await posthog.flush();
+//   })
+// );
 
 app.use("/api/inngest/*", serve({ client: inngest, functions }));
 
@@ -64,6 +87,18 @@ app.post("/upload", (c) => {
 
 app.get("/", (c) => c.text("Hono API with oRPC"));
 
+app.onError(async (err, c) => {
+  posthog.captureException(err, "distinct_id", {
+    path: c.req.path,
+    method: c.req.method,
+    url: c.req.url,
+    headers: c.req.header(),
+  });
+
+  await posthog.flush();
+  return c.text("Internal Server Error", 500);
+});
+
 (async () => {
   await connect({
     apps: [{ client: inngest, functions }],
@@ -74,3 +109,5 @@ export default {
   fetch: app.fetch,
   port: 4000,
 };
+
+await posthog.shutdown();

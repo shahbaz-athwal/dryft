@@ -22,6 +22,7 @@
     "@browserbasehq/stagehand": "^3.0.7",
     "@inngest/agent-kit": "^0.13.2",
     "@orpc/server": "^1.13.1",
+    "@posthog/ai": "^7.3.0",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "ai": "^5.0.116",
@@ -30,6 +31,7 @@
     "graphql-request": "^7.4.0",
     "hono": "^4.11.3",
     "inngest": "^3.48.1",
+    "posthog-node": "^5.18.1",
     "zod": "catalog:"
   },
   "devDependencies": {

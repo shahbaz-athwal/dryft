@@ -23,16 +23,16 @@ services:
       - ../apps/hono-api/src:/app/apps/hono-api/src
     command: "bun run api:dev"
 
-  agent:
-    <<: *common
-    container_name: agent
-    ports:
-      - 5000:5000
-    environment:
-      - INNGEST_DEV=1
-      - INNGEST_BASE_URL=http://inngest:8288
-    volumes: *src-volume
-    command: "bun --filter hono-api agent:dev"
+  # agent:
+  #   <<: *common
+  #   container_name: agent
+  #   ports:
+  #     - 5000:5000
+  #   environment:
+  #     - INNGEST_DEV=1
+  #     - INNGEST_BASE_URL=http://inngest:8288
+  #   volumes: *src-volume
+  #   command: "bun --filter hono-api agent:dev"
 
   prisma-studio:
     <<: *common
@@ -47,9 +47,10 @@ services:
   inngest:
     container_name: inngest
     image: inngest/inngest:latest
-    command: "inngest dev -u http://agent:5000/api/inngest"
+    # command: "inngest dev -u http://agent:5000/api/inngest"
+    command: "inngest dev"
     ports:
       - "8288:8288"
     depends_on:
       - api
-      - agent
+      # - agent

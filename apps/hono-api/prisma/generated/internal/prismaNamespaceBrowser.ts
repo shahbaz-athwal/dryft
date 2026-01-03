@@ -227,6 +227,7 @@ export const FileScalarFieldEnum = {
   size: 'size',
   courseId: 'courseId',
   status: 'status',
+  resourceType: 'resourceType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'

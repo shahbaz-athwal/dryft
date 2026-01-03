@@ -44,6 +44,7 @@ export type FileMinAggregateOutputType = {
   size: number | null
   courseId: string | null
   status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED') | null
+  resourceType:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -57,6 +58,7 @@ export type FileMaxAggregateOutputType = {
   size: number | null
   courseId: string | null
   status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED') | null
+  resourceType:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -70,6 +72,7 @@ export type FileCountAggregateOutputType = {
   size: number
   courseId: number
   status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)
   createdAt: number
   updatedAt: number
   userId: number
@@ -93,6 +96,7 @@ export type FileMinAggregateInputType = {
   size?: true
   courseId?: true
   status?: true
+  resourceType?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -106,6 +110,7 @@ export type FileMaxAggregateInputType = {
   size?: true
   courseId?: true
   status?: true
+  resourceType?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -119,6 +124,7 @@ export type FileCountAggregateInputType = {
   size?: true
   courseId?: true
   status?: true
+  resourceType?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -219,6 +225,7 @@ export type FileGroupByOutputType = {
   size: number
   courseId: string
   status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt: Date
   updatedAt: Date
   userId: string | null
@@ -255,6 +262,7 @@ export type FileWhereInput = {
   size?: Prisma.IntFilter<"File"> | number
   courseId?: Prisma.StringFilter<"File"> | string
   status?:PJTG.TypedStringFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedStringNullableFilter<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFilter<"File"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"File"> | Date | string
   userId?: Prisma.StringNullableFilter<"File"> | string | null
@@ -271,6 +279,7 @@ export type FileOrderByWithRelationInput = {
   size?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  resourceType?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -290,6 +299,7 @@ export type FileWhereUniqueInput = Prisma.AtLeast<{
   size?: Prisma.IntFilter<"File"> | number
   courseId?: Prisma.StringFilter<"File"> | string
   status?: Prisma.StringFilter<"File"> | string
+  resourceType?: Prisma.StringNullableFilter<"File"> | string | null
   createdAt?: Prisma.DateTimeFilter<"File"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"File"> | Date | string
   userId?: Prisma.StringNullableFilter<"File"> | string | null
@@ -306,6 +316,7 @@ export type FileOrderByWithAggregationInput = {
   size?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  resourceType?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -327,6 +338,7 @@ export type FileScalarWhereWithAggregatesInput = {
   size?: Prisma.IntWithAggregatesFilter<"File"> | number
   courseId?: Prisma.StringWithAggregatesFilter<"File"> | string
   status?:PJTG.TypedStringWithAggregatesFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedStringNullableWithAggregatesFilter<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"File"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"File"> | Date | string
   userId?: Prisma.StringNullableWithAggregatesFilter<"File"> | string | null
@@ -339,6 +351,7 @@ export type FileCreateInput = {
   mimeType: string
   size: number
   status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Date | string
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutFilesInput
@@ -354,6 +367,7 @@ export type FileUncheckedCreateInput = {
   size: number
   courseId: string
   status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -367,6 +381,7 @@ export type FileUpdateInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutFilesNestedInput
@@ -382,6 +397,7 @@ export type FileUncheckedUpdateInput = {
   size?: Prisma.IntFieldUpdateOperationsInput | number
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -396,6 +412,7 @@ export type FileCreateManyInput = {
   size: number
   courseId: string
   status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -408,6 +425,7 @@ export type FileUpdateManyMutationInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -420,6 +438,7 @@ export type FileUncheckedUpdateManyInput = {
   size?: Prisma.IntFieldUpdateOperationsInput | number
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -448,6 +467,7 @@ export type FileCountOrderByAggregateInput = {
   size?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  resourceType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -465,6 +485,7 @@ export type FileMaxOrderByAggregateInput = {
   size?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  resourceType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -478,6 +499,7 @@ export type FileMinOrderByAggregateInput = {
   size?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  resourceType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -594,6 +616,7 @@ export type FileCreateWithoutCourseInput = {
   mimeType: string
   size: number
   status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutFilesInput
@@ -607,6 +630,7 @@ export type FileUncheckedCreateWithoutCourseInput = {
   mimeType: string
   size: number
   status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -650,6 +674,7 @@ export type FileScalarWhereInput = {
   size?: Prisma.IntFilter<"File"> | number
   courseId?: Prisma.StringFilter<"File"> | string
   status?:PJTG.TypedStringFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedStringNullableFilter<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFilter<"File"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"File"> | Date | string
   userId?: Prisma.StringNullableFilter<"File"> | string | null
@@ -662,6 +687,7 @@ export type FileCreateWithoutFlagsInput = {
   mimeType: string
   size: number
   status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Date | string
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutFilesInput
@@ -676,6 +702,7 @@ export type FileUncheckedCreateWithoutFlagsInput = {
   size: number
   courseId: string
   status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -704,6 +731,7 @@ export type FileUpdateWithoutFlagsInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutFilesNestedInput
@@ -718,6 +746,7 @@ export type FileUncheckedUpdateWithoutFlagsInput = {
   size?: Prisma.IntFieldUpdateOperationsInput | number
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -730,6 +759,7 @@ export type FileCreateWithoutUserInput = {
   mimeType: string
   size: number
   status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Date | string
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutFilesInput
@@ -744,6 +774,7 @@ export type FileUncheckedCreateWithoutUserInput = {
   size: number
   courseId: string
   status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Date | string
   updatedAt?: Date | string
   flags?: Prisma.FlagUncheckedCreateNestedManyWithoutFileInput
@@ -782,6 +813,7 @@ export type FileCreateManyCourseInput = {
   mimeType: string
   size: number
   status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
@@ -794,6 +826,7 @@ export type FileUpdateWithoutCourseInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutFilesNestedInput
@@ -807,6 +840,7 @@ export type FileUncheckedUpdateWithoutCourseInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -820,6 +854,7 @@ export type FileUncheckedUpdateManyWithoutCourseInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -833,6 +868,7 @@ export type FileCreateManyUserInput = {
   size: number
   courseId: string
   status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -844,6 +880,7 @@ export type FileUpdateWithoutUserInput = {
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.IntFieldUpdateOperationsInput | number
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutFilesNestedInput
@@ -858,6 +895,7 @@ export type FileUncheckedUpdateWithoutUserInput = {
   size?: Prisma.IntFieldUpdateOperationsInput | number
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   flags?: Prisma.FlagUncheckedUpdateManyWithoutFileNestedInput
@@ -871,6 +909,7 @@ export type FileUncheckedUpdateManyWithoutUserInput = {
   size?: Prisma.IntFieldUpdateOperationsInput | number
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  resourceType?:PJTG.TypedNullableStringFieldUpdateOperationsInput<('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null)> | ('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -914,6 +953,7 @@ export type FileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   size?: boolean
   courseId?: boolean
   status?: boolean
+  resourceType?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -931,6 +971,7 @@ export type FileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   size?: boolean
   courseId?: boolean
   status?: boolean
+  resourceType?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -946,6 +987,7 @@ export type FileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   size?: boolean
   courseId?: boolean
   status?: boolean
+  resourceType?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -961,12 +1003,13 @@ export type FileSelectScalar = {
   size?: boolean
   courseId?: boolean
   status?: boolean
+  resourceType?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
 }
 
-export type FileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "key" | "mimeType" | "size" | "courseId" | "status" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["file"]>
+export type FileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "key" | "mimeType" | "size" | "courseId" | "status" | "resourceType" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["file"]>
 export type FileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   user?: boolean | Prisma.File$userArgs<ExtArgs>
@@ -1000,6 +1043,10 @@ export type $FilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
      * !['PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED']
      */
     status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+    /**
+     * !['ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null]
+     */
+    resourceType:('ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER' | null) | null
     createdAt: Date
     updatedAt: Date
     userId: string | null
@@ -1436,6 +1483,7 @@ export interface FileFieldRefs {
   readonly size: Prisma.FieldRef<"File", 'Int'>
   readonly courseId: Prisma.FieldRef<"File", 'String'>
   readonly status: Prisma.FieldRef<"File", 'String'>
+  readonly resourceType: Prisma.FieldRef<"File", 'String'>
   readonly createdAt: Prisma.FieldRef<"File", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"File", 'DateTime'>
   readonly userId: Prisma.FieldRef<"File", 'String'>

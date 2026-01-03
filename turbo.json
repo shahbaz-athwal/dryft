@@ -5,7 +5,7 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["POSTHOG_PERSONAL_KEY"]
+      "env": ["POSTHOG_PERSONAL_KEY", "NEXT_PUBLIC_POSTHOG_KEY"]
     },
     "dev": {
       "dependsOn": ["hono-api#db:generate"],

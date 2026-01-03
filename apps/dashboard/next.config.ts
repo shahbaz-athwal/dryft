@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
 };
 
 export default withPostHogConfig(nextConfig, {
-  personalApiKey: process.env.POSTHOG_PERSONAL_API_KEY ?? "",
+  personalApiKey: process.env.POSTHOG_PERSONAL_KEY as string,
   envId: "276396",
   host: "https://us.i.posthog.com",
   sourcemaps: {

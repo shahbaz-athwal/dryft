@@ -48,19 +48,8 @@ app.use(
   })
 );
 app.use(logger());
-// app.use(
-//   "*",
-//   createMiddleware(async (_, next) => {
-//     posthog.capture({
-//       distinctId: "distinct_id_of_user", // Their user id or email
-//       event: "user_did_something",
-//     });
 
-//     await next();
-
-//     await posthog.flush();
-//   })
-// );
+// Todo: Add OTEL Logging
 
 app.use("/api/inngest/*", serve({ client: inngest, functions }));
 
@@ -88,7 +77,7 @@ app.post("/upload", (c) => {
 app.get("/", (c) => c.text("Hono API with oRPC"));
 
 app.onError(async (err, c) => {
-  posthog.captureException(err, "distinct_id", {
+  posthog.captureException(err, undefined, {
     path: c.req.path,
     method: c.req.method,
     url: c.req.url,

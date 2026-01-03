@@ -16,6 +16,7 @@ import { populateDepartments } from "./inngest/populate-departments";
 import { populateProfessors } from "./inngest/populate-professors";
 import { processCourse } from "./inngest/process-course";
 import { pullRmpReviews } from "./inngest/pull-rmp-reviews";
+import { screenFile } from "./inngest/screen-file";
 import { handler as rpcHandler } from "./routes/rpc";
 import { auth } from "./services/auth";
 import { uploadRouter } from "./services/file-upload";
@@ -32,6 +33,7 @@ const functions = [
   populateDepartments,
   pullRmpReviews,
   triggerRmpReviewsPulling,
+  screenFile,
 ];
 
 app.use(

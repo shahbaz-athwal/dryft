@@ -19,6 +19,12 @@ export const inngest = new Inngest({
       professorId: z.string(),
     }),
     "rmp/trigger-reviews-pulling": z.object({}),
+    "file/screen": z.object({
+      fileId: z.string(),
+      fileKey: z.string(),
+      courseName: z.string(),
+      mimeType: z.string(),
+    }),
   }),
 });
 

@@ -1,6 +1,8 @@
 "use client";
 
 import { CreditCard, Key, Trash2, X } from "lucide-react";
+import posthog from "posthog-js";
+import { useRef } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +17,13 @@ import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 function AccountDrawer() {
   const { pop, clearStack } = useDrawerStack();
+  const hasTrackedView = useRef(false);
+
+  // Track drawer view once on first render
+  if (!hasTrackedView.current) {
+    posthog.capture("account_drawer_viewed");
+    hasTrackedView.current = true;
+  }
 
   return (
     <>
@@ -45,6 +54,7 @@ function AccountDrawer() {
 
           <button
             className="flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors hover:bg-muted/50"
+            onClick={() => posthog.capture("billing_clicked")}
             type="button"
           >
             <div className="rounded-lg border p-2">
@@ -60,6 +70,7 @@ function AccountDrawer() {
 
           <button
             className="flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors hover:bg-muted/50"
+            onClick={() => posthog.capture("password_security_clicked")}
             type="button"
           >
             <div className="rounded-lg border p-2">
@@ -75,6 +86,7 @@ function AccountDrawer() {
 
           <button
             className="flex w-full items-center gap-3 rounded-lg border border-destructive/20 p-3 text-left transition-colors hover:bg-destructive/10"
+            onClick={() => posthog.capture("delete_account_clicked")}
             type="button"
           >
             <div className="rounded-lg border border-destructive/20 p-2">

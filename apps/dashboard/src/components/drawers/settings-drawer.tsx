@@ -1,6 +1,8 @@
 "use client";
 
 import { Bell, Moon, Shield, UserCog, X } from "lucide-react";
+import posthog from "posthog-js";
+import { useRef } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +19,13 @@ import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 function SettingsDrawer() {
   const { openDrawer, pop, clearStack } = useDrawerStack();
+  const hasTrackedView = useRef(false);
+
+  // Track drawer view once on first render
+  if (!hasTrackedView.current) {
+    posthog.capture("settings_drawer_viewed");
+    hasTrackedView.current = true;
+  }
 
   return (
     <>
@@ -51,7 +60,13 @@ function SettingsDrawer() {
                 </p>
               </div>
             </div>
-            <Switch defaultChecked id="notifications" />
+            <Switch
+              defaultChecked
+              id="notifications"
+              onCheckedChange={(checked) =>
+                posthog.capture("notification_toggled", { enabled: checked })
+              }
+            />
           </div>
 
           <div className="flex items-center justify-between">
@@ -66,7 +81,12 @@ function SettingsDrawer() {
                 </p>
               </div>
             </div>
-            <Switch id="dark-mode" />
+            <Switch
+              id="dark-mode"
+              onCheckedChange={(checked) =>
+                posthog.capture("dark_mode_toggled", { enabled: checked })
+              }
+            />
           </div>
 
           <div className="flex items-center justify-between">
@@ -81,7 +101,12 @@ function SettingsDrawer() {
                 </p>
               </div>
             </div>
-            <Switch id="2fa" />
+            <Switch
+              id="2fa"
+              onCheckedChange={(checked) =>
+                posthog.capture("two_factor_auth_toggled", { enabled: checked })
+              }
+            />
           </div>
         </div>
 
@@ -98,7 +123,12 @@ function SettingsDrawer() {
       </div>
 
       <DrawerFooter>
-        <Button className="w-full">Save Changes</Button>
+        <Button
+          className="w-full"
+          onClick={() => posthog.capture("settings_saved")}
+        >
+          Save Changes
+        </Button>
         <Button className="w-full" onClick={pop} variant="outline">
           Back
         </Button>

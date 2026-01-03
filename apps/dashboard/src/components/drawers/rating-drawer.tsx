@@ -1,6 +1,8 @@
 "use client";
 
 import { GraduationCap, Star, User, X } from "lucide-react";
+import posthog from "posthog-js";
+import { useRef } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +20,7 @@ type RatingDrawerProps = DrawerPropsMap["rating"];
 
 function RatingDrawer({ type, id }: RatingDrawerProps) {
   const { clearStack } = useDrawerStack();
+  const hasTrackedView = useRef(false);
 
   const isCourse = type === "course";
   const Icon = isCourse ? GraduationCap : User;
@@ -25,6 +28,15 @@ function RatingDrawer({ type, id }: RatingDrawerProps) {
   const description = isCourse
     ? `Share your experience with course ${id}`
     : `Share your experience with professor ${id}`;
+
+  // Track drawer view once on first render
+  if (!hasTrackedView.current) {
+    posthog.capture("rating_drawer_viewed", {
+      rating_type: type,
+      rating_id: id,
+    });
+    hasTrackedView.current = true;
+  }
 
   return (
     <>
@@ -87,7 +99,17 @@ function RatingDrawer({ type, id }: RatingDrawerProps) {
       </div>
 
       <DrawerFooter>
-        <Button className="w-full">Submit Rating</Button>
+        <Button
+          className="w-full"
+          onClick={() =>
+            posthog.capture("rating_submitted", {
+              rating_type: type,
+              rating_id: id,
+            })
+          }
+        >
+          Submit Rating
+        </Button>
         <Button className="w-full" onClick={clearStack} variant="ghost">
           Cancel
         </Button>

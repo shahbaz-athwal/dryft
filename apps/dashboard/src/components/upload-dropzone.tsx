@@ -1,5 +1,6 @@
 import type { UploadHookControl } from "@better-upload/client";
 import { Loader2, Upload } from "lucide-react";
+import posthog from "posthog-js";
 import { useId } from "react";
 import { useDropzone } from "react-dropzone";
 import { cn } from "@/lib/utils";
@@ -36,6 +37,13 @@ export function UploadDropzone({
   const { getRootProps, getInputProps, isDragActive, inputRef } = useDropzone({
     onDrop: (files) => {
       if (files.length > 0 && !isPending) {
+        // Track file upload started
+        posthog.capture("file_upload_started", {
+          file_count: files.length,
+          file_types: files.map((f) => f.type).filter(Boolean),
+          total_size_bytes: files.reduce((sum, f) => sum + f.size, 0),
+        });
+
         if (uploadOverride) {
           uploadOverride(files, { metadata });
         } else {

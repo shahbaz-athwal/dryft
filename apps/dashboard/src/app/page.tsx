@@ -1,6 +1,7 @@
 "use client";
 
 import { Settings, Star, User } from "lucide-react";
+import posthog from "posthog-js";
 
 import { Button } from "@/components/ui/button";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
@@ -18,23 +19,48 @@ export default function Home() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-4">
-        <Button onClick={() => openDrawer("profile")} variant="outline">
+        <Button
+          onClick={() => {
+            posthog.capture("drawer_opened", { drawer_type: "profile" });
+            openDrawer("profile");
+          }}
+          variant="outline"
+        >
           <User className="mr-2 size-4" />
           Open Profile
         </Button>
 
-        <Button onClick={() => openDrawer("settings")} variant="outline">
+        <Button
+          onClick={() => {
+            posthog.capture("drawer_opened", { drawer_type: "settings" });
+            openDrawer("settings");
+          }}
+          variant="outline"
+        >
           <Settings className="mr-2 size-4" />
           Open Settings
         </Button>
 
-        <Button onClick={() => openDrawer("account")} variant="outline">
+        <Button
+          onClick={() => {
+            posthog.capture("drawer_opened", { drawer_type: "account" });
+            openDrawer("account");
+          }}
+          variant="outline"
+        >
           <User className="mr-2 size-4" />
           Open Account
         </Button>
 
         <Button
-          onClick={() => openDrawer("rating", { type: "prof", id: "123" })}
+          onClick={() => {
+            posthog.capture("drawer_opened", {
+              drawer_type: "rating",
+              rating_type: "prof",
+              rating_id: "123",
+            });
+            openDrawer("rating", { type: "prof", id: "123" });
+          }}
           variant="outline"
         >
           <Star className="mr-2 size-4" />

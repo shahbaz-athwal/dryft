@@ -188,7 +188,12 @@
   .typography h6:not(.not-typography h6):first-child {
     margin-top: 0;
   }
-  .typography h1:not(.not-typography h1) + p, .typography h2:not(.not-typography h2) + p, .typography h3:not(.not-typography h3) + p, .typography h4:not(.not-typography h4) + p, .typography h5:not(.not-typography h5) + p, .typography h6:not(.not-typography h6) + p {
+  .typography h1:not(.not-typography h1) + p,
+  .typography h2:not(.not-typography h2) + p,
+  .typography h3:not(.not-typography h3) + p,
+  .typography h4:not(.not-typography h4) + p,
+  .typography h5:not(.not-typography h5) + p,
+  .typography h6:not(.not-typography h6) + p {
     margin-top: 0;
   }
   .typography p:not(.not-typography p) {
@@ -324,8 +329,8 @@
     color: var(--color-muted-foreground);
   }
   .typography img:not(.not-typography img),
-    .typography picture:not(.not-typography picture),
-    .typography video:not(.not-typography video) {
+  .typography picture:not(.not-typography picture),
+  .typography video:not(.not-typography video) {
     margin-top: calc(var(--spacing) * 6);
     margin-bottom: calc(var(--spacing) * 6);
   }
@@ -377,10 +382,10 @@
     line-height: 1;
   }
 
-@media (min-width: 1024px) {
-  .typography h1:not(.not-typography h1) {
-    font-size: var(--text-5xl);
-    line-height: var(--text-5xl--line-height);
+  @media (min-width: 1024px) {
+    .typography h1:not(.not-typography h1) {
+      font-size: var(--text-5xl);
+      line-height: var(--text-5xl--line-height);
     }
   }
 }

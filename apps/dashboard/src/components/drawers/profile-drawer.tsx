@@ -1,6 +1,8 @@
 "use client";
 
 import { Settings, User, X } from "lucide-react";
+import posthog from "posthog-js";
+import { useRef } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -16,6 +18,13 @@ import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 function ProfileDrawer() {
   const { openDrawer, clearStack } = useDrawerStack();
+  const hasTrackedView = useRef(false);
+
+  // Track drawer view once on first render
+  if (!hasTrackedView.current) {
+    posthog.capture("profile_drawer_viewed");
+    hasTrackedView.current = true;
+  }
 
   return (
     <>

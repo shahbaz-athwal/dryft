@@ -25,6 +25,8 @@ model Log {
 model Department {
   prefix     String      @id
   name       String
+  // websiteUrl String?
+  // facultyUrl String?  // Todo: Add this back in
   professors Professor[]
   courses    Course[]
 

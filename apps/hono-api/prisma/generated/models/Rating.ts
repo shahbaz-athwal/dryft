@@ -45,7 +45,7 @@ export type RatingSumAggregateOutputType = {
 export type RatingMinAggregateOutputType = {
   id: string | null
   rmpId: string | null
-  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED') | null
+  status:('PROCESSING' | 'APPROVED' | 'REJECTED') | null
   quality: number | null
   difficulty: number | null
   isForCredit: boolean | null
@@ -59,13 +59,12 @@ export type RatingMinAggregateOutputType = {
   professorId: string | null
   courseId: string | null
   postedAt: Date | null
-  userId: string | null
 }
 
 export type RatingMaxAggregateOutputType = {
   id: string | null
   rmpId: string | null
-  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED') | null
+  status:('PROCESSING' | 'APPROVED' | 'REJECTED') | null
   quality: number | null
   difficulty: number | null
   isForCredit: boolean | null
@@ -79,13 +78,12 @@ export type RatingMaxAggregateOutputType = {
   professorId: string | null
   courseId: string | null
   postedAt: Date | null
-  userId: string | null
 }
 
 export type RatingCountAggregateOutputType = {
   id: number
   rmpId: number
-  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit: number
@@ -100,7 +98,6 @@ export type RatingCountAggregateOutputType = {
   professorId: number
   courseId: number
   postedAt: number
-  userId: number
   _all: number
 }
 
@@ -136,7 +133,6 @@ export type RatingMinAggregateInputType = {
   professorId?: true
   courseId?: true
   postedAt?: true
-  userId?: true
 }
 
 export type RatingMaxAggregateInputType = {
@@ -156,7 +152,6 @@ export type RatingMaxAggregateInputType = {
   professorId?: true
   courseId?: true
   postedAt?: true
-  userId?: true
 }
 
 export type RatingCountAggregateInputType = {
@@ -177,7 +172,6 @@ export type RatingCountAggregateInputType = {
   professorId?: true
   courseId?: true
   postedAt?: true
-  userId?: true
   _all?: true
 }
 
@@ -270,7 +264,7 @@ export type RatingGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type RatingGroupByOutputType = {
   id: string
   rmpId: string | null
-  status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit: boolean | null
@@ -285,7 +279,6 @@ export type RatingGroupByOutputType = {
   professorId: string
   courseId: string
   postedAt: Date
-  userId: string | null
   _count: RatingCountAggregateOutputType | null
   _avg: RatingAvgAggregateOutputType | null
   _sum: RatingSumAggregateOutputType | null
@@ -314,7 +307,7 @@ export type RatingWhereInput = {
   NOT?: Prisma.RatingWhereInput | Prisma.RatingWhereInput[]
   id?: Prisma.StringFilter<"Rating"> | string
   rmpId?: Prisma.StringNullableFilter<"Rating"> | string | null
-  status?:PJTG.TypedStringFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFilter<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFilter<"Rating"> | number
   difficulty?: Prisma.IntFilter<"Rating"> | number
   isForCredit?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
@@ -329,11 +322,9 @@ export type RatingWhereInput = {
   professorId?: Prisma.StringFilter<"Rating"> | string
   courseId?: Prisma.StringFilter<"Rating"> | string
   postedAt?: Prisma.DateTimeFilter<"Rating"> | Date | string
-  userId?: Prisma.StringNullableFilter<"Rating"> | string | null
   professor?: Prisma.XOR<Prisma.ProfessorScalarRelationFilter, Prisma.ProfessorWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   flags?: Prisma.FlagListRelationFilter
-  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type RatingOrderByWithRelationInput = {
@@ -354,11 +345,9 @@ export type RatingOrderByWithRelationInput = {
   professorId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   postedAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   professor?: Prisma.ProfessorOrderByWithRelationInput
   course?: Prisma.CourseOrderByWithRelationInput
   flags?: Prisma.FlagOrderByRelationAggregateInput
-  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type RatingWhereUniqueInput = Prisma.AtLeast<{
@@ -382,11 +371,9 @@ export type RatingWhereUniqueInput = Prisma.AtLeast<{
   professorId?: Prisma.StringFilter<"Rating"> | string
   courseId?: Prisma.StringFilter<"Rating"> | string
   postedAt?: Prisma.DateTimeFilter<"Rating"> | Date | string
-  userId?: Prisma.StringNullableFilter<"Rating"> | string | null
   professor?: Prisma.XOR<Prisma.ProfessorScalarRelationFilter, Prisma.ProfessorWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   flags?: Prisma.FlagListRelationFilter
-  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id" | "rmpId">
 
 export type RatingOrderByWithAggregationInput = {
@@ -407,7 +394,6 @@ export type RatingOrderByWithAggregationInput = {
   professorId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   postedAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.RatingCountOrderByAggregateInput
   _avg?: Prisma.RatingAvgOrderByAggregateInput
   _max?: Prisma.RatingMaxOrderByAggregateInput
@@ -421,7 +407,7 @@ export type RatingScalarWhereWithAggregatesInput = {
   NOT?: Prisma.RatingScalarWhereWithAggregatesInput | Prisma.RatingScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Rating"> | string
   rmpId?: Prisma.StringNullableWithAggregatesFilter<"Rating"> | string | null
-  status?:PJTG.TypedStringWithAggregatesFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringWithAggregatesFilter<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntWithAggregatesFilter<"Rating"> | number
   difficulty?: Prisma.IntWithAggregatesFilter<"Rating"> | number
   isForCredit?: Prisma.BoolNullableWithAggregatesFilter<"Rating"> | boolean | null
@@ -436,13 +422,12 @@ export type RatingScalarWhereWithAggregatesInput = {
   professorId?: Prisma.StringWithAggregatesFilter<"Rating"> | string
   courseId?: Prisma.StringWithAggregatesFilter<"Rating"> | string
   postedAt?: Prisma.DateTimeWithAggregatesFilter<"Rating"> | Date | string
-  userId?: Prisma.StringNullableWithAggregatesFilter<"Rating"> | string | null
 }
 
 export type RatingCreateInput = {
   id?: string
   rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -458,13 +443,12 @@ export type RatingCreateInput = {
   professor: Prisma.ProfessorCreateNestedOneWithoutRatingsInput
   course: Prisma.CourseCreateNestedOneWithoutRatingsInput
   flags?: Prisma.FlagCreateNestedManyWithoutRatingInput
-  user?: Prisma.UserCreateNestedOneWithoutRatingsInput
 }
 
 export type RatingUncheckedCreateInput = {
   id?: string
   rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -479,14 +463,13 @@ export type RatingUncheckedCreateInput = {
   professorId: string
   courseId: string
   postedAt: Date | string
-  userId?: string | null
   flags?: Prisma.FlagUncheckedCreateNestedManyWithoutRatingInput
 }
 
 export type RatingUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -502,13 +485,12 @@ export type RatingUpdateInput = {
   professor?: Prisma.ProfessorUpdateOneRequiredWithoutRatingsNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutRatingsNestedInput
   flags?: Prisma.FlagUpdateManyWithoutRatingNestedInput
-  user?: Prisma.UserUpdateOneWithoutRatingsNestedInput
 }
 
 export type RatingUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -523,14 +505,13 @@ export type RatingUncheckedUpdateInput = {
   professorId?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   flags?: Prisma.FlagUncheckedUpdateManyWithoutRatingNestedInput
 }
 
 export type RatingCreateManyInput = {
   id?: string
   rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -545,13 +526,12 @@ export type RatingCreateManyInput = {
   professorId: string
   courseId: string
   postedAt: Date | string
-  userId?: string | null
 }
 
 export type RatingUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -569,7 +549,7 @@ export type RatingUpdateManyMutationInput = {
 export type RatingUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -584,7 +564,6 @@ export type RatingUncheckedUpdateManyInput = {
   professorId?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RatingListRelationFilter = {
@@ -620,7 +599,6 @@ export type RatingCountOrderByAggregateInput = {
   professorId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   postedAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
 }
 
 export type RatingAvgOrderByAggregateInput = {
@@ -647,7 +625,6 @@ export type RatingMaxOrderByAggregateInput = {
   professorId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   postedAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
 }
 
 export type RatingMinOrderByAggregateInput = {
@@ -667,7 +644,6 @@ export type RatingMinOrderByAggregateInput = {
   professorId?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
   postedAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
 }
 
 export type RatingSumOrderByAggregateInput = {
@@ -790,52 +766,10 @@ export type RatingUpdatetagsInput = {
   push?: string | string[]
 }
 
-export type RatingCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput> | Prisma.RatingCreateWithoutUserInput[] | Prisma.RatingUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutUserInput | Prisma.RatingCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.RatingCreateManyUserInputEnvelope
-  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
-}
-
-export type RatingUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput> | Prisma.RatingCreateWithoutUserInput[] | Prisma.RatingUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutUserInput | Prisma.RatingCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.RatingCreateManyUserInputEnvelope
-  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
-}
-
-export type RatingUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput> | Prisma.RatingCreateWithoutUserInput[] | Prisma.RatingUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutUserInput | Prisma.RatingCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.RatingUpsertWithWhereUniqueWithoutUserInput | Prisma.RatingUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.RatingCreateManyUserInputEnvelope
-  set?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
-  disconnect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
-  delete?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
-  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
-  update?: Prisma.RatingUpdateWithWhereUniqueWithoutUserInput | Prisma.RatingUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.RatingUpdateManyWithWhereWithoutUserInput | Prisma.RatingUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
-}
-
-export type RatingUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput> | Prisma.RatingCreateWithoutUserInput[] | Prisma.RatingUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.RatingCreateOrConnectWithoutUserInput | Prisma.RatingCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.RatingUpsertWithWhereUniqueWithoutUserInput | Prisma.RatingUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.RatingCreateManyUserInputEnvelope
-  set?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
-  disconnect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
-  delete?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
-  connect?: Prisma.RatingWhereUniqueInput | Prisma.RatingWhereUniqueInput[]
-  update?: Prisma.RatingUpdateWithWhereUniqueWithoutUserInput | Prisma.RatingUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.RatingUpdateManyWithWhereWithoutUserInput | Prisma.RatingUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
-}
-
 export type RatingCreateWithoutProfessorInput = {
   id?: string
   rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -850,13 +784,12 @@ export type RatingCreateWithoutProfessorInput = {
   postedAt: Date | string
   course: Prisma.CourseCreateNestedOneWithoutRatingsInput
   flags?: Prisma.FlagCreateNestedManyWithoutRatingInput
-  user?: Prisma.UserCreateNestedOneWithoutRatingsInput
 }
 
 export type RatingUncheckedCreateWithoutProfessorInput = {
   id?: string
   rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -870,7 +803,6 @@ export type RatingUncheckedCreateWithoutProfessorInput = {
   tags?: Prisma.RatingCreatetagsInput | string[]
   courseId: string
   postedAt: Date | string
-  userId?: string | null
   flags?: Prisma.FlagUncheckedCreateNestedManyWithoutRatingInput
 }
 
@@ -906,7 +838,7 @@ export type RatingScalarWhereInput = {
   NOT?: Prisma.RatingScalarWhereInput | Prisma.RatingScalarWhereInput[]
   id?: Prisma.StringFilter<"Rating"> | string
   rmpId?: Prisma.StringNullableFilter<"Rating"> | string | null
-  status?:PJTG.TypedStringFilter<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFilter<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFilter<"Rating"> | number
   difficulty?: Prisma.IntFilter<"Rating"> | number
   isForCredit?: Prisma.BoolNullableFilter<"Rating"> | boolean | null
@@ -921,13 +853,12 @@ export type RatingScalarWhereInput = {
   professorId?: Prisma.StringFilter<"Rating"> | string
   courseId?: Prisma.StringFilter<"Rating"> | string
   postedAt?: Prisma.DateTimeFilter<"Rating"> | Date | string
-  userId?: Prisma.StringNullableFilter<"Rating"> | string | null
 }
 
 export type RatingCreateWithoutCourseInput = {
   id?: string
   rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -942,13 +873,12 @@ export type RatingCreateWithoutCourseInput = {
   postedAt: Date | string
   professor: Prisma.ProfessorCreateNestedOneWithoutRatingsInput
   flags?: Prisma.FlagCreateNestedManyWithoutRatingInput
-  user?: Prisma.UserCreateNestedOneWithoutRatingsInput
 }
 
 export type RatingUncheckedCreateWithoutCourseInput = {
   id?: string
   rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -962,7 +892,6 @@ export type RatingUncheckedCreateWithoutCourseInput = {
   tags?: Prisma.RatingCreatetagsInput | string[]
   professorId: string
   postedAt: Date | string
-  userId?: string | null
   flags?: Prisma.FlagUncheckedCreateNestedManyWithoutRatingInput
 }
 
@@ -995,7 +924,7 @@ export type RatingUpdateManyWithWhereWithoutCourseInput = {
 export type RatingCreateWithoutFlagsInput = {
   id?: string
   rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -1010,13 +939,12 @@ export type RatingCreateWithoutFlagsInput = {
   postedAt: Date | string
   professor: Prisma.ProfessorCreateNestedOneWithoutRatingsInput
   course: Prisma.CourseCreateNestedOneWithoutRatingsInput
-  user?: Prisma.UserCreateNestedOneWithoutRatingsInput
 }
 
 export type RatingUncheckedCreateWithoutFlagsInput = {
   id?: string
   rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -1031,7 +959,6 @@ export type RatingUncheckedCreateWithoutFlagsInput = {
   professorId: string
   courseId: string
   postedAt: Date | string
-  userId?: string | null
 }
 
 export type RatingCreateOrConnectWithoutFlagsInput = {
@@ -1053,7 +980,7 @@ export type RatingUpdateToOneWithWhereWithoutFlagsInput = {
 export type RatingUpdateWithoutFlagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1068,13 +995,12 @@ export type RatingUpdateWithoutFlagsInput = {
   postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   professor?: Prisma.ProfessorUpdateOneRequiredWithoutRatingsNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutRatingsNestedInput
-  user?: Prisma.UserUpdateOneWithoutRatingsNestedInput
 }
 
 export type RatingUncheckedUpdateWithoutFlagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1089,81 +1015,12 @@ export type RatingUncheckedUpdateWithoutFlagsInput = {
   professorId?: Prisma.StringFieldUpdateOperationsInput | string
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type RatingCreateWithoutUserInput = {
-  id?: string
-  rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
-  quality: number
-  difficulty: number
-  isForCredit?: boolean | null
-  comment?: string | null
-  textBookRequired?: boolean | null
-  attendanceRequired: boolean
-  gradeReceived?: string | null
-  wouldTakeAgain?: boolean | null
-  thumbsUpTotal?: number
-  thumbsDownTotal?: number
-  tags?: Prisma.RatingCreatetagsInput | string[]
-  postedAt: Date | string
-  professor: Prisma.ProfessorCreateNestedOneWithoutRatingsInput
-  course: Prisma.CourseCreateNestedOneWithoutRatingsInput
-  flags?: Prisma.FlagCreateNestedManyWithoutRatingInput
-}
-
-export type RatingUncheckedCreateWithoutUserInput = {
-  id?: string
-  rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
-  quality: number
-  difficulty: number
-  isForCredit?: boolean | null
-  comment?: string | null
-  textBookRequired?: boolean | null
-  attendanceRequired: boolean
-  gradeReceived?: string | null
-  wouldTakeAgain?: boolean | null
-  thumbsUpTotal?: number
-  thumbsDownTotal?: number
-  tags?: Prisma.RatingCreatetagsInput | string[]
-  professorId: string
-  courseId: string
-  postedAt: Date | string
-  flags?: Prisma.FlagUncheckedCreateNestedManyWithoutRatingInput
-}
-
-export type RatingCreateOrConnectWithoutUserInput = {
-  where: Prisma.RatingWhereUniqueInput
-  create: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput>
-}
-
-export type RatingCreateManyUserInputEnvelope = {
-  data: Prisma.RatingCreateManyUserInput | Prisma.RatingCreateManyUserInput[]
-  skipDuplicates?: boolean
-}
-
-export type RatingUpsertWithWhereUniqueWithoutUserInput = {
-  where: Prisma.RatingWhereUniqueInput
-  update: Prisma.XOR<Prisma.RatingUpdateWithoutUserInput, Prisma.RatingUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.RatingCreateWithoutUserInput, Prisma.RatingUncheckedCreateWithoutUserInput>
-}
-
-export type RatingUpdateWithWhereUniqueWithoutUserInput = {
-  where: Prisma.RatingWhereUniqueInput
-  data: Prisma.XOR<Prisma.RatingUpdateWithoutUserInput, Prisma.RatingUncheckedUpdateWithoutUserInput>
-}
-
-export type RatingUpdateManyWithWhereWithoutUserInput = {
-  where: Prisma.RatingScalarWhereInput
-  data: Prisma.XOR<Prisma.RatingUpdateManyMutationInput, Prisma.RatingUncheckedUpdateManyWithoutUserInput>
 }
 
 export type RatingCreateManyProfessorInput = {
   id?: string
   rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -1177,13 +1034,12 @@ export type RatingCreateManyProfessorInput = {
   tags?: Prisma.RatingCreatetagsInput | string[]
   courseId: string
   postedAt: Date | string
-  userId?: string | null
 }
 
 export type RatingUpdateWithoutProfessorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1198,13 +1054,12 @@ export type RatingUpdateWithoutProfessorInput = {
   postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutRatingsNestedInput
   flags?: Prisma.FlagUpdateManyWithoutRatingNestedInput
-  user?: Prisma.UserUpdateOneWithoutRatingsNestedInput
 }
 
 export type RatingUncheckedUpdateWithoutProfessorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1218,14 +1073,13 @@ export type RatingUncheckedUpdateWithoutProfessorInput = {
   tags?: Prisma.RatingUpdatetagsInput | string[]
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   flags?: Prisma.FlagUncheckedUpdateManyWithoutRatingNestedInput
 }
 
 export type RatingUncheckedUpdateManyWithoutProfessorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1239,13 +1093,12 @@ export type RatingUncheckedUpdateManyWithoutProfessorInput = {
   tags?: Prisma.RatingUpdatetagsInput | string[]
   courseId?: Prisma.StringFieldUpdateOperationsInput | string
   postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RatingCreateManyCourseInput = {
   id?: string
   rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality: number
   difficulty: number
   isForCredit?: boolean | null
@@ -1259,13 +1112,12 @@ export type RatingCreateManyCourseInput = {
   tags?: Prisma.RatingCreatetagsInput | string[]
   professorId: string
   postedAt: Date | string
-  userId?: string | null
 }
 
 export type RatingUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1280,13 +1132,12 @@ export type RatingUpdateWithoutCourseInput = {
   postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   professor?: Prisma.ProfessorUpdateOneRequiredWithoutRatingsNestedInput
   flags?: Prisma.FlagUpdateManyWithoutRatingNestedInput
-  user?: Prisma.UserUpdateOneWithoutRatingsNestedInput
 }
 
 export type RatingUncheckedUpdateWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1300,14 +1151,13 @@ export type RatingUncheckedUpdateWithoutCourseInput = {
   tags?: Prisma.RatingUpdatetagsInput | string[]
   professorId?: Prisma.StringFieldUpdateOperationsInput | string
   postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   flags?: Prisma.FlagUncheckedUpdateManyWithoutRatingNestedInput
 }
 
 export type RatingUncheckedUpdateManyWithoutCourseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PROCESSING' | 'APPROVED' | 'REJECTED')> | ('PROCESSING' | 'APPROVED' | 'REJECTED')
   quality?: Prisma.IntFieldUpdateOperationsInput | number
   difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1320,89 +1170,6 @@ export type RatingUncheckedUpdateManyWithoutCourseInput = {
   thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.RatingUpdatetagsInput | string[]
   professorId?: Prisma.StringFieldUpdateOperationsInput | string
-  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type RatingCreateManyUserInput = {
-  id?: string
-  rmpId?: string | null
-  status?:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
-  quality: number
-  difficulty: number
-  isForCredit?: boolean | null
-  comment?: string | null
-  textBookRequired?: boolean | null
-  attendanceRequired: boolean
-  gradeReceived?: string | null
-  wouldTakeAgain?: boolean | null
-  thumbsUpTotal?: number
-  thumbsDownTotal?: number
-  tags?: Prisma.RatingCreatetagsInput | string[]
-  professorId: string
-  courseId: string
-  postedAt: Date | string
-}
-
-export type RatingUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
-  quality?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
-  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
-  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.RatingUpdatetagsInput | string[]
-  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  professor?: Prisma.ProfessorUpdateOneRequiredWithoutRatingsNestedInput
-  course?: Prisma.CourseUpdateOneRequiredWithoutRatingsNestedInput
-  flags?: Prisma.FlagUpdateManyWithoutRatingNestedInput
-}
-
-export type RatingUncheckedUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
-  quality?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
-  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
-  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.RatingUpdatetagsInput | string[]
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
-  postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  flags?: Prisma.FlagUncheckedUpdateManyWithoutRatingNestedInput
-}
-
-export type RatingUncheckedUpdateManyWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')> | ('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
-  quality?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
-  isForCredit?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  textBookRequired?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  attendanceRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  gradeReceived?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  wouldTakeAgain?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  thumbsUpTotal?: Prisma.IntFieldUpdateOperationsInput | number
-  thumbsDownTotal?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.RatingUpdatetagsInput | string[]
-  professorId?: Prisma.StringFieldUpdateOperationsInput | string
-  courseId?: Prisma.StringFieldUpdateOperationsInput | string
   postedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1455,11 +1222,9 @@ export type RatingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   professorId?: boolean
   courseId?: boolean
   postedAt?: boolean
-  userId?: boolean
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   flags?: boolean | Prisma.Rating$flagsArgs<ExtArgs>
-  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
   _count?: boolean | Prisma.RatingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["rating"]>
 
@@ -1481,10 +1246,8 @@ export type RatingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   professorId?: boolean
   courseId?: boolean
   postedAt?: boolean
-  userId?: boolean
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
 }, ExtArgs["result"]["rating"]>
 
 export type RatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1505,10 +1268,8 @@ export type RatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   professorId?: boolean
   courseId?: boolean
   postedAt?: boolean
-  userId?: boolean
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
 }, ExtArgs["result"]["rating"]>
 
 export type RatingSelectScalar = {
@@ -1529,26 +1290,22 @@ export type RatingSelectScalar = {
   professorId?: boolean
   courseId?: boolean
   postedAt?: boolean
-  userId?: boolean
 }
 
-export type RatingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rmpId" | "status" | "quality" | "difficulty" | "isForCredit" | "comment" | "textBookRequired" | "attendanceRequired" | "gradeReceived" | "wouldTakeAgain" | "thumbsUpTotal" | "thumbsDownTotal" | "tags" | "professorId" | "courseId" | "postedAt" | "userId", ExtArgs["result"]["rating"]>
+export type RatingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rmpId" | "status" | "quality" | "difficulty" | "isForCredit" | "comment" | "textBookRequired" | "attendanceRequired" | "gradeReceived" | "wouldTakeAgain" | "thumbsUpTotal" | "thumbsDownTotal" | "tags" | "professorId" | "courseId" | "postedAt", ExtArgs["result"]["rating"]>
 export type RatingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   flags?: boolean | Prisma.Rating$flagsArgs<ExtArgs>
-  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
   _count?: boolean | Prisma.RatingCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RatingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
 }
 export type RatingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   professor?: boolean | Prisma.ProfessorDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.Rating$userArgs<ExtArgs>
 }
 
 export type $RatingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1557,15 +1314,14 @@ export type $RatingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     professor: Prisma.$ProfessorPayload<ExtArgs>
     course: Prisma.$CoursePayload<ExtArgs>
     flags: Prisma.$FlagPayload<ExtArgs>[]
-    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     rmpId: string | null
     /**
-     * !['PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED']
+     * !['PROCESSING' | 'APPROVED' | 'REJECTED']
      */
-    status:('PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED')
+    status:('PROCESSING' | 'APPROVED' | 'REJECTED')
     quality: number
     difficulty: number
     isForCredit: boolean | null
@@ -1580,7 +1336,6 @@ export type $RatingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     professorId: string
     courseId: string
     postedAt: Date
-    userId: string | null
   }, ExtArgs["result"]["rating"]>
   composites: {}
 }
@@ -1978,7 +1733,6 @@ export interface Prisma__RatingClient<T, Null = never, ExtArgs extends runtime.T
   professor<T extends Prisma.ProfessorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfessorDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfessorClient<runtime.Types.Result.GetResult<Prisma.$ProfessorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   flags<T extends Prisma.Rating$flagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Rating$flagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  user<T extends Prisma.Rating$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Rating$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2025,7 +1779,6 @@ export interface RatingFieldRefs {
   readonly professorId: Prisma.FieldRef<"Rating", 'String'>
   readonly courseId: Prisma.FieldRef<"Rating", 'String'>
   readonly postedAt: Prisma.FieldRef<"Rating", 'DateTime'>
-  readonly userId: Prisma.FieldRef<"Rating", 'String'>
 }
     
 
@@ -2452,25 +2205,6 @@ export type Rating$flagsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.FlagScalarFieldEnum | Prisma.FlagScalarFieldEnum[]
-}
-
-/**
- * Rating.user
- */
-export type Rating$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
 }
 
 /**

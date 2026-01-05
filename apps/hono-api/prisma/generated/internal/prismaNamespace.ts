@@ -1511,7 +1511,9 @@ export type RelationLoadStrategy = (typeof RelationLoadStrategy)[keyof typeof Re
 
 export const DepartmentScalarFieldEnum = {
   prefix: 'prefix',
-  name: 'name'
+  name: 'name',
+  websiteUrl: 'websiteUrl',
+  facultyUrl: 'facultyUrl'
 } as const
 
 export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
@@ -1588,8 +1590,7 @@ export const FlagScalarFieldEnum = {
   reason: 'reason',
   reviewStatus: 'reviewStatus',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type FlagScalarFieldEnum = (typeof FlagScalarFieldEnum)[keyof typeof FlagScalarFieldEnum]
@@ -1612,8 +1613,7 @@ export const RatingScalarFieldEnum = {
   tags: 'tags',
   professorId: 'professorId',
   courseId: 'courseId',
-  postedAt: 'postedAt',
-  userId: 'userId'
+  postedAt: 'postedAt'
 } as const
 
 export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
@@ -1631,15 +1631,15 @@ export type CourseProfessorScalarFieldEnum = (typeof CourseProfessorScalarFieldE
 export const FileScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  key: 'key',
+  originalKey: 'originalKey',
+  processedKey: 'processedKey',
   mimeType: 'mimeType',
   size: 'size',
   courseId: 'courseId',
   status: 'status',
   resourceType: 'resourceType',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]

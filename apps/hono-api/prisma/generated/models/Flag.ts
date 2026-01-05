@@ -34,7 +34,6 @@ export type FlagMinAggregateOutputType = {
   reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED') | null
   createdAt: Date | null
   updatedAt: Date | null
-  userId: string | null
 }
 
 export type FlagMaxAggregateOutputType = {
@@ -45,7 +44,6 @@ export type FlagMaxAggregateOutputType = {
   reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED') | null
   createdAt: Date | null
   updatedAt: Date | null
-  userId: string | null
 }
 
 export type FlagCountAggregateOutputType = {
@@ -56,7 +54,6 @@ export type FlagCountAggregateOutputType = {
   reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt: number
   updatedAt: number
-  userId: number
   _all: number
 }
 
@@ -69,7 +66,6 @@ export type FlagMinAggregateInputType = {
   reviewStatus?: true
   createdAt?: true
   updatedAt?: true
-  userId?: true
 }
 
 export type FlagMaxAggregateInputType = {
@@ -80,7 +76,6 @@ export type FlagMaxAggregateInputType = {
   reviewStatus?: true
   createdAt?: true
   updatedAt?: true
-  userId?: true
 }
 
 export type FlagCountAggregateInputType = {
@@ -91,7 +86,6 @@ export type FlagCountAggregateInputType = {
   reviewStatus?: true
   createdAt?: true
   updatedAt?: true
-  userId?: true
   _all?: true
 }
 
@@ -175,7 +169,6 @@ export type FlagGroupByOutputType = {
   reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt: Date
   updatedAt: Date
-  userId: string | null
   _count: FlagCountAggregateOutputType | null
   _min: FlagMinAggregateOutputType | null
   _max: FlagMaxAggregateOutputType | null
@@ -207,10 +200,8 @@ export type FlagWhereInput = {
   reviewStatus?:PJTG.TypedStringFilter<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
-  userId?: Prisma.StringNullableFilter<"Flag"> | string | null
   rating?: Prisma.XOR<Prisma.RatingNullableScalarRelationFilter, Prisma.RatingWhereInput> | null
   file?: Prisma.XOR<Prisma.FileNullableScalarRelationFilter, Prisma.FileWhereInput> | null
-  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type FlagOrderByWithRelationInput = {
@@ -221,10 +212,8 @@ export type FlagOrderByWithRelationInput = {
   reviewStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.RatingOrderByWithRelationInput
   file?: Prisma.FileOrderByWithRelationInput
-  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type FlagWhereUniqueInput = Prisma.AtLeast<{
@@ -238,10 +227,8 @@ export type FlagWhereUniqueInput = Prisma.AtLeast<{
   reviewStatus?: Prisma.StringFilter<"Flag"> | string
   createdAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
-  userId?: Prisma.StringNullableFilter<"Flag"> | string | null
   rating?: Prisma.XOR<Prisma.RatingNullableScalarRelationFilter, Prisma.RatingWhereInput> | null
   file?: Prisma.XOR<Prisma.FileNullableScalarRelationFilter, Prisma.FileWhereInput> | null
-  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type FlagOrderByWithAggregationInput = {
@@ -252,7 +239,6 @@ export type FlagOrderByWithAggregationInput = {
   reviewStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.FlagCountOrderByAggregateInput
   _max?: Prisma.FlagMaxOrderByAggregateInput
   _min?: Prisma.FlagMinOrderByAggregateInput
@@ -269,7 +255,6 @@ export type FlagScalarWhereWithAggregatesInput = {
   reviewStatus?:PJTG.TypedStringWithAggregatesFilter<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Flag"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Flag"> | Date | string
-  userId?: Prisma.StringNullableWithAggregatesFilter<"Flag"> | string | null
 }
 
 export type FlagCreateInput = {
@@ -280,7 +265,6 @@ export type FlagCreateInput = {
   updatedAt?: Date | string
   rating?: Prisma.RatingCreateNestedOneWithoutFlagsInput
   file?: Prisma.FileCreateNestedOneWithoutFlagsInput
-  user?: Prisma.UserCreateNestedOneWithoutFlagsInput
 }
 
 export type FlagUncheckedCreateInput = {
@@ -291,7 +275,6 @@ export type FlagUncheckedCreateInput = {
   reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
-  userId?: string | null
 }
 
 export type FlagUpdateInput = {
@@ -302,7 +285,6 @@ export type FlagUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rating?: Prisma.RatingUpdateOneWithoutFlagsNestedInput
   file?: Prisma.FileUpdateOneWithoutFlagsNestedInput
-  user?: Prisma.UserUpdateOneWithoutFlagsNestedInput
 }
 
 export type FlagUncheckedUpdateInput = {
@@ -313,7 +295,6 @@ export type FlagUncheckedUpdateInput = {
   reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type FlagCreateManyInput = {
@@ -324,7 +305,6 @@ export type FlagCreateManyInput = {
   reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
-  userId?: string | null
 }
 
 export type FlagUpdateManyMutationInput = {
@@ -343,7 +323,6 @@ export type FlagUncheckedUpdateManyInput = {
   reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type FlagCountOrderByAggregateInput = {
@@ -354,7 +333,6 @@ export type FlagCountOrderByAggregateInput = {
   reviewStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
 }
 
 export type FlagMaxOrderByAggregateInput = {
@@ -365,7 +343,6 @@ export type FlagMaxOrderByAggregateInput = {
   reviewStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
 }
 
 export type FlagMinOrderByAggregateInput = {
@@ -376,7 +353,6 @@ export type FlagMinOrderByAggregateInput = {
   reviewStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
 }
 
 export type FlagListRelationFilter = {
@@ -473,48 +449,6 @@ export type FlagUncheckedUpdateManyWithoutFileNestedInput = {
   deleteMany?: Prisma.FlagScalarWhereInput | Prisma.FlagScalarWhereInput[]
 }
 
-export type FlagCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.FlagCreateWithoutUserInput, Prisma.FlagUncheckedCreateWithoutUserInput> | Prisma.FlagCreateWithoutUserInput[] | Prisma.FlagUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.FlagCreateOrConnectWithoutUserInput | Prisma.FlagCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.FlagCreateManyUserInputEnvelope
-  connect?: Prisma.FlagWhereUniqueInput | Prisma.FlagWhereUniqueInput[]
-}
-
-export type FlagUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.FlagCreateWithoutUserInput, Prisma.FlagUncheckedCreateWithoutUserInput> | Prisma.FlagCreateWithoutUserInput[] | Prisma.FlagUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.FlagCreateOrConnectWithoutUserInput | Prisma.FlagCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.FlagCreateManyUserInputEnvelope
-  connect?: Prisma.FlagWhereUniqueInput | Prisma.FlagWhereUniqueInput[]
-}
-
-export type FlagUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.FlagCreateWithoutUserInput, Prisma.FlagUncheckedCreateWithoutUserInput> | Prisma.FlagCreateWithoutUserInput[] | Prisma.FlagUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.FlagCreateOrConnectWithoutUserInput | Prisma.FlagCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.FlagUpsertWithWhereUniqueWithoutUserInput | Prisma.FlagUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.FlagCreateManyUserInputEnvelope
-  set?: Prisma.FlagWhereUniqueInput | Prisma.FlagWhereUniqueInput[]
-  disconnect?: Prisma.FlagWhereUniqueInput | Prisma.FlagWhereUniqueInput[]
-  delete?: Prisma.FlagWhereUniqueInput | Prisma.FlagWhereUniqueInput[]
-  connect?: Prisma.FlagWhereUniqueInput | Prisma.FlagWhereUniqueInput[]
-  update?: Prisma.FlagUpdateWithWhereUniqueWithoutUserInput | Prisma.FlagUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.FlagUpdateManyWithWhereWithoutUserInput | Prisma.FlagUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.FlagScalarWhereInput | Prisma.FlagScalarWhereInput[]
-}
-
-export type FlagUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.FlagCreateWithoutUserInput, Prisma.FlagUncheckedCreateWithoutUserInput> | Prisma.FlagCreateWithoutUserInput[] | Prisma.FlagUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.FlagCreateOrConnectWithoutUserInput | Prisma.FlagCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.FlagUpsertWithWhereUniqueWithoutUserInput | Prisma.FlagUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.FlagCreateManyUserInputEnvelope
-  set?: Prisma.FlagWhereUniqueInput | Prisma.FlagWhereUniqueInput[]
-  disconnect?: Prisma.FlagWhereUniqueInput | Prisma.FlagWhereUniqueInput[]
-  delete?: Prisma.FlagWhereUniqueInput | Prisma.FlagWhereUniqueInput[]
-  connect?: Prisma.FlagWhereUniqueInput | Prisma.FlagWhereUniqueInput[]
-  update?: Prisma.FlagUpdateWithWhereUniqueWithoutUserInput | Prisma.FlagUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.FlagUpdateManyWithWhereWithoutUserInput | Prisma.FlagUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.FlagScalarWhereInput | Prisma.FlagScalarWhereInput[]
-}
-
 export type FlagCreateWithoutRatingInput = {
   id?: string
   reason: string
@@ -522,7 +456,6 @@ export type FlagCreateWithoutRatingInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   file?: Prisma.FileCreateNestedOneWithoutFlagsInput
-  user?: Prisma.UserCreateNestedOneWithoutFlagsInput
 }
 
 export type FlagUncheckedCreateWithoutRatingInput = {
@@ -532,7 +465,6 @@ export type FlagUncheckedCreateWithoutRatingInput = {
   reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
-  userId?: string | null
 }
 
 export type FlagCreateOrConnectWithoutRatingInput = {
@@ -572,7 +504,6 @@ export type FlagScalarWhereInput = {
   reviewStatus?:PJTG.TypedStringFilter<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Flag"> | Date | string
-  userId?: Prisma.StringNullableFilter<"Flag"> | string | null
 }
 
 export type FlagCreateWithoutFileInput = {
@@ -582,7 +513,6 @@ export type FlagCreateWithoutFileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   rating?: Prisma.RatingCreateNestedOneWithoutFlagsInput
-  user?: Prisma.UserCreateNestedOneWithoutFlagsInput
 }
 
 export type FlagUncheckedCreateWithoutFileInput = {
@@ -592,7 +522,6 @@ export type FlagUncheckedCreateWithoutFileInput = {
   reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
-  userId?: string | null
 }
 
 export type FlagCreateOrConnectWithoutFileInput = {
@@ -621,52 +550,6 @@ export type FlagUpdateManyWithWhereWithoutFileInput = {
   data: Prisma.XOR<Prisma.FlagUpdateManyMutationInput, Prisma.FlagUncheckedUpdateManyWithoutFileInput>
 }
 
-export type FlagCreateWithoutUserInput = {
-  id?: string
-  reason: string
-  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  rating?: Prisma.RatingCreateNestedOneWithoutFlagsInput
-  file?: Prisma.FileCreateNestedOneWithoutFlagsInput
-}
-
-export type FlagUncheckedCreateWithoutUserInput = {
-  id?: string
-  ratingId?: string | null
-  fileId?: string | null
-  reason: string
-  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type FlagCreateOrConnectWithoutUserInput = {
-  where: Prisma.FlagWhereUniqueInput
-  create: Prisma.XOR<Prisma.FlagCreateWithoutUserInput, Prisma.FlagUncheckedCreateWithoutUserInput>
-}
-
-export type FlagCreateManyUserInputEnvelope = {
-  data: Prisma.FlagCreateManyUserInput | Prisma.FlagCreateManyUserInput[]
-  skipDuplicates?: boolean
-}
-
-export type FlagUpsertWithWhereUniqueWithoutUserInput = {
-  where: Prisma.FlagWhereUniqueInput
-  update: Prisma.XOR<Prisma.FlagUpdateWithoutUserInput, Prisma.FlagUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.FlagCreateWithoutUserInput, Prisma.FlagUncheckedCreateWithoutUserInput>
-}
-
-export type FlagUpdateWithWhereUniqueWithoutUserInput = {
-  where: Prisma.FlagWhereUniqueInput
-  data: Prisma.XOR<Prisma.FlagUpdateWithoutUserInput, Prisma.FlagUncheckedUpdateWithoutUserInput>
-}
-
-export type FlagUpdateManyWithWhereWithoutUserInput = {
-  where: Prisma.FlagScalarWhereInput
-  data: Prisma.XOR<Prisma.FlagUpdateManyMutationInput, Prisma.FlagUncheckedUpdateManyWithoutUserInput>
-}
-
 export type FlagCreateManyRatingInput = {
   id?: string
   fileId?: string | null
@@ -674,7 +557,6 @@ export type FlagCreateManyRatingInput = {
   reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
-  userId?: string | null
 }
 
 export type FlagUpdateWithoutRatingInput = {
@@ -684,7 +566,6 @@ export type FlagUpdateWithoutRatingInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   file?: Prisma.FileUpdateOneWithoutFlagsNestedInput
-  user?: Prisma.UserUpdateOneWithoutFlagsNestedInput
 }
 
 export type FlagUncheckedUpdateWithoutRatingInput = {
@@ -694,7 +575,6 @@ export type FlagUncheckedUpdateWithoutRatingInput = {
   reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type FlagUncheckedUpdateManyWithoutRatingInput = {
@@ -704,7 +584,6 @@ export type FlagUncheckedUpdateManyWithoutRatingInput = {
   reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type FlagCreateManyFileInput = {
@@ -714,7 +593,6 @@ export type FlagCreateManyFileInput = {
   reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Date | string
   updatedAt?: Date | string
-  userId?: string | null
 }
 
 export type FlagUpdateWithoutFileInput = {
@@ -724,7 +602,6 @@ export type FlagUpdateWithoutFileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rating?: Prisma.RatingUpdateOneWithoutFlagsNestedInput
-  user?: Prisma.UserUpdateOneWithoutFlagsNestedInput
 }
 
 export type FlagUncheckedUpdateWithoutFileInput = {
@@ -734,53 +611,11 @@ export type FlagUncheckedUpdateWithoutFileInput = {
   reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type FlagUncheckedUpdateManyWithoutFileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ratingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type FlagCreateManyUserInput = {
-  id?: string
-  ratingId?: string | null
-  fileId?: string | null
-  reason: string
-  reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type FlagUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  rating?: Prisma.RatingUpdateOneWithoutFlagsNestedInput
-  file?: Prisma.FileUpdateOneWithoutFlagsNestedInput
-}
-
-export type FlagUncheckedUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  reason?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type FlagUncheckedUpdateManyWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   reviewStatus?:PJTG.TypedStringFieldUpdateOperationsInput<('PENDING' | 'APPROVED' | 'REJECTED')> | ('PENDING' | 'APPROVED' | 'REJECTED')
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -797,10 +632,8 @@ export type FlagSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reviewStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  userId?: boolean
   rating?: boolean | Prisma.Flag$ratingArgs<ExtArgs>
   file?: boolean | Prisma.Flag$fileArgs<ExtArgs>
-  user?: boolean | Prisma.Flag$userArgs<ExtArgs>
 }, ExtArgs["result"]["flag"]>
 
 export type FlagSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -811,10 +644,8 @@ export type FlagSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   reviewStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  userId?: boolean
   rating?: boolean | Prisma.Flag$ratingArgs<ExtArgs>
   file?: boolean | Prisma.Flag$fileArgs<ExtArgs>
-  user?: boolean | Prisma.Flag$userArgs<ExtArgs>
 }, ExtArgs["result"]["flag"]>
 
 export type FlagSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -825,10 +656,8 @@ export type FlagSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   reviewStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  userId?: boolean
   rating?: boolean | Prisma.Flag$ratingArgs<ExtArgs>
   file?: boolean | Prisma.Flag$fileArgs<ExtArgs>
-  user?: boolean | Prisma.Flag$userArgs<ExtArgs>
 }, ExtArgs["result"]["flag"]>
 
 export type FlagSelectScalar = {
@@ -839,24 +668,20 @@ export type FlagSelectScalar = {
   reviewStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  userId?: boolean
 }
 
-export type FlagOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ratingId" | "fileId" | "reason" | "reviewStatus" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["flag"]>
+export type FlagOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ratingId" | "fileId" | "reason" | "reviewStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["flag"]>
 export type FlagInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rating?: boolean | Prisma.Flag$ratingArgs<ExtArgs>
   file?: boolean | Prisma.Flag$fileArgs<ExtArgs>
-  user?: boolean | Prisma.Flag$userArgs<ExtArgs>
 }
 export type FlagIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rating?: boolean | Prisma.Flag$ratingArgs<ExtArgs>
   file?: boolean | Prisma.Flag$fileArgs<ExtArgs>
-  user?: boolean | Prisma.Flag$userArgs<ExtArgs>
 }
 export type FlagIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rating?: boolean | Prisma.Flag$ratingArgs<ExtArgs>
   file?: boolean | Prisma.Flag$fileArgs<ExtArgs>
-  user?: boolean | Prisma.Flag$userArgs<ExtArgs>
 }
 
 export type $FlagPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -864,7 +689,6 @@ export type $FlagPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     rating: Prisma.$RatingPayload<ExtArgs> | null
     file: Prisma.$FilePayload<ExtArgs> | null
-    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -877,7 +701,6 @@ export type $FlagPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reviewStatus:('PENDING' | 'APPROVED' | 'REJECTED')
     createdAt: Date
     updatedAt: Date
-    userId: string | null
   }, ExtArgs["result"]["flag"]>
   composites: {}
 }
@@ -1274,7 +1097,6 @@ export interface Prisma__FlagClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   rating<T extends Prisma.Flag$ratingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Flag$ratingArgs<ExtArgs>>): Prisma.Prisma__RatingClient<runtime.Types.Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   file<T extends Prisma.Flag$fileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Flag$fileArgs<ExtArgs>>): Prisma.Prisma__FileClient<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  user<T extends Prisma.Flag$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Flag$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1311,7 +1133,6 @@ export interface FlagFieldRefs {
   readonly reviewStatus: Prisma.FieldRef<"Flag", 'String'>
   readonly createdAt: Prisma.FieldRef<"Flag", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Flag", 'DateTime'>
-  readonly userId: Prisma.FieldRef<"Flag", 'String'>
 }
     
 
@@ -1752,25 +1573,6 @@ export type Flag$fileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
    */
   include?: Prisma.FileInclude<ExtArgs> | null
   where?: Prisma.FileWhereInput
-}
-
-/**
- * Flag.user
- */
-export type Flag$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
 }
 
 /**

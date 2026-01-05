@@ -546,10 +546,6 @@ export type ProfessorUncheckedUpdateManyWithoutDepartmentNestedInput = {
   deleteMany?: Prisma.ProfessorScalarWhereInput | Prisma.ProfessorScalarWhereInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }

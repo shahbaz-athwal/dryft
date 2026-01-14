@@ -21,19 +21,3 @@ export const inngest = new Inngest({
     "rmp/trigger-reviews-pulling": z.object({}),
   }),
 });
-
-export const inngestAgent = new Inngest({
-  id: "professor-enrichment-agent",
-  schemas: new EventSchemas().fromSchema({
-    "enrich/professors-by-department": z.object({
-      departmentName: z.string(),
-      departmentPrefix: z.string(),
-      professors: z.array(
-        z.object({
-          id: z.string(),
-          name: z.string(),
-        })
-      ),
-    }),
-  }),
-});

@@ -1,7 +1,8 @@
 import { os, type RouterClient } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { inngest } from "../inngest/client";
-import { queryCourses } from "./course";
+import { courseById, queryCourses } from "./course";
+import { professorById } from "./professor";
 
 export const syncProfessors = os.handler(async () => {
   const { ids } = await inngest.send({
@@ -39,6 +40,10 @@ export const populateCourses = os.handler(async () => {
 export const router = {
   courses: {
     query: queryCourses,
+    byId: courseById,
+  },
+  professors: {
+    byId: professorById,
   },
   internal: {},
 };

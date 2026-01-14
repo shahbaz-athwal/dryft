@@ -288,3 +288,181 @@ export const queryCourses = os
       totalCount,
     };
   });
+
+const courseByIdInputSchema = z.object({
+  code: z.string().min(1),
+});
+
+export const courseById = os
+  .input(courseByIdInputSchema)
+  .errors({
+    NOT_FOUND: {
+      message: "Course not found",
+    },
+  })
+  .handler(async ({ input, errors }) => {
+    const course = await db.course.findUnique({
+      where: { code: input.code },
+      include: {
+        department: true,
+        sections: {
+          include: {
+            term: true,
+            professor: true,
+          },
+          orderBy: [
+            { termCode: "desc" },
+            { sectionCode: "asc" },
+            { classStartTime: "asc" },
+          ],
+        },
+        professors: {
+          include: {
+            professor: true,
+          },
+        },
+        ratings: {
+          where: { status: "APPROVED" },
+          include: {
+            professor: {
+              select: {
+                id: true,
+                name: true,
+                imageUrl: true,
+              },
+            },
+            _count: {
+              select: { flags: true },
+            },
+          },
+          orderBy: { postedAt: "desc" },
+        },
+        files: {
+          where: { status: "APPROVED" },
+          orderBy: { createdAt: "desc" },
+        },
+      },
+    });
+
+    if (!course) {
+      throw errors.NOT_FOUND({
+        message: `Course with code "${input.code}" not found`,
+      });
+    }
+
+    // Group sections by term
+    const sectionsByTermMap = new Map<
+      string,
+      {
+        term: {
+          code: string;
+          name: string;
+          isActive: boolean;
+          startDate: Date;
+          endDate: Date;
+        };
+        sections: typeof course.sections;
+      }
+    >();
+
+    for (const section of course.sections) {
+      const termCode = section.termCode;
+      if (!sectionsByTermMap.has(termCode)) {
+        sectionsByTermMap.set(termCode, {
+          term: section.term,
+          sections: [],
+        });
+      }
+      const termGroup = sectionsByTermMap.get(termCode);
+      if (termGroup) {
+        termGroup.sections.push(section);
+      }
+    }
+
+    // Convert to array and sort: active terms first, then by startDate desc
+    const sectionsByTerm = Array.from(sectionsByTermMap.values()).sort(
+      (a, b) => {
+        if (a.term.isActive !== b.term.isActive) {
+          return a.term.isActive ? -1 : 1;
+        }
+        return b.term.startDate.getTime() - a.term.startDate.getTime();
+      }
+    );
+
+    // Extract professors with optional section counts
+    const professors = course.professors.map((cp) => {
+      const sectionCount = course.sections.filter(
+        (s) => s.professorId === cp.professor.id
+      ).length;
+      return {
+        id: cp.professor.id,
+        name: cp.professor.name,
+        designation: cp.professor.designation,
+        imageUrl: cp.professor.imageUrl,
+        departmentPrefix: cp.professor.departmentPrefix,
+        sectionCountForCourse: sectionCount,
+      };
+    });
+
+    // Compute aggregates from approved ratings
+    const approvedRatings = course.ratings;
+    const totalRatings = approvedRatings.length;
+    const avgDifficulty =
+      totalRatings > 0
+        ? approvedRatings.reduce((sum, r) => sum + r.difficulty, 0) /
+          totalRatings
+        : null;
+    const avgQuality =
+      totalRatings > 0
+        ? approvedRatings.reduce((sum, r) => sum + r.quality, 0) / totalRatings
+        : null;
+
+    return {
+      metadata: {
+        id: course.id,
+        code: course.code,
+        title: course.title,
+        description: course.description,
+        credits: course.credits,
+        departmentPrefix: course.departmentPrefix,
+        departmentName: course.department.name,
+        requisites: course.requisites,
+        lastSectionPulledAt: course.lastSectionPulledAt,
+      },
+      sectionsByTerm,
+      professors,
+      ratings: approvedRatings.map((r) => ({
+        id: r.id,
+        professorId: r.professorId,
+        professorName: r.professor.name,
+        professorImageUrl: r.professor.imageUrl,
+        quality: r.quality,
+        difficulty: r.difficulty,
+        comment: r.comment,
+        postedAt: r.postedAt,
+        tags: r.tags,
+        wouldTakeAgain: r.wouldTakeAgain,
+        isForCredit: r.isForCredit,
+        textBookRequired: r.textBookRequired,
+        attendanceRequired: r.attendanceRequired,
+        gradeReceived: r.gradeReceived,
+        thumbsUpTotal: r.thumbsUpTotal,
+        thumbsDownTotal: r.thumbsDownTotal,
+        flagCount: r._count.flags,
+      })),
+      files: course.files.map((f) => ({
+        id: f.id,
+        name: f.name,
+        key: f.key,
+        mimeType: f.mimeType,
+        size: f.size,
+        createdAt: f.createdAt,
+        userId: f.userId,
+      })),
+      _aggregates: {
+        totalRatings,
+        avgDifficulty,
+        avgQuality,
+      },
+    };
+  });

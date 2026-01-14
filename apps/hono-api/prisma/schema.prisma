@@ -25,8 +25,8 @@ model Log {
 model Department {
   prefix     String      @id
   name       String
-  // websiteUrl String?
-  // facultyUrl String?  // Todo: Add this back in
+  websiteUrl String?
+  facultyUrl String?
   professors Professor[]
   courses    Course[]
 
@@ -124,8 +124,6 @@ model Flag {
   reviewStatus String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  userId       String?
-  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([ratingId])
   @@index([fileId])
@@ -136,8 +134,8 @@ model Flag {
 model Rating {
   id                 String    @id @default(uuid())
   rmpId              String?   @unique
-  /// !['PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED']
-  status             String    @default("PENDING_ANALYSIS")
+  /// !['PROCESSING' | 'APPROVED' | 'REJECTED']
+  status             String    @default("PROCESSING")
   quality            Int
   difficulty         Int
   isForCredit        Boolean?
@@ -155,8 +153,6 @@ model Rating {
   course             Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
   postedAt           DateTime
   flags              Flag[]
-  userId             String?
-  user               User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([professorId])
   @@index([courseId])
@@ -178,20 +174,21 @@ model CourseProfessor {
 }
 
 model File {
-  id        String   @id @default(uuid())
-  name      String
-  key       String   @unique
-  mimeType  String
-  size      Int
-  courseId  String
-  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  /// !['PENDING_ANALYSIS' | 'APPROVED' | 'AI_FLAGGED' | 'USER_FLAGGED' | 'REJECTED']
-  status    String   @default("PENDING_ANALYSIS")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    String?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  flags     Flag[]
+  id           String   @id @default(uuid())
+  name         String
+  originalKey  String   @unique
+  processedKey String?
+  mimeType     String
+  size         Int
+  courseId     String
+  course       Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  /// !['PROCESSING' | 'APPROVED' | 'APPROVED_PII_REDACTED' | 'REJECTED']
+  status       String   @default("PROCESSING")
+  /// !['ASSIGNMENT' | 'NOTES' | 'EXAM_PAPER' | 'CHEAT_SHEET' | 'SYLLABUS' | 'OTHER']
+  resourceType String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  flags        Flag[]
 
   @@index([courseId])
   @@index([status])
@@ -208,9 +205,6 @@ model User {
   image         String?
   sessions      Session[]
   accounts      Account[]
-  flags         Flag[]
-  ratings       Rating[]
-  files         File[]
 
   @@map("user")
 }

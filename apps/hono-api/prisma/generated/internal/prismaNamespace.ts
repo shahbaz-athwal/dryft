@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.0.1
- * Query Engine version: f09f2815f091dbba658cdcd2264306d88bb5bda6
+ * Prisma Client JS version: 7.2.0
+ * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.0.1",
-  engine: "f09f2815f091dbba658cdcd2264306d88bb5bda6"
+  client: "7.2.0",
+  engine: "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3"
 }
 
 /**
@@ -1511,7 +1511,9 @@ export type RelationLoadStrategy = (typeof RelationLoadStrategy)[keyof typeof Re
 
 export const DepartmentScalarFieldEnum = {
   prefix: 'prefix',
-  name: 'name'
+  name: 'name',
+  websiteUrl: 'websiteUrl',
+  facultyUrl: 'facultyUrl'
 } as const
 
 export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
@@ -1588,8 +1590,7 @@ export const FlagScalarFieldEnum = {
   reason: 'reason',
   reviewStatus: 'reviewStatus',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type FlagScalarFieldEnum = (typeof FlagScalarFieldEnum)[keyof typeof FlagScalarFieldEnum]
@@ -1612,8 +1613,7 @@ export const RatingScalarFieldEnum = {
   tags: 'tags',
   professorId: 'professorId',
   courseId: 'courseId',
-  postedAt: 'postedAt',
-  userId: 'userId'
+  postedAt: 'postedAt'
 } as const
 
 export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
@@ -1631,14 +1631,15 @@ export type CourseProfessorScalarFieldEnum = (typeof CourseProfessorScalarFieldE
 export const FileScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  key: 'key',
+  originalKey: 'originalKey',
+  processedKey: 'processedKey',
   mimeType: 'mimeType',
   size: 'size',
   courseId: 'courseId',
   status: 'status',
+  resourceType: 'resourceType',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
@@ -1874,7 +1875,7 @@ export type PrismaClientOptions = ({
    *  { emit: 'stdout', level: 'error' }
    * 
    * ```
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
+   * Read more in our [docs](https://pris.ly/d/logging).
    */
   log?: (LogLevel | LogDefinition)[]
   /**
@@ -1902,6 +1903,22 @@ export type PrismaClientOptions = ({
    * ```
    */
   omit?: GlobalOmitConfig
+  /**
+   * SQL commenter plugins that add metadata to SQL queries as comments.
+   * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
+   * 
+   * @example
+   * ```
+   * const prisma = new PrismaClient({
+   *   adapter,
+   *   comments: [
+   *     traceContext(),
+   *     queryInsights(),
+   *   ],
+   * })
+   * ```
+   */
+  comments?: runtime.SqlCommenterPlugin[]
 }
 export type GlobalOmitConfig = {
   log?: Prisma.LogOmit

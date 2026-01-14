@@ -29,16 +29,22 @@ export type AggregateDepartment = {
 export type DepartmentMinAggregateOutputType = {
   prefix: string | null
   name: string | null
+  websiteUrl: string | null
+  facultyUrl: string | null
 }
 
 export type DepartmentMaxAggregateOutputType = {
   prefix: string | null
   name: string | null
+  websiteUrl: string | null
+  facultyUrl: string | null
 }
 
 export type DepartmentCountAggregateOutputType = {
   prefix: number
   name: number
+  websiteUrl: number
+  facultyUrl: number
   _all: number
 }
 
@@ -46,16 +52,22 @@ export type DepartmentCountAggregateOutputType = {
 export type DepartmentMinAggregateInputType = {
   prefix?: true
   name?: true
+  websiteUrl?: true
+  facultyUrl?: true
 }
 
 export type DepartmentMaxAggregateInputType = {
   prefix?: true
   name?: true
+  websiteUrl?: true
+  facultyUrl?: true
 }
 
 export type DepartmentCountAggregateInputType = {
   prefix?: true
   name?: true
+  websiteUrl?: true
+  facultyUrl?: true
   _all?: true
 }
 
@@ -134,6 +146,8 @@ export type DepartmentGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type DepartmentGroupByOutputType = {
   prefix: string
   name: string
+  websiteUrl: string | null
+  facultyUrl: string | null
   _count: DepartmentCountAggregateOutputType | null
   _min: DepartmentMinAggregateOutputType | null
   _max: DepartmentMaxAggregateOutputType | null
@@ -160,6 +174,8 @@ export type DepartmentWhereInput = {
   NOT?: Prisma.DepartmentWhereInput | Prisma.DepartmentWhereInput[]
   prefix?: Prisma.StringFilter<"Department"> | string
   name?: Prisma.StringFilter<"Department"> | string
+  websiteUrl?: Prisma.StringNullableFilter<"Department"> | string | null
+  facultyUrl?: Prisma.StringNullableFilter<"Department"> | string | null
   professors?: Prisma.ProfessorListRelationFilter
   courses?: Prisma.CourseListRelationFilter
 }
@@ -167,6 +183,8 @@ export type DepartmentWhereInput = {
 export type DepartmentOrderByWithRelationInput = {
   prefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  websiteUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  facultyUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   professors?: Prisma.ProfessorOrderByRelationAggregateInput
   courses?: Prisma.CourseOrderByRelationAggregateInput
 }
@@ -177,6 +195,8 @@ export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.DepartmentWhereInput[]
   NOT?: Prisma.DepartmentWhereInput | Prisma.DepartmentWhereInput[]
   name?: Prisma.StringFilter<"Department"> | string
+  websiteUrl?: Prisma.StringNullableFilter<"Department"> | string | null
+  facultyUrl?: Prisma.StringNullableFilter<"Department"> | string | null
   professors?: Prisma.ProfessorListRelationFilter
   courses?: Prisma.CourseListRelationFilter
 }, "prefix">
@@ -184,6 +204,8 @@ export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
 export type DepartmentOrderByWithAggregationInput = {
   prefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  websiteUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  facultyUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.DepartmentCountOrderByAggregateInput
   _max?: Prisma.DepartmentMaxOrderByAggregateInput
   _min?: Prisma.DepartmentMinOrderByAggregateInput
@@ -195,11 +217,15 @@ export type DepartmentScalarWhereWithAggregatesInput = {
   NOT?: Prisma.DepartmentScalarWhereWithAggregatesInput | Prisma.DepartmentScalarWhereWithAggregatesInput[]
   prefix?: Prisma.StringWithAggregatesFilter<"Department"> | string
   name?: Prisma.StringWithAggregatesFilter<"Department"> | string
+  websiteUrl?: Prisma.StringNullableWithAggregatesFilter<"Department"> | string | null
+  facultyUrl?: Prisma.StringNullableWithAggregatesFilter<"Department"> | string | null
 }
 
 export type DepartmentCreateInput = {
   prefix: string
   name: string
+  websiteUrl?: string | null
+  facultyUrl?: string | null
   professors?: Prisma.ProfessorCreateNestedManyWithoutDepartmentInput
   courses?: Prisma.CourseCreateNestedManyWithoutDepartmentInput
 }
@@ -207,6 +233,8 @@ export type DepartmentCreateInput = {
 export type DepartmentUncheckedCreateInput = {
   prefix: string
   name: string
+  websiteUrl?: string | null
+  facultyUrl?: string | null
   professors?: Prisma.ProfessorUncheckedCreateNestedManyWithoutDepartmentInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDepartmentInput
 }
@@ -214,6 +242,8 @@ export type DepartmentUncheckedCreateInput = {
 export type DepartmentUpdateInput = {
   prefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facultyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   professors?: Prisma.ProfessorUpdateManyWithoutDepartmentNestedInput
   courses?: Prisma.CourseUpdateManyWithoutDepartmentNestedInput
 }
@@ -221,6 +251,8 @@ export type DepartmentUpdateInput = {
 export type DepartmentUncheckedUpdateInput = {
   prefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facultyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   professors?: Prisma.ProfessorUncheckedUpdateManyWithoutDepartmentNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDepartmentNestedInput
 }
@@ -228,36 +260,52 @@ export type DepartmentUncheckedUpdateInput = {
 export type DepartmentCreateManyInput = {
   prefix: string
   name: string
+  websiteUrl?: string | null
+  facultyUrl?: string | null
 }
 
 export type DepartmentUpdateManyMutationInput = {
   prefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facultyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type DepartmentUncheckedUpdateManyInput = {
   prefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facultyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type DepartmentCountOrderByAggregateInput = {
   prefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  websiteUrl?: Prisma.SortOrder
+  facultyUrl?: Prisma.SortOrder
 }
 
 export type DepartmentMaxOrderByAggregateInput = {
   prefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  websiteUrl?: Prisma.SortOrder
+  facultyUrl?: Prisma.SortOrder
 }
 
 export type DepartmentMinOrderByAggregateInput = {
   prefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  websiteUrl?: Prisma.SortOrder
+  facultyUrl?: Prisma.SortOrder
 }
 
 export type DepartmentScalarRelationFilter = {
   is?: Prisma.DepartmentWhereInput
   isNot?: Prisma.DepartmentWhereInput
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type DepartmentCreateNestedOneWithoutProfessorsInput = {
@@ -291,12 +339,16 @@ export type DepartmentUpdateOneRequiredWithoutCoursesNestedInput = {
 export type DepartmentCreateWithoutProfessorsInput = {
   prefix: string
   name: string
+  websiteUrl?: string | null
+  facultyUrl?: string | null
   courses?: Prisma.CourseCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutProfessorsInput = {
   prefix: string
   name: string
+  websiteUrl?: string | null
+  facultyUrl?: string | null
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
@@ -319,24 +371,32 @@ export type DepartmentUpdateToOneWithWhereWithoutProfessorsInput = {
 export type DepartmentUpdateWithoutProfessorsInput = {
   prefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facultyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courses?: Prisma.CourseUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutProfessorsInput = {
   prefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facultyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courses?: Prisma.CourseUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateWithoutCoursesInput = {
   prefix: string
   name: string
+  websiteUrl?: string | null
+  facultyUrl?: string | null
   professors?: Prisma.ProfessorCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutCoursesInput = {
   prefix: string
   name: string
+  websiteUrl?: string | null
+  facultyUrl?: string | null
   professors?: Prisma.ProfessorUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
@@ -359,12 +419,16 @@ export type DepartmentUpdateToOneWithWhereWithoutCoursesInput = {
 export type DepartmentUpdateWithoutCoursesInput = {
   prefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facultyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   professors?: Prisma.ProfessorUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutCoursesInput = {
   prefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facultyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   professors?: Prisma.ProfessorUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
@@ -411,6 +475,8 @@ export type DepartmentCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Ty
 export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   prefix?: boolean
   name?: boolean
+  websiteUrl?: boolean
+  facultyUrl?: boolean
   professors?: boolean | Prisma.Department$professorsArgs<ExtArgs>
   courses?: boolean | Prisma.Department$coursesArgs<ExtArgs>
   _count?: boolean | Prisma.DepartmentCountOutputTypeDefaultArgs<ExtArgs>
@@ -419,19 +485,25 @@ export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type DepartmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   prefix?: boolean
   name?: boolean
+  websiteUrl?: boolean
+  facultyUrl?: boolean
 }, ExtArgs["result"]["department"]>
 
 export type DepartmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   prefix?: boolean
   name?: boolean
+  websiteUrl?: boolean
+  facultyUrl?: boolean
 }, ExtArgs["result"]["department"]>
 
 export type DepartmentSelectScalar = {
   prefix?: boolean
   name?: boolean
+  websiteUrl?: boolean
+  facultyUrl?: boolean
 }
 
-export type DepartmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"prefix" | "name", ExtArgs["result"]["department"]>
+export type DepartmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"prefix" | "name" | "websiteUrl" | "facultyUrl", ExtArgs["result"]["department"]>
 export type DepartmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   professors?: boolean | Prisma.Department$professorsArgs<ExtArgs>
   courses?: boolean | Prisma.Department$coursesArgs<ExtArgs>
@@ -449,6 +521,8 @@ export type $DepartmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     prefix: string
     name: string
+    websiteUrl: string | null
+    facultyUrl: string | null
   }, ExtArgs["result"]["department"]>
   composites: {}
 }
@@ -876,6 +950,8 @@ export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends runti
 export interface DepartmentFieldRefs {
   readonly prefix: Prisma.FieldRef<"Department", 'String'>
   readonly name: Prisma.FieldRef<"Department", 'String'>
+  readonly websiteUrl: Prisma.FieldRef<"Department", 'String'>
+  readonly facultyUrl: Prisma.FieldRef<"Department", 'String'>
 }
     
 

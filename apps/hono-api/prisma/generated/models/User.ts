@@ -202,9 +202,6 @@ export type UserWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
-  flags?: Prisma.FlagListRelationFilter
-  ratings?: Prisma.RatingListRelationFilter
-  files?: Prisma.FileListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -217,9 +214,6 @@ export type UserOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
-  flags?: Prisma.FlagOrderByRelationAggregateInput
-  ratings?: Prisma.RatingOrderByRelationAggregateInput
-  files?: Prisma.FileOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -235,9 +229,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"User"> | string | null
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
-  flags?: Prisma.FlagListRelationFilter
-  ratings?: Prisma.RatingListRelationFilter
-  files?: Prisma.FileListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -276,9 +267,6 @@ export type UserCreateInput = {
   image?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  flags?: Prisma.FlagCreateNestedManyWithoutUserInput
-  ratings?: Prisma.RatingCreateNestedManyWithoutUserInput
-  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -291,9 +279,6 @@ export type UserUncheckedCreateInput = {
   image?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  flags?: Prisma.FlagUncheckedCreateNestedManyWithoutUserInput
-  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutUserInput
-  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -306,9 +291,6 @@ export type UserUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  flags?: Prisma.FlagUpdateManyWithoutUserNestedInput
-  ratings?: Prisma.RatingUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -321,9 +303,6 @@ export type UserUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  flags?: Prisma.FlagUncheckedUpdateManyWithoutUserNestedInput
-  ratings?: Prisma.RatingUncheckedUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -354,11 +333,6 @@ export type UserUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type UserNullableScalarRelationFilter = {
-  is?: Prisma.UserWhereInput | null
-  isNot?: Prisma.UserWhereInput | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -396,54 +370,6 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
-export type UserCreateNestedOneWithoutFlagsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFlagsInput, Prisma.UserUncheckedCreateWithoutFlagsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFlagsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutFlagsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFlagsInput, Prisma.UserUncheckedCreateWithoutFlagsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFlagsInput
-  upsert?: Prisma.UserUpsertWithoutFlagsInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFlagsInput, Prisma.UserUpdateWithoutFlagsInput>, Prisma.UserUncheckedUpdateWithoutFlagsInput>
-}
-
-export type UserCreateNestedOneWithoutRatingsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutRatingsInput, Prisma.UserUncheckedCreateWithoutRatingsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRatingsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutRatingsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutRatingsInput, Prisma.UserUncheckedCreateWithoutRatingsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRatingsInput
-  upsert?: Prisma.UserUpsertWithoutRatingsInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRatingsInput, Prisma.UserUpdateWithoutRatingsInput>, Prisma.UserUncheckedUpdateWithoutRatingsInput>
-}
-
-export type UserCreateNestedOneWithoutFilesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutFilesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesInput
-  upsert?: Prisma.UserUpsertWithoutFilesInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFilesInput, Prisma.UserUpdateWithoutFilesInput>, Prisma.UserUncheckedUpdateWithoutFilesInput>
-}
-
 export type UserCreateNestedOneWithoutSessionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
@@ -472,222 +398,6 @@ export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
 }
 
-export type UserCreateWithoutFlagsInput = {
-  id?: string
-  email: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  name: string
-  emailVerified: boolean
-  image?: string | null
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  ratings?: Prisma.RatingCreateNestedManyWithoutUserInput
-  files?: Prisma.FileCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutFlagsInput = {
-  id?: string
-  email: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  name: string
-  emailVerified: boolean
-  image?: string | null
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutUserInput
-  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutFlagsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutFlagsInput, Prisma.UserUncheckedCreateWithoutFlagsInput>
-}
-
-export type UserUpsertWithoutFlagsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutFlagsInput, Prisma.UserUncheckedUpdateWithoutFlagsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutFlagsInput, Prisma.UserUncheckedCreateWithoutFlagsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutFlagsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutFlagsInput, Prisma.UserUncheckedUpdateWithoutFlagsInput>
-}
-
-export type UserUpdateWithoutFlagsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  ratings?: Prisma.RatingUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutFlagsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  ratings?: Prisma.RatingUncheckedUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutRatingsInput = {
-  id?: string
-  email: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  name: string
-  emailVerified: boolean
-  image?: string | null
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  flags?: Prisma.FlagCreateNestedManyWithoutUserInput
-  files?: Prisma.FileCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutRatingsInput = {
-  id?: string
-  email: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  name: string
-  emailVerified: boolean
-  image?: string | null
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  flags?: Prisma.FlagUncheckedCreateNestedManyWithoutUserInput
-  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutRatingsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutRatingsInput, Prisma.UserUncheckedCreateWithoutRatingsInput>
-}
-
-export type UserUpsertWithoutRatingsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutRatingsInput, Prisma.UserUncheckedUpdateWithoutRatingsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutRatingsInput, Prisma.UserUncheckedCreateWithoutRatingsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutRatingsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutRatingsInput, Prisma.UserUncheckedUpdateWithoutRatingsInput>
-}
-
-export type UserUpdateWithoutRatingsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  flags?: Prisma.FlagUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutRatingsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  flags?: Prisma.FlagUncheckedUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutFilesInput = {
-  id?: string
-  email: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  name: string
-  emailVerified: boolean
-  image?: string | null
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  flags?: Prisma.FlagCreateNestedManyWithoutUserInput
-  ratings?: Prisma.RatingCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutFilesInput = {
-  id?: string
-  email: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  name: string
-  emailVerified: boolean
-  image?: string | null
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  flags?: Prisma.FlagUncheckedCreateNestedManyWithoutUserInput
-  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutFilesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
-}
-
-export type UserUpsertWithoutFilesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutFilesInput, Prisma.UserUncheckedUpdateWithoutFilesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutFilesInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutFilesInput, Prisma.UserUncheckedUpdateWithoutFilesInput>
-}
-
-export type UserUpdateWithoutFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  flags?: Prisma.FlagUpdateManyWithoutUserNestedInput
-  ratings?: Prisma.RatingUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutFilesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  flags?: Prisma.FlagUncheckedUpdateManyWithoutUserNestedInput
-  ratings?: Prisma.RatingUncheckedUpdateManyWithoutUserNestedInput
-}
-
 export type UserCreateWithoutSessionsInput = {
   id?: string
   email: string
@@ -697,9 +407,6 @@ export type UserCreateWithoutSessionsInput = {
   emailVerified: boolean
   image?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  flags?: Prisma.FlagCreateNestedManyWithoutUserInput
-  ratings?: Prisma.RatingCreateNestedManyWithoutUserInput
-  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -711,9 +418,6 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   emailVerified: boolean
   image?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  flags?: Prisma.FlagUncheckedCreateNestedManyWithoutUserInput
-  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutUserInput
-  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -741,9 +445,6 @@ export type UserUpdateWithoutSessionsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  flags?: Prisma.FlagUpdateManyWithoutUserNestedInput
-  ratings?: Prisma.RatingUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -755,9 +456,6 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  flags?: Prisma.FlagUncheckedUpdateManyWithoutUserNestedInput
-  ratings?: Prisma.RatingUncheckedUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -769,9 +467,6 @@ export type UserCreateWithoutAccountsInput = {
   emailVerified: boolean
   image?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  flags?: Prisma.FlagCreateNestedManyWithoutUserInput
-  ratings?: Prisma.RatingCreateNestedManyWithoutUserInput
-  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -783,9 +478,6 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   emailVerified: boolean
   image?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  flags?: Prisma.FlagUncheckedCreateNestedManyWithoutUserInput
-  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutUserInput
-  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -813,9 +505,6 @@ export type UserUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  flags?: Prisma.FlagUpdateManyWithoutUserNestedInput
-  ratings?: Prisma.RatingUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -827,9 +516,6 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  flags?: Prisma.FlagUncheckedUpdateManyWithoutUserNestedInput
-  ratings?: Prisma.RatingUncheckedUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -840,17 +526,11 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
 export type UserCountOutputType = {
   sessions: number
   accounts: number
-  flags: number
-  ratings: number
-  files: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
-  flags?: boolean | UserCountOutputTypeCountFlagsArgs
-  ratings?: boolean | UserCountOutputTypeCountRatingsArgs
-  files?: boolean | UserCountOutputTypeCountFilesArgs
 }
 
 /**
@@ -877,27 +557,6 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.AccountWhereInput
 }
 
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountFlagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FlagWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountRatingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RatingWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FileWhereInput
-}
-
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -909,9 +568,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   image?: boolean
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  flags?: boolean | Prisma.User$flagsArgs<ExtArgs>
-  ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
-  files?: boolean | Prisma.User$filesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -949,9 +605,6 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  flags?: boolean | Prisma.User$flagsArgs<ExtArgs>
-  ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
-  files?: boolean | Prisma.User$filesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -962,9 +615,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
-    flags: Prisma.$FlagPayload<ExtArgs>[]
-    ratings: Prisma.$RatingPayload<ExtArgs>[]
-    files: Prisma.$FilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1370,9 +1020,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  flags<T extends Prisma.User$flagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$flagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ratings<T extends Prisma.User$ratingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  files<T extends Prisma.User$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1851,78 +1498,6 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AccountScalarFieldEnum | Prisma.AccountScalarFieldEnum[]
-}
-
-/**
- * User.flags
- */
-export type User$flagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Flag
-   */
-  select?: Prisma.FlagSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Flag
-   */
-  omit?: Prisma.FlagOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FlagInclude<ExtArgs> | null
-  where?: Prisma.FlagWhereInput
-  orderBy?: Prisma.FlagOrderByWithRelationInput | Prisma.FlagOrderByWithRelationInput[]
-  cursor?: Prisma.FlagWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FlagScalarFieldEnum | Prisma.FlagScalarFieldEnum[]
-}
-
-/**
- * User.ratings
- */
-export type User$ratingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Rating
-   */
-  select?: Prisma.RatingSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Rating
-   */
-  omit?: Prisma.RatingOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.RatingInclude<ExtArgs> | null
-  where?: Prisma.RatingWhereInput
-  orderBy?: Prisma.RatingOrderByWithRelationInput | Prisma.RatingOrderByWithRelationInput[]
-  cursor?: Prisma.RatingWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.RatingScalarFieldEnum | Prisma.RatingScalarFieldEnum[]
-}
-
-/**
- * User.files
- */
-export type User$filesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the File
-   */
-  select?: Prisma.FileSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the File
-   */
-  omit?: Prisma.FileOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FileInclude<ExtArgs> | null
-  where?: Prisma.FileWhereInput
-  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
-  cursor?: Prisma.FileWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
 }
 
 /**

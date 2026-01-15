@@ -12,6 +12,7 @@
   "dependencies": {
     "@base-ui/react": "^1.0.0",
     "@better-upload/client": "^3.0.7",
+    "@ncdai/react-wheel-picker": "^1.1.0",
     "@posthog/nextjs-config": "^1.7.4",
     "@tanstack/react-query": "^5.90.12",
     "@uidotdev/usehooks": "^2.4.1",

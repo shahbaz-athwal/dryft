@@ -57,7 +57,7 @@ type ExploreSortDirection = ExploreSort["dir"];
 type ExploreTerm = ExploreFilters["term"][number];
 type ExploreTimeRange = z.infer<typeof exploreTimeRangeSchema>;
 
-const defaultExploreState: ExploreState = {
+const DEFAULT_EXPLORE_STATE: ExploreState = {
   filters: {
     term: [],
     professorIds: [],
@@ -78,7 +78,11 @@ export {
   exploreFiltersSchema,
   exploreSortSchema,
   exploreTimeRangeSchema,
-  defaultExploreState,
+  DEFAULT_EXPLORE_STATE,
+  termValues,
+  sortKeys,
+  sortDirections,
+  viewValues,
   TIME_MINUTES_MIN,
   TIME_MINUTES_MAX,
   TIME_STEP_MINUTES,

@@ -14,6 +14,7 @@ function TermMultiSelect() {
   return (
     <ToggleGroup
       className="flex w-full flex-wrap gap-2"
+      multiple
       onValueChange={(next: ExploreTerm[]) => {
         setFilters((prev) => ({ ...prev, term: next }));
       }}

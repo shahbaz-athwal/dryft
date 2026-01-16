@@ -11,6 +11,7 @@ function AcademicLevelMultiSelect() {
   return (
     <ToggleGroup
       className="flex w-full flex-wrap gap-2"
+      multiple
       onValueChange={(next) => {
         const parsed = next
           .map((entry) => Number.parseInt(entry, 10))

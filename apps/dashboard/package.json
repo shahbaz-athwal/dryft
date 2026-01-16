@@ -10,7 +10,7 @@
     "format": "biome format --write"
   },
   "dependencies": {
-    "@base-ui/react": "^1.0.0",
+    "@base-ui/react": "^1.1.0",
     "@better-upload/client": "^3.0.7",
     "@ncdai/react-wheel-picker": "^1.1.0",
     "@posthog/nextjs-config": "^1.7.4",

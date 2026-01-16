@@ -1,7 +1,6 @@
 "use client";
 
 import { parseAsJson, useQueryState } from "nuqs";
-import { useCallback } from "react";
 
 import type {
   ExploreFilters,
@@ -26,56 +25,40 @@ const exploreParser = parseAsJson(exploreSchema)
 function useExploreQueryState() {
   const [state, setState] = useQueryState("q", exploreParser);
 
-  const updateState = useCallback(
-    (updater: ExploreStateUpdater) => {
-      setState((prev) => {
-        const current = (prev ?? defaultExploreState) as ExploreState;
-        return typeof updater === "function" ? updater(current) : updater;
-      });
-    },
-    [setState]
-  );
+  const updateState = (updater: ExploreStateUpdater) => {
+    setState((prev) => {
+      const current = (prev ?? defaultExploreState) as ExploreState;
+      return typeof updater === "function" ? updater(current) : updater;
+    });
+  };
 
-  const setFilters = useCallback(
-    (updater: ExploreFiltersUpdater) => {
-      updateState((prev) => ({
-        ...prev,
-        filters:
-          typeof updater === "function" ? updater(prev.filters) : updater,
-      }));
-    },
-    [updateState]
-  );
+  const setFilters = (updater: ExploreFiltersUpdater) => {
+    updateState((prev) => ({
+      ...prev,
+      filters: typeof updater === "function" ? updater(prev.filters) : updater,
+    }));
+  };
 
-  const setSearch = useCallback(
-    (search: string) => {
-      updateState((prev) => ({
-        ...prev,
-        search,
-      }));
-    },
-    [updateState]
-  );
+  const setSearch = (search: string) => {
+    updateState((prev) => ({
+      ...prev,
+      search,
+    }));
+  };
 
-  const setSort = useCallback(
-    (sort: ExploreSort) => {
-      updateState((prev) => ({
-        ...prev,
-        sort,
-      }));
-    },
-    [updateState]
-  );
+  const setSort = (sort: ExploreSort) => {
+    updateState((prev) => ({
+      ...prev,
+      sort,
+    }));
+  };
 
-  const setView = useCallback(
-    (view: ExploreView) => {
-      updateState((prev) => ({
-        ...prev,
-        view,
-      }));
-    },
-    [updateState]
-  );
+  const setView = (view: ExploreView) => {
+    updateState((prev) => ({
+      ...prev,
+      view,
+    }));
+  };
 
   return {
     state: (state ?? defaultExploreState) as ExploreState,

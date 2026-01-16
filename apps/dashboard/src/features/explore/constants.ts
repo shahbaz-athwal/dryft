@@ -1,4 +1,4 @@
-import type { ExploreSort, ExploreTerm } from "@/features/explore/schema";
+import type { ExploreSort, ExploreTerm } from "@/features/explore/query-state";
 
 type ExploreOption = {
   value: string;

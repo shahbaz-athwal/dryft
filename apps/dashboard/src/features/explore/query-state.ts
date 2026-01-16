@@ -8,68 +8,98 @@ import {
   useQueryStates,
 } from "nuqs";
 
-import type {
-  ExploreFilters,
-  ExploreSort,
-  ExploreState,
-  ExploreView,
-} from "@/features/explore/schema";
-import {
-  DEFAULT_EXPLORE_STATE,
-  sortDirections,
-  sortKeys,
-  TIME_MINUTES_MAX,
-  TIME_MINUTES_MIN,
-  termValues,
-  viewValues,
-} from "@/features/explore/schema";
 import { normalizeTimeRange } from "@/features/explore/time";
 
-type ExploreStateUpdater =
-  | ExploreState
-  | ((prev: ExploreState) => ExploreState);
+const TERM_VALUES = ["fall", "winter", "summer"] as const;
+const SORT_KEYS = ["title", "difficulty", "numRatings", "courseLevel"] as const;
+const SORT_DIRECTIONS = ["asc", "desc"] as const;
+const VIEW_VALUES = ["grid", "table"] as const;
 
-type ExploreFiltersUpdater =
-  | ExploreFilters
-  | ((prev: ExploreFilters) => ExploreFilters);
+const TIME_MINUTES_MIN = 8 * 60; // 8:00 AM
+const TIME_MINUTES_MAX = 21 * 60; // 9:00 PM
+const TIME_STEP_MINUTES = 15;
 
-const exploreQueryParsers = {
-  search: parseAsString.withDefault(""),
-  view: parseAsStringLiteral(viewValues).withDefault(
-    DEFAULT_EXPLORE_STATE.view
-  ),
-  sortKey: parseAsStringLiteral(sortKeys).withDefault(
-    DEFAULT_EXPLORE_STATE.sort.key
-  ),
-  sortDir: parseAsStringLiteral(sortDirections).withDefault(
-    DEFAULT_EXPLORE_STATE.sort.dir
-  ),
-  term: parseAsArrayOf(parseAsStringLiteral(termValues)).withDefault([]),
-  professorIds: parseAsArrayOf(parseAsString).withDefault([]),
-  subjectIds: parseAsArrayOf(parseAsString).withDefault([]),
-  academicLevels: parseAsArrayOf(parseAsInteger).withDefault([]),
-  timeStart: parseAsInteger,
-  timeEnd: parseAsInteger,
+// Types
+type ExploreTerm = (typeof TERM_VALUES)[number];
+type ExploreView = (typeof VIEW_VALUES)[number];
+
+type ExploreTimeRange = {
+  start: number;
+  end: number;
 };
 
-const exploreUrlKeys = {
-  search: "s",
-  view: "v",
-  sortKey: "sk",
-  sortDir: "sd",
-  term: "t",
-  professorIds: "p",
-  subjectIds: "u",
-  academicLevels: "a",
-  timeStart: "ts",
-  timeEnd: "te",
-} as const;
+type ExploreFilters = {
+  term: ExploreTerm[];
+  professorIds: string[];
+  subjectIds: string[];
+  academicLevels: number[];
+  time: ExploreTimeRange | null;
+};
+
+type ExploreSort = {
+  key: (typeof SORT_KEYS)[number];
+  dir: (typeof SORT_DIRECTIONS)[number];
+};
+
+type ExploreState = {
+  filters: ExploreFilters;
+  search: string;
+  sort: ExploreSort;
+  view: ExploreView;
+};
+
+const DEFAULT_EXPLORE_STATE: ExploreState = {
+  filters: {
+    term: [],
+    professorIds: [],
+    subjectIds: [],
+    academicLevels: [],
+    time: null,
+  },
+  search: "",
+  sort: {
+    key: "title",
+    dir: "asc",
+  },
+  view: "grid",
+};
 
 function useExploreQueryState() {
-  const [query, setQuery] = useQueryStates(exploreQueryParsers, {
-    history: "replace",
-    urlKeys: exploreUrlKeys,
-  });
+  const [query, setQuery] = useQueryStates(
+    {
+      search: parseAsString.withDefault(""),
+      view: parseAsStringLiteral(VIEW_VALUES).withDefault(
+        DEFAULT_EXPLORE_STATE.view
+      ),
+      sortKey: parseAsStringLiteral(SORT_KEYS).withDefault(
+        DEFAULT_EXPLORE_STATE.sort.key
+      ),
+      sortDir: parseAsStringLiteral(SORT_DIRECTIONS).withDefault(
+        DEFAULT_EXPLORE_STATE.sort.dir
+      ),
+      term: parseAsArrayOf(parseAsStringLiteral(TERM_VALUES)).withDefault([]),
+      professorIds: parseAsArrayOf(parseAsString).withDefault([]),
+      subjectIds: parseAsArrayOf(parseAsString).withDefault([]),
+      academicLevels: parseAsArrayOf(parseAsInteger).withDefault([]),
+      timeStart: parseAsInteger,
+      timeEnd: parseAsInteger,
+    },
+    {
+      history: "replace",
+      urlKeys: {
+        search: "search",
+        view: "view",
+        sortKey: "sort",
+        sortDir: "dir",
+        term: "term",
+        professorIds: "prof",
+        subjectIds: "sub",
+        academicLevels: "lvl",
+        timeStart: "ts",
+        timeEnd: "te",
+      },
+    }
+  );
 
   const time =
     query.timeStart == null && query.timeEnd == null
@@ -95,25 +125,8 @@ function useExploreQueryState() {
     view: query.view,
   };
 
-  const updateState = (updater: ExploreStateUpdater) => {
-    const next = typeof updater === "function" ? updater(state) : updater;
-    setQuery({
-      search: next.search,
-      view: next.view,
-      sortKey: next.sort.key,
-      sortDir: next.sort.dir,
-      term: next.filters.term,
-      professorIds: next.filters.professorIds,
-      subjectIds: next.filters.subjectIds,
-      academicLevels: next.filters.academicLevels,
-      timeStart: next.filters.time?.start ?? null,
-      timeEnd: next.filters.time?.end ?? null,
-    });
-  };
-
-  const setFilters = (updater: ExploreFiltersUpdater) => {
-    const nextFilters =
-      typeof updater === "function" ? updater(state.filters) : updater;
+  const setFilters = (updater: (prev: ExploreFilters) => ExploreFilters) => {
+    const nextFilters = updater(state.filters);
 
     setQuery({
       term: nextFilters.term,
@@ -139,7 +152,6 @@ function useExploreQueryState() {
 
   return {
     state,
-    setState: updateState,
     setFilters,
     setSearch,
     setSort,
@@ -148,3 +160,21 @@ function useExploreQueryState() {
 }
 
 export { useExploreQueryState };
+export {
+  DEFAULT_EXPLORE_STATE,
+  TERM_VALUES,
+  SORT_KEYS,
+  SORT_DIRECTIONS,
+  VIEW_VALUES,
+  TIME_MINUTES_MIN,
+  TIME_MINUTES_MAX,
+  TIME_STEP_MINUTES,
+};
+export type {
+  ExploreState,
+  ExploreFilters,
+  ExploreSort,
+  ExploreView,
+  ExploreTerm,
+  ExploreTimeRange,
+};

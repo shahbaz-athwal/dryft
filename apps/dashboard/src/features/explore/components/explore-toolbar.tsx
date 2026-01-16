@@ -17,8 +17,10 @@ import {
 } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { sortOptions } from "@/features/explore/constants";
-import { useExploreQueryState } from "@/features/explore/query-state";
-import type { ExploreView } from "@/features/explore/schema";
+import {
+  type ExploreView,
+  useExploreQueryState,
+} from "@/features/explore/query-state";
 
 function ExploreToolbar() {
   const { state, setSearch, setSort, setView } = useExploreQueryState();
@@ -113,10 +115,10 @@ function ExploreToolbar() {
           </SelectContent>
         </Select>
         <ToggleGroup
-          onValueChange={(next) => {
+          onValueChange={(next: ExploreView[]) => {
             const [selected] = next;
             if (selected) {
-              setView(selected as ExploreView);
+              setView(selected);
             }
           }}
           size="sm"

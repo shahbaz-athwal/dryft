@@ -3,7 +3,7 @@ import {
   TIME_MINUTES_MAX,
   TIME_MINUTES_MIN,
   TIME_STEP_MINUTES,
-} from "@/features/explore/schema";
+} from "@/features/explore/query-state";
 
 function clampMinutes(value: number) {
   return Math.min(TIME_MINUTES_MAX, Math.max(TIME_MINUTES_MIN, value));

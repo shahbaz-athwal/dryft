@@ -2,8 +2,10 @@
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { termOptions } from "@/features/explore/constants";
-import { useExploreQueryState } from "@/features/explore/query-state";
-import type { ExploreTerm } from "@/features/explore/schema";
+import {
+  type ExploreTerm,
+  useExploreQueryState,
+} from "@/features/explore/query-state";
 
 function TermMultiSelect() {
   const { state, setFilters } = useExploreQueryState();
@@ -12,8 +14,8 @@ function TermMultiSelect() {
   return (
     <ToggleGroup
       className="flex w-full flex-wrap gap-2"
-      onValueChange={(next) => {
-        setFilters((prev) => ({ ...prev, term: next as ExploreTerm[] }));
+      onValueChange={(next: ExploreTerm[]) => {
+        setFilters((prev) => ({ ...prev, term: next }));
       }}
       size="sm"
       value={value}

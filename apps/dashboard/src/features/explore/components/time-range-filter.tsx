@@ -9,8 +9,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { WheelPicker, WheelPickerWrapper } from "@/components/wheel-picker";
-import { useExploreQueryState } from "@/features/explore/query-state";
-import { TIME_MINUTES_MAX, TIME_MINUTES_MIN } from "@/features/explore/schema";
+import {
+  TIME_MINUTES_MAX,
+  TIME_MINUTES_MIN,
+  useExploreQueryState,
+} from "@/features/explore/query-state";
 import {
   buildTimeOptions,
   formatMinutes,

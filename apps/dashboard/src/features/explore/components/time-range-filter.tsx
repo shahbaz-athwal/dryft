@@ -9,7 +9,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { WheelPicker, WheelPickerWrapper } from "@/components/wheel-picker";
-import type { ExploreTimeRange } from "@/features/explore/schema";
+import { useExploreQueryState } from "@/features/explore/query-state";
 import { TIME_MINUTES_MAX, TIME_MINUTES_MIN } from "@/features/explore/schema";
 import {
   buildTimeOptions,
@@ -18,12 +18,10 @@ import {
 } from "@/features/explore/time";
 import { cn } from "@/lib/utils";
 
-type TimeRangeFilterProps = {
-  value: ExploreTimeRange | null;
-  onChange: (next: ExploreTimeRange | null) => void;
-};
+function TimeRangeFilter() {
+  const { state, setFilters } = useExploreQueryState();
+  const value = state.filters.time;
 
-function TimeRangeFilter({ value, onChange }: TimeRangeFilterProps) {
   const timeOptions = useMemo(() => buildTimeOptions(), []);
   const timeValue = value ?? {
     start: TIME_MINUTES_MIN,
@@ -62,7 +60,7 @@ function TimeRangeFilter({ value, onChange }: TimeRangeFilterProps) {
                     { start: nextStart, end: timeValue.end },
                     "start"
                   );
-                  onChange(next);
+                  setFilters((prev) => ({ ...prev, time: next }));
                 }}
                 options={timeOptions}
                 value={timeValue.start}
@@ -78,7 +76,7 @@ function TimeRangeFilter({ value, onChange }: TimeRangeFilterProps) {
                     { start: timeValue.start, end: nextEnd },
                     "end"
                   );
-                  onChange(next);
+                  setFilters((prev) => ({ ...prev, time: next }));
                 }}
                 options={timeOptions}
                 value={timeValue.end}
@@ -91,7 +89,7 @@ function TimeRangeFilter({ value, onChange }: TimeRangeFilterProps) {
             className="-my-1 text-xs"
             disabled={!value}
             onClick={() => {
-              onChange(null);
+              setFilters((prev) => ({ ...prev, time: null }));
             }}
             size="sm"
             type="button"

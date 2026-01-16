@@ -2,16 +2,12 @@
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { academicLevelOptions } from "@/features/explore/constants";
+import { useExploreQueryState } from "@/features/explore/query-state";
 
-type AcademicLevelMultiSelectProps = {
-  value: number[];
-  onChange: (value: number[]) => void;
-};
+function AcademicLevelMultiSelect() {
+  const { state, setFilters } = useExploreQueryState();
+  const value = state.filters.academicLevels;
 
-function AcademicLevelMultiSelect({
-  value,
-  onChange,
-}: AcademicLevelMultiSelectProps) {
   return (
     <ToggleGroup
       className="flex w-full flex-wrap gap-2"
@@ -19,7 +15,7 @@ function AcademicLevelMultiSelect({
         const parsed = next
           .map((entry) => Number.parseInt(entry, 10))
           .filter((entry) => Number.isFinite(entry));
-        onChange(parsed);
+        setFilters((prev) => ({ ...prev, academicLevels: parsed }));
       }}
       size="sm"
       value={value.map((entry) => entry.toString())}

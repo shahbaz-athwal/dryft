@@ -13,11 +13,7 @@ import { AcademicLevelMultiSelect } from "@/features/explore/components/academic
 import { MultiCombobox } from "@/features/explore/components/multi-combobox";
 import { TermMultiSelect } from "@/features/explore/components/term-multiselect";
 import { TimeRangeFilter } from "@/features/explore/components/time-range-filter";
-import {
-  academicLevelOptions,
-  professorOptions,
-  subjectOptions,
-} from "@/features/explore/constants";
+import { professorOptions, subjectOptions } from "@/features/explore/constants";
 import { useExploreQueryState } from "@/features/explore/query-state";
 
 function ExploreFilters() {
@@ -33,12 +29,7 @@ function ExploreFilters() {
           <Field>
             <FieldLabel>Term</FieldLabel>
             <FieldContent>
-              <TermMultiSelect
-                onChange={(next) => {
-                  setFilters((prev) => ({ ...prev, term: next }));
-                }}
-                value={filters.term}
-              />
+              <TermMultiSelect />
             </FieldContent>
           </Field>
           <Field>
@@ -72,26 +63,13 @@ function ExploreFilters() {
           <Field>
             <FieldLabel>Academic level</FieldLabel>
             <FieldContent>
-              <AcademicLevelMultiSelect
-                onChange={(next) => {
-                  setFilters((prev) => ({ ...prev, academicLevels: next }));
-                }}
-                value={filters.academicLevels}
-              />
-              <p className="text-muted-foreground text-sm">
-                {academicLevelOptions.length} levels available
-              </p>
+              <AcademicLevelMultiSelect />
             </FieldContent>
           </Field>
           <Field>
             <FieldLabel>Time Range</FieldLabel>
             <FieldContent>
-              <TimeRangeFilter
-                onChange={(next) => {
-                  setFilters((prev) => ({ ...prev, time: next }));
-                }}
-                value={filters.time}
-              />
+              <TimeRangeFilter />
             </FieldContent>
           </Field>
         </FieldSet>

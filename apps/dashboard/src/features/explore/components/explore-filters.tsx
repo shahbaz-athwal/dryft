@@ -1,5 +1,8 @@
 "use client";
 
+import { Clock, X } from "lucide-react";
+import { useMemo } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldContent,
@@ -7,9 +10,14 @@ import {
   FieldSet,
   FieldTitle,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { WheelPicker, WheelPickerWrapper } from "@/components/wheel-picker";
 import { AcademicLevelMultiSelect } from "@/features/explore/components/academic-level-multiselect";
 import { MultiCombobox } from "@/features/explore/components/multi-combobox";
 import { TermMultiSelect } from "@/features/explore/components/term-multiselect";
@@ -19,10 +27,23 @@ import {
   subjectOptions,
 } from "@/features/explore/constants";
 import { useExploreQueryState } from "@/features/explore/query-state";
+import { TIME_MINUTES_MAX, TIME_MINUTES_MIN } from "@/features/explore/schema";
+import {
+  buildTimeOptions,
+  formatMinutes,
+  normalizeTimeRange,
+} from "@/features/explore/time";
+import { cn } from "@/lib/utils";
 
 function ExploreFilters() {
   const { state, setFilters } = useExploreQueryState();
   const { filters } = state;
+
+  const timeOptions = useMemo(() => buildTimeOptions(), []);
+  const timeValue = filters.time ?? {
+    start: TIME_MINUTES_MIN,
+    end: TIME_MINUTES_MAX,
+  };
 
   return (
     <ScrollArea className="h-full">
@@ -86,13 +107,87 @@ function ExploreFilters() {
           <Field>
             <FieldLabel>Time</FieldLabel>
             <FieldContent>
-              <Input
-                aria-disabled
-                disabled
-                placeholder="Coming soon"
-                readOnly
-                value=""
-              />
+              <Popover>
+                <PopoverTrigger>
+                  <Button
+                    className="w-full justify-between"
+                    size="default"
+                    type="button"
+                    variant="outline"
+                  >
+                    <span
+                      className={cn(
+                        "truncate text-left",
+                        !filters.time && "text-muted-foreground"
+                      )}
+                    >
+                      {filters.time
+                        ? `${formatMinutes(filters.time.start)} – ${formatMinutes(
+                            filters.time.end
+                          )}`
+                        : "Any time"}
+                    </span>
+                    <Clock className="size-4 text-muted-foreground" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="start" className="w-80">
+                  <div className="flex items-center justify-between">
+                    <div className="font-medium text-sm">Time range</div>
+                    <Button
+                      disabled={!filters.time}
+                      onClick={() => {
+                        setFilters((prev) => ({ ...prev, time: null }));
+                      }}
+                      size="sm"
+                      type="button"
+                      variant="ghost"
+                    >
+                      <X className="size-4" />
+                      Clear
+                    </Button>
+                  </div>
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex flex-1 flex-col gap-1">
+                      <div className="text-muted-foreground text-xs">Start</div>
+                      <WheelPickerWrapper className="w-full">
+                        <WheelPicker<number>
+                          onValueChange={(nextStart) => {
+                            setFilters((prev) => {
+                              const current = prev.time ?? timeValue;
+                              const next = normalizeTimeRange(
+                                { start: nextStart, end: current.end },
+                                "start"
+                              );
+                              return { ...prev, time: next };
+                            });
+                          }}
+                          options={timeOptions}
+                          value={timeValue.start}
+                        />
+                      </WheelPickerWrapper>
+                    </div>
+                    <div className="flex flex-1 flex-col gap-1">
+                      <div className="text-muted-foreground text-xs">End</div>
+                      <WheelPickerWrapper className="w-full">
+                        <WheelPicker<number>
+                          onValueChange={(nextEnd) => {
+                            setFilters((prev) => {
+                              const current = prev.time ?? timeValue;
+                              const next = normalizeTimeRange(
+                                { start: current.start, end: nextEnd },
+                                "end"
+                              );
+                              return { ...prev, time: next };
+                            });
+                          }}
+                          options={timeOptions}
+                          value={timeValue.end}
+                        />
+                      </WheelPickerWrapper>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </FieldContent>
           </Field>
         </FieldSet>

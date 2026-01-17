@@ -1,6 +1,10 @@
 "use client";
 
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import {
+  Toggle,
+  ToggleGroup,
+  ToggleGroupSeparator,
+} from "@/components/ui/toggle-group";
 import { termOptions } from "@/features/explore/constants";
 import {
   type ExploreTerm,
@@ -13,7 +17,7 @@ function TermMultiSelect() {
 
   return (
     <ToggleGroup
-      className="flex w-full flex-wrap gap-2"
+      className="flex w-full flex-wrap"
       multiple
       onValueChange={(next: ExploreTerm[]) => {
         setFilters((prev) => ({ ...prev, term: next }));
@@ -22,10 +26,13 @@ function TermMultiSelect() {
       value={value}
       variant="outline"
     >
-      {termOptions.map((option) => (
-        <ToggleGroupItem key={option.value} value={option.value}>
-          {option.label}
-        </ToggleGroupItem>
+      {termOptions.map((option, index) => (
+        <>
+          <Toggle key={option.value} value={option.value}>
+            {option.label}
+          </Toggle>
+          {index !== termOptions.length - 1 && <ToggleGroupSeparator />}
+        </>
       ))}
     </ToggleGroup>
   );

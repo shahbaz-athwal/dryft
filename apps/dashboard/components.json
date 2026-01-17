@@ -11,7 +11,7 @@
     "prefix": ""
   },
   "iconLibrary": "lucide",
-  "menuColor": "inverted",
+  "menuColor": "default",
   "menuAccent": "subtle",
   "aliases": {
     "components": "@/components",
@@ -23,6 +23,7 @@
   "registries": {
     "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json",
     "@better-upload": "https://better-upload.com/r/{name}.json",
-    "@ncdai": "https://chanhdai.com/r/{name}.json"
+    "@ncdai": "https://chanhdai.com/r/{name}.json",
+    "@coss": "https://coss.com/ui/r/{name}.json"
   }
 }

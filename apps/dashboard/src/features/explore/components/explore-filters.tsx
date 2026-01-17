@@ -1,12 +1,7 @@
 "use client";
 
-import {
-  Field,
-  FieldContent,
-  FieldLabel,
-  FieldSet,
-  FieldTitle,
-} from "@/components/ui/field";
+import { Field, FieldItem, FieldLabel } from "@/components/ui/field";
+import { Fieldset, FieldsetLegend } from "@/components/ui/fieldset";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { AcademicLevelMultiSelect } from "@/features/explore/components/academic-level-multiselect";
@@ -23,18 +18,18 @@ function ExploreFilters() {
   return (
     <ScrollArea className="h-full">
       <div className="flex flex-col gap-6 p-4">
-        <FieldSet>
-          <FieldTitle className="text-base">Filters</FieldTitle>
+        <Fieldset>
+          <FieldsetLegend className="text-base">Filters</FieldsetLegend>
           <Separator />
           <Field>
             <FieldLabel>Term</FieldLabel>
-            <FieldContent>
+            <FieldItem>
               <TermMultiSelect />
-            </FieldContent>
+            </FieldItem>
           </Field>
           <Field>
             <FieldLabel>Professors</FieldLabel>
-            <FieldContent>
+            <FieldItem>
               <MultiCombobox
                 onChange={(next) => {
                   setFilters((prev) => ({ ...prev, professorIds: next }));
@@ -44,11 +39,11 @@ function ExploreFilters() {
                 searchPlaceholder="Search professors"
                 value={filters.professorIds}
               />
-            </FieldContent>
+            </FieldItem>
           </Field>
           <Field>
             <FieldLabel>Subjects</FieldLabel>
-            <FieldContent>
+            <FieldItem>
               <MultiCombobox
                 onChange={(next) => {
                   setFilters((prev) => ({ ...prev, subjectIds: next }));
@@ -58,21 +53,21 @@ function ExploreFilters() {
                 searchPlaceholder="Search subjects"
                 value={filters.subjectIds}
               />
-            </FieldContent>
+            </FieldItem>
           </Field>
           <Field>
             <FieldLabel>Academic level</FieldLabel>
-            <FieldContent>
+            <FieldItem>
               <AcademicLevelMultiSelect />
-            </FieldContent>
+            </FieldItem>
           </Field>
           <Field>
             <FieldLabel>Time Range</FieldLabel>
-            <FieldContent>
+            <FieldItem>
               <TimeRangeFilter />
-            </FieldContent>
+            </FieldItem>
           </Field>
-        </FieldSet>
+        </Fieldset>
       </div>
     </ScrollArea>
   );

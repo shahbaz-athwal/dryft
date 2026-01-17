@@ -5,14 +5,14 @@ import posthog from "posthog-js";
 import { useRef } from "react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DrawerClose,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
+import {
+  SheetClose,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 import type { DrawerPropsMap } from "@/lib/drawer-registry";
 
@@ -40,27 +40,24 @@ function RatingDrawer({ type, id }: RatingDrawerProps) {
 
   return (
     <>
-      <DrawerHeader className="relative">
-        <DrawerClose asChild>
-          <Button
-            className="absolute top-2 right-2"
-            size="icon"
-            variant="ghost"
-          >
-            <X className="size-4" />
-            <span className="sr-only">Close</span>
-          </Button>
-        </DrawerClose>
+      <SheetHeader className="relative">
+        <SheetClose
+          aria-label="Close"
+          className="absolute top-2 right-2"
+          render={<Button size="icon" variant="ghost" />}
+        >
+          <X className="size-4" />
+        </SheetClose>
         <div className="flex items-center gap-3">
           <div className="rounded-lg border p-2">
             <Icon className="size-5" />
           </div>
           <div>
-            <DrawerTitle>{title}</DrawerTitle>
-            <DrawerDescription>{description}</DrawerDescription>
+            <SheetTitle>{title}</SheetTitle>
+            <SheetDescription>{description}</SheetDescription>
           </div>
         </div>
-      </DrawerHeader>
+      </SheetHeader>
 
       <Separator />
 
@@ -98,7 +95,7 @@ function RatingDrawer({ type, id }: RatingDrawerProps) {
         </div>
       </div>
 
-      <DrawerFooter>
+      <SheetFooter>
         <Button
           className="w-full"
           onClick={() =>
@@ -113,7 +110,7 @@ function RatingDrawer({ type, id }: RatingDrawerProps) {
         <Button className="w-full" onClick={clearStack} variant="ghost">
           Cancel
         </Button>
-      </DrawerFooter>
+      </SheetFooter>
     </>
   );
 }

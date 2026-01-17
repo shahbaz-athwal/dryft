@@ -5,15 +5,15 @@ import posthog from "posthog-js";
 import { useRef } from "react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DrawerClose,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import {
+  SheetClose,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Switch } from "@/components/ui/switch";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
@@ -29,20 +29,17 @@ function SettingsDrawer() {
 
   return (
     <>
-      <DrawerHeader className="relative">
-        <DrawerClose asChild>
-          <Button
-            className="absolute top-2 right-2"
-            size="icon"
-            variant="ghost"
-          >
-            <X className="size-4" />
-            <span className="sr-only">Close</span>
-          </Button>
-        </DrawerClose>
-        <DrawerTitle>Settings</DrawerTitle>
-        <DrawerDescription>Manage your account preferences</DrawerDescription>
-      </DrawerHeader>
+      <SheetHeader className="relative">
+        <SheetClose
+          aria-label="Close"
+          className="absolute top-2 right-2"
+          render={<Button size="icon" variant="ghost" />}
+        >
+          <X className="size-4" />
+        </SheetClose>
+        <SheetTitle>Settings</SheetTitle>
+        <SheetDescription>Manage your account preferences</SheetDescription>
+      </SheetHeader>
 
       <Separator />
 
@@ -122,7 +119,7 @@ function SettingsDrawer() {
         </Button>
       </div>
 
-      <DrawerFooter>
+      <SheetFooter>
         <Button
           className="w-full"
           onClick={() => posthog.capture("settings_saved")}
@@ -135,7 +132,7 @@ function SettingsDrawer() {
         <Button className="w-full" onClick={clearStack} variant="ghost">
           Close Drawer
         </Button>
-      </DrawerFooter>
+      </SheetFooter>
     </>
   );
 }

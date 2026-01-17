@@ -3,7 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 import { getDrawerComponent, hasProps } from "@/lib/drawer-registry";
 
@@ -22,8 +22,7 @@ function GlobalDrawer() {
   const canGoBack = stack.length > 1;
 
   return (
-    <Drawer
-      direction="right"
+    <Sheet
       onOpenChange={(open) => {
         if (!open) {
           clearStack();
@@ -31,7 +30,7 @@ function GlobalDrawer() {
       }}
       open={isOpen}
     >
-      <DrawerContent className="w-[520px] rounded-l-3xl outline-none">
+      <SheetContent className="w-[520px]" showCloseButton={false} side="right">
         {canGoBack && (
           <Button
             className="absolute top-4 left-4 z-10"
@@ -44,8 +43,8 @@ function GlobalDrawer() {
           </Button>
         )}
         <Component {...props} />
-      </DrawerContent>
-    </Drawer>
+      </SheetContent>
+    </Sheet>
   );
 }
 

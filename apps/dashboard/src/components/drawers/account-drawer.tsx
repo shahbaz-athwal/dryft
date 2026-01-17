@@ -5,14 +5,14 @@ import posthog from "posthog-js";
 import { useRef } from "react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DrawerClose,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
+import {
+  SheetClose,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 function AccountDrawer() {
@@ -27,22 +27,19 @@ function AccountDrawer() {
 
   return (
     <>
-      <DrawerHeader className="relative">
-        <DrawerClose asChild>
-          <Button
-            className="absolute top-2 right-2"
-            size="icon"
-            variant="ghost"
-          >
-            <X className="size-4" />
-            <span className="sr-only">Close</span>
-          </Button>
-        </DrawerClose>
-        <DrawerTitle>Account Settings</DrawerTitle>
-        <DrawerDescription>
+      <SheetHeader className="relative">
+        <SheetClose
+          aria-label="Close"
+          className="absolute top-2 right-2"
+          render={<Button size="icon" variant="ghost" />}
+        >
+          <X className="size-4" />
+        </SheetClose>
+        <SheetTitle>Account Settings</SheetTitle>
+        <SheetDescription>
           Manage your account and billing information
-        </DrawerDescription>
-      </DrawerHeader>
+        </SheetDescription>
+      </SheetHeader>
 
       <Separator />
 
@@ -104,14 +101,14 @@ function AccountDrawer() {
         </div>
       </div>
 
-      <DrawerFooter>
+      <SheetFooter>
         <Button className="w-full" onClick={pop} variant="outline">
           Back
         </Button>
         <Button className="w-full" onClick={clearStack} variant="ghost">
           Close Drawer
         </Button>
-      </DrawerFooter>
+      </SheetFooter>
     </>
   );
 }

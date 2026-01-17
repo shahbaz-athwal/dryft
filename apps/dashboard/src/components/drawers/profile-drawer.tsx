@@ -6,14 +6,14 @@ import { useRef } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  DrawerClose,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
+import {
+  SheetClose,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { useDrawerStack } from "@/hooks/use-drawer-stack";
 
 function ProfileDrawer() {
@@ -28,17 +28,14 @@ function ProfileDrawer() {
 
   return (
     <>
-      <DrawerHeader className="relative">
-        <DrawerClose asChild>
-          <Button
-            className="absolute top-2 right-2"
-            size="icon"
-            variant="ghost"
-          >
-            <X className="size-4" />
-            <span className="sr-only">Close</span>
-          </Button>
-        </DrawerClose>
+      <SheetHeader className="relative">
+        <SheetClose
+          aria-label="Close"
+          className="absolute top-2 right-2"
+          render={<Button size="icon" variant="ghost" />}
+        >
+          <X className="size-4" />
+        </SheetClose>
         <div className="flex items-center gap-4">
           <Avatar className="size-16">
             <AvatarImage alt="User" src="https://github.com/shadcn.png" />
@@ -47,11 +44,11 @@ function ProfileDrawer() {
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <DrawerTitle className="text-xl">John Doe</DrawerTitle>
-            <DrawerDescription>john.doe@example.com</DrawerDescription>
+            <SheetTitle className="text-xl">John Doe</SheetTitle>
+            <SheetDescription>john.doe@example.com</SheetDescription>
           </div>
         </div>
-      </DrawerHeader>
+      </SheetHeader>
 
       <Separator />
 
@@ -79,7 +76,7 @@ function ProfileDrawer() {
         </div>
       </div>
 
-      <DrawerFooter>
+      <SheetFooter>
         <Button
           className="w-full"
           onClick={() => openDrawer("settings")}
@@ -91,7 +88,7 @@ function ProfileDrawer() {
         <Button className="w-full" onClick={clearStack} variant="ghost">
           Close Profile
         </Button>
-      </DrawerFooter>
+      </SheetFooter>
     </>
   );
 }

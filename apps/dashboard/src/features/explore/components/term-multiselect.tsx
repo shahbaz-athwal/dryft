@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react/jsx-runtime";
 import {
   Toggle,
   ToggleGroup,
@@ -27,12 +28,10 @@ function TermMultiSelect() {
       variant="outline"
     >
       {termOptions.map((option, index) => (
-        <>
-          <Toggle key={option.value} value={option.value}>
-            {option.label}
-          </Toggle>
+        <Fragment key={option.value}>
+          <Toggle value={option.value}>{option.label}</Toggle>
           {index !== termOptions.length - 1 && <ToggleGroupSeparator />}
-        </>
+        </Fragment>
       ))}
     </ToggleGroup>
   );

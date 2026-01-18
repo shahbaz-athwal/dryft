@@ -25,7 +25,6 @@
     "nuqs": "^2.8.6",
     "posthog-js": "^1.313.0",
     "react": "^19.2.3",
-    "react-day-picker": "^9.13.0",
     "react-dom": "^19.2.3",
     "react-dropzone": "^14.3.8",
     "recharts": "2.15.4",

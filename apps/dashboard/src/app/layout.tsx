@@ -4,7 +4,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { Toaster } from "@/components/ui/sonner";
 import Providers from "./providers";
 
 const GlobalDrawer = dynamic(
@@ -41,7 +40,6 @@ export default function RootLayout({
         <Providers>
           {children}
           <GlobalDrawer />
-          <Toaster />
         </Providers>
       </body>
     </html>

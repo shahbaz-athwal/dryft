@@ -6,6 +6,7 @@ import {
   PostSearchCriteriaRequestSchema,
 } from "./schemas/post-search-criteria";
 import { SectionDetailsFilteredResponseSchema } from "./schemas/section";
+import { StudentGradesFilteredResponseSchema } from "./schemas/student-grades";
 import { StudentProgramDetailsFilteredResponseSchema } from "./schemas/student-program";
 
 type ScraperCredentials = {
@@ -200,6 +201,22 @@ class AcadiaScraper {
     );
 
     return StudentProgramDetailsFilteredResponseSchema.parse(response.data);
+  }
+
+  async getStudentGrades(studentId: string) {
+    await this.validateAuth();
+
+    const response = await this.client.get(
+      `/student/Student/Grades/GetStudentGradeInformation?studentId=${studentId}`,
+      {
+        headers: {
+          Cookie: this.cookies,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    return StudentGradesFilteredResponseSchema.parse(response.data);
   }
 }
 

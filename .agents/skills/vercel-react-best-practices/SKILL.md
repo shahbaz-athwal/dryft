@@ -20,6 +20,10 @@ Reference these guidelines when:
 - Refactoring existing React/Next.js code
 - Optimizing bundle size or load times
 
+## React Optimization
+
+This project uses **React 19 with React Compiler**. Do not use manual optimization hooks such as `useMemo`, `useCallback`, or `React.memo`. The React Compiler automatically handles memoization and optimization, making these hooks unnecessary.
+
 ## Rule Categories by Priority
 
 | Priority | Category | Impact | Prefix |
@@ -103,6 +107,7 @@ Reference these guidelines when:
 
 - `advanced-event-handler-refs` - Store event handlers in refs
 - `advanced-use-latest` - useLatest for stable callback refs
+
 
 ## How to Use
 

@@ -1,5 +1,5 @@
-import type { AxiosInstance } from "axios";
-import { client } from "./axios-client";
+import type { AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import { client as defaultClient } from "./axios-client";
 import {
   PostSearchCriteriaFilteredResponseSchema,
   type PostSearchCriteriaRequest,
@@ -16,42 +16,57 @@ type ScraperCredentials = {
 
 const AUTH_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes
 
-class AcadiaScraper {
-  private static instance: AcadiaScraper | null = null;
+export class AcadiaService {
   private readonly client: AxiosInstance;
   private cookies: string | null = null;
   private readonly config: ScraperCredentials;
   private authTimestamp: number | null = null;
+  private authPromise: Promise<void> | null = null;
 
-  private constructor(config: ScraperCredentials) {
+  constructor(
+    config: ScraperCredentials,
+    client: AxiosInstance = defaultClient
+  ) {
     this.config = config;
     this.client = client;
+    this.setupInterceptors();
   }
 
-  static getInstance(): AcadiaScraper {
-    if (!process.env.ACADIA_USERNAME) {
-      throw new Error("ACADIA_USERNAME is not set");
-    }
+  private setupInterceptors() {
+    this.client.interceptors.request.use(
+      async (config: InternalAxiosRequestConfig & { _retry?: boolean }) => {
+        // Skip auth for internal auth requests (marked by _retry flag or explicit header)
+        if (config._retry || config.headers?.has("x-skip-auth")) {
+          return config;
+        }
 
-    if (!process.env.ACADIA_PASSWORD) {
-      throw new Error("ACADIA_PASSWORD is not set");
-    }
+        // Skip auth check for login endpoints to avoid infinite loops
+        if (config.url?.includes("/student/Account/Login")) {
+          return config;
+        }
 
-    if (!AcadiaScraper.instance) {
-      AcadiaScraper.instance = new AcadiaScraper({
-        username: process.env.ACADIA_USERNAME,
-        password: process.env.ACADIA_PASSWORD,
-      });
-    }
+        // Default Accept header for all API requests
+        config.headers.set("Accept", "application/json");
 
-    return AcadiaScraper.instance;
-  }
+        const authExpired =
+          Date.now() - (this.authTimestamp ?? 0) > AUTH_TIMEOUT_MS;
 
-  private async validateAuth() {
-    const expired = Date.now() - (this.authTimestamp ?? 0) > AUTH_TIMEOUT_MS;
-    if (!this.cookies || expired) {
-      await this.authenticate();
-    }
+        if (authExpired) {
+          if (!this.authPromise) {
+            this.authPromise = this.authenticate().finally(() => {
+              this.authPromise = null;
+            });
+          }
+          await this.authPromise;
+        }
+
+        if (this.cookies && config.headers) {
+          config.headers.set("Cookie", this.cookies);
+        }
+
+        return config;
+      }
+    );
   }
 
   private async authenticate() {
@@ -59,13 +74,15 @@ class AcadiaScraper {
     formData.append("UserName", this.config.username);
     formData.append("Password", this.config.password);
 
+    // Axios automatically sets Content-Type: application/x-www-form-urlencoded
+    // when using URLSearchParams
     const response = await this.client.post(
       "/student/Account/Login",
-      formData.toString(),
+      formData,
       {
         maxRedirects: 0,
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "x-skip-auth": "true",
         },
       }
     );
@@ -94,6 +111,7 @@ class AcadiaScraper {
           maxRedirects: 0,
           headers: {
             Cookie: cookieString,
+            "x-skip-auth": "true",
           },
         }
       );
@@ -119,8 +137,6 @@ class AcadiaScraper {
   private async postSearchCriteria(
     searchCriteria?: Partial<PostSearchCriteriaRequest>
   ) {
-    await this.validateAuth();
-
     const defaultCriteria: PostSearchCriteriaRequest = {
       keyword: null,
       terms: [],
@@ -139,13 +155,7 @@ class AcadiaScraper {
 
     const response = await this.client.post(
       "/student/Student/Courses/PostSearchCriteria",
-      validatedCriteria,
-      {
-        headers: {
-          Cookie: this.cookies,
-          "Content-Type": "application/json",
-        },
-      }
+      validatedCriteria
     );
 
     return PostSearchCriteriaFilteredResponseSchema.parse(response.data);
@@ -169,55 +179,46 @@ class AcadiaScraper {
   }
 
   async getSectionDetails(courseId: string, sectionIds: string[]) {
-    await this.validateAuth();
-
     const response = await this.client.post(
       "/student/Student/Courses/Sections",
       {
         courseId,
         sectionIds,
-      },
-      {
-        headers: {
-          Cookie: this.cookies,
-          "Content-Type": "application/json",
-        },
       }
     );
     return SectionDetailsFilteredResponseSchema.parse(response.data);
   }
 
   async getStudentProgramDetails(studentId: string) {
-    await this.validateAuth();
-
     const response = await this.client.get(
-      `/student/Student/Grades/GetStudentProgramsInformation?studentId=${studentId}`,
-      {
-        headers: {
-          Cookie: this.cookies,
-          Accept: "application/json",
-        },
-      }
+      `/student/Student/Grades/GetStudentProgramsInformation?studentId=${studentId}`
     );
 
     return StudentProgramDetailsFilteredResponseSchema.parse(response.data);
   }
 
   async getStudentGrades(studentId: string) {
-    await this.validateAuth();
-
     const response = await this.client.get(
-      `/student/Student/Grades/GetStudentGradeInformation?studentId=${studentId}`,
-      {
-        headers: {
-          Cookie: this.cookies,
-          Accept: "application/json",
-        },
-      }
+      `/student/Student/Grades/GetStudentGradeInformation?studentId=${studentId}`
     );
 
     return StudentGradesFilteredResponseSchema.parse(response.data);
   }
 }
 
-export const scraper = AcadiaScraper.getInstance();
+function createScraperInstance() {
+  if (!process.env.ACADIA_USERNAME) {
+    throw new Error("ACADIA_USERNAME is not set");
+  }
+
+  if (!process.env.ACADIA_PASSWORD) {
+    throw new Error("ACADIA_PASSWORD is not set");
+  }
+
+  return new AcadiaService({
+    username: process.env.ACADIA_USERNAME,
+    password: process.env.ACADIA_PASSWORD,
+  });
+}
+
+export const scraper = createScraperInstance();

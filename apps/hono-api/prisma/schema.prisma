@@ -50,7 +50,7 @@ model Professor {
   departmentPrefix String
   department       Department        @relation(fields: [departmentPrefix], references: [prefix], onDelete: Cascade)
   name             String
-  designation      String            @default("Professor")
+  designation      String?
   officeLocation   String?
   email            String?
   phone            String?
@@ -84,12 +84,13 @@ model Course {
   ratings             Rating[]
   files               File[]
 
+  @@index([title])
   @@index([departmentPrefix])
   @@map("course")
 }
 
 model Section {
-  id                String     @id
+  id                String
   termCode          String
   term              Term       @relation(fields: [termCode], references: [code], onDelete: Cascade)
   sectionCode       String
@@ -107,6 +108,7 @@ model Section {
   professorId       String?
   professor         Professor? @relation(fields: [professorId], references: [id], onDelete: Cascade)
 
+  @@id([id, termCode])
   @@index([courseId])
   @@index([professorId])
   @@index([termCode])
@@ -209,6 +211,7 @@ model User {
   @@map("user")
 }
 
+//TODO Rethink Auth
 // Better Auth
 model Session {
   id        String   @id

@@ -312,10 +312,11 @@ export type SectionOrderByWithRelationInput = {
 }
 
 export type SectionWhereUniqueInput = Prisma.AtLeast<{
-  id?: string
+  id_termCode?: Prisma.SectionIdTermCodeCompoundUniqueInput
   AND?: Prisma.SectionWhereInput | Prisma.SectionWhereInput[]
   OR?: Prisma.SectionWhereInput[]
   NOT?: Prisma.SectionWhereInput | Prisma.SectionWhereInput[]
+  id?: Prisma.StringFilter<"Section"> | string
   termCode?: Prisma.StringFilter<"Section"> | string
   sectionCode?: Prisma.StringFilter<"Section"> | string
   sectionSearchName?: Prisma.StringFilter<"Section"> | string
@@ -332,7 +333,7 @@ export type SectionWhereUniqueInput = Prisma.AtLeast<{
   term?: Prisma.XOR<Prisma.TermScalarRelationFilter, Prisma.TermWhereInput>
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   professor?: Prisma.XOR<Prisma.ProfessorNullableScalarRelationFilter, Prisma.ProfessorWhereInput> | null
-}, "id">
+}, "id_termCode">
 
 export type SectionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -508,6 +509,11 @@ export type IntNullableListFilter<$PrismaModel = never> = {
   hasEvery?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
   hasSome?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
   isEmpty?: boolean
+}
+
+export type SectionIdTermCodeCompoundUniqueInput = {
+  id: string
+  termCode: string
 }
 
 export type SectionCountOrderByAggregateInput = {

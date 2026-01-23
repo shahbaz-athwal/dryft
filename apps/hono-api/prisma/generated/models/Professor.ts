@@ -196,7 +196,7 @@ export type ProfessorGroupByOutputType = {
   rmpId: string | null
   departmentPrefix: string
   name: string
-  designation: string
+  designation: string | null
   officeLocation: string | null
   email: string | null
   phone: string | null
@@ -232,7 +232,7 @@ export type ProfessorWhereInput = {
   rmpId?: Prisma.StringNullableFilter<"Professor"> | string | null
   departmentPrefix?: Prisma.StringFilter<"Professor"> | string
   name?: Prisma.StringFilter<"Professor"> | string
-  designation?: Prisma.StringFilter<"Professor"> | string
+  designation?: Prisma.StringNullableFilter<"Professor"> | string | null
   officeLocation?: Prisma.StringNullableFilter<"Professor"> | string | null
   email?: Prisma.StringNullableFilter<"Professor"> | string | null
   phone?: Prisma.StringNullableFilter<"Professor"> | string | null
@@ -251,7 +251,7 @@ export type ProfessorOrderByWithRelationInput = {
   rmpId?: Prisma.SortOrderInput | Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  designation?: Prisma.SortOrder
+  designation?: Prisma.SortOrderInput | Prisma.SortOrder
   officeLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -273,7 +273,7 @@ export type ProfessorWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ProfessorWhereInput | Prisma.ProfessorWhereInput[]
   departmentPrefix?: Prisma.StringFilter<"Professor"> | string
   name?: Prisma.StringFilter<"Professor"> | string
-  designation?: Prisma.StringFilter<"Professor"> | string
+  designation?: Prisma.StringNullableFilter<"Professor"> | string | null
   officeLocation?: Prisma.StringNullableFilter<"Professor"> | string | null
   email?: Prisma.StringNullableFilter<"Professor"> | string | null
   phone?: Prisma.StringNullableFilter<"Professor"> | string | null
@@ -292,7 +292,7 @@ export type ProfessorOrderByWithAggregationInput = {
   rmpId?: Prisma.SortOrderInput | Prisma.SortOrder
   departmentPrefix?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  designation?: Prisma.SortOrder
+  designation?: Prisma.SortOrderInput | Prisma.SortOrder
   officeLocation?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -313,7 +313,7 @@ export type ProfessorScalarWhereWithAggregatesInput = {
   rmpId?: Prisma.StringNullableWithAggregatesFilter<"Professor"> | string | null
   departmentPrefix?: Prisma.StringWithAggregatesFilter<"Professor"> | string
   name?: Prisma.StringWithAggregatesFilter<"Professor"> | string
-  designation?: Prisma.StringWithAggregatesFilter<"Professor"> | string
+  designation?: Prisma.StringNullableWithAggregatesFilter<"Professor"> | string | null
   officeLocation?: Prisma.StringNullableWithAggregatesFilter<"Professor"> | string | null
   email?: Prisma.StringNullableWithAggregatesFilter<"Professor"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"Professor"> | string | null
@@ -327,7 +327,7 @@ export type ProfessorCreateInput = {
   id: string
   rmpId?: string | null
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -346,7 +346,7 @@ export type ProfessorUncheckedCreateInput = {
   rmpId?: string | null
   departmentPrefix: string
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -363,7 +363,7 @@ export type ProfessorUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -382,7 +382,7 @@ export type ProfessorUncheckedUpdateInput = {
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -400,7 +400,7 @@ export type ProfessorCreateManyInput = {
   rmpId?: string | null
   departmentPrefix: string
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -414,7 +414,7 @@ export type ProfessorUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -429,7 +429,7 @@ export type ProfessorUncheckedUpdateManyInput = {
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -598,7 +598,7 @@ export type ProfessorCreateWithoutDepartmentInput = {
   id: string
   rmpId?: string | null
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -615,7 +615,7 @@ export type ProfessorUncheckedCreateWithoutDepartmentInput = {
   id: string
   rmpId?: string | null
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -662,7 +662,7 @@ export type ProfessorScalarWhereInput = {
   rmpId?: Prisma.StringNullableFilter<"Professor"> | string | null
   departmentPrefix?: Prisma.StringFilter<"Professor"> | string
   name?: Prisma.StringFilter<"Professor"> | string
-  designation?: Prisma.StringFilter<"Professor"> | string
+  designation?: Prisma.StringNullableFilter<"Professor"> | string | null
   officeLocation?: Prisma.StringNullableFilter<"Professor"> | string | null
   email?: Prisma.StringNullableFilter<"Professor"> | string | null
   phone?: Prisma.StringNullableFilter<"Professor"> | string | null
@@ -676,7 +676,7 @@ export type ProfessorCreateWithoutSectionsInput = {
   id: string
   rmpId?: string | null
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -694,7 +694,7 @@ export type ProfessorUncheckedCreateWithoutSectionsInput = {
   rmpId?: string | null
   departmentPrefix: string
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -726,7 +726,7 @@ export type ProfessorUpdateWithoutSectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -744,7 +744,7 @@ export type ProfessorUncheckedUpdateWithoutSectionsInput = {
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -760,7 +760,7 @@ export type ProfessorCreateWithoutRatingsInput = {
   id: string
   rmpId?: string | null
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -778,7 +778,7 @@ export type ProfessorUncheckedCreateWithoutRatingsInput = {
   rmpId?: string | null
   departmentPrefix: string
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -810,7 +810,7 @@ export type ProfessorUpdateWithoutRatingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -828,7 +828,7 @@ export type ProfessorUncheckedUpdateWithoutRatingsInput = {
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -844,7 +844,7 @@ export type ProfessorCreateWithoutCoursesInput = {
   id: string
   rmpId?: string | null
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -862,7 +862,7 @@ export type ProfessorUncheckedCreateWithoutCoursesInput = {
   rmpId?: string | null
   departmentPrefix: string
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -894,7 +894,7 @@ export type ProfessorUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -912,7 +912,7 @@ export type ProfessorUncheckedUpdateWithoutCoursesInput = {
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentPrefix?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -928,7 +928,7 @@ export type ProfessorCreateManyDepartmentInput = {
   id: string
   rmpId?: string | null
   name: string
-  designation?: string
+  designation?: string | null
   officeLocation?: string | null
   email?: string | null
   phone?: string | null
@@ -942,7 +942,7 @@ export type ProfessorUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -959,7 +959,7 @@ export type ProfessorUncheckedUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -976,7 +976,7 @@ export type ProfessorUncheckedUpdateManyWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rmpId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  designation?: Prisma.StringFieldUpdateOperationsInput | string
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1130,7 +1130,7 @@ export type $ProfessorPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     rmpId: string | null
     departmentPrefix: string
     name: string
-    designation: string
+    designation: string | null
     officeLocation: string | null
     email: string | null
     phone: string | null

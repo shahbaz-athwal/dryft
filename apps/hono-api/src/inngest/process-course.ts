@@ -1,4 +1,4 @@
-import { scraper } from "../services/acadia";
+import { scraper } from "../services/acadia/scraper";
 import { db } from "../services/db";
 import { inngest } from "./client";
 

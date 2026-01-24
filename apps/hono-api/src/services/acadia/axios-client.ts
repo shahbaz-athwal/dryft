@@ -3,14 +3,18 @@ import axios from "axios";
 
 const BASE_URL = "https://collss.acadiau.ca";
 
-const client = axios.create({
+const clientConfig = {
   baseURL: BASE_URL,
   httpsAgent: new https.Agent({
     rejectUnauthorized: false,
   }),
-  validateStatus: (status) => {
+  validateStatus: (status: number) => {
     return status >= 200 && status < 500;
   },
-});
+};
 
-export { client };
+const client = axios.create(clientConfig);
+
+const authClient = axios.create(clientConfig);
+
+export { client, authClient };

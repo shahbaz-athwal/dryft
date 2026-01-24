@@ -1,6 +1,6 @@
 import type { AxiosInstance } from "axios";
+import { authenticateWithAxios } from "./auth";
 import { client as defaultClient } from "./axios-client";
-import { authenticateWithBrowser } from "./playwright-auth";
 import {
   PostSearchCriteriaFilteredResponseSchema,
   type PostSearchCriteriaRequest,
@@ -58,7 +58,7 @@ export class AcadiaService {
   }
 
   private async authenticate() {
-    this.cookies = await authenticateWithBrowser(
+    this.cookies = await authenticateWithAxios(
       this.config.username,
       this.config.password
     );
